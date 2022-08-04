@@ -1,0 +1,8 @@
+#Fichier de configurations de MultiCommands
+
+
+#Les messages seront envoyés dans l'une de ses options :
+# - ACTIONBAR
+# - CHAT
+# - TITLE
+send-message-on: CHAT
