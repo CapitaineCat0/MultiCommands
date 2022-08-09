@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
 import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
@@ -32,9 +33,9 @@ public class Helpop implements CommandExecutor {
                     }
                 }
                 else{
-                    sender.sendMessage(Messenger.HELPOP_NO_ADMINS.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.HELPOP_NO_ADMINS.getMessage());
                 }
-                sender.sendMessage(Messenger.HELPOP_DONE.getMessage());
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.HELPOP_DONE.getMessage());
                 sender.sendMessage(" §8- §7" + bc.toString());
 
         }else if(sender instanceof ConsoleCommandSender){

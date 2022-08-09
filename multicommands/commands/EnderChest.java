@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
 import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ public class EnderChest implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission(Perms.ENDERCHEST_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -23,16 +24,15 @@ public class EnderChest implements CommandExecutor {
                     player.openInventory(player.getEnderChest());
                 } else if (args.length == 1) {
                     if(sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-                        Player player = (Player) sender;
                         Player target = Bukkit.getPlayerExact(args[0]);
                         if (target != null) {
-                            target.sendMessage(Messenger.ENDERCHEST_ADMIN_OPEN.getMessage().replace("%cmd%", command.getName()));
-                            player.openInventory(target.getEnderChest());
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.ENDERCHEST_ADMIN_OPEN.getMessage());
+                            ((Player)sender).openInventory(target.getEnderChest());
                         }else{
-                            player.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                         }
                     }else{
-                        sender.sendMessage(Messenger.CMD_NO_PERM_TO_OTHER.getMessage().replace("%cmd%", command.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM_TO_OTHER.getMessage());
                     }
                 }
             } else if (sender instanceof ConsoleCommandSender) {

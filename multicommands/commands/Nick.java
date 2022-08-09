@@ -18,7 +18,7 @@ public class Nick implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!sender.hasPermission(Perms.NICKNAME_PERMS.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -50,13 +50,13 @@ public class Nick implements CommandExecutor {
 
                     BookUtil.openPlayer(((Player) sender).getPlayer(), book);
                 }else{
-                    sender.sendMessage(Messenger.NICKNAME_ERROR.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NICKNAME_ERROR.getMessage().replace("%cmd%", command.getName()));
                     return true;
                 }
             }
             else if(args.length == 1){
                 Player player = (Player) sender;
-                sender.sendMessage(Messenger.NICKNAME_DONE.getMessage().replace("%newName", MultiCommands.colored(args[0])));
+                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NICKNAME_DONE.getMessage().replace("%newName", MultiCommands.colored(args[0])));
                 player.setCustomName(MultiCommands.colored(args[0]));
                 player.setCustomNameVisible(true);
             }

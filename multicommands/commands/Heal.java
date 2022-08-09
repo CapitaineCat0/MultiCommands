@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
 import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
@@ -14,7 +15,7 @@ public class Heal implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!sender.hasPermission(Perms.HEAL_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -22,9 +23,9 @@ public class Heal implements CommandExecutor {
                 if(sender instanceof Player){
                     if(((Player) sender).getHealth() != 20){
                         ((Player) sender).setHealth(20);
-                        sender.sendMessage(Messenger.HEAL_SELF.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.HEAL_SELF.getMessage());
                     }else{
-                        sender.sendMessage(Messenger.HEAL_ALREADY.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.HEAL_ALREADY.getMessage());
                     }
                 }else if(sender instanceof ConsoleCommandSender){
                     sender.sendMessage(Messenger.NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("%cmd%", command.getName()));
@@ -35,13 +36,13 @@ public class Heal implements CommandExecutor {
                 if(target != null){
                     if(target.getHealth() != 20){
                         target.setHealth(20);
-                        target.sendMessage(Messenger.HEAL_OTHER.getMessage());
-                        sender.sendMessage(Messenger.HEAL_OTHER_SENDER.getMessage().replace("%p", target.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.HEAL_OTHER.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.HEAL_OTHER_SENDER.getMessage().replace("%p", target.getName()));
                     }else{
-                        sender.sendMessage(Messenger.HEAL_ALREADY_SENDER.getMessage().replace("%p", target.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.HEAL_ALREADY_SENDER.getMessage().replace("%p", target.getName()));
                     }
                 }else{
-                    sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                 }
             }
         }

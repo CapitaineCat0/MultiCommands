@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
 import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ public class God implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission(Perms.GOD_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -23,11 +24,11 @@ public class God implements CommandExecutor {
                     if(player.isInvulnerable()){
                         player.setInvulnerable(false);
                         player.setGlowing(false);
-                        player.sendMessage(Messenger.GOD_SELF_OFF.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GOD_SELF_OFF.getMessage());
                     }else if(!player.isInvulnerable()){
                         player.setInvulnerable(true);
                         player.setGlowing(true);
-                        player.sendMessage(Messenger.GOD_SELF_ON.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GOD_SELF_ON.getMessage());
                     }
                 }
                 if(args.length == 1){
@@ -36,16 +37,16 @@ public class God implements CommandExecutor {
                         if(target.isInvulnerable()){
                             target.setInvulnerable(false);
                             target.setGlowing(false);
-                            target.sendMessage(Messenger.GOD_OTHER_OFF.getMessage());
-                            sender.sendMessage(Messenger.GOD_OTHER_ADMIN_OFF.getMessage().replace("%p", target.getName()));
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GOD_OTHER_OFF.getMessage());
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GOD_OTHER_ADMIN_OFF.getMessage().replace("%p", target.getName()));
                         }else if(!target.isInvulnerable()){
                             target.setInvulnerable(true);
                             target.setGlowing(true);
-                            target.sendMessage(Messenger.GOD_OTHER_ON.getMessage());
-                            sender.sendMessage(Messenger.GOD_OTHER_ADMIN_ON.getMessage().replace("%p", target.getName()));
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GOD_OTHER_ON.getMessage());
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GOD_OTHER_ADMIN_ON.getMessage().replace("%p", target.getName()));
                         }
                     }else{
-                        sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){
@@ -58,12 +59,12 @@ public class God implements CommandExecutor {
                         if(target.isInvulnerable()){
                             target.setInvulnerable(false);
                             target.setGlowing(false);
-                            target.sendMessage(Messenger.GOD_OTHER_OFF.getMessage());
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GOD_OTHER_OFF.getMessage());
                             sender.sendMessage(Messenger.GOD_OTHER_ADMIN_OFF.getMessage().replace("%p", target.getName()));
                         }else if(!target.isInvulnerable()){
                             target.setInvulnerable(true);
                             target.setGlowing(true);
-                            target.sendMessage(Messenger.GOD_OTHER_ON.getMessage());
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GOD_OTHER_ON.getMessage());
                             sender.sendMessage(Messenger.GOD_OTHER_ADMIN_ON.getMessage().replace("%p", target.getName()));
                         }
                     }else{
