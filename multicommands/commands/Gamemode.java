@@ -19,7 +19,7 @@ public class Gamemode implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission(Perms.GAMEMODE_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -55,7 +55,7 @@ public class Gamemode implements CommandExecutor {
 
                     BookUtil.openPlayer(((Player) sender).getPlayer(), book);
                 }else{
-                    player.sendMessage(Messenger.GAMEMODE_ERROR.getMessage().replace("%cmd%", command.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_ERROR.getMessage().replace("%cmd%", command.getName()));
                     return true;
                     }
                 }
@@ -67,7 +67,7 @@ public class Gamemode implements CommandExecutor {
                             this.gamemode = "survie";
                         }
                         player.setGameMode(GameMode.SURVIVAL);
-                        player.sendMessage(Messenger.GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
                     } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")) {
                         if (args[0].equalsIgnoreCase("1")) {
                             this.gamemode = "1 (créatif)";
@@ -75,7 +75,7 @@ public class Gamemode implements CommandExecutor {
                             this.gamemode = "creatif";
                         }
                         player.setGameMode(GameMode.CREATIVE);
-                        player.sendMessage(Messenger.GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
                     } else if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
                         if (args[0].equalsIgnoreCase("2")) {
                             this.gamemode = "2 (aventure)";
@@ -83,7 +83,7 @@ public class Gamemode implements CommandExecutor {
                             this.gamemode = "aventure";
                         }
                         player.setGameMode(GameMode.ADVENTURE);
-                        player.sendMessage(Messenger.GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
                     } else if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
                         if (args[0].equalsIgnoreCase("3")) {
                             this.gamemode = "3 (spectateur)";
@@ -91,12 +91,12 @@ public class Gamemode implements CommandExecutor {
                             this.gamemode = "spectateur";
                         }
                         player.setGameMode(GameMode.SPECTATOR);
-                        player.sendMessage(Messenger.GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
                     }
                 }
                 if (args.length == 2) {
                     if (!sender.hasPermission(Perms.ALL_PERMS.getPermission())) {
-                        sender.sendMessage(Messenger.CMD_NO_PERM_TO_OTHER.getMessage().replace("%cmd%", command.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM_TO_OTHER.getMessage());
                     } else {
                         Player target = Bukkit.getPlayerExact(args[1]);
                         if (target != null) {
@@ -107,8 +107,8 @@ public class Gamemode implements CommandExecutor {
                                     this.gamemode = "survie";
                                 }
                                 target.setGameMode(GameMode.SURVIVAL);
-                                target.sendMessage(Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                sender.sendMessage(Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                                MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
                             } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
                                 if (args[0].equalsIgnoreCase("1")) {
                                     this.gamemode = "1 (créatif)";
@@ -116,8 +116,8 @@ public class Gamemode implements CommandExecutor {
                                     this.gamemode = "creatif";
                                 }
                                 target.setGameMode(GameMode.CREATIVE);
-                                target.sendMessage(Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                sender.sendMessage(Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                                MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
                             }else if(args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")){
                                 if (args[0].equalsIgnoreCase("2")) {
                                     this.gamemode = "2 (aventure)";
@@ -125,8 +125,8 @@ public class Gamemode implements CommandExecutor {
                                     this.gamemode = "aventure";
                                 }
                                 target.setGameMode(GameMode.ADVENTURE);
-                                target.sendMessage(Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                sender.sendMessage(Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                                MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
                             }else if(args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")){
                                 if (args[0].equalsIgnoreCase("3")) {
                                     this.gamemode = "3 (spectateur)";
@@ -134,11 +134,11 @@ public class Gamemode implements CommandExecutor {
                                     this.gamemode = "spectateur";
                                 }
                                 target.setGameMode(GameMode.SPECTATOR);
-                                target.sendMessage(Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                sender.sendMessage(Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
                             }
                         } else {
-                            sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[1]));
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                         }
                     }
                 }
@@ -156,7 +156,7 @@ public class Gamemode implements CommandExecutor {
                                 this.gamemode = "survie";
                             }
                             target.setGameMode(GameMode.SURVIVAL);
-                            target.sendMessage(Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
                             sender.sendMessage(Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
                         } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
                             if (args[0].equalsIgnoreCase("1")) {
@@ -165,7 +165,7 @@ public class Gamemode implements CommandExecutor {
                                 this.gamemode = "creatif";
                             }
                             target.setGameMode(GameMode.CREATIVE);
-                            target.sendMessage(Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
                             sender.sendMessage(Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
                         }else if(args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")){
                             if (args[0].equalsIgnoreCase("2")) {
@@ -174,7 +174,7 @@ public class Gamemode implements CommandExecutor {
                                 this.gamemode = "aventure";
                             }
                             target.setGameMode(GameMode.ADVENTURE);
-                            target.sendMessage(Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
                             sender.sendMessage(Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
                         }else if(args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")){
                             if (args[0].equalsIgnoreCase("3")) {
@@ -183,7 +183,7 @@ public class Gamemode implements CommandExecutor {
                                 this.gamemode = "spectateur";
                             }
                             target.setGameMode(GameMode.SPECTATOR);
-                            target.sendMessage(Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
                             sender.sendMessage(Messenger.GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
                         }
                     } else {

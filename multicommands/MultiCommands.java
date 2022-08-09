@@ -2,15 +2,18 @@ package me.capitainecat0.multicommands;
 
 import io.github.theluca98.textapi.ActionBar;
 import io.github.theluca98.textapi.Title;
-import me.capitainecat0.multicommands.utils.Commands;
-import me.capitainecat0.multicommands.utils.Events;
-import me.capitainecat0.multicommands.utils.PluginCore;
+import me.capitainecat0.multicommands.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.YamlConfigurationOptions;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 public final class MultiCommands extends PluginCore<MultiCommands> {
     private static MultiCommands instance;
@@ -38,15 +41,15 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         HELP_BOOK_ENABLED = enabled;
     }
 
-    public void getMsgSendConfig(CommandSender sender, String command, String msg){
+    public void getMsgSendConfig(CommandSender player, String command, String msg){
         if(this.getConfig().get("send-message-on").equals("CHAT")){
-            sender.sendMessage(msg);
+            player.sendMessage("§e"+command+"§e: "+msg);
         }else if(this.getConfig().get("send-message-on").equals("ACTIONBAR")){
             ActionBar actionBar = new ActionBar(msg);
-            actionBar.send((Player) sender);
+            actionBar.send((Player) player);
         }else if(this.getConfig().get("send-message-on").equals("TITLE")){
-            Title title = new Title(command, msg, 10, 80, 10);
-            title.send((Player) sender);
+            Title title = new Title("§3"+command, msg, 10, 80, 10);
+            title.send((Player) player);
         }
     }
     private void saveResourceAs(String inPath) {
@@ -74,5 +77,10 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         } else {
             throw new IllegalArgumentException("Le dossier ne doit pas etre vide/null !");
         }
+    }
+
+    public void reloadConfiguration() {
+        //YamlConfiguration.loadConfiguration(new File(getDataFolder(), "config.yml"));
+        YamlConfiguration.loadConfiguration(new File("config.yml"));
     }
 }

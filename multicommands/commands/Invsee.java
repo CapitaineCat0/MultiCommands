@@ -17,7 +17,7 @@ public class Invsee implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission(Perms.INVSEE_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -50,16 +50,16 @@ public class Invsee implements CommandExecutor {
 
                         BookUtil.openPlayer(((Player) sender).getPlayer(), book);
                     }else{
-                        sender.sendMessage(Messenger.INVSEE_ERROR.getMessage().replace("%cmd%", command.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.INVSEE_ERROR.getMessage().replace("%cmd%", command.getName()));
                         return true;
                     }
                 }if(args.length == 1){
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if(target != null){
                         ((Player) sender).openInventory(target.getInventory());
-                        sender.sendMessage(Messenger.INVSEE_ADMIN.getMessage().replace("%p", target.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.INVSEE_ADMIN.getMessage().replace("%p", target.getName()));
                     }else{
-                        sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){

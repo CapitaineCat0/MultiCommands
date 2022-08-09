@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
 import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ public class ClearInventory implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission(Perms.CLEARINV_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -25,17 +26,16 @@ public class ClearInventory implements CommandExecutor {
                     player.sendMessage(Messenger.CLEARINV_SELF_DONE.getMessage());
                 }else if(args.length == 1){
                     if(sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-                        Player player = (Player)sender;
                         Player target = Bukkit.getPlayerExact(args[0]);
                         if (target != null) {
-                            target.sendMessage(Messenger.CLEARINV_ADMIN.getMessage());
-                            sender.sendMessage(Messenger.CLEARINV_SENDER.getMessage().replace("%p", target.getName()));
+                            MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.CLEARINV_ADMIN.getMessage());
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CLEARINV_SENDER.getMessage().replace("%p", target.getName()));
                             target.getInventory().clear();
                         }else{
-                            player.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                         }
                     }else{
-                        sender.sendMessage(Messenger.CMD_NO_PERM_TO_OTHER.getMessage().replace("%cmd%", command.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM_TO_OTHER.getMessage());
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){

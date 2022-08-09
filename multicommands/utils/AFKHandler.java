@@ -31,7 +31,7 @@ public class AFKHandler {
         for (Player people : Bukkit.getOnlinePlayers()) {
             people.sendMessage(Messenger.AFK_BROADCAST_ENABLED.getMessage().replace("%p", player.getName()));
         }
-        MultiCommands.getInstance().getMsgSendConfig(player, "§3afk",Messenger.AFK_ENABLED.getMessage());
+        MultiCommands.getInstance().getMsgSendConfig(player, "afk",Messenger.AFK_ENABLED.getMessage());
         player.setInvulnerable(true);
         afk.add(player);
     }
@@ -40,7 +40,7 @@ public class AFKHandler {
         for (Player people : Bukkit.getOnlinePlayers()) {
             people.sendMessage(Messenger.AFK_BROADCAST_DISABLED.getMessage().replace("%p", player.getName()));
         }
-        MultiCommands.getInstance().getMsgSendConfig(player, "§3afk",Messenger.AFK_DISABLED.getMessage());
+        MultiCommands.getInstance().getMsgSendConfig(player, "afk",Messenger.AFK_DISABLED.getMessage());
         player.setInvulnerable(false);
         afk.remove(player);
     }

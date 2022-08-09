@@ -18,7 +18,7 @@ import xyz.upperlevel.spigot.book.BookUtil;
 public class TP implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if(!sender.hasPermission(Perms.TELEPORT_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -54,7 +54,7 @@ public class TP implements CommandExecutor {
 
                         BookUtil.openPlayer(((Player) sender).getPlayer(), book);
                     }else{
-                        sender.sendMessage(Messenger.TELEPORT_ERROR.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_ERROR.getMessage());
                         return true;
                     }
                 }
@@ -63,9 +63,9 @@ public class TP implements CommandExecutor {
                         Player target = Bukkit.getPlayerExact(args[0]);
                         if(target != null){
                             ((Player) sender).teleport(target.getLocation());
-                            sender.sendMessage(Messenger.TELEPORT_SELF_TO_PLAYER.getMessage().replace("%p", target.getName()));
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_SELF_TO_PLAYER.getMessage().replace("%p", target.getName()));
                         }else{
-                            sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                         }
                     }
                     if(args.length == 2){
@@ -75,16 +75,16 @@ public class TP implements CommandExecutor {
                             if(target2 != null){
                                 if(target != null){
                                     target.teleport(target2.getLocation());
-                                    target.sendMessage(Messenger.TELEPORT_OTHER_TO_OTHER.getMessage().replace("%p", target2.getName()));
-                                    sender.sendMessage(Messenger.TELEPORT_OTHER_TO_OTHER_SENDER.getMessage().replace("%p1", target.getName()).replace("%p2", target2.getName()));
+                                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_OTHER_TO_OTHER.getMessage().replace("%p", target2.getName()));
+                                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_OTHER_TO_OTHER_SENDER.getMessage().replace("%p1", target.getName()).replace("%p2", target2.getName()));
                                 }else{
-                                    sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                                 }
                             }else{
-                                sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[1]));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                             }
                         }else{
-                            sender.sendMessage(Messenger.TELEPORT_ERROR.getMessage());
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_ERROR.getMessage());
                         }
                     }
                     if(args.length == 3){
@@ -93,9 +93,9 @@ public class TP implements CommandExecutor {
                             int y = Integer.parseInt(args[1].replace('~', (char) ((Player) sender).getLocation().getY()));
                             int z = Integer.parseInt(args[2].replace('~', (char) ((Player) sender).getLocation().getZ()));
                             ((Player) sender).teleport(new Location(((Player) sender).getWorld(), x, y, z));
-                            sender.sendMessage(Messenger.TELEPORT_SELF_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z"+z));
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_SELF_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z"+z));
                         }catch(NumberFormatException ex){
-                            sender.sendMessage(Messenger.TELEPORT_INVALID_COORDINATES.getMessage());
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_INVALID_COORDINATES.getMessage());
                         }
                     }
                     if(args.length == 4){
@@ -106,13 +106,13 @@ public class TP implements CommandExecutor {
                                 int y = Integer.parseInt(args[2].replace('~', (char) target.getLocation().getY()));
                                 int z = Integer.parseInt(args[3].replace('~', (char) target.getLocation().getZ()));
                                 target.teleport(new Location(target.getWorld(), x, y, z));
-                                target.sendMessage(Messenger.TELEPORT_OTHER_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z"+z));
-                                sender.sendMessage(Messenger.TELEPORT_OTHER_TO_COORDINATES_SENDER.getMessage().replace("%p", target.getName()).replace("%loc%", "X "+x+" Y "+y+" Z"+z));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_OTHER_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z"+z));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_OTHER_TO_COORDINATES_SENDER.getMessage().replace("%p", target.getName()).replace("%loc%", "X "+x+" Y "+y+" Z"+z));
                             }catch(NumberFormatException ex){
-                                sender.sendMessage(Messenger.TELEPORT_OTHER_INVALID_COORDINATES.getMessage());
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_OTHER_INVALID_COORDINATES.getMessage());
                             }
                         }else{
-                            sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                         }
                     }
                 }
@@ -127,7 +127,7 @@ public class TP implements CommandExecutor {
                         if(target2 != null){
                             if(target != null){
                                 target.teleport(target2.getLocation());
-                                target.sendMessage(Messenger.TELEPORT_OTHER_TO_OTHER.getMessage().replace("%p", target2.getName()));
+                                MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TELEPORT_OTHER_TO_OTHER.getMessage().replace("%p", target2.getName()));
                                 sender.sendMessage(Messenger.TELEPORT_OTHER_TO_OTHER_SENDER.getMessage().replace("%p1", target.getName()).replace("%p2", target2.getName()));
                             }else{
                                 sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
@@ -140,15 +140,7 @@ public class TP implements CommandExecutor {
                     }
                 }
                 if(args.length == 3){
-                    try{
-                        int x = Integer.parseInt(args[0].replace('~', (char) ((Player) sender).getLocation().getX()));
-                        int y = Integer.parseInt(args[1].replace('~', (char) ((Player) sender).getLocation().getY()));
-                        int z = Integer.parseInt(args[2].replace('~', (char) ((Player) sender).getLocation().getZ()));
-                        ((Player) sender).teleport(new Location(((Player) sender).getWorld(), x, y, z));
-                        sender.sendMessage(Messenger.TELEPORT_SELF_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z"+z));
-                    }catch(NumberFormatException ex){
-                        sender.sendMessage(Messenger.TELEPORT_INVALID_COORDINATES.getMessage());
-                    }
+                    sender.sendMessage(Messenger.NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("%cmd%", command.getName()));
                 }
                 if(args.length == 4){
                     Player target = Bukkit.getPlayerExact(args[0]);

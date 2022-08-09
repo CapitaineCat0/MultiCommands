@@ -41,6 +41,8 @@ public class Commands {
         MultiCommands.instance().injectCommand("playerpinger", new PlayerPinger());
         //MultiCommands.instance().registerCommand(new PrivateMessages(), "msg");
         //MultiCommands.instance().registerCommand(new SetWarp(), "setwarp");
+        MultiCommands.instance().injectCommand("mreload", new Reload());
+        MultiCommands.instance().injectCommand("multireload", new Reload());
         MultiCommands.instance().injectCommand("serverinfo", new ServerInfo());
         MultiCommands.instance().injectCommand("tp", new TP());
         MultiCommands.instance().injectCommand("teleport", new TP());

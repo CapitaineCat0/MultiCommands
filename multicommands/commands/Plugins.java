@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,7 @@ public class Plugins implements Listener {
                 event.getMessage().equalsIgnoreCase("/bukkit:pl") || event.getMessage().equalsIgnoreCase("/bukkit:plugins")) {
             event.setCancelled(true);
             if (!event.getPlayer().isOp()) {
-                event.getPlayer().sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", "plugins"));
+                MultiCommands.getInstance().getMsgSendConfig(event.getPlayer(), "plugins", Messenger.CMD_NO_PERM.getMessage());
                 return;
             }
             event.getPlayer().sendMessage("§6Plugins chargés §7(§c" + Bukkit.getPluginManager().getPlugins().length + "§7)§8:");

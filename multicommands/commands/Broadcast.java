@@ -17,7 +17,7 @@ public class Broadcast implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission(Perms.BROADCAST_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
             else{
@@ -46,7 +46,7 @@ public class Broadcast implements CommandExecutor {
 
                         BookUtil.openPlayer(((Player) sender).getPlayer(), book);
                     }else{
-                        sender.sendMessage(Messenger.BROADCAST_ERROR.getMessage().replace("%cmd%", command.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.BROADCAST_ERROR.getMessage().replace("%cmd%", command.getName()));
                         return true;
                     }
                 }
@@ -56,7 +56,7 @@ public class Broadcast implements CommandExecutor {
                     for(String part : args) {
                         bc.append(part).append(" ");
                     }
-                    sender.sendMessage(Messenger.BROADCAST_CMD.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.BROADCAST_CMD.getMessage());
                     Bukkit.broadcastMessage(MultiCommands.colored(Messenger.BROADCAST_PREFIX.getMessage() + "&r " + bc));
                 }
             }

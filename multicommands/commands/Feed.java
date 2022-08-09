@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
 import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
@@ -14,7 +15,7 @@ public class Feed implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!sender.hasPermission(Perms.FEED_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -22,9 +23,9 @@ public class Feed implements CommandExecutor {
                 if(sender instanceof Player){
                     if(((Player) sender).getFoodLevel() != 20){
                         ((Player) sender).setFoodLevel(20);
-                        sender.sendMessage(Messenger.FEED_SELF.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.FEED_SELF.getMessage());
                     }else{
-                        sender.sendMessage(Messenger.FEED_ALREADY.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.FEED_ALREADY.getMessage());
                     }
 
                 }else if(sender instanceof ConsoleCommandSender){
@@ -35,13 +36,13 @@ public class Feed implements CommandExecutor {
                 if(target != null){
                     if(target.getFoodLevel() != 20){
                         target.setFoodLevel(20);
-                        sender.sendMessage(Messenger.FEED_OTHER_SENDER.getMessage().replace("%p", target.getName()));
-                        target.sendMessage(Messenger.FEED_OTHER.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.FEED_OTHER_SENDER.getMessage().replace("%p", target.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.FEED_OTHER.getMessage());
                     }else{
-                        sender.sendMessage(Messenger.FEED_ALREADY_SENDER.getMessage().replace("%p", target.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.FEED_ALREADY_SENDER.getMessage());
                     }
                 }else{
-                    sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                 }
             }
         }

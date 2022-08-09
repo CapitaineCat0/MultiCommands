@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.AFKHandler;
 import me.capitainecat0.multicommands.utils.Messenger;
 import me.capitainecat0.multicommands.utils.Perms;
@@ -17,7 +18,7 @@ public class ServerInfo implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission(Perms.SERVERINFO_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{

@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
 import me.capitainecat0.multicommands.utils.Perms;
 import me.capitainecat0.multicommands.utils.VanishHandler;
@@ -14,7 +15,7 @@ public class Vanish implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!sender.hasPermission(Perms.VANISH_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -23,10 +24,10 @@ public class Vanish implements CommandExecutor {
                 VanishHandler handler = VanishHandler.getInstance();
                 if(!handler.isVanished(player)){
                     handler.toggleVanish(player);
-                    player.sendMessage(Messenger.VANISH_TOGGLE.getMessage().replace("%status%", "§a§lactivé"));
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.VANISH_TOGGLE.getMessage().replace("%status%", "§a§lactivé"));
                 }else if(handler.isVanished(player)){
                     handler.toggleVanish(player);
-                    player.sendMessage(Messenger.VANISH_TOGGLE.getMessage().replace("%status%", "§c§ldésactivé"));
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.VANISH_TOGGLE.getMessage().replace("%status%", "§c§ldésactivé"));
                 }
             }else if(sender instanceof ConsoleCommandSender){
                 sender.sendMessage(Messenger.NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));

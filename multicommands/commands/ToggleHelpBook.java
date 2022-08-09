@@ -12,33 +12,33 @@ public class ToggleHelpBook implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
             if(args.length < 1){
                 if(MultiCommands.getInstance().HELP_BOOK_ENABLED){
                     MultiCommands.getInstance().setHelpBook(false);
-                    sender.sendMessage(Messenger.TOGGLE_HELP_DISABLED.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TOGGLE_HELP_DISABLED.getMessage());
                 }else{
                     MultiCommands.getInstance().setHelpBook(true);
-                    sender.sendMessage(Messenger.TOGGLE_HELP_ENABLED.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TOGGLE_HELP_ENABLED.getMessage());
                 }
             }
             else if(args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("on")){
                 if(!MultiCommands.getInstance().HELP_BOOK_ENABLED){
                     MultiCommands.getInstance().setHelpBook(true);
-                    sender.sendMessage(Messenger.TOGGLE_HELP_ENABLED.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TOGGLE_HELP_ENABLED.getMessage());
                 }else{
-                    sender.sendMessage(Messenger.TOGGLE_HELP_ALREADY_ENABLED.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TOGGLE_HELP_ALREADY_ENABLED.getMessage());
                 }
             }
             else if(args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("off")){
                 if(MultiCommands.getInstance().HELP_BOOK_ENABLED){
                     MultiCommands.getInstance().setHelpBook(false);
-                    sender.sendMessage(Messenger.TOGGLE_HELP_DISABLED.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TOGGLE_HELP_DISABLED.getMessage());
                 }else{
-                    sender.sendMessage(Messenger.TOGGLE_HELP_ALREADY_DISABLED.getMessage());
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.TOGGLE_HELP_ALREADY_DISABLED.getMessage());
                 }
             }
         }

@@ -18,7 +18,7 @@ public class Freeze implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if(!sender.hasPermission(Perms.FREEZE_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            sender.sendMessage(Messenger.CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             return true;
         }
         else{
@@ -52,7 +52,7 @@ public class Freeze implements CommandExecutor {
 
                     BookUtil.openPlayer(((Player) sender).getPlayer(), book);
                 }else{
-                    sender.sendMessage(Messenger.FREEZE_ERROR.getMessage().replace("%cmd%", command.getName()));
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.FREEZE_ERROR.getMessage());
                     return true;
                 }
             }
@@ -64,15 +64,16 @@ public class Freeze implements CommandExecutor {
                     final boolean isFrozen = data.isFrozen();
                     if (isFrozen) {
                         data.setFrozen(false);
-                        target.sendMessage(Messenger.FREEZE_TOGGLE_OFF.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.FREEZE_TOGGLE_OFF.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%p", target.getName()));
                         sender.sendMessage(Messenger.FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%p", target.getName()));
                     } else {
                         data.setFrozen(true);
-                        target.sendMessage(Messenger.FREEZE_TOGGLE_ON.getMessage());
-                        sender.sendMessage(Messenger.FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%p", target.getName()));
+                        MultiCommands.getInstance().getMsgSendConfig(target, command.getName(), Messenger.FREEZE_TOGGLE_ON.getMessage());
+                        MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%p", target.getName()));
                     }
                 }else{
-                    sender.sendMessage(Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                    MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                 }
             }
         }
