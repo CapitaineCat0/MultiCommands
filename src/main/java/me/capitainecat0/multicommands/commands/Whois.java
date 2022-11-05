@@ -18,7 +18,7 @@ import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 import static me.capitainecat0.multicommands.utils.Perms.WHOIS_PERM;
-import static me.capitainecat0.multicommands.utils.PluginCore.colored;
+import static me.capitainecat0.multimaintenance.utils.PluginCore.colored;
 
 public class Whois implements CommandExecutor {
     @Override
