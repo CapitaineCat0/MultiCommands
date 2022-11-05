@@ -1,15 +1,21 @@
-package me.capitainecat0.multicommands.utils;
+package me.capitainecat0.multicommands.events;
 
+import me.capitainecat0.multicommands.data.FreezeData;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+
+import static me.capitainecat0.multicommands.utils.Messenger.*;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
 
 public class FreezeEvents implements Listener {
 
@@ -20,7 +26,8 @@ public class FreezeEvents implements Listener {
         boolean isFrozen = data.isFrozen();
         if (isFrozen) {
             event.setCancelled(true);
-            player.sendMessage(Messenger.FREEZE_BREAK.getMessage());
+            hideActiveBossBar();
+            getMsgSendConfig(player, "BreakBlock", FREEZE_BREAK.getMessage());
         }
     }
 
@@ -31,7 +38,8 @@ public class FreezeEvents implements Listener {
         boolean isFrozen = data.isFrozen();
         if (isFrozen) {
             event.setCancelled(true);
-            player.sendMessage(Messenger.FREEZE_DROP.getMessage());
+            hideActiveBossBar();
+            getMsgSendConfig(player, "DropItem", FREEZE_DROP.getMessage());
         }
     }
 
@@ -50,7 +58,8 @@ public class FreezeEvents implements Listener {
             event.setFrom(loc);
             event.setTo(loc);
             player.teleport(loc);
-            player.sendMessage(Messenger.FREEZE_MOVE.getMessage());
+            hideActiveBossBar();
+            getMsgSendConfig(player, "Move", FREEZE_MOVE.getMessage());
         }
     }
 
@@ -61,7 +70,8 @@ public class FreezeEvents implements Listener {
         boolean isFrozen = data.isFrozen();
         if (isFrozen) {
             event.setCancelled(true);
-            player.sendMessage(Messenger.FREEZE_PICKUP.getMessage());
+            hideActiveBossBar();
+            getMsgSendConfig(player, "PickupItem", FREEZE_PICKUP.getMessage());
         }
     }
 
@@ -72,7 +82,8 @@ public class FreezeEvents implements Listener {
         boolean isFrozen = data.isFrozen();
         if (isFrozen) {
             event.setCancelled(true);
-            player.sendMessage(Messenger.FREEZE_PLACE.getMessage());
+            hideActiveBossBar();
+            getMsgSendConfig(player, "PlaceBlock", FREEZE_PLACE.getMessage());
         }
     }
 
@@ -83,7 +94,21 @@ public class FreezeEvents implements Listener {
         boolean isFrozen = data.isFrozen();
         if (isFrozen) {
             event.setCancelled(true);
-            player.sendMessage(Messenger.FREEZE_CHAT.getMessage());
+            hideActiveBossBar();
+            getMsgSendConfig(player, "Chat", FREEZE_CHAT.getMessage());
+        }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent event){
+        if(event.getEntity() instanceof Player){
+            Player player = (Player) event.getEntity();
+            FreezeData data = new FreezeData(player);
+            boolean isFrozen = data.isFrozen();
+            if (isFrozen) {
+                hideActiveBossBar();
+                event.setCancelled(true);
+            }
         }
     }
 }

@@ -1,11 +1,14 @@
-package me.capitainecat0.multicommands.utils;
+package me.capitainecat0.multicommands.events;
 
+import me.capitainecat0.multicommands.utils.AFKHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
 
 public class AFKEvents implements Listener {
     @EventHandler

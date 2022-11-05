@@ -1,6 +1,7 @@
-package me.capitainecat0.multicommands.utils;
+package me.capitainecat0.multicommands.data;
 
 import de.leonhard.storage.Json;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,7 +9,7 @@ import java.io.File;
 
 public class FreezeData {
 
-    private final OfflinePlayer player;
+    private final @NotNull OfflinePlayer player;
     private boolean isFrozen;
 
     public FreezeData(@NotNull OfflinePlayer player) {
@@ -32,7 +33,7 @@ public class FreezeData {
         save();
     }
 
-    public OfflinePlayer getPlayer() {
+    public @NotNull OfflinePlayer getPlayer() {
         return player;
     }
 }
