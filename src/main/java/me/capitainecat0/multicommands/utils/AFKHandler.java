@@ -15,11 +15,9 @@ public class AFKHandler {
 
     public void toggleAFK(Player player){
         hideActiveBossBar();
-        if(afk.contains(player)){
+        if(afk.contains(player))
             disableAFK(player);
-        }else{
-            enableAFK(player);
-        }
+        else enableAFK(player);
     }
 
     public static ArrayList<Player> getAFK(){
