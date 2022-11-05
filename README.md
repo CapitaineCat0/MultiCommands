@@ -18,5 +18,3 @@ Evidement, Multicommands ne contient pas uniquement cette commande, ce serais tr
 
 Ce plugin faisant partie d'une série de projets, il est possible en ajoutant MultiMaintenance / MultiFun / MultiAnnounce, d'afficher et de gèrer d'autres
 paramètres / features de votre serveur.
-
-Enfin, si vous souhaitez tester par vous-même ce plugin, je vous le met à disposition sur SpigotMC, à ce lien: 
