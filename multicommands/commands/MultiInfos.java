@@ -1,35 +1,47 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.utils.Messenger;
-import me.capitainecat0.multicommands.utils.Perms;
 import me.capitainecat0.multimaintenance.MultiMaintenance;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
+import static me.capitainecat0.multicommands.utils.Messenger.MULTIINFOS_MSG;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
+import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
+import static me.capitainecat0.multicommands.utils.Perms.MULTIINFOS_PERM;
+
 public class MultiInfos implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!sender.hasPermission(Perms.MULTIINFOS_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            MultiCommands.getInstance().getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
+        hideActiveBossBar();
+        if(!sender.hasPermission(MULTIINFOS_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+            if(soundEnabled()){
+                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+            }
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             return true;
         }
         else{
+            if(soundEnabled()){
+                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+            }
             final boolean installed;
             boolean installed1;
             try{
                 Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");
                 installed1 = true;
                 assert MultiCommands.instance().getDescription().getDescription() != null;
-                sender.sendMessage(Messenger.MULTIINFOS_MSG.getMessage()
+                sendMessage(sender, MULTIINFOS_MSG.getMessage()
                         .replace("%plname%", MultiCommands.instance().getDescription().getName())
                         .replace("%author%", "CapitaineCat0")
                         .replace("%version%", MultiCommands.instance().getDescription().getVersion())
                         .replace("%description%", MultiCommands.instance().getDescription().getDescription()));
                 assert MultiMaintenance.instance().getDescription().getDescription() != null;
-                sender.sendMessage(Messenger.MULTIINFOS_MSG.getMessage()
+                sendMessage(sender, MULTIINFOS_MSG.getMessage()
                         .replace("%plname%", MultiMaintenance.instance().getDescription().getName())
                         .replace("%author%", "CapitaineCat0")
                         .replace("%version%", MultiMaintenance.instance().getDescription().getVersion())
@@ -37,7 +49,7 @@ public class MultiInfos implements CommandExecutor {
             }catch(final Exception ex) {
                 installed1 = false;
                 assert MultiCommands.instance().getDescription().getDescription() != null;
-                sender.sendMessage(me.capitainecat0.multicommands.utils.Messenger.MULTIINFOS_MSG.getMessage()
+                sendMessage(sender, MULTIINFOS_MSG.getMessage()
                         .replace("%plname%", MultiCommands.instance().getDescription().getName())
                         .replace("%author%", "CapitaineCat0")
                         .replace("%version%", MultiCommands.instance().getDescription().getVersion())

@@ -1,268 +1,60 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.utils.Messenger;
-import net.md_5.bungee.api.chat.*;
+import me.capitainecat0.multicommands.utils.HelpGUI;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import xyz.upperlevel.spigot.book.BookUtil;
+
+import static me.capitainecat0.multicommands.utils.Messenger.NO_CONSOLE_COMMAND;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 
 public class MultiHelp implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        hideActiveBossBar();
         if(sender instanceof Player){
-            if(MultiCommands.getInstance().HELP_BOOK_ENABLED){
-                ItemStack book = BookUtil.writtenBook()
-                        .author("CapitaineCat0")
-                        .title("MultiCommands")
-                        .pages(
-                                new BaseComponent[]{
-                                        new TextComponent("§3Manuel d'aide \n§3de \n§6§lMultiCommands \n§av "
-                                                + MultiCommands.instance().getDescription().getVersion())
-                                },
-                                new BookUtil.PageBuilder()
-                                        .add(new TextComponent("§3Plugin développé par "))
-                                        .add(
-                                                BookUtil.TextBuilder.of("§b" + MultiCommands.getInstance().getDescription().getAuthors())
-                                                        //.onClick(BookUtil.ClickAction.openUrl("https://www.spigotmc.org"))
-                                                        .onHover(BookUtil.HoverAction.showText("Développeur(s)"))
-                                                        .build()
-                                        )
-                                        .add(" §3pour §5§lHall§d§lOf§5§lGames §3!")
-                                        /*.add(
-                                                new ComponentBuilder("Bukkit")
-                                                        .color(net.md_5.bungee.api.ChatColor.BLUE)
-                                                        .bold(true)
-                                                        .italic(true)
-                                                        .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://bukkit.org"))
-                                                        .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent("Open bukkit!")}))
-                                                        .create()
-                                        )*/
-                                        .newLine().newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7Notre §9§lDiscord")
-                                                        .onClick(BookUtil.ClickAction.openUrl("https://hallofgames.fr/discord"))
-                                                        .onHover(BookUtil.HoverAction.showText("§3Aller sur Discord"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7Notre §6§lSite web")
-                                                        .onClick(BookUtil.ClickAction.openUrl("https://hallofgames.fr"))
-                                                        .onHover(BookUtil.HoverAction.showText("§3Aller sur notre site"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7Notre chaîne §c§lYou§0§lTube")
-                                                        .onClick(BookUtil.ClickAction.openUrl("https://www.youtube.com/channel/UChEDfbc5fxc8PQdTZJhR3tg"))
-                                                        .onHover(BookUtil.HoverAction.showText("§3Aller sur Youtube"))
-                                                        .build()
-                                        )
-                                        .newLine().newLine()
-                                        .add("§3Commandes à la page suivante.")
-                                        .add("§7(cliquez sur les commandes)")
-                                        .build(),
-                                new BookUtil.PageBuilder()
-                                        .add("§6§lCommandes §dpage 1§6:")
-                                        .newLine().newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/afk")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("afk").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/afk"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/alert")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("alert").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/alert"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/bc §7ou §6/broadcast")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("broadcast").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/broadcast"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/ci §7ou §6/clearinventory")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("clearinventory").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/ci"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/craft")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("craft").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/craft"))
-                                                        .build()
-                                        )
-                                        /*.newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/debug")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("debug").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/debug"))
-                                                        .build()
-                                        )*/
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/ec §7ou §6/enderchest")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("enderchest").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/enderchest"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/feed")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("feed").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/feed"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/fly")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("fly").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/fly"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/freeze")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("freeze").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/freeze"))
-                                                        .build()
-                                        )
-                                        .build(),
-                                new BookUtil.PageBuilder()
-                                        .add("§6§lCommandes §dpage 2§6:")
-                                        .newLine().newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/gm §7ou §6/gamemode")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("gamemode").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/gamemode"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/god")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("god").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/god"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/heal")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("heal").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/heal"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/helpop")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("helpop").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/helpop"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/invsee")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("invsee").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/invsee"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/list")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("list").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/list"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/minfos §7ou §6/multiinfos")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("multiinfos").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/multiinfos"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/nick")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("nick").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/nick"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/ping")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("ping").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/ping"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/pl §7ou §6/plugins")
-                                                        .onHover(BookUtil.HoverAction.showText("§7Afficher les plugins du serveur"))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/plugins"))
-                                                        .build()
-                                        )
-                                        .build(),
-                                new BookUtil.PageBuilder()
-                                        .add("§6§lCommandes §dpage 3§6:")
-                                        .newLine().newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/serverinfo")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("serverinfo").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/serverinfo"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/thelp §7ou §6/togglehelp")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("togglehelp").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/togglehelp"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/tp §7ou §6/teleport")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("teleport").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/teleport"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/v §7ou §6/vanish")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("vanish").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/vanish"))
-                                                        .build()
-                                        )
-                                        .newLine()
-                                        .add(
-                                                BookUtil.TextBuilder.of("§7- §6/whois")
-                                                        .onHover(BookUtil.HoverAction.showText(MultiCommands.getInstance().getCommand("whois").getDescription()))
-                                                        .onClick(BookUtil.ClickAction.runCommand("/whois"))
-                                                        .build()
-                                        )
-                                        .build()
-                        )
-                        .build();
-
-                BookUtil.openPlayer(((Player) sender).getPlayer(), book);
-            }else{
-                sender.sendMessage("§ele manuel d'aide de MultiCommands à été §cdésactivé§e!");
+            if(soundEnabled()){
+                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
             }
-
+            if(MultiCommands.getInstance().getConfig().getBoolean("enable-help-gui")){
+                new HelpGUI().open((Player) sender);
+            }else{
+                sendMessage(sender,
+                        "&a&m-+------------+-&7 - &e&l{ &6MultiCommands&7 - &2[&dhelp&2] &e&l} &7- &a&m-+-------------+-\n"
+                                +"&6 - &b/afk &7Permet de gérer le mode AFK\n"
+                                +"&6 - &b/alert <message> &7Envoyer un message d'alerte\n"
+                                +"&6 - &b/bc | broadcast <message> &7Envoyer un broadcast\n"
+                                +"&6 - &b/ci | clearinventory [joueur] &7Vider son inventaire / celui d'un autre joueur\n"
+                                +"&6 - &b/craft | workbench &7Ouvrir l'établi\n"
+                                +"&6 - &b/ec | enderchest [joueur] &7Ouvrir votre enderchest / celui d'un autre joueur\n"
+                                +"&6 - &b/eco | economy <add | set | remove | reset> <joureur> &7Permet de gérer l'économie du serveur\n"
+                                +"&6 - &b/feed [joueur] &7Permet de se nourrir / un autre joueur\n"
+                                +"&6 - &b/fly [joueur] &7Permet de gérer votre fly-mode / celui d'un autre joueur\n"
+                                +"&6 - &b/freeze <joueur> &7Geler un joueur\n"
+                                +"&6 - &b/furnace &7Permet de cuire les items que vous tenez\n"
+                                +"&6 - &b/gm | gamemode <mode> [joueur] &7Permet de changer votre mode de jeu / celui d'un autre joueur\n"
+                                +"&6 - &b/god [joueur] &7Permet de gérer votre invulnérabilité / celle d'un autre joueur\n"
+                                +"&6 - &b/heal [joueur] &7Permet de vous soigner / un autre joueur\n"
+                                +"&6 - &b/helpop <message> &7Permet d'envoyer un message aux opérateurs\n"
+                                +"&6 - &b/invsee <joueur> &7Permet d'afficher et d'interragir avec l'inventaire d'un autre joueur\n"
+                                +"&6 - &b/list &7Permet d'afficher les joueurs connectés\n"
+                                +"&6 - &b/mi | multiinfos &7Permet d'afficher les informations des plugins de la série Multi\n"
+                                +"&6 - &b/nick &7Permet de modifier votre pseudo en jeu\n"
+                                +"&6 - &b/ping | playerpinger &7Permet de calculer votre latence\n"
+                                +"&6 - &b/pl | plugins &7 Permet d'afficher la liste des plugins installés\n"
+                                +"&6 - &b/serverinfo &7Permet d'afficher les informations d'un serveur\n"
+                                +"&6 - &b/tp | teleport <coordonées | joueur> &7Permet de vous téléporter\n"
+                                +"&6 - &b/v | vanish &7Permet de vous faire disparaître du serveur\n"
+                                +"&6 - &b/whois <joueur> &7Permet d'afficher les informations d'un joueur\n");
+            }
         }else if(sender instanceof ConsoleCommandSender){
-            sender.sendMessage(Messenger.NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
         }
         return false;
     }
