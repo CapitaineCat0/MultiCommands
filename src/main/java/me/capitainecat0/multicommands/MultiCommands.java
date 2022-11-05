@@ -1,17 +1,23 @@
 package me.capitainecat0.multicommands;
 
-import me.capitainecat0.multicommands.data.ConfigData;
-import me.capitainecat0.multicommands.utils.*;
+import me.capitainecat0.multicommands.utils.Commands;
+import me.capitainecat0.multicommands.utils.Events;
+import me.capitainecat0.multicommands.utils.PluginCore;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.bukkit.event.Listener;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Properties;
 
 import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMessage;
 
 public final class MultiCommands extends PluginCore<MultiCommands> {
+
     private static MultiCommands instance;
     private BukkitAudiences adventure;
+
     @Override
     protected boolean start(MultiCommands main) {
 
@@ -28,10 +34,12 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         sendConsoleMessage("&5Enabling events:");
         sendConsoleMessage(" ");
         Events.init();
+        sendConsoleMessage(lang("name"));
         sendConsoleMessage(" ");
         sendConsoleMessage("&a--------------------------------------------------------- ");
         return true;
     }
+
     @Override
     protected void stop() {
         if(this.adventure != null) {
@@ -39,6 +47,42 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
             this.adventure = null;
         }
     }
+
+    private static Properties language;
+    public static String lang(String key) {
+        checkLangFiles();
+        return language.getProperty(key);
+    }
+
+    public static void reloadLang() {
+        language = null;
+        checkLangFiles();
+    }
+
+    private static void checkLangFiles() {
+        final File langFile = new File(instance.getDataFolder(), "lang.properties");
+        langFile.getParentFile().mkdirs();
+
+        if (!langFile.exists())
+            instance.saveResourceAs("lang.properties");
+
+        if (language == null) {
+            final Properties defaultLang = new Properties();
+            try (final InputStream is = instance.getResource("lang.properties")) {
+                defaultLang.load(is);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
+
+            language = new Properties(defaultLang);
+            try (final InputStream is = new FileInputStream(langFile)) {
+                language.load(is);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static MultiCommands getInstance(){
         return instance;
     }
@@ -76,5 +120,8 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         return this.adventure;
     }
 
-
+    @Override
+    public void registerEvent(Listener listener) {
+        super.registerEvent(listener);
+    }
 }

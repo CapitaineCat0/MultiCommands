@@ -73,102 +73,11 @@ public class ConfigData {
         return null;
     }
 
-    public static void createConfigData(String fileName, String path, String config){
+    public static void createConfigData(String fileName, String path, Object config){
         if(!existsConfigData(fileName)){
             File file = new File(MultiCommands.getInstance().getDataFolder(), fileName);
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set(path, config);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public static void createConfigData(String fileName, String path, long config){
-        if(!existsConfigData(fileName)){
-            File file = new File(MultiCommands.getInstance().getDataFolder(), fileName);
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set(path, config);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public static void createConfigData(String fileName, String path, int config){
-        if(!existsConfigData(fileName)){
-            File file = new File(MultiCommands.getInstance().getDataFolder(), fileName);
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set(path, config);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public static void createConfigData(String fileName, String path, boolean config){
-        if(!existsConfigData(fileName)){
-            File file = new File(MultiCommands.getInstance().getDataFolder(), fileName);
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set(path, config);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public static void createConfigDataFolder(String folderName, String fileName, String path, String config){
-        if(!existsDataFolder(folderName) && !existsConfigData(fileName)){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/"+folderName+"/", fileName);
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set(path,config);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public static void createConfigDataFolder(String folderName, String fileName, String path, long config){
-        if(!existsDataFolder(folderName) && !existsConfigData(fileName)){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/"+folderName+"/", fileName);
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set(path,config);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public static void createConfigDataFolder(String folderName, String fileName, String path, int config){
-        if(!existsDataFolder(folderName) && !existsConfigData(fileName)){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/"+folderName+"/", fileName);
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set(path,config);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public static void createConfigDataFolder(String folderName, String fileName, String path, boolean config){
-        if(!existsDataFolder(folderName) && !existsConfigData(fileName)){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/"+folderName+"/", fileName);
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set(path,config);
             try {
                 configuration.save(file);
             } catch (IOException e) {

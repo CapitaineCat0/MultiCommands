@@ -17,7 +17,6 @@ import java.util.Collections;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.playSound;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class StaffChat implements CommandExecutor, Listener {

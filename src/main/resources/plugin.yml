@@ -1,6 +1,6 @@
 name: MultiCommands
-version: '${project.version}'
-main: '${project.main}'
+version: '${version}'
+main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
 authors: [CapitaineCat0]
 description: Essentials custom développé pour HallOfGames

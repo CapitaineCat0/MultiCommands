@@ -3,6 +3,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+def version = '0.85'
+
 repositories {
     mavenCentral()
     maven { url = 'https://jitpack.io/' }
@@ -12,10 +14,20 @@ repositories {
 }
 
 dependencies {
-    shadow 'io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT'
+    shadow 'io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT'
     shadow 'me.clip:placeholderapi:2.11.2'
-
     shadow fileTree(dir: 'libs', include: '*.jar')
+
+    implementation 'net.kyori:adventure-platform-bukkit:4.1.2'
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
 }
 
 compileJava.options.encoding = 'UTF-8'
