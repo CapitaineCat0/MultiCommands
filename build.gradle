@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://jitpack.io/' }
+    maven { url = 'https://oss.sonatype.org/content/groups/public/' }
+    maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    shadow 'io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT'
+    shadow 'me.clip:placeholderapi:2.11.2'
+
+    shadow fileTree(dir: 'libs', include: '*.jar')
+}
+
+compileJava.options.encoding = 'UTF-8'
