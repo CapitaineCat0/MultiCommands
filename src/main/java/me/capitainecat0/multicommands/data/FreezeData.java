@@ -1,19 +1,17 @@
 package me.capitainecat0.multicommands.data;
 
-import org.bukkit.OfflinePlayer;
+import me.capitainecat0.multicommands.utils.storage.PlayerStorageManager;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
 
 public class FreezeData {
 
-    private @NotNull OfflinePlayer player;
+    private @NotNull Player player;
     private boolean isFrozen;
 
-    public FreezeData(@NotNull OfflinePlayer player) {
-        /*Json config = new Json(new File("plugins/MultiCommands/frozen_players/" + player.getUniqueId() + ".json"));
+    public FreezeData(@NotNull Player player) {
         this.player = player;
-        this.isFrozen = config.getOrSetDefault("IsFrozen", false);*/
+        this.isFrozen = PlayerStorageManager.manager().getOrDefault("frozen", false, player);
     }
 
     public boolean isFrozen() {
@@ -21,9 +19,7 @@ public class FreezeData {
     }
 
     private void save() {
-        /*Json config = new Json(new File("plugins/MultiCommands/frozen_players/" + player.getUniqueId() + ".json"));
-        config.set("pseudo", player.getName());
-        config.set("IsFrozen", isFrozen);*/
+        PlayerStorageManager.manager().set("frozen", isFrozen, player);
     }
 
     public void setFrozen(boolean frozen) {
@@ -31,7 +27,7 @@ public class FreezeData {
         save();
     }
 
-    public @NotNull OfflinePlayer getPlayer() {
+    public @NotNull Player getPlayer() {
         return player;
     }
 }

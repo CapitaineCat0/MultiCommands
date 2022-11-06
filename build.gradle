@@ -19,6 +19,7 @@ dependencies {
     shadow fileTree(dir: 'libs', include: '*.jar')
 
     implementation 'net.kyori:adventure-platform-bukkit:4.1.2'
+    implementation 'org.json:json:20220924'
 }
 
 processResources {

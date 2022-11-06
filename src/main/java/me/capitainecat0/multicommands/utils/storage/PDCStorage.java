@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.json.JSONObject;
 
 public class PDCStorage implements PlayerStorageManager {
 
@@ -13,20 +14,29 @@ public class PDCStorage implements PlayerStorageManager {
 	}
 
 	@Override
-	public void store(Player player, DataObject data) {
+	public void store(Player player, JSONObject data) {
 		final PersistentDataContainer container = player.getPersistentDataContainer();
-		final PersistentDataContainer dataContainer = player.getPersistentDataContainer();
 
-		container.set(key("data"), PersistentDataType.TAG_CONTAINER, dataContainer);
+		PersistentDataContainer dataContainer = container.get(key("data"), PersistentDataType.TAG_CONTAINER);
+		if (dataContainer == null)
+			container.set(key("data"), PersistentDataType.TAG_CONTAINER, dataContainer = player.getPersistentDataContainer());
+
+		dataContainer.set(key("data"), PersistentDataType.STRING, data.toString(4));
 	}
 
 	@Override
-	public DataObject retrieve(Player player) {
+	public JSONObject retrieve(Player player) {
 		final PersistentDataContainer container = player.getPersistentDataContainer();
-		final PersistentDataContainer dataContainer = container.get(key("data"), PersistentDataType.TAG_CONTAINER);
-		dataContainer.set(key("player"), PersistentDataType.STRING, player.getName());
 
-		return new DataObject();
+		PersistentDataContainer dataContainer = container.get(key("data"), PersistentDataType.TAG_CONTAINER);
+		if (dataContainer == null)
+			return new JSONObject();
+
+		String data = dataContainer.get(key("data"), PersistentDataType.STRING);
+		if (data == null)
+			return new JSONObject();
+
+		return new JSONObject(data);
 	}
 
 }
