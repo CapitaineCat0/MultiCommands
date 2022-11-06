@@ -4,6 +4,7 @@ import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.ConfigData;
 import me.capitainecat0.multicommands.data.FreezeData;
 import me.capitainecat0.multicommands.data.PlayerData;
+import me.capitainecat0.multicommands.utils.MessengerUtils;
 import me.capitainecat0.multicommands.utils.Perms;
 import me.capitainecat0.multicommands.utils.VanishHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -29,9 +30,11 @@ public class Join implements Listener {
            if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                String joinText = "&8{ &a+ &8} &e- &a>&f%luckperms_prefix% &3%player_name%";
                joinText = PlaceholderAPI.setPlaceholders(event.getPlayer(), joinText);
-               event.setJoinMessage(MultiCommands.colored(joinText));
+               MessengerUtils.sendBroadcastMessage(joinText);
+               event.joinMessage(null);
            }else{
-               event.setJoinMessage(MultiCommands.colored("&8{ &a+ &8} &e- &a>&3"+event.getPlayer().getName()));
+               MessengerUtils.sendBroadcastMessage("&8{ &a+ &8} &e- &a>&3"+event.getPlayer().getName());
+               event.joinMessage(null);
            }
            if(player.hasPermission(Perms.VANISH_PERM_SELF.getPermission()) || player.hasPermission(Perms.VANISH_PERM_ALL.getPermission()) || player.hasPermission(Perms.ALL_PERMS.getPermission())){
            VanishHandler.getVanished().add(player);

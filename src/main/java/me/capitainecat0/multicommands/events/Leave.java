@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.events;
 
+import me.capitainecat0.multicommands.utils.MessengerUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,9 +12,10 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBoss
 public class Leave implements Listener {
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e){
+    public void onQuit(PlayerQuitEvent event){
         hideActiveBossBar();
-        Player player = e.getPlayer();
-        e.setQuitMessage(ONLEAVE.getMessage().replace("%p", player.getName()));
+        Player player = event.getPlayer();
+        MessengerUtils.sendBroadcastMessage(ONLEAVE.getMessage().replace("%p", player.getName()));
+        event.quitMessage(null);
     }
 }
