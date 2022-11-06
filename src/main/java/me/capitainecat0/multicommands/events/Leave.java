@@ -1,6 +1,7 @@
 package me.capitainecat0.multicommands.events;
 
 import me.capitainecat0.multicommands.utils.MessengerUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +16,7 @@ public class Leave implements Listener {
     public void onQuit(PlayerQuitEvent event){
         hideActiveBossBar();
         Player player = event.getPlayer();
-        MessengerUtils.sendBroadcastMessage(ONLEAVE.getMessage().replace("%p", player.getName()));
-        event.quitMessage(null);
+        Component leaveComponent = Component.text(ONLEAVE.getMessage().replace("%p", player.getName()));
+        event.quitMessage(leaveComponent);
     }
 }

@@ -5,12 +5,12 @@ import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.AFKHandler;
 import me.capitainecat0.multicommands.utils.MessengerUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerChatEvent;
+
 
 import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
 
@@ -29,20 +29,20 @@ public class Chat implements Listener {
                 if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                     String chat = "&7[AFK] %luckperms_prefix% &b"+senderNickName;
                     chat = PlaceholderAPI.setPlaceholders(event.getPlayer(), chat);
-                    MessengerUtils.sendBroadcastMessage(chat+ "&7 > &f" + msg);
-                    event.message(null);
-                    if(AFKHandler.getInstance().isAFK(sender)){
+                    Component chatComponent = Component.text(chat+ "&7 > &f" + msg);
+                    event.message(chatComponent);
+                    if(!AFKHandler.getInstance().isAFK(sender)){
                         String AFKchat = "%luckperms_prefix% &b"+senderNickName;
                         AFKchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), AFKchat);
-                        MessengerUtils.sendBroadcastMessage(AFKchat+ "&7 > &f" + msg);
-                        event.message(null);
+                        Component afkChatComponent = Component.text(AFKchat+ "&7 > &f" + msg);
+                        event.message(afkChatComponent);
                     }
                 }else{
-                    MessengerUtils.sendBroadcastMessage("&7[AFK] &b"+senderNickName+" &7> &f" + msg);
-                    event.message(null);
-                    if(AFKHandler.getInstance().isAFK(sender)){
-                        MessengerUtils.sendBroadcastMessage("&b"+senderNickName+" &7> &f" + msg);
-                        event.message(null);
+                    Component nickAfkChatComponent = Component.text("&7[AFK] &b"+senderNickName+" &7> &f" + msg);
+                    event.message(nickAfkChatComponent);
+                    if(!AFKHandler.getInstance().isAFK(sender)){
+                        Component nickChatComponent = Component.text("&b"+senderNickName+" &7> &f" + msg);
+                        event.message(nickChatComponent);
                     }
                 }
 
@@ -50,20 +50,20 @@ public class Chat implements Listener {
                 if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                     String defaultchat = "%luckperms_prefix% &b%player_name%";
                     defaultchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), defaultchat);
-                    MessengerUtils.sendBroadcastMessage(defaultchat+" &7> &f" + msg);
-                    event.message(null);
-                    if(AFKHandler.getInstance().isAFK(sender)){
+                    Component defaultChatComponent = Component.text(defaultchat+" &7> &f" + msg);
+                    event.message(defaultChatComponent);
+                    if(!AFKHandler.getInstance().isAFK(sender)){
                         String defaultAFKchat = "%luckperms_prefix% &b%player_name%";
                         defaultAFKchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), defaultAFKchat);
-                        MessengerUtils.sendBroadcastMessage(defaultAFKchat+" &7> &f" + msg);
-                        event.message(null);
+                        Component defaultAfkChatComponent = Component.text(defaultAFKchat+" &7> &f" + msg);
+                        event.message(defaultAfkChatComponent);
                     }
                 }else{
-                    MessengerUtils.sendBroadcastMessage(sender+" &7> &f" + msg);
-                    event.message(null);
+                    Component defaultComponent = Component.text(sender+" &7> &f" + msg);
+                    event.message(defaultComponent);
                     if(AFKHandler.getInstance().isAFK(sender)){
-                        MessengerUtils.sendBroadcastMessage("&7[AFK] &b"+sender+" &7> &f" + msg);
-                        event.message(null);
+                        Component defaultAfkComponent = Component.text("&7[AFK] &b"+sender+" &7> &f" + msg);
+                        event.message(defaultAfkComponent);
                     }
                 }
             }
