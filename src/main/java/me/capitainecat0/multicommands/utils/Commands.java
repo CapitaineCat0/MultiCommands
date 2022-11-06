@@ -4,6 +4,7 @@ import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.commands.*;
 import me.capitainecat0.multicommands.commands.chatchannels.*;
 import me.capitainecat0.multicommands.utils.tabcompleter.BasicTab;
+import me.capitainecat0.multicommands.utils.tabcompleter.BossActionTitleTab;
 import me.capitainecat0.multicommands.utils.tabcompleter.EconomyTab;
 import me.capitainecat0.multicommands.utils.tabcompleter.GamemodeTab;
 
@@ -14,7 +15,7 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMes
 public class Commands {
     public static void init(){
         sendConsoleMessage("&e - ACTIONBAR");
-        Objects.requireNonNull(MultiCommands.instance().getCommand("actionbar")).setTabCompleter(new BasicTab());
+        Objects.requireNonNull(MultiCommands.instance().getCommand("actionbar")).setTabCompleter(new BossActionTitleTab());
         MultiCommands.instance().registerCommand(new ActionBar(), "actionbar");
         sendConsoleMessage("&e - AFK");
         MultiCommands.instance().registerCommand(new AFK(), "afk");
@@ -23,7 +24,7 @@ public class Commands {
         sendConsoleMessage("&e - ALERT");
         MultiCommands.instance().registerCommand(new Alert(), "alert");
         sendConsoleMessage("&e - BOSSBAR");
-        Objects.requireNonNull(MultiCommands.instance().getCommand("bossbar")).setTabCompleter(new BasicTab());
+        Objects.requireNonNull(MultiCommands.instance().getCommand("bossbar")).setTabCompleter(new BossActionTitleTab());
         MultiCommands.instance().registerCommand(new BossBar(), "bossbar");
         sendConsoleMessage("&e - BROADCAST / BC");
         MultiCommands.instance().registerCommand(new Broadcast(), "broadcast");
@@ -93,7 +94,7 @@ public class Commands {
         sendConsoleMessage("&e - TELEPORT / TP");
         MultiCommands.instance().registerCommand(new TP(), "teleport");
         sendConsoleMessage("&e - TITLE");
-        Objects.requireNonNull(MultiCommands.instance().getCommand("title")).setTabCompleter(new BasicTab());
+        Objects.requireNonNull(MultiCommands.instance().getCommand("title")).setTabCompleter(new BossActionTitleTab());
         MultiCommands.instance().registerCommand(new Title(), "title");
         sendConsoleMessage("&e - VANISH / V");
         Objects.requireNonNull(MultiCommands.instance().getCommand("vanish")).setTabCompleter(new BasicTab());

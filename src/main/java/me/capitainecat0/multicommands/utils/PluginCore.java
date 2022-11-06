@@ -17,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class PluginCore<T extends PluginCore<?>> extends JavaPlugin {
     private static PluginCore<?> INSTANCE;
@@ -47,10 +48,8 @@ public abstract class PluginCore<T extends PluginCore<?>> extends JavaPlugin {
         }
 
         NAME = this.getName();
-        Iterator var2 = this.getPluginListeners().iterator();
 
-        while(var2.hasNext()) {
-            Listener listener = (Listener)var2.next();
+        for (Listener listener : this.getPluginListeners()) {
             this.registerEvent(listener);
         }
 
@@ -67,8 +66,7 @@ public abstract class PluginCore<T extends PluginCore<?>> extends JavaPlugin {
         try {
             Field commandMapField = SimplePluginManager.class.getDeclaredField("commandMap");
             commandMapField.setAccessible(true);
-            SimpleCommandMap map = (SimpleCommandMap)commandMapField.get(Bukkit.getPluginManager());
-            return map;
+            return (SimpleCommandMap)commandMapField.get(Bukkit.getPluginManager());
         } catch (Exception var2) {
             return null;
         }
@@ -80,7 +78,7 @@ public abstract class PluginCore<T extends PluginCore<?>> extends JavaPlugin {
             return false;
         } else {
             map.register(name, new Command(name) {
-                public boolean execute(CommandSender commandSender, String s, String[] strings) {
+                public boolean execute(@NotNull CommandSender commandSender, String s, String[] strings) {
                     return executor.onCommand(commandSender, this, s, strings);
                 }
             });
@@ -166,11 +164,11 @@ public abstract class PluginCore<T extends PluginCore<?>> extends JavaPlugin {
         return RECIPES;
     }
 
-    public static List<Recipe> getRegisteredRecipes(Predicate<Recipe> verificator) {
+    public static List getRegisteredRecipes(Predicate<Recipe> verificator) {
         if (RECIPES == null) {
             refreshRegisteredRecipes();
         }
 
-        return (List)RECIPES.stream().filter(verificator).collect(Collectors.toList());
+        return RECIPES.stream().filter(verificator).collect(Collectors.toList());
     }
 }

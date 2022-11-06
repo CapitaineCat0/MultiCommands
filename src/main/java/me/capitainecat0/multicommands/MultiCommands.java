@@ -23,6 +23,7 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
 
         this.adventure = BukkitAudiences.create(this);
         saveResourceAs("config.yml");
+
         instance = main;
         sendConsoleMessage("&a---------------+ &6MultiCommands v"+getDescription().getVersion()+"&a +---------------- ");
         sendConsoleMessage(" ");
@@ -34,7 +35,6 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         sendConsoleMessage("&5Enabling events:");
         sendConsoleMessage(" ");
         Events.init();
-        sendConsoleMessage(lang("name"));
         sendConsoleMessage(" ");
         sendConsoleMessage("&a--------------------------------------------------------- ");
         return true;
@@ -49,26 +49,26 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
     }
 
     private static Properties language;
-    public static String lang(String key) {
-        checkLangFiles();
+    public String lang(String key) {
+        this.checkLangFiles();
         return language.getProperty(key);
     }
 
-    public static void reloadLang() {
+    public void reloadLang() {
         language = null;
-        checkLangFiles();
+        this.checkLangFiles();
     }
 
-    private static void checkLangFiles() {
-        final File langFile = new File(instance.getDataFolder(), "lang.properties");
+    private void checkLangFiles() {
+        final File langFile = new File(this.getDataFolder(), "lang.properties");
         langFile.getParentFile().mkdirs();
 
         if (!langFile.exists())
-            instance.saveResourceAs("lang.properties");
+            this.saveResourceAs("lang.properties");
 
         if (language == null) {
             final Properties defaultLang = new Properties();
-            try (final InputStream is = instance.getResource("lang.properties")) {
+            try (final InputStream is = this.getResource("lang.properties")) {
                 defaultLang.load(is);
             } catch (final Exception e) {
                 e.printStackTrace();
