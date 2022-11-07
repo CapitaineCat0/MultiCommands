@@ -10,7 +10,7 @@ Cependant, il contient des ajouts non présents dans Essentials:
 ![Capture](https://user-images.githubusercontent.com/33187305/183760792-14713d3f-ab4a-491f-b08a-08cff53d21fd.PNG)
 
 La commande /list permet d'afficher les joueurs connectés mais affiche également les "nicknames" de ces joueurs.
-Cette commande permet également aux administrateurs (joueurs ayant la permission "multicommands.all_perms") de se téléporter à ces-dit joueurs
+Cette commande permet également aux administrateurs (joueurs ayant la permission "multicommands.all_perms" , "multicommands.teleport.self" ou "multicommands.teleport.*) de se téléporter à ces-dit joueurs
 en cliquant simplement sur leurs pseudonymes.
 
 
