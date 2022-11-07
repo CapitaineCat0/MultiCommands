@@ -14,13 +14,49 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Properties;
 
 public class MessengerUtils {
 
     private static BossBar finalBossbar;
+    private static Properties language;
+    public static String lang(String key) {
+        checkLangFiles();
+        return language.getProperty(MultiCommands.colored(key));
+    }
+    public static void reloadLang() {
+        language = null;
+        checkLangFiles();
+    }
+    private static void checkLangFiles() {
+        final File langFile = new File(MultiCommands.getInstance().getDataFolder(), "lang.properties");
+        langFile.getParentFile().mkdirs();
+
+        if (!langFile.exists())
+            MultiCommands.getInstance().saveResourceAs("lang.properties");
+
+        if (language == null) {
+            final Properties defaultLang = new Properties();
+            try (final InputStream is = MultiCommands.getInstance().getResource("lang.properties")) {
+                defaultLang.load(is);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
+
+            language = new Properties(defaultLang);
+            try (final InputStream is = new FileInputStream(langFile)) {
+                language.load(is);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public static void getMsgSendConfig(CommandSender sender, String commandName, String message){
         if(MultiCommands.getInstance().getConfig().get("send-message-on") != null){
             if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "CHAT") || Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "chat")){
@@ -51,8 +87,7 @@ public class MessengerUtils {
     }
 
     public static void sendBroadcastMessage(String message){
-        final TextComponent component = Component.text(MultiCommands.colored(message));
-        MultiCommands.getInstance().adventure().players().sendMessage(component);
+        Bukkit.getServer().broadcastMessage(MultiCommands.colored(message));
     }
     public static void sendMessage(CommandSender sender, String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));

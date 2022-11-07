@@ -35,20 +35,26 @@ public class Helpop implements CommandExecutor {
                 for(String part : args) {
                     bc.append(part).append(" ");
                 }
-            Bukkit.getOperators();
-            for(OfflinePlayer operators : Bukkit.getOperators()){
-                if(Objects.requireNonNull(operators.getPlayer()).hasPermission(ALL_PERMS.getPermission()) || operators.getPlayer().hasPermission(Perms.HELPOP_PERM.getPermission())){
-                    if(soundEnabled()){
-                        playSound(operators.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+            for (OfflinePlayer operators : Bukkit.getOperators()) {
+                if(Bukkit.getOnlinePlayers().contains(operators)){
+                    if(Objects.requireNonNull(operators.getPlayer()).hasPermission(ALL_PERMS.getPermission()) || operators.getPlayer().hasPermission(Perms.HELPOP_PERM.getPermission())){
+                        if(soundEnabled()){
+                            playSound(operators.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        }
+                        sendMessage(operators.getPlayer(),"§c[Aide Admin] §7" + sender.getName() + "§8: §f" + bc);
                     }
-                    sendMessage(operators.getPlayer(),"§c[Aide Admin] §7" + sender.getName() + "§8: §f" + bc);
+
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    }
+                    getMsgSendConfig(sender, command.getName(), HELPOP_DONE.getMessage());
+                    sendMessage(sender," §8- §7" + bc);
+                }else{
+                    sendMessage(sender, HELPOP_NO_ADMINS.getMessage());
                 }
             }
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-            }
-            getMsgSendConfig(sender, command.getName(), HELPOP_DONE.getMessage());
-                sendMessage(sender," §8- §7" + bc);
+
+
 
         }else if(sender instanceof ConsoleCommandSender){
             sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));

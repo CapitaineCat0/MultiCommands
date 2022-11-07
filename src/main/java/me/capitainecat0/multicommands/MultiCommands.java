@@ -48,45 +48,10 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         }
     }
 
-    private static Properties language;
-    public String lang(String key) {
-        this.checkLangFiles();
-        return language.getProperty(key);
-    }
-
-    public void reloadLang() {
-        language = null;
-        this.checkLangFiles();
-    }
-
-    private void checkLangFiles() {
-        final File langFile = new File(this.getDataFolder(), "lang.properties");
-        langFile.getParentFile().mkdirs();
-
-        if (!langFile.exists())
-            this.saveResourceAs("lang.properties");
-
-        if (language == null) {
-            final Properties defaultLang = new Properties();
-            try (final InputStream is = this.getResource("lang.properties")) {
-                defaultLang.load(is);
-            } catch (final Exception e) {
-                e.printStackTrace();
-            }
-
-            language = new Properties(defaultLang);
-            try (final InputStream is = new FileInputStream(langFile)) {
-                language.load(is);
-            } catch (final Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public static MultiCommands getInstance(){
         return instance;
     }
-    private void saveResourceAs(String inPath) {
+    public void saveResourceAs(String inPath) {
         if (inPath != null && !inPath.isEmpty()) {
             InputStream in = this.getResource(inPath);
             if (in == null) {

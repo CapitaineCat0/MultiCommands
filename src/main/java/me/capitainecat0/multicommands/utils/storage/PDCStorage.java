@@ -21,9 +21,10 @@ public class PDCStorage implements PlayerStorageManager {
 	}
 
 	@Override
-	public DataObject retrieve(Player player) {
+	public DataObject getData(Player player) {
 		final PersistentDataContainer container = player.getPersistentDataContainer();
 		final PersistentDataContainer dataContainer = container.get(key("data"), PersistentDataType.TAG_CONTAINER);
+		assert dataContainer != null;
 		dataContainer.set(key("player"), PersistentDataType.STRING, player.getName());
 
 		return new DataObject();

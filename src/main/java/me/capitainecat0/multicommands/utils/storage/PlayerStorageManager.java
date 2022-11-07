@@ -6,6 +6,6 @@ public interface PlayerStorageManager {
 
 	void store(Player player, DataObject data);
 
-	DataObject retrieve(Player player);
+	DataObject getData(Player player);
 
 }

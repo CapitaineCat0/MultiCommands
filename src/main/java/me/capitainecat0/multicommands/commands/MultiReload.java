@@ -2,6 +2,7 @@ package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.ConfigData;
+import me.capitainecat0.multicommands.utils.MessengerUtils;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,7 +31,7 @@ public class MultiReload implements CommandExecutor {
             sendMessage(sender, CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
             return true;
         }else {
-            ConfigData.getConfig("config.yml");
+            MessengerUtils.reloadLang();
         }
         return false;
     }

@@ -11,7 +11,7 @@ public class FileStorage implements PlayerStorageManager {
 	}
 
 	@Override
-	public DataObject retrieve(Player player) {
+	public DataObject getData(Player player) {
 		// TODO Auto-generated method stub
 		return null;
 	}

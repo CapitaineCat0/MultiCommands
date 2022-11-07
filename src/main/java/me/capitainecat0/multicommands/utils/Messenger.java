@@ -2,6 +2,8 @@ package me.capitainecat0.multicommands.utils;
 
 import me.capitainecat0.multicommands.MultiCommands;
 
+import static me.capitainecat0.multicommands.utils.MessengerUtils.lang;
+
 public enum Messenger {
 
 
@@ -9,18 +11,15 @@ public enum Messenger {
      * #       commandes         #
      * ###########################*/
 
-    ADMINCHAT("&7&l{ &4AdminChat &8(<)&7&l} &c%p : &f%msg%"),
-    STAFFCHAT("&7&l{ &6StaffChat &8(!)&7&l} &6%p : &f%msg%"),
-    DEVCHAT("&7&l{ &5DevChat &7&l} &8(%)&5%p : &f%msg%"),
-    BUILDERCHAT("&7&l{ &2BuilderChat &8(#)&7&l} &2%p : &f%msg%"),
-    MODOCHAT("&7&l{ &9ModoChat &8(>)&7&l} &9%p : &f%msg%"),
-
-
-
-    NO_CONSOLE_COMMAND("&cLa commande &e/%cmd% &cest réservée aux joueurs!"),
-    NO_CONSOLE_COMMAND_WITHOUT_ARGS("&cLa commande &e/%cmd% &csans &e<joueur> &cest réservée aux joueurs!"),
-    NOT_A_PLAYER("&cLe joueur &e%p &cn'est pas connecté / pas un joueur!"),
-    CMD_NO_PERM("&cVous n'avez pas la permission d'utiliser cette commande!"),
+    ADMINCHAT(lang("admin_chat")),
+    STAFFCHAT(lang("staff_chat")),
+    DEVCHAT(lang("dev_chat")),
+    BUILDERCHAT(lang("build_chat")),
+    MODOCHAT(lang("modo_chat")),
+    NO_CONSOLE_COMMAND(lang("no_console_cmd")),
+    NO_CONSOLE_COMMAND_WITHOUT_ARGS(lang("no_console_cmd_without_args")),
+    NOT_A_PLAYER(lang("not_a_player")),
+    CMD_NO_PERM(lang("no_perm")),
     CMD_NO_PERM_TO_OTHER("&cVous n'avez pas la permission d'utiliser cette commande sur un autre joueur!"),
 
     CMD_NO_ARGS("&cLa commande &e/%cmd% &cs'utilise avec des arguments!\n"+"&e- /%cmd% %args%"),
@@ -65,14 +64,11 @@ public enum Messenger {
     FREEZE_DROP("&cVous ne pouvez pas jeter d'items en étant &egelé&c!"),
     FREEZE_PICKUP("&cVous ne pouvez pas récupérer d'items en étant &egelé&c!"),
     FREEZE_CHAT("&cVous ne pouvez pas parler en étant &egelé&c!"),
-
     FURNACE_ERROR("&cL'item &e%item% &cne peux pas être cuit!"),
     FURNACE_DONE("&aVous avez fait cuire &e%items%&a."),
-
     GAMEMODE_SELF("&7Votre &6Gamemode &7à été changé en mode &d%gamemode%&7!"),
     GAMEMODE_OTHER("&5&lHall&d&lOf&5&lGames &8> &eVotre &6Gamemode &eà été changé en mode &d%gamemode%&epar un &cadministrateur&e!"),
     GAMEMODE_OTHER_ADMIN("&7Le &6Gamemode &7de &3%p &7à été changé en mode &d%gamemode%&7!"),
-
     GOD_SELF_ON("&7Vous avez &aactivé &7le &6God-mode&7!"),
     GOD_SELF_OFF("&7Vous avez &cdésactivé &7le &6God-mode&7!"),
     GOD_OTHER_ON("&5&lHall&d&lOf&5&lGames &8> &eUn &cadministrateur &evient de vous &aactiver &evotre &6God-mode&e!"),
@@ -82,7 +78,6 @@ public enum Messenger {
 
     HELPOP_DONE("&eVotre message à été envoyé aux &c&lAdministrateurs&e!"),
     HELPOP_NO_ADMINS("&cDésolé mais aucuns administrateurs n'est actuellement connecté! Merci de réessayer plus tard."),
-
     HEAL_SELF("&7Vous avez été &asoigné&7!"),
     HEAL_OTHER("&5&lHall&d&lOf&5&lGames &8> &eUn &cadministrateur&e vous à &asoigné&e!"),
     HEAL_OTHER_SENDER("&7Vous avez &asoigné &3%p&7!"),
@@ -124,7 +119,6 @@ public enum Messenger {
     /* ##########################
      * #        events          #
      * ##########################*/
-    ONJOIN_ADMIN(MultiCommands.colored("&c&lL'administrateur &e%p &c&lvient de rejoindre le serveur!")),
     ONJOIN(MultiCommands.colored("&8{ &a+ &8} &e-&a> &3%p")),
     ONLEAVE(MultiCommands.colored("&8{ &c- &8} &e-&c< &3%p")),
     DEATHLOC(MultiCommands.colored("&7Vous êtes mort en &e%loc&7!")),

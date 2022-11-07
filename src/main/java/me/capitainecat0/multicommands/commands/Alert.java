@@ -41,7 +41,7 @@ public class Alert implements CommandExecutor {
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
                     getMsgSendConfig(sender, command.getName(), ALERT_CMD.getMessage());
-                    Bukkit.broadcastMessage(MultiCommands.colored(ALERT_PREFIX.getMessage() + "&r " + bc));
+                    sendBroadcastMessage(ALERT_PREFIX.getMessage() + "&r " + bc);
                 }
         }
         return false;

@@ -41,7 +41,7 @@ public class Broadcast implements CommandExecutor {
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
                     getMsgSendConfig(sender, command.getName(), BROADCAST_CMD.getMessage());
-                    Bukkit.broadcastMessage(MultiCommands.colored(BROADCAST_PREFIX.getMessage() + "&r " + bc));
+                    sendBroadcastMessage(BROADCAST_PREFIX.getMessage() + "&r " + bc);
                 }
             }return false;
     }

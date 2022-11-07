@@ -30,15 +30,13 @@ public class Join implements Listener {
        if(!PlayerData.existsPlayerData(player)){
            PlayerData.createPlayerData(player);
        }
-           if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
+           /*if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                String joinText = "&8{ &a+ &8} &e- &a>&f%luckperms_prefix% &3%player_name%";
                joinText = PlaceholderAPI.setPlaceholders(event.getPlayer(), joinText);
-               Component joinAPIComponent = Component.text(joinText);
-               event.joinMessage(joinAPIComponent);
-           }else{
-               Component joinComponent = Component.text("&8{ &a+ &8} &e- &a>&3"+event.getPlayer().getName());
-               event.joinMessage(joinComponent);
-           }
+               event.setJoinMessage(MultiCommands.colored(joinText));
+           }else{*/
+               event.setJoinMessage(ONJOIN.getMessage().replace("%p", player.getName()));
+           //}
            if(player.hasPermission(Perms.VANISH_PERM_SELF.getPermission()) || player.hasPermission(Perms.VANISH_PERM_ALL.getPermission()) || player.hasPermission(Perms.ALL_PERMS.getPermission())){
            VanishHandler.getVanished().add(player);
            }
