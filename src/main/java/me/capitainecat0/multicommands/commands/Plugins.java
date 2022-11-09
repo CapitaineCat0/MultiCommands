@@ -1,6 +1,7 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
+import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -21,7 +22,7 @@ public class Plugins implements Listener {
         if (event.getMessage().equalsIgnoreCase("/plugins") || event.getMessage().equalsIgnoreCase("/pl") ||
                 event.getMessage().equalsIgnoreCase("/bukkit:pl") || event.getMessage().equalsIgnoreCase("/bukkit:plugins")) {
             event.setCancelled(true);
-            if (!event.getPlayer().isOp()) {
+            if (!event.getPlayer().hasPermission(Perms.ALL_PERMS.getPermission())) {
                 if(soundEnabled()){
                     playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }

@@ -19,33 +19,34 @@ public class Nick implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(!sender.hasPermission(NICKNAME_PERMS.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-            }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
-            return true;
-        }
-        else{
-            if(args.length == 0){
+        if(sender instanceof Player){
+            if(!sender.hasPermission(NICKNAME_PERMS.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<pseudo>"));
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                 return true;
-            } else if(args.length == 1){
-                Player player = (Player) sender;
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+            }
+            else{
+                if(args.length == 0){
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    }
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<pseudo>"));
+                    return true;
+                } else if(args.length == 1){
+                    Player player = (Player) sender;
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    }
+                    getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("%newName", MultiCommands.colored(args[0])));
+                    player.setCustomName(MultiCommands.colored(args[0]));
+                    player.setCustomNameVisible(true);
                 }
-                getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("%newName", MultiCommands.colored(args[0])));
-                player.setCustomName(MultiCommands.colored(args[0]));
-                player.setCustomNameVisible(true);
             }
-            if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage());
-                return true;
-            }
+        }else if(sender instanceof ConsoleCommandSender){
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage());
+            return true;
         }
         return false;
     }

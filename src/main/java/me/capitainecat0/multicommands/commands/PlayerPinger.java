@@ -45,22 +45,36 @@ public class PlayerPinger implements CommandExecutor {
                 }else if(sender instanceof ConsoleCommandSender){
                     sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("%cmd%", command.getName()));
                 }
-            }else if(args.length == 1){
+            }else if(args.length == 1) {
                 Player target = Bukkit.getPlayerExact(args[0]);
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                int ping = 0;
+                if (sender instanceof Player) {
+                    if (soundEnabled()) {
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    }
+                    assert target != null;
+                    ping = target.getPing();
+                    if (ping < 50) {
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
+                    }
+                    if (ping > 50) {
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&e" + ping + " ms")));
+                    }
+                    if (ping > 300) {
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&c" + ping + " ms")));
+                    }
+                } else if (sender instanceof ConsoleCommandSender) {
+                    if (ping < 50) {
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
+                    }
+                    if (ping > 50) {
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&e" + ping + " ms")));
+                    }
+                    if (ping > 300) {
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&c" + ping + " ms")));
+                    }
                 }
-                assert target != null;
-                int ping = target.getPing();
-                if(ping < 50){
-                    sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
-                }
-                if(ping > 50){
-                    sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&e" + ping + " ms")));
-                }
-                if(ping > 300){
-                    sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%target", target.getName()).replace("%ping%", MultiCommands.colored("&c" + ping + " ms")));
-                }
+
             }
         }
         return false;

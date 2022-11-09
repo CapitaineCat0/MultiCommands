@@ -41,6 +41,7 @@ public class Helpop implements CommandExecutor {
                         if(soundEnabled()){
                             playSound(operators.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
+                        sendConsoleMessage("§c[Aide Admin] §7" + sender.getName() + "§8: §f" + bc);
                         sendMessage(operators.getPlayer(),"§c[Aide Admin] §7" + sender.getName() + "§8: §f" + bc);
                     }
 

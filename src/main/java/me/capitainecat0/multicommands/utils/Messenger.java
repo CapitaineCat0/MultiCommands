@@ -86,16 +86,19 @@ public enum Messenger {
 
     INVSEE_ADMIN("&7Vous avez affiché l'inventaire de &3%p&7!"),
 
-    MULTIINFOS_MSG(MultiCommands.colored("&a&m-+------------+-&7 - &e&l{ &6%plname%&7 - &2[&dinfos&2] &e&l} &7- &a&m-+-------------+-\n" +
-            " &7- &6/multihelp &7=> Vous permet d'afficher l'aide des plugins de la série Multi\n" +
-            "&eNom&8: &6%plname%\n" +
-            "&bAuteur&8: &3%author%\n" +
-            "&aVersion&8: &e%version%\n" + "&9Description&8: &b%description%\n" +
-            "&a&m-+-------------------------------------------------------------+-")),
+    MULTIINFOS_MSG(MultiCommands.colored("""
+            &a&m-+------------+-&7 - &e&l{ &6%plname%&7 - &2[&dinfos&2] &e&l} &7- &a&m-+-------------+-
+             &7- &6/multihelp &7=> Vous permet d'afficher l'aide des plugins de la série Multi
+            &eNom&8: &6%plname%
+            &bAuteur&8: &3%author%
+            &aVersion&8: &e%version%
+            &9Description&8: &b%description%
+            &a&m-+-------------------------------------------------------------+-""")),
     NICKNAME_DONE("&7Votre pseudo à été changé en &a%newName&7!"),
 
     PING_SELF_MSG("&7Votre latence est de %ping%&7!"),
     PING_OTHER_MSG("&7La latence de &3%target &7est de %ping%&7!"),
+    PLUGIN_RELOADED("&&Les fichiers de &6MultiCommands &aont été rechargés!"),
     SETSPAWN_DONE("&aLe spawn principal à été placé à votre emplacement!"),
     SPAWN_DONE("&aVous avez été téléporté au spawn!"),
     SPAWN_ERROR("&cLe spawn n'à pas été définis / est introuvable, merci de le signaler à un membre du Staff!"),

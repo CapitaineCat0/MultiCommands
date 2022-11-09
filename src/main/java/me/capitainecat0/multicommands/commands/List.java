@@ -20,8 +20,10 @@ public class List implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(soundEnabled()){
-            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+        if(sender instanceof Player){
+            if(soundEnabled()){
+                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+            }
         }
 
         sendMessage(sender, "&aVous avez &e" + Bukkit.getOnlinePlayers().size() + " &ajoueurs sur &c" + Bukkit.getServer().getMaxPlayers() + " &aconnectés:");

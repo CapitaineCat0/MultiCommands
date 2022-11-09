@@ -17,6 +17,7 @@ import java.io.IOError;
 import java.io.IOException;
 
 import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
+import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_RELOADED;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 
@@ -31,6 +32,12 @@ public class MultiReload implements CommandExecutor {
             sendMessage(sender, CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
             return true;
         }else {
+            if(sender instanceof Player){
+                if(soundEnabled()){
+                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                }
+                sendMessage(sender, PLUGIN_RELOADED.getMessage());
+            }
             MessengerUtils.reloadLang();
         }
         return false;

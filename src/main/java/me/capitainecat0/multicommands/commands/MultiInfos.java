@@ -6,6 +6,7 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
@@ -26,8 +27,10 @@ public class MultiInfos implements CommandExecutor {
             return true;
         }
         else{
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+            if(sender instanceof Player){
+                if(soundEnabled()){
+                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                }
             }
             try{
                 Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");

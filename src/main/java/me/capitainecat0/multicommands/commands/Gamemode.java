@@ -161,8 +161,6 @@ public class Gamemode implements CommandExecutor {
                                 target.setGameMode(GameMode.CREATIVE);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
@@ -187,8 +185,6 @@ public class Gamemode implements CommandExecutor {
                                 target.setGameMode(GameMode.ADVENTURE);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
@@ -213,8 +209,6 @@ public class Gamemode implements CommandExecutor {
                                 target.setGameMode(GameMode.SPECTATOR);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));

@@ -33,14 +33,19 @@ public class Whois implements CommandExecutor {
         }
         else{
             if (args.length == 0) {
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                if(sender instanceof Player){
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    }
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<joueur>"));
+                    return true;
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<joueur>"));
-                return true;
+
             }else if (args.length == 1) {
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                if(sender instanceof Player){
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    }
                 }
                 Player target = Bukkit.getPlayerExact(args[0]);
                 if (target != null) {
@@ -81,8 +86,10 @@ public class Whois implements CommandExecutor {
                         sendMessage(sender, "&7Installez &cMulti§dMaintenance &7 pour afficher plus d'informations!");
                     }
                 }else{
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    if(sender instanceof Player){
+                        if(soundEnabled()){
+                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        }
                     }
                     sendMessage(sender, NOT_A_PLAYER.getMessage().replace("%p", args[0]));
                 }
