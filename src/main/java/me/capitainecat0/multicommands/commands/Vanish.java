@@ -29,13 +29,13 @@ public class Vanish implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), VANISH_TOGGLE_SELF.getMessage().replace("%status%", "§a§lactivé"));
+                            getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_SELF.getMessage());
                         }else if(handler.isVanished(player)){
                             handler.toggleVanish(player);
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), VANISH_TOGGLE_SELF.getMessage().replace("%status%", "§c§ldésactivé"));
+                            getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_SELF.getMessage());
                         }
                     }else{
                         if(soundEnabled()){
@@ -57,8 +57,8 @@ public class Vanish implements CommandExecutor {
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), VANISH_TOGGLE_OTHER.getMessage().replace("%status%", "§a§lactiver"));
-                                getMsgSendConfig(sender, command.getName(), VANISH_TOGGLE_ADMIN.getMessage().replace("%status%", "§a§lactivé").replace("%p", target.getName()));
+                                getMsgSendConfig(target, command.getName(), VANISH_ENABLED_OTHER.getMessage());
+                                getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_ADMIN.getMessage().replace("%p", target.getName()));
                             }else if(handler.isVanished(target)){
                                 handler.toggleVanish(target);
                                 if(soundEnabled()){
@@ -67,8 +67,8 @@ public class Vanish implements CommandExecutor {
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), VANISH_TOGGLE_OTHER.getMessage().replace("%status%", "§a§ldésactiver"));
-                                getMsgSendConfig(sender, command.getName(), VANISH_TOGGLE_ADMIN.getMessage().replace("%status%", "§c§ldésactivé").replace("%p", target.getName()));
+                                getMsgSendConfig(target, command.getName(), VANISH_DISABLED_OTHER.getMessage());
+                                getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_ADMIN.getMessage().replace("%p", target.getName()));
                             }
                         }else{
                             getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[0]));

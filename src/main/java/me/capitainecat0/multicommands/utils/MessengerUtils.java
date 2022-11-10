@@ -89,6 +89,11 @@ public class MessengerUtils {
     public static void sendBroadcastMessage(String message){
         Bukkit.getServer().broadcastMessage(MultiCommands.colored(message));
     }
+
+    public static void sendMessage(String message){
+        final TextComponent component = Component.text(MultiCommands.colored(message));
+        MultiCommands.getInstance().adventure().players().sendMessage(component);
+    }
     public static void sendMessage(CommandSender sender, String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));
         MultiCommands.getInstance().adventure().sender(sender).sendMessage(component);

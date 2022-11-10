@@ -574,13 +574,13 @@ public class HelpGUI extends GUICreator{
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(player, "vanish", VANISH_TOGGLE_SELF.getMessage().replace("%status%", "§a§lactivé"));
+                        getMsgSendConfig(player, "vanish", VANISH_ENABLED_SELF.getMessage());
                     }else if(handler.isVanished(player)){
                         handler.toggleVanish(player);
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(player, "vanish", VANISH_TOGGLE_SELF.getMessage().replace("%status%", "§c§ldésactivé"));
+                        getMsgSendConfig(player, "vanish", VANISH_DISABLED_SELF.getMessage());
                     }
                     close(player);
                 }
