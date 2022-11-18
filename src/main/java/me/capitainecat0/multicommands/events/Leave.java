@@ -17,6 +17,6 @@ public class Leave implements Listener {
     public void onQuit(PlayerQuitEvent event){
         hideActiveBossBar();
         Player player = event.getPlayer();
-        event.setQuitMessage(MultiCommands.colored(ONLEAVE.getMessage().replace("%p", player.getName())));
+        event.setQuitMessage(MultiCommands.colored(ONLEAVE.getMessage().replace("%player%", player.getName())));
     }
 }

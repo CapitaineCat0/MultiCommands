@@ -30,7 +30,7 @@ public class Join implements Listener {
                joinText = PlaceholderAPI.setPlaceholders(event.getPlayer(), joinText);
                event.setJoinMessage(MultiCommands.colored(joinText));
            }else{*/
-        event.setJoinMessage(ONJOIN.getMessage().replace("%p", player.getName()));
+        event.setJoinMessage(ONJOIN.getMessage().replace("%player%", player.getName()));
            //}
            if(player.hasPermission(Perms.VANISH_PERM_SELF.getPermission()) || player.hasPermission(Perms.VANISH_PERM_ALL.getPermission()) || player.hasPermission(Perms.ALL_PERMS.getPermission())){
            VanishHandler.getVanished().add(player);
