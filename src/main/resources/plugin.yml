@@ -7,6 +7,7 @@ description: Essentials custom développé pour HallOfGames
 website: www.hallofgames.fr/plugins
 softdepend:
   - MultiMaintenance
+  - PlaceholderAPI
 commands:
   #channels staff:
   adminchat:
@@ -34,6 +35,8 @@ commands:
     description: Permet de gérer le mode AFK
   alert:
     description: Envoyer un message d'alerte
+  ban:
+    description: Permet de bannir un joueur
   bossbar:
     description: Permet d'envoyer un message dans la bossbar
   broadcast:
@@ -74,6 +77,8 @@ commands:
     description: Permet d'envoyer un message aux opérateurs
   invsee:
     description: Permet d'afficher et d'interagir avec l'inventaire d'un autre joueur
+  kick:
+    description: Permet d'expulser un joueur
   list:
     description: Permet d'afficher les joueurs connectés
   multihelp:

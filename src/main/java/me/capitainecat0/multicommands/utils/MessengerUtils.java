@@ -28,7 +28,7 @@ public class MessengerUtils {
     private static Properties language;
     public static String lang(String key) {
         checkLangFiles();
-        return language.getProperty(MultiCommands.colored(key));
+        return language.getProperty(MultiCommands.colored(key).replace("\"", ""));
     }
     public static void reloadLang() {
         language = null;
@@ -70,7 +70,7 @@ public class MessengerUtils {
                 //progress 0 bare à 0%
                 //progress 0.5 bare à 50%
                 //progress 1 bare à 100%
-                sendBossBar(sender, 1, BossBar.Color.GREEN, BossBar.Overlay.NOTCHED_20, MultiCommands.colored(message));
+                sendBossBar(sender, MultiCommands.colored(message));
             }
         }else{
             sendMessage(sender, commandName, message);
@@ -216,9 +216,9 @@ public class MessengerUtils {
         final Title finalTitle = Title.title(mainTitle, subtitle, times);
         MultiCommands.getInstance().adventure().player(player).showTitle(finalTitle);
     }
-    private static void sendBossBar(CommandSender sender, float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
+    private static void sendBossBar(CommandSender sender, String message) {
         final Component name = Component.text(MultiCommands.colored(message));
-        finalBossbar = BossBar.bossBar(name, progress, color, overlay);
+        finalBossbar = BossBar.bossBar(name, (float) 1, BossBar.Color.GREEN, BossBar.Overlay.NOTCHED_20);
         MultiCommands.getInstance().adventure().sender(sender).showBossBar(finalBossbar);
     }
 

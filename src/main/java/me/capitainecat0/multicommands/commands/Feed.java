@@ -52,7 +52,7 @@ public class Feed implements CommandExecutor {
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), FEED_OTHER_SENDER.getMessage().replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), FEED_OTHER_SENDER.getMessage().replace("%player%", target.getName()));
                                 getMsgSendConfig(target, command.getName(), FEED_OTHER.getMessage());
                             }else{
                                 if(soundEnabled()){
@@ -64,7 +64,7 @@ public class Feed implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                         }
                     }
                 }
@@ -80,13 +80,13 @@ public class Feed implements CommandExecutor {
                         if(soundFeedHealEnabled()){
                             playSound(target, Sound.ENTITY_GENERIC_EAT, 1f, 1f);
                         }
-                        sendConsoleMessage(FEED_OTHER_SENDER.getMessage().replace("%p", target.getName()));
+                        sendConsoleMessage(FEED_OTHER_SENDER.getMessage().replace("%player%", target.getName()));
                         getMsgSendConfig(target, command.getName(), FEED_OTHER.getMessage());
                     }else{
-                        sendConsoleMessage(FEED_ALREADY_SENDER.getMessage().replace("%p", target.getName()));
+                        sendConsoleMessage(FEED_ALREADY_SENDER.getMessage().replace("%player%", target.getName()));
                     }
                 }else{
-                    sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                    sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                 }
             }
         return false;

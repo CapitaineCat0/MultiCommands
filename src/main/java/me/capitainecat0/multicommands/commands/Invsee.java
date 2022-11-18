@@ -32,7 +32,7 @@ public class Invsee implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<joueur>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
                     return true;
                 }else if(args.length == 1){
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -41,12 +41,12 @@ public class Invsee implements CommandExecutor {
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), INVSEE_ADMIN.getMessage().replace("%p", target.getName()));
+                        getMsgSendConfig(sender, command.getName(), INVSEE_ADMIN.getMessage().replace("%player%", target.getName()));
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){

@@ -7,9 +7,7 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.event.Listener;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Properties;
 
 import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMessage;
 

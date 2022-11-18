@@ -23,6 +23,9 @@ public class Commands {
         MultiCommands.instance().registerCommand(new AdminChat(), "adminchat");
         sendConsoleMessage("&e - ALERT");
         MultiCommands.instance().registerCommand(new Alert(), "alert");
+        sendConsoleMessage("&e - BAN");
+        Objects.requireNonNull(MultiCommands.instance().getCommand("ban")).setTabCompleter(new BasicTab());
+        MultiCommands.instance().registerCommand(new Ban(), "ban");
         sendConsoleMessage("&e - BOSSBAR");
         Objects.requireNonNull(MultiCommands.instance().getCommand("bossbar")).setTabCompleter(new BossActionTitleTab());
         MultiCommands.instance().registerCommand(new BossBar(), "bossbar");
@@ -68,6 +71,9 @@ public class Commands {
         sendConsoleMessage("&e - INVSEE");
         Objects.requireNonNull(MultiCommands.instance().getCommand("invsee")).setTabCompleter(new BasicTab());
         MultiCommands.instance().registerCommand(new Invsee(), "invsee");
+        sendConsoleMessage("&e - KICK");
+        Objects.requireNonNull(MultiCommands.instance().getCommand("kick")).setTabCompleter(new BasicTab());
+        MultiCommands.instance().registerCommand(new Kick(), "kick");
         sendConsoleMessage("&e - LIST");
         MultiCommands.instance().registerCommand(new List(), "list");
         sendConsoleMessage("&e - MODOCHAT / MCHAT");

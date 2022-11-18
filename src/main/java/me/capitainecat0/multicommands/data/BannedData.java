@@ -3,26 +3,26 @@ package me.capitainecat0.multicommands.data;
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
 
-import static me.capitainecat0.multicommands.data.PlayerData.*;
+import static me.capitainecat0.multicommands.data.PlayerData.existsPlayerData;
 
-public class FreezeData {
+public class BannedData {
 
     private static @NotNull OfflinePlayer player;
-    private static boolean isFrozen;
+    private static boolean isBanned;
+    private static String raison;
 
-    public FreezeData(@NotNull OfflinePlayer player) {
-        if(!existsPlayerData(player, "freeze-data")){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/freeze-data/", player.getUniqueId()+".yml");
-            File folder = new File(MultiCommands.getInstance().getDataFolder()+"/freeze-data/");
+    public BannedData(@NotNull OfflinePlayer player) {
+        if(!existsPlayerData(player, "banned-players")){
+            File file = new File(MultiCommands.getInstance().getDataFolder()+"/banned-data/", player.getUniqueId()+".yml");
+            File folder = new File(MultiCommands.getInstance().getDataFolder()+"/banned-data/");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
-            configuration.set("isFrozen", false);
+            configuration.set("banned", false);
             try {
                 configuration.save(file);
             } catch (IOException e) {
@@ -31,15 +31,16 @@ public class FreezeData {
         }
     }
 
-    public boolean isFrozen() {
-        return isFrozen;
+    public static boolean isBanned() {
+        return isBanned;
     }
 
     public static void save() {
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/freeze-data/", player.getUniqueId()+".yml");
+            File file = new File(MultiCommands.getInstance().getDataFolder()+"/banned-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
-            configuration.set("isFrozen", isFrozen);
+            configuration.set("reason", raison);
+            configuration.set("banned", isBanned);
             try {
                 configuration.save(file);
             } catch (IOException e) {
@@ -47,9 +48,18 @@ public class FreezeData {
             }
     }
 
-    public void setFrozen(boolean frozen) {
-        isFrozen = frozen;
+    public void setBanned(boolean banned) {
+        isBanned = banned;
         save();
+    }
+
+    public void setReason(String reason){
+        raison = reason;
+        save();
+    }
+
+    public String getReason(){
+        return raison;
     }
 
     public @NotNull OfflinePlayer getPlayer() {

@@ -35,7 +35,7 @@ public class HelpGUI extends GUICreator{
          * ##.....##
          *
          * # -> Vitres dans les angles
-         * @ -> Items au centre
+         * @ → Items au centre
          */
         setItem(0, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
         setItem(1, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
@@ -53,15 +53,15 @@ public class HelpGUI extends GUICreator{
         setItem(52, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
         setItem(53, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
 
-        setItem(10, ItemCreator.create(Material.STONE, "&3AFK", Collections.singletonList("&7Permet de gérer le mode AFK")), (player, event) -> {
+        setItem(10, ItemCreator.create(Material.RED_BED, "&3AFK", Collections.singletonList("&7Permet de gérer le mode AFK")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.AFK_PERM.getPermission()) && item.getType() == Material.STONE){
+            if(!player.hasPermission(Perms.AFK_PERM.getPermission()) && item.getType() == Material.RED_BED){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3AFK", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3AFK", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else{
                 if(item.getType() != Material.BARRIER){
@@ -75,15 +75,15 @@ public class HelpGUI extends GUICreator{
             }
         });
 
-        setItem(11, ItemCreator.create(Material.STONE, "&3Alert", Collections.singletonList("&7Permet d'envoyer un message d'alerte")), (player, event) -> {
+        setItem(11, ItemCreator.create(Material.BELL, "&3Alert", Collections.singletonList("&7Permet d'envoyer un message d'alerte")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.ALERT_PERM.getPermission()) && item.getType() == Material.STONE){
+            if(!player.hasPermission(Perms.ALERT_PERM.getPermission()) && item.getType() == Material.BELL){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Alert", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Alert", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -96,15 +96,15 @@ public class HelpGUI extends GUICreator{
             }
         });
 
-        setItem(12, ItemCreator.create(Material.STONE, "&3Broadcast", Collections.singletonList("&7Permet d'envoyer un broadcast")), (player, event) -> {
+        setItem(12, ItemCreator.create(Material.LECTERN, "&3Broadcast", Collections.singletonList("&7Permet d'envoyer un broadcast")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.BROADCAST_PERM.getPermission()) && item.getType() == Material.STONE){
+            if(!player.hasPermission(Perms.BROADCAST_PERM.getPermission()) && item.getType() == Material.LECTERN){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Broadcast", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Broadcast", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -117,15 +117,15 @@ public class HelpGUI extends GUICreator{
             }
         });
 
-        setItem(13, ItemCreator.create(Material.STONE, "&3Clear-Inventory", Collections.singletonList("&7Permet de vider votre inventaire")), (player, event) -> {
+        setItem(13, ItemCreator.create(Material.LAVA_BUCKET, "&3Clear-Inventory", Collections.singletonList("&7Permet de vider votre inventaire")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.CLEARINVENTORY_PERM_SELF.getPermission()) && item.getType() == Material.STONE){
+            if(!player.hasPermission(Perms.CLEARINVENTORY_PERM_SELF.getPermission()) && item.getType() == Material.LAVA_BUCKET){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Clear-Inventory", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Clear-Inventory", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -147,7 +147,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Craft", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Craft", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -167,7 +167,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ender-Chest", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ender-Chest", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -187,7 +187,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Feed", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Feed", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -216,7 +216,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Feed", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Feed", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -246,7 +246,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Freeze", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Freeze", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -259,27 +259,29 @@ public class HelpGUI extends GUICreator{
             }
         });
 
-        setItem(21, ItemCreator.create(Material.STONE, "&3Gamemode", Collections.singletonList("&7Permet de gérer votre gamemode")), (player, event) -> {
+        setItem(21, ItemCreator.create(Material.BOOKSHELF, "&3Gamemode", Collections.singletonList("&7Permet de gérer votre gamemode")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.GAMEMODE_PERM_ALL.getPermission()) && item.getType() == Material.STONE){
+            if(!player.hasPermission(Perms.GAMEMODE_PERM_ALL.getPermission()) && item.getType() == Material.BOOKSHELF){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Gamemode", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Gamemode", Collections.singletonList(CMD_NO_PERM.getMessage())));
+            }else{
+                new GamemodeGUI().open(player);
             }
         });
 
-        setItem(22, ItemCreator.create(Material.STONE, "&3God", Collections.singletonList("&7Permet de gérer votre invulnérabilité")), (player, event) -> {
+        setItem(22, ItemCreator.create(Material.BEDROCK, "&3God", Collections.singletonList("&7Permet de gérer votre invulnérabilité")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.GOD_PERM_SELF.getPermission()) && item.getType() == Material.STONE){
+            if(!player.hasPermission(Perms.GOD_PERM_SELF.getPermission()) && item.getType() == Material.BEDROCK){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3God", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3God", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -311,7 +313,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Heal", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Heal", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -332,15 +334,15 @@ public class HelpGUI extends GUICreator{
             }
         });
 
-        setItem(24, ItemCreator.create(Material.STONE, "&3Invsee", Collections.singletonList("&7Permet d'ouvrir l'inventaire d'un autre joueur")), (player, event) -> {
+        setItem(24, ItemCreator.create(Material.BOOK, "&3Invsee", Collections.singletonList("&7Permet d'ouvrir l'inventaire d'un autre joueur")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.INVSEE_PERM.getPermission()) && item.getType() == Material.STONE){
+            if(!player.hasPermission(Perms.INVSEE_PERM.getPermission()) && item.getType() == Material.BOOK){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Invsee", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Invsee", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -394,7 +396,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Nick", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Nick", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -415,7 +417,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ping", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ping", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -445,7 +447,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Plugins", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Plugins", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if (item.getType() != Material.BARRIER) {
@@ -481,7 +483,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Server-Infos", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Server-Infos", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -543,7 +545,7 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ping", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ping", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -556,15 +558,15 @@ public class HelpGUI extends GUICreator{
             }
         });
 
-        setItem(33, ItemCreator.create(Material.STONE, "&3Vanish", Collections.singletonList("&7Permet de vous vanish")), (player, event) -> {
+        setItem(33, ItemCreator.create(Material.ENDER_EYE, "&3Vanish", Collections.singletonList("&7Permet de vous vanish")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.TELEPORT_PERM.getPermission()) && item.getType() == Material.STONE){
+            if(!player.hasPermission(Perms.TELEPORT_PERM.getPermission()) && item.getType() == Material.ENDER_EYE){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Vanish", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Vanish", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
@@ -595,14 +597,14 @@ public class HelpGUI extends GUICreator{
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Bois", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
+                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Bois", Collections.singletonList(CMD_NO_PERM.getMessage())));
             }
             else {
                 if(item.getType() != Material.BARRIER) {
                     if(soundEnabled()){
                         playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(player, "whois", CMD_NO_ARGS.getMessage().replace("%cmd%", "whois").replace("%args%", "<joueur>"));
+                    getMsgSendConfig(player, "whois", CMD_NO_ARGS.getMessage().replace("%cmd%", "whois").replace("%args%", "<player>"));
                     close(player);
                 }
             }

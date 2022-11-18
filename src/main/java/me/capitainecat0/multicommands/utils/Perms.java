@@ -9,6 +9,8 @@ public enum Perms {
     ACTIONBAR_PERMS("multicommands.actionbar"),
     AFK_PERM("multicommands.afk"),
     ALERT_PERM("multicommands.alert"),
+
+    BAN_PERM("multicommands.ban"),
     BOSSBAR_PERM("multicommands.bossbar"),
     BROADCAST_PERM("multicommands.broadcast"),
     CLEARINVENTORY_PERM_ALL("multicommands.clearinventory.*"),
@@ -49,6 +51,7 @@ public enum Perms {
     HEAL_PERM_SELF("multicommands.heal.self"),
     HEAL_PERM_OTHER("multicommands.heal.other"),
     INVSEE_PERM("multicommands.invsee"),
+    KICK_PERM("multicommands.kick"),
     MULTIINFOS_PERM("multicommands.multiinfos"),
     NICKNAME_PERMS("multicommands.nick"),
     PLAYERPINGER_PERM("multicommands.playerpinger"),

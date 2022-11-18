@@ -27,7 +27,7 @@ public class DevChat implements CommandExecutor, Listener {
         hideActiveBossBar();
         if (args.length >= 1) {
             String s = Joiner.on(" ").join(args);
-            String format = DEVCHAT.getMessage().replace("%p", sender.getName()).replace("%msg%", s);
+            String format = DEVCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", DEVCHAT_PREFIX.getMessage());
 
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.hasPermission(DEVCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
@@ -51,10 +51,10 @@ public class DevChat implements CommandExecutor, Listener {
     @EventHandler
     public boolean onChat(AsyncPlayerChatEvent event){
         hideActiveBossBar();
-        if(event.getMessage().startsWith("%")){
+        if(event.getMessage().startsWith(DEVCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = DEVCHAT.getMessage().replace("%p", event.getPlayer().getName()).replace("%msg%", s).replace("%","");
+                String format = DEVCHAT.getMessage().replace("%player%", event.getPlayer().getName()).replace("%msg%", s).replace(DEVCHAT_PREFIX.getMessage(), "");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(DEVCHAT_PERM.getPermission())) {

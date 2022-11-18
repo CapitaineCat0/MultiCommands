@@ -27,8 +27,7 @@ public class Gamemode implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         hideActiveBossBar();
-            if(sender instanceof Player) {
-                Player player = (Player) sender;
+            if(sender instanceof Player player) {
                 if (args.length == 0) {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -140,7 +139,7 @@ public class Gamemode implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -164,7 +163,7 @@ public class Gamemode implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -188,7 +187,7 @@ public class Gamemode implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -212,7 +211,7 @@ public class Gamemode implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -247,7 +246,7 @@ public class Gamemode implements CommandExecutor {
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
                         } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
                             if (args[0].equalsIgnoreCase("1")) {
                                 this.gamemode = "1 (créatif)";
@@ -259,7 +258,7 @@ public class Gamemode implements CommandExecutor {
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
                         }else if(args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")){
                             if (args[0].equalsIgnoreCase("2")) {
                                 this.gamemode = "2 (aventure)";
@@ -271,7 +270,7 @@ public class Gamemode implements CommandExecutor {
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
                         }else if(args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")){
                             if (args[0].equalsIgnoreCase("3")) {
                                 this.gamemode = "3 (spectateur)";
@@ -283,111 +282,13 @@ public class Gamemode implements CommandExecutor {
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%p", target.getName()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
                         }
                     } else {
                         sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%p", args[1]));
                     }
                 }
             }
-
         return false;
     }
-
-    /*public Gamemode() {
-        super(9, "&6&lMultiHelp &9V."+MultiCommands.getInstance().getDescription().getVersion()+" &aGamemode");
-        setItem(0, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-        setItem(1, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-        setItem(2, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-
-        setItem(3, ItemCreator.create(Material.STONE, "&6Gamemode survie"), (player, event) -> {
-            GUICreator gui = GUICreator.getGUI(player);
-            ItemStack item = event.getCurrentItem();
-            assert item != null;
-            if(!player.hasPermission(Perms.GAMEMODE_ALL_PERM.getPermission()) || !player.hasPermission(Perms.GAMEMODE_SURVIVAL_SELF_PERM.getPermission()) || !player.hasPermission(Perms.ALL_PERMS.getPermission()) && item.getType() == Material.STONE){
-                if(soundEnabled()){
-                    playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Gamemode survie", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
-            }
-            else{
-                if(item.getType() != Material.BARRIER){
-                    player.setGameMode(GameMode.SURVIVAL);
-                    if(soundEnabled()){
-                        playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(player, "gamemode survie", GAMEMODE_SELF.getMessage().replace("%gamemode%", "survie"));
-                    close(player);
-                }
-            }
-        });
-        setItem(4, ItemCreator.create(Material.STONE, "&6Gamemode créatif"), (player, event) -> {
-            GUICreator gui = GUICreator.getGUI(player);
-            ItemStack item = event.getCurrentItem();
-            assert item != null;
-            if(!player.hasPermission(Perms.GAMEMODE_ALL_PERM.getPermission()) || !player.hasPermission(Perms.GAMEMODE_ADVENTURE_SELF_PERM.getPermission()) || !player.hasPermission(Perms.ALL_PERMS.getPermission()) && item.getType() == Material.STONE){
-                if(soundEnabled()){
-                    playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Gamemode créatif", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
-            }
-            else{
-                if(item.getType() != Material.BARRIER){
-                    player.setGameMode(GameMode.CREATIVE);
-                    if(soundEnabled()){
-                        playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(player, "gamemode créatif", GAMEMODE_SELF.getMessage().replace("%gamemode%", "créatif"));
-                    close(player);
-                }
-            }
-        });
-        setItem(5, ItemCreator.create(Material.STONE, "&6Gamemode aventure"), (player, event) -> {
-            GUICreator gui = GUICreator.getGUI(player);
-            ItemStack item = event.getCurrentItem();
-            assert item != null;
-            if(!player.hasPermission(Perms.GAMEMODE_ALL_PERM.getPermission()) || !player.hasPermission(Perms.GAMEMODE_CREATIVE_SELF_PERM.getPermission()) || !player.hasPermission(Perms.ALL_PERMS.getPermission()) && item.getType() == Material.STONE){
-                if(soundEnabled()){
-                    playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Gamemode aventure", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
-            }
-            else{
-                if(item.getType() != Material.BARRIER){
-                    player.setGameMode(GameMode.ADVENTURE);
-                    if(soundEnabled()){
-                        playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(player, "gamemode aventure", GAMEMODE_SELF.getMessage().replace("%gamemode%", "aventure"));
-                    close(player);
-                }
-            }
-        });
-        setItem(6, ItemCreator.create(Material.STONE, "&6Gamemode spectateur"), (player, event) -> {
-            GUICreator gui = GUICreator.getGUI(player);
-            ItemStack item = event.getCurrentItem();
-            assert item != null;
-            if(!player.hasPermission(Perms.GAMEMODE_ALL_PERM.getPermission()) || !player.hasPermission(Perms.GAMEMODE_SPECTATOR_SELF_PERM.getPermission()) || !player.hasPermission(Perms.ALL_PERMS.getPermission()) && item.getType() == Material.STONE){
-                if(soundEnabled()){
-                    playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                }
-                gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Gamemode spectateur", Collections.singletonList("&cVous n'avez pas la permission d'utiliser cette commande!")));
-            }
-            else{
-                if(item.getType() != Material.BARRIER){
-                    player.setGameMode(GameMode.SPECTATOR);
-                    if(soundEnabled()){
-                        playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(player, "gamemode spectateur", GAMEMODE_SELF.getMessage().replace("%gamemode%", "spectateur"));
-                    close(player);
-                }
-            }
-        });
-
-        setItem(7, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-        setItem(8, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-        setItem(9, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-
-    }*/
 }

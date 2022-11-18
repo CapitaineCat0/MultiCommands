@@ -58,7 +58,7 @@ public class Vanish implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), VANISH_ENABLED_OTHER.getMessage());
-                                getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_ADMIN.getMessage().replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_ADMIN.getMessage().replace("%player%", target.getName()));
                             }else if(handler.isVanished(target)){
                                 handler.toggleVanish(target);
                                 if(soundEnabled()){
@@ -68,10 +68,10 @@ public class Vanish implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), VANISH_DISABLED_OTHER.getMessage());
-                                getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_ADMIN.getMessage().replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_ADMIN.getMessage().replace("%player%", target.getName()));
                             }
                         }else{
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                         }
                     }
                 }

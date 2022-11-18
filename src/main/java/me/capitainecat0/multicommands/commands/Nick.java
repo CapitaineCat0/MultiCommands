@@ -32,7 +32,7 @@ public class Nick implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<pseudo>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<nickname>"));
                     return true;
                 } else if(args.length == 1){
                     Player player = (Player) sender;

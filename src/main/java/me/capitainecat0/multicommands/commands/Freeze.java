@@ -1,6 +1,7 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
+import me.capitainecat0.multicommands.data.BannedData;
 import me.capitainecat0.multicommands.data.FreezeData;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -43,26 +44,28 @@ public class Freeze implements CommandExecutor {
                         final boolean isFrozen = data.isFrozen();
                         if (isFrozen) {
                             data.setFrozen(false);
+                            FreezeData.save();
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());
-                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%p", target.getName()));
+                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%player%", target.getName()));
                         } else {
                             data.setFrozen(true);
+                            FreezeData.save();
                             if(soundEnabled()){
                                 playSound(target, Sound.BLOCK_ANVIL_PLACE, 1f, 1f);
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage());
-                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%p", target.getName()));
+                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%player%", target.getName()));
                         }
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){
@@ -76,15 +79,17 @@ public class Freeze implements CommandExecutor {
                         final boolean isFrozen = data.isFrozen();
                         if (isFrozen) {
                             data.setFrozen(false);
+                            FreezeData.save();
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());
-                            sendConsoleMessage(FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%p", target.getName()));
+                            sendConsoleMessage(FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%player%", target.getName()));
                         } else {
                             data.setFrozen(true);
+                            FreezeData.save();
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage());
-                            sendConsoleMessage(FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%p", target.getName()));
+                            sendConsoleMessage(FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%player%", target.getName()));
                         }
                     }else{
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                     }
                 }
             }

@@ -40,14 +40,14 @@ public class ActionBar implements CommandExecutor {
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
-                        sendMessage(sender, "&aVotre message à bien été envoyé à &e"+target.getName()+"&a!");
+                        sendMessage(sender, ACTIONBAR_SENT_TO_OTHER.getMessage().replace("%player%", target.getName()));
                         sendActionBar(target, bc.toString().replace(args[0], ""));
                     }else{
                         StringBuilder bc = new StringBuilder();
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
-                        sendMessage(sender, "&aVotre message à été envoyé à tout le monde!");
+                        sendMessage(sender, ACTIONBAR_SENT_TO_ALL.getMessage());
                         sendActionBar(bc.toString().replace(args[0], ""));
                     }
                 }

@@ -42,14 +42,14 @@ public class Title implements CommandExecutor {
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
-                        sendMessage(sender, "&aVotre message à bien été envoyé à &e"+target.getName()+"&a!");
+                        sendMessage(sender, ACTIONBAR_SENT_TO_OTHER.getMessage().replace("%player%", target.getName()));
                         sendTitle(target, args[1], bc.toString().replace(args[0], "").replace(args[1], ""), Duration.ofSeconds(1),Duration.ofSeconds(3),Duration.ofSeconds(1));
                     }else{
                         StringBuilder bc = new StringBuilder();
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
-                        sendMessage(sender, "&aVotre message à été envoyé à tout le monde!");
+                        sendMessage(sender, ACTIONBAR_SENT_TO_ALL.getMessage());
                         sendTitle(args[0], bc.toString().replace(args[0], ""), Duration.ofSeconds(1),Duration.ofSeconds(3),Duration.ofSeconds(1));
                     }
                 }

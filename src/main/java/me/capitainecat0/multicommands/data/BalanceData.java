@@ -10,14 +10,14 @@ import java.util.Objects;
 public class BalanceData {
 
     public static int getBalance(Player player){
-        File file = PlayerData.getPlayerDataFile(player);
+        File file = PlayerData.getPlayerDataFile(player, "economy");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         return Integer.parseInt(Objects.requireNonNull(configuration.get("balance")).toString());
     }
 
     public static void setBalance(Player player, int newBal){
-        File file = PlayerData.getPlayerDataFile(player);
+        File file = PlayerData.getPlayerDataFile(player, "economy");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.set("balance", newBal);
@@ -29,7 +29,7 @@ public class BalanceData {
     }
 
     public static void resetBalance(Player player){
-        File file = PlayerData.getPlayerDataFile(player);
+        File file = PlayerData.getPlayerDataFile(player, "economy");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.set("balance", 0);

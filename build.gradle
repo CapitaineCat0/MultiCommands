@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def version = '0.86.3'
+def version = '0.87.3'
 
 shadowJar {
     archiveName = "MultiCommands.jar"
@@ -21,7 +21,7 @@ dependencies {
     shadow 'io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.2'
     shadow fileTree(dir: 'libs', include: '*.jar')
-
+    implementation 'com.google.code.gson:gson:2.10'
     implementation 'net.kyori:adventure-platform-bukkit:4.1.2'
 }
 

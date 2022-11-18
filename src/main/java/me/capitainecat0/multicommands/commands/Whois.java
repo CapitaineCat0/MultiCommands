@@ -37,7 +37,7 @@ public class Whois implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<joueur>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
                     return true;
                 }
 
@@ -83,7 +83,7 @@ public class Whois implements CommandExecutor {
                             sendMessage(sender, "&6Accès lors de maintenance&8: &f Non");
                         }
                     } catch (final Exception ex) {
-                        sendMessage(sender, "&7Installez &cMulti§dMaintenance &7 pour afficher plus d'informations!");
+                        sendMessage(sender, "&7Installez &cMulti&dMaintenance &7 pour afficher plus d'informations!");
                     }
                 }else{
                     if(sender instanceof Player){
@@ -91,7 +91,7 @@ public class Whois implements CommandExecutor {
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
                     }
-                    sendMessage(sender, NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                    sendMessage(sender, NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                 }
             }
         }

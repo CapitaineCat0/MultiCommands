@@ -27,7 +27,7 @@ public class ModoChat implements CommandExecutor, Listener {
         hideActiveBossBar();
         if (args.length >= 1) {
             String s = Joiner.on(" ").join(args);
-            String format = MODOCHAT.getMessage().replace("%p", sender.getName()).replace("%msg%", s);
+            String format = MODOCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", MODOCHAT_PREFIX.getMessage());
 
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.hasPermission(MODOCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
@@ -51,10 +51,10 @@ public class ModoChat implements CommandExecutor, Listener {
     @EventHandler
     public boolean onChat(AsyncPlayerChatEvent event){
         hideActiveBossBar();
-        if(event.getMessage().startsWith(">")){
+        if(event.getMessage().startsWith(MODOCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = MODOCHAT.getMessage().replace("%p", event.getPlayer().getName()).replace("%msg%", s).replace(">", "");
+                String format = MODOCHAT.getMessage().replace("%player%", event.getPlayer().getName()).replace("%msg%", s).replace(MODOCHAT_PREFIX.getMessage(), "");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(MODOCHAT_PERM.getPermission())) {

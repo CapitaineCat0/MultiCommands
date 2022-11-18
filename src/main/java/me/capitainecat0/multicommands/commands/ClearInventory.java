@@ -45,13 +45,13 @@ public class ClearInventory implements CommandExecutor {
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), CLEARINV_ADMIN.getMessage());
-                            getMsgSendConfig(sender, command.getName(), CLEARINV_SENDER.getMessage().replace("%p", target.getName()));
+                            getMsgSendConfig(sender, command.getName(), CLEARINV_SENDER.getMessage().replace("%player%", target.getName()));
                             target.getInventory().clear();
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                         }
                     }else{
                         if(soundEnabled()){
@@ -70,10 +70,10 @@ public class ClearInventory implements CommandExecutor {
                             playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
                         target.sendMessage(CLEARINV_ADMIN.getMessage());
-                        sendConsoleMessage(CLEARINV_SENDER.getMessage().replace("%p", target.getName()));
+                        sendConsoleMessage(CLEARINV_SENDER.getMessage().replace("%player%", target.getName()));
                         target.getInventory().clear();
                     } else {
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                     }
                 }
             }

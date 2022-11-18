@@ -27,7 +27,7 @@ public class BuilderChat implements CommandExecutor, Listener {
         hideActiveBossBar();
         if (args.length >= 1) {
             String s = Joiner.on(" ").join(args);
-            String format = BUILDERCHAT.getMessage().replace("%p", sender.getName()).replace("%msg%", s);
+            String format = BUILDERCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", BUILDERCHAT_PREFIX.getMessage());
 
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.hasPermission(BUILDERCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
@@ -51,10 +51,10 @@ public class BuilderChat implements CommandExecutor, Listener {
     @EventHandler
     public boolean onChat(AsyncPlayerChatEvent event){
         hideActiveBossBar();
-        if(event.getMessage().startsWith("#")){
+        if(event.getMessage().startsWith(BUILDERCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = BUILDERCHAT.getMessage().replace("%p", event.getPlayer().getName()).replace("%msg%", s).replace("#", "");
+                String format = BUILDERCHAT.getMessage().replace("%player%", event.getPlayer().getName()).replace("%msg%", s).replace(BUILDERCHAT_PREFIX.getMessage(), "");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(BUILDERCHAT_PERM.getPermission())) {

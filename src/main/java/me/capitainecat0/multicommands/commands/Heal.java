@@ -54,18 +54,18 @@ public class Heal implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), HEAL_OTHER.getMessage());
-                                getMsgSendConfig(sender, command.getName(), HEAL_OTHER_SENDER.getMessage().replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), HEAL_OTHER_SENDER.getMessage().replace("%player%", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), HEAL_ALREADY_SENDER.getMessage().replace("%p", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), HEAL_ALREADY_SENDER.getMessage().replace("%player%", target.getName()));
                             }
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                         }
                     }else{
                         if(soundEnabled()){
@@ -87,12 +87,12 @@ public class Heal implements CommandExecutor {
                             playSound(target, Sound.ENTITY_GENERIC_DRINK, 1f, 1f);
                         }
                         getMsgSendConfig(target, command.getName(), HEAL_OTHER.getMessage());
-                        sendConsoleMessage(HEAL_OTHER_SENDER.getMessage().replace("%p", target.getName()));
+                        sendConsoleMessage(HEAL_OTHER_SENDER.getMessage().replace("%player%", target.getName()));
                     }else{
-                        sendConsoleMessage(HEAL_ALREADY_SENDER.getMessage().replace("%p", target.getName()));
+                        sendConsoleMessage(HEAL_ALREADY_SENDER.getMessage().replace("%player%", target.getName()));
                     }
                 }else{
-                    sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                    sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                 }
             }
         return false;
