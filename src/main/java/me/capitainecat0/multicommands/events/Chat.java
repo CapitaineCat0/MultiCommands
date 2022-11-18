@@ -1,7 +1,6 @@
 package me.capitainecat0.multicommands.events;
 
 
-import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.AFKHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -11,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
+import static me.capitainecat0.multicommands.utils.PluginCore.colored;
 
 public class Chat implements Listener {
     @EventHandler
@@ -18,7 +18,7 @@ public class Chat implements Listener {
         hideActiveBossBar();
         Player sender = event.getPlayer();
         String senderNickName = sender.getCustomName();
-        String msg = MultiCommands.colored(event.getMessage());
+        String msg = colored(event.getMessage());
         if(msg.startsWith("!") || msg.startsWith("<") || msg.startsWith("#") || msg.startsWith("%") || msg.startsWith(">")){
             event.setCancelled(true);
         }else{
@@ -26,16 +26,16 @@ public class Chat implements Listener {
                     if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                         String chat = "&7[AFK] %luckperms_prefix% &b"+senderNickName;
                         chat = PlaceholderAPI.setPlaceholders(event.getPlayer(), chat);
-                        event.setFormat(chat+ "&7 > &f" + msg);
+                        event.setFormat(colored(chat+ "&7 > &f" + msg));
                         if(!AFKHandler.getInstance().isAFK(sender)){
                             String AFKchat = "%luckperms_prefix% &b"+senderNickName;
                             AFKchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), AFKchat);
-                            event.setFormat(AFKchat+ "&7 > &f" + msg);
+                            event.setFormat(colored(AFKchat+ "&7 > &f" + msg));
                         }
                     }else{
-                        event.setFormat("&7[AFK] &b"+senderNickName+" &7> &f" + msg);
+                        event.setFormat(colored("&7[AFK] &b"+senderNickName+" &7> &f" + msg));
                         if(!AFKHandler.getInstance().isAFK(sender)){
-                            event.setFormat("&b"+senderNickName+" &7> &f" + msg);
+                            event.setFormat(colored("&b"+senderNickName+" &7> &f" + msg));
                         }
                     }
 
@@ -43,16 +43,16 @@ public class Chat implements Listener {
                     if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                         String defaultchat = "%luckperms_prefix% &b%player_name%";
                         defaultchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), defaultchat);
-                        event.setFormat(defaultchat+" &7> &f" + msg);
+                        event.setFormat(colored(defaultchat+" &7> &f" + msg));
                         if(!AFKHandler.getInstance().isAFK(sender)){
                             String defaultAFKchat = "%luckperms_prefix% &b%player_name%";
                             defaultAFKchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), defaultAFKchat);
-                            event.setFormat(defaultAFKchat+" &7> &f" + msg);
+                            event.setFormat(colored(defaultAFKchat+" &7> &f" + msg));
                         }
                     }else{
-                        event.setFormat(sender+" &7> &f" + msg);
+                        event.setFormat(colored(sender+" &7> &f" + msg));
                         if(AFKHandler.getInstance().isAFK(sender)){
-                            event.setFormat("&7[AFK] &b"+sender+" &7> &f" + msg);
+                            event.setFormat(colored("&7[AFK] &b"+sender+" &7> &f" + msg));
                         }
                     }
                 }
