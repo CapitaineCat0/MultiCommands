@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.events;
 
+import me.capitainecat0.multicommands.data.BalanceData;
 import me.capitainecat0.multicommands.data.BannedData;
 import me.capitainecat0.multicommands.data.FreezeData;
 import me.capitainecat0.multicommands.data.PlayerData;
@@ -22,6 +23,8 @@ public class Join implements Listener {
         hideActiveBossBar();
        Player player = event.getPlayer();
        new FreezeData(player);
+       new BalanceData(player);
+       new BannedData(player);
        if(BannedData.isBanned()){
            player.kickPlayer(BAN_PREFIX.getMessage().replace("%reason%", colored(new BannedData(player).getReason())));
        }
