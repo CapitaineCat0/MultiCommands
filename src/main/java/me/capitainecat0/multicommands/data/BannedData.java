@@ -40,7 +40,7 @@ public class BannedData {
         File file = PlayerData.getPlayerDataFile(player, "banned-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-        configuration.set("isBanned", banned);
+        configuration.set("banned", banned);
         isBanned = banned;
         try {
             configuration.save(file);

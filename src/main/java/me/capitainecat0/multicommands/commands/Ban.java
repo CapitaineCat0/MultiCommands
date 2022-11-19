@@ -2,6 +2,7 @@ package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.data.BannedData;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,14 +31,16 @@ public class Ban implements CommandExecutor {
                     bc.append(part).append(" ");
                 }
                 Player target = Bukkit.getPlayerExact(args[0]);
+                OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(args[0]);
                 assert target != null;
                 final BannedData data = new BannedData(target);
+                //target.banPlayer(colored(BAN_PREFIX.getMessage().replace("%reason%", bc.toString())));
                 target.kickPlayer(colored(BAN_PREFIX.getMessage().replace("%reason%", bc.toString().replace(target.getName(), ""))));
                 if(!BannedData.isBanned()){
                     data.setBanned(target,true);
-                    data.setReason(target, args[1]);
+                    data.setReason(target, bc.toString());
                 }else{
-                    data.setBanned(target, false);
+                    data.setBanned(offlineTarget, false);
                 }
 
             }

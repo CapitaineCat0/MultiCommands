@@ -3,7 +3,6 @@ package me.capitainecat0.multicommands.data;
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -21,7 +20,7 @@ public class FreezeData {
             File file = new File(MultiCommands.getInstance().getDataFolder()+"/freeze-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
-            configuration.set("isFrozen", false);
+            configuration.set("freeze", false);
             try {
                 configuration.save(file);
             } catch (IOException e) {
@@ -39,7 +38,7 @@ public class FreezeData {
         File file = PlayerData.getPlayerDataFile(player, "freeze-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-        configuration.set("isFrozen", frozen);
+        configuration.set("freeze", frozen);
         isFrozen = frozen;
         try {
             configuration.save(file);
