@@ -35,27 +35,32 @@ public class BannedData {
         return isBanned;
     }
 
-    public static void save() {
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/banned-data/", player.getUniqueId()+".yml");
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set("pseudo", player.getName());
-            configuration.set("reason", raison);
-            configuration.set("banned", isBanned);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-    }
 
-    public void setBanned(boolean banned) {
+    public void setBanned(OfflinePlayer player, boolean banned) {
+        File file = PlayerData.getPlayerDataFile(player, "banned-data");
+        assert file != null;
+        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+        configuration.set("isBanned", banned);
         isBanned = banned;
-        save();
+        try {
+            configuration.save(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
-    public void setReason(String reason){
+    public void setReason(OfflinePlayer player, String reason){
+        File file = PlayerData.getPlayerDataFile(player, "banned-data");
+        assert file != null;
+        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+        configuration.set("reason", reason);
         raison = reason;
-        save();
+        try {
+            configuration.save(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getReason(){

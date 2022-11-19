@@ -21,7 +21,6 @@ public class BalanceData {
     public BalanceData(@NotNull OfflinePlayer player) {
         if(!existsPlayerData(player, "economy-data")){
             File file = new File(MultiCommands.getInstance().getDataFolder()+"/economy-data/", player.getUniqueId()+".yml");
-            File folder = new File(MultiCommands.getInstance().getDataFolder()+"/economy-data/");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
             configuration.set("balance", balance);
@@ -32,18 +31,15 @@ public class BalanceData {
             }
         }
     }
-    public @NotNull OfflinePlayer getPlayer() {
-        return player;
-    }
 
-    public static int getBalance(Player player){
+    public static int getBalance(OfflinePlayer player){
         File file = PlayerData.getPlayerDataFile(player, "economy-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         return Integer.parseInt(Objects.requireNonNull(configuration.get("balance")).toString());
     }
 
-    public static void setBalance(Player player, int newBal){
+    public static void setBalance(OfflinePlayer player, int newBal){
         File file = PlayerData.getPlayerDataFile(player, "economy-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
@@ -56,7 +52,7 @@ public class BalanceData {
         }
     }
 
-    public static void resetBalance(Player player){
+    public static void resetBalance(OfflinePlayer player){
         File file = PlayerData.getPlayerDataFile(player, "economy-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
@@ -67,5 +63,8 @@ public class BalanceData {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public @NotNull OfflinePlayer getPlayer() {
+        return player;
     }
 }

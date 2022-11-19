@@ -43,8 +43,7 @@ public class Freeze implements CommandExecutor {
                         final FreezeData data = new FreezeData(target);
                         final boolean isFrozen = data.isFrozen();
                         if (isFrozen) {
-                            data.setFrozen(false);
-                            FreezeData.save();
+                            data.setFrozen(target,false);
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -52,8 +51,7 @@ public class Freeze implements CommandExecutor {
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());
                             getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%player%", target.getName()));
                         } else {
-                            data.setFrozen(true);
-                            FreezeData.save();
+                            data.setFrozen(target,true);
                             if(soundEnabled()){
                                 playSound(target, Sound.BLOCK_ANVIL_PLACE, 1f, 1f);
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -78,13 +76,11 @@ public class Freeze implements CommandExecutor {
                         final FreezeData data = new FreezeData(target);
                         final boolean isFrozen = data.isFrozen();
                         if (isFrozen) {
-                            data.setFrozen(false);
-                            FreezeData.save();
+                            data.setFrozen(target,false);
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());
                             sendConsoleMessage(FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%player%", target.getName()));
                         } else {
-                            data.setFrozen(true);
-                            FreezeData.save();
+                            data.setFrozen(target,true);
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage());
                             sendConsoleMessage(FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%player%", target.getName()));
                         }

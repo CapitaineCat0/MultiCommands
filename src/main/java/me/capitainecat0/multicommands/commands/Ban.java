@@ -34,12 +34,10 @@ public class Ban implements CommandExecutor {
                 final BannedData data = new BannedData(target);
                 target.kickPlayer(colored(BAN_PREFIX.getMessage().replace("%reason%", bc.toString().replace(target.getName(), ""))));
                 if(!BannedData.isBanned()){
-                    data.setBanned(true);
-                    data.setReason(args[1]);
-                    BannedData.save();
+                    data.setBanned(target,true);
+                    data.setReason(target, args[1]);
                 }else{
-                    data.setBanned(false);
-                    BannedData.save();
+                    data.setBanned(target, false);
                 }
 
             }

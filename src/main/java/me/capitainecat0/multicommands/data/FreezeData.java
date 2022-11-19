@@ -19,7 +19,6 @@ public class FreezeData {
     public FreezeData(@NotNull OfflinePlayer player) {
         if(!existsPlayerData(player, "freeze-data")){
             File file = new File(MultiCommands.getInstance().getDataFolder()+"/freeze-data/", player.getUniqueId()+".yml");
-            File folder = new File(MultiCommands.getInstance().getDataFolder()+"/freeze-data/");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
             configuration.set("isFrozen", false);
@@ -35,21 +34,18 @@ public class FreezeData {
         return isFrozen;
     }
 
-    public static void save() {
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/freeze-data/", player.getUniqueId()+".yml");
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set("pseudo", player.getName());
-            configuration.set("isFrozen", isFrozen);
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-    }
 
-    public void setFrozen(boolean frozen) {
+    public void setFrozen(OfflinePlayer player, boolean frozen) {
+        File file = PlayerData.getPlayerDataFile(player, "freeze-data");
+        assert file != null;
+        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+        configuration.set("isFrozen", frozen);
         isFrozen = frozen;
-        save();
+        try {
+            configuration.save(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public @NotNull OfflinePlayer getPlayer() {
