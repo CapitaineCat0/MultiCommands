@@ -17,9 +17,10 @@ public class EconomyTab implements org.bukkit.command.TabCompleter {
         if(args.length == 1){
             List<String> arguments = new ArrayList<>();
             arguments.add("add");
-            arguments.add("set");
+            arguments.add("get");
             arguments.add("remove");
             arguments.add("reset");
+            arguments.add("set");
             return arguments;
         }
         else if(args.length == 2) {
