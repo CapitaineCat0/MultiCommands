@@ -27,6 +27,15 @@ public class Economy implements CommandExecutor {
                 }
                 getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE.getMessage().replace("%balance%", BalanceData.getBalance((Player) sender)+""));
                 return false;
+            } else if(args.length == 2 && args[0].equalsIgnoreCase("get")){
+                Player target = Bukkit.getPlayerExact(args[1]);
+                if(target != null){
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    }
+                    getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE_OTHER.getMessage().replace("%player%", target.getName()).replace("%balance%", BalanceData.getBalance(target)+""));
+                    return false;
+                }
             }
             if(sender.hasPermission(ECONOMY_PERM_ADD.getPermission()) || sender.hasPermission(ECONOMY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
                 if(args[0].equalsIgnoreCase("add")){
@@ -123,20 +132,16 @@ public class Economy implements CommandExecutor {
             }else{
                 getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             }
-            if(args[0].equalsIgnoreCase("get")){
-                Player target = Bukkit.getPlayerExact(args[0]);
-                if(target != null){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE_OTHER.getMessage().replace("%player%", target.getName()).replace("%balance%", BalanceData.getBalance(target)+""));
-                    return false;
-                }
-            }
         }else if(sender instanceof ConsoleCommandSender){
             if(args.length < 1){
                 sendConsoleMessage(CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<add | remove | reset | set> <player> <value>"));
                 return true;
+            }else if(args.length == 2 && args[0].equalsIgnoreCase("get")){
+                Player target = Bukkit.getPlayerExact(args[1]);
+                if(target != null){
+                    sendConsoleMessage(ECONOMY_BALANCE_OTHER.getMessage().replace("%player%", target.getName()).replace("%balance%", BalanceData.getBalance(target)+""));
+                    return false;
+                }
             }
                 if(args[0].equalsIgnoreCase("add")){
                     if(args.length <= 2){
@@ -190,13 +195,6 @@ public class Economy implements CommandExecutor {
                         }
                     }
                 }
-            if(args[0].equalsIgnoreCase("get")){
-                Player target = Bukkit.getPlayerExact(args[0]);
-                if(target != null){
-                    sendConsoleMessage(ECONOMY_BALANCE_OTHER.getMessage().replace("%player%", target.getName()).replace("%balance%", BalanceData.getBalance(target)+""));
-                    return false;
-                }
-            }
         }
         return true;
     }
