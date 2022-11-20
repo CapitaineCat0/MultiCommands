@@ -25,7 +25,7 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class HelpGUI extends GUICreator{
     public HelpGUI(){
-        super(54, "&6&lMultiHelp &9V."+ MultiCommands.getInstance().getDescription().getVersion());
+        super(54, "&6&lMultiCommands &9V."+ MultiCommands.getInstance().getDescription().getVersion() + " &cHelp");
         /**
          * Exemple du menu:
          * ##.....##

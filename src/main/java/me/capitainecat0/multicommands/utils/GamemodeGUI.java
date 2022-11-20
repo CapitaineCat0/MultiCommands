@@ -14,12 +14,14 @@ import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class GamemodeGUI extends GUICreator{
     public GamemodeGUI() {
-        super(9, "&6&lMultiHelp &9V."+ MultiCommands.getInstance().getDescription().getVersion()+" &aGamemode");
+        super(9, "&6&lMultiCommands &9V."+ MultiCommands.getInstance().getDescription().getVersion()+" &aGamemode");
         setItem(0, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-        setItem(1, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
         setItem(2, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
+        setItem(4, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
+        setItem(6, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
+        setItem(8, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
 
-        setItem(3, ItemCreator.create(Material.IRON_SWORD, "&6Gamemode survie"), (player, event) -> {
+        setItem(1, ItemCreator.create(Material.IRON_SWORD, "&6Gamemode survie", Collections.singletonList(""), true), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
@@ -40,7 +42,7 @@ public class GamemodeGUI extends GUICreator{
                 }
             }
         });
-        setItem(4, ItemCreator.create(Material.GRASS_BLOCK, "&6Gamemode creative"), (player, event) -> {
+        setItem(3, ItemCreator.create(Material.GRASS_BLOCK, "&6Gamemode creative"), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
@@ -82,7 +84,7 @@ public class GamemodeGUI extends GUICreator{
                 }
             }
         });
-        setItem(6, ItemCreator.create(Material.ENDER_EYE, "&6Gamemode spectator"), (player, event) -> {
+        setItem(7, ItemCreator.create(Material.ENDER_EYE, "&6Gamemode spectator"), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
@@ -104,9 +106,6 @@ public class GamemodeGUI extends GUICreator{
             }
         });
 
-        setItem(7, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-        setItem(8, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
-        setItem(9, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
 
     }
 }

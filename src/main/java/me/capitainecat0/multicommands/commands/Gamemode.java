@@ -2,6 +2,7 @@ package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.GUICreator;
+import me.capitainecat0.multicommands.utils.GamemodeGUI;
 import me.capitainecat0.multicommands.utils.ItemCreator;
 import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
@@ -30,9 +31,10 @@ public class Gamemode implements CommandExecutor {
             if(sender instanceof Player player) {
                 if (args.length == 0) {
                     if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<mode> [player]"));
+                    new GamemodeGUI().open((Player) sender);
+                    //getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<mode> [player]"));
                     return true;
                 }else if (args.length == 1) {
                     if(args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")){
