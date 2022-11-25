@@ -4,7 +4,6 @@ import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -17,12 +16,13 @@ public class BannedData {
     private static String raison;
 
     public BannedData(@NotNull OfflinePlayer player) {
-        if(!existsPlayerData(player, "banned-players")){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/banned-data/", player.getUniqueId()+".yml");
-            File folder = new File(MultiCommands.getInstance().getDataFolder()+"/banned-data/");
+        if(!existsPlayerData(player, "player-data")){
+            File file = new File(MultiCommands.getInstance().getDataFolder()+"/player-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
+            configuration.set("balance", BalanceData.getBalance(player));
             configuration.set("banned", false);
+            configuration.set("freeze", FreezeData.isFrozen());
             try {
                 configuration.save(file);
             } catch (IOException e) {
@@ -37,7 +37,7 @@ public class BannedData {
 
 
     public void setBanned(OfflinePlayer player, boolean banned) {
-        File file = PlayerData.getPlayerDataFile(player, "banned-data");
+        File file = PlayerData.getPlayerDataFile(player, "player-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.set("banned", banned);
@@ -51,7 +51,7 @@ public class BannedData {
     }
 
     public void setReason(OfflinePlayer player, String reason){
-        File file = PlayerData.getPlayerDataFile(player, "banned-data");
+        File file = PlayerData.getPlayerDataFile(player, "player-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.set("reason", reason);

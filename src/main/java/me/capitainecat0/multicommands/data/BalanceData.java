@@ -19,11 +19,13 @@ public class BalanceData {
     private static int balance;
 
     public BalanceData(@NotNull OfflinePlayer player) {
-        if(!existsPlayerData(player, "economy-data")){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/economy-data/", player.getUniqueId()+".yml");
+        if(!existsPlayerData(player, "player-data")){
+            File file = new File(MultiCommands.getInstance().getDataFolder()+"/player-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
             configuration.set("balance", balance);
+            configuration.set("banned", BannedData.isBanned());
+            configuration.set("freeze", FreezeData.isFrozen());
             try {
                 configuration.save(file);
             } catch (IOException e) {
@@ -33,14 +35,14 @@ public class BalanceData {
     }
 
     public static int getBalance(OfflinePlayer player){
-        File file = PlayerData.getPlayerDataFile(player, "economy-data");
+        File file = PlayerData.getPlayerDataFile(player, "player-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         return Integer.parseInt(Objects.requireNonNull(configuration.get("balance")).toString());
     }
 
     public static void setBalance(OfflinePlayer player, int newBal){
-        File file = PlayerData.getPlayerDataFile(player, "economy-data");
+        File file = PlayerData.getPlayerDataFile(player, "player-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.set("balance", newBal);
@@ -53,7 +55,7 @@ public class BalanceData {
     }
 
     public static void resetBalance(OfflinePlayer player){
-        File file = PlayerData.getPlayerDataFile(player, "economy-data");
+        File file = PlayerData.getPlayerDataFile(player, "player-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.set("balance", 0);

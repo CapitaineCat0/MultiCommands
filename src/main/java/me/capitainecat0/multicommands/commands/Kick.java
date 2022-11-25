@@ -24,18 +24,24 @@ public class Kick implements CommandExecutor {
             if(args.length == 0){
                 getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
             }
+            // /kick joueur raison
+            // /kick args[0] args[1]
             else if(args.length == 1){
                 Player target = Bukkit.getPlayerExact(args[0]);
-                assert target != null;
+                assert target != null; // ! =
                 target.kickPlayer(colored(KICK_PREFIX.getMessage()));
-            }else if(args.length == 2){
-                StringBuilder bc = new StringBuilder();
-                for(String part : args) {
-                    bc.append(part).append(" ");
-                }
+            }else {
+                    String message = "";
+                    for (int i = 0; i < args.length; i++) {
+                        message = message + args[i] + " ";
+                    }
                 Player target = Bukkit.getPlayerExact(args[0]);
-                assert target != null;
-                target.kickPlayer(colored(KICK_PREFIX.getMessage().replace("%reason%", bc.toString().replace(target.getName(), ""))));
+                assert target != null; // ! =
+                if (message.length() == 0){
+                    target.kickPlayer(colored(KICK_PREFIX.getMessage()));
+                    }else{
+                    target.kickPlayer(colored(KICK_PREFIX.getMessage().replace("%reason%", message.replace(target.getName(), ""))));
+                    }
             }
         }
         return false;

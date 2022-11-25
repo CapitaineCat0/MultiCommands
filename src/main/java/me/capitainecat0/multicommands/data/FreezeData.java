@@ -12,14 +12,16 @@ import static me.capitainecat0.multicommands.data.PlayerData.*;
 
 public class FreezeData {
 
-    private static @NotNull OfflinePlayer player;
+    private static @NotNull OfflinePlayer player = null;
     private static boolean isFrozen;
 
     public FreezeData(@NotNull OfflinePlayer player) {
-        if(!existsPlayerData(player, "freeze-data")){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/freeze-data/", player.getUniqueId()+".yml");
+        if(!existsPlayerData(player, "player-data")){
+            File file = new File(MultiCommands.getInstance().getDataFolder()+"/player-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
+            configuration.set("balance", BalanceData.getBalance(player));
+            configuration.set("banned", BannedData.isBanned());
             configuration.set("freeze", false);
             try {
                 configuration.save(file);
@@ -29,13 +31,13 @@ public class FreezeData {
         }
     }
 
-    public boolean isFrozen() {
+    public static boolean isFrozen() {
         return isFrozen;
     }
 
 
     public void setFrozen(OfflinePlayer player, boolean frozen) {
-        File file = PlayerData.getPlayerDataFile(player, "freeze-data");
+        File file = PlayerData.getPlayerDataFile(player, "player-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.set("freeze", frozen);

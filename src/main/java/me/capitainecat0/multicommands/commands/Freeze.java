@@ -35,13 +35,13 @@ public class Freeze implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<joueur>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
                     return true;
                 }else if(args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if(target != null){
                         final FreezeData data = new FreezeData(target);
-                        final boolean isFrozen = data.isFrozen();
+                        final boolean isFrozen = FreezeData.isFrozen();
                         if (isFrozen) {
                             data.setFrozen(target,false);
                             if(soundEnabled()){
@@ -68,13 +68,13 @@ public class Freeze implements CommandExecutor {
                 }
             }else if(sender instanceof ConsoleCommandSender){
                 if(args.length == 0){
-                    sendConsoleMessage(CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<joueur>"));
+                    sendConsoleMessage(CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
                     return true;
                 }else if(args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if(target != null){
                         final FreezeData data = new FreezeData(target);
-                        final boolean isFrozen = data.isFrozen();
+                        final boolean isFrozen = FreezeData.isFrozen();
                         if (isFrozen) {
                             data.setFrozen(target,false);
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());

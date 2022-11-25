@@ -9,6 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
 import static me.capitainecat0.multicommands.utils.Perms.*;
@@ -26,22 +28,28 @@ public class Ban implements CommandExecutor {
                 getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player> <message>"));
             }
             else if(args.length == 2){
-                StringBuilder bc = new StringBuilder();
-                for(String part : args) {
-                    bc.append(part).append(" ");
+                String message = "";
+                for (int i = 0; i < args.length; i++) {
+                    message = message + args[i] + " ";
                 }
-                Player target = Bukkit.getPlayerExact(args[0]);
-                OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(args[0]);
-                assert target != null;
-                final BannedData data = new BannedData(target);
-                //target.banPlayer(colored(BAN_PREFIX.getMessage().replace("%reason%", bc.toString())));
-                target.kickPlayer(colored(BAN_PREFIX.getMessage().replace("%reason%", bc.toString().replace(target.getName(), ""))));
-                if(!BannedData.isBanned()){
-                    data.setBanned(target,true);
-                    data.setReason(target, bc.toString());
+                if (message.length() == 0){
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player> <message>"));
+                    return false;
                 }else{
-                    data.setBanned(offlineTarget, false);
+                    Player target = Bukkit.getPlayerExact(args[0]);
+                    assert target != null;
+                    UUID uuid = target.getUniqueId();
+                    OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(uuid);
+                    final BannedData data = new BannedData(target);
+                    if(!BannedData.isBanned()){
+                        data.setBanned(target,true);
+                        data.setReason(target, message);
+                    }else{
+                        data.setBanned(offlineTarget, false);
+                    }
+                    target.kickPlayer(colored(BAN_PREFIX.getMessage().replace("%reason%", message.replace(target.getName(), ""))));
                 }
+
 
             }
         }

@@ -55,8 +55,8 @@ public class Commands {
         sendConsoleMessage("&e - FREEZE");
         Objects.requireNonNull(MultiCommands.instance().getCommand("freeze")).setTabCompleter(new BasicTab());
         MultiCommands.instance().registerCommand(new Freeze(), "freeze");
-        /*sendConsoleMessage("&e - FURNACE");
-        MultiCommands.instance().registerCommand(new Furnace(), "furnace");*/
+        sendConsoleMessage("&e - FURNACE");
+        MultiCommands.instance().registerCommand(new Furnace(), "furnace");
         sendConsoleMessage("&e - GAMEMODE / GM");
         Objects.requireNonNull(MultiCommands.instance().getCommand("gamemode")).setTabCompleter(new GamemodeTab());
         MultiCommands.instance().registerCommand(new Gamemode(), "gamemode");
@@ -108,6 +108,5 @@ public class Commands {
         sendConsoleMessage("&e - WHOIS");
         Objects.requireNonNull(MultiCommands.instance().getCommand("whois")).setTabCompleter(new BasicTab());
         MultiCommands.instance().registerCommand(new Whois(), "whois");
-
     }
 }

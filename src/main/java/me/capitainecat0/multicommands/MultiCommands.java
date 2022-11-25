@@ -1,6 +1,7 @@
 package me.capitainecat0.multicommands;
 
 import me.capitainecat0.multicommands.utils.Commands;
+import me.capitainecat0.multicommands.utils.CustomCraft;
 import me.capitainecat0.multicommands.utils.Events;
 import me.capitainecat0.multicommands.utils.PluginCore;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -18,10 +19,8 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
 
     @Override
     protected boolean start(MultiCommands main) {
-
         this.adventure = BukkitAudiences.create(this);
         saveResourceAs("config.yml");
-
         instance = main;
         sendConsoleMessage("&a---------------+ &6MultiCommands v"+getDescription().getVersion()+"&a +---------------- ");
         sendConsoleMessage(" ");
@@ -35,6 +34,7 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         Events.init();
         sendConsoleMessage(" ");
         sendConsoleMessage("&a--------------------------------------------------------- ");
+        getServer().addRecipe(CustomCraft.saddle());
         return true;
     }
 
