@@ -42,6 +42,8 @@ commands:
   broadcast:
     description: Envoyer un broadcast
     aliases: bc
+  chat:
+    description: Permet de gérer le chat
   clear:
     description: Vider son inventaire / celui d'un autre joueur
     aliases:
@@ -81,6 +83,9 @@ commands:
     description: Permet d'expulser un joueur
   list:
     description: Permet d'afficher les joueurs connectés
+  msg:
+    description: Permet d'envoyer un message privé
+    aliases: r
   multihelp:
     description: Permet d'afficher l'aide des plugins Multi
     aliases:

@@ -24,8 +24,8 @@ public class BalanceData {
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
             configuration.set("balance", balance);
-            configuration.set("banned", BannedData.isBanned());
-            configuration.set("freeze", FreezeData.isFrozen());
+            configuration.set("banned", false);
+            configuration.set("freeze", false);
             try {
                 configuration.save(file);
             } catch (IOException e) {

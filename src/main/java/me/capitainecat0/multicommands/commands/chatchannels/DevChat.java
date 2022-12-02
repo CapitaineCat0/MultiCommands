@@ -54,14 +54,14 @@ public class DevChat implements CommandExecutor, Listener {
         if(event.getMessage().startsWith(DEVCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = DEVCHAT.getMessage().replace("%player%", event.getPlayer().getName()).replace("%msg%", s).replace(DEVCHAT_PREFIX.getMessage(), "");
+                String format = DEVCHAT.getMessage().replace("%player%", event.getPlayer().getName()).replace("%msg%", s).replace(DEVCHAT_PREFIX.getMessage(), " ");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(DEVCHAT_PERM.getPermission())) {
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
-                        sendMessage(player, format);
+                        sendMessage(player, format.replace("%prefix%", DEVCHAT_PREFIX.getMessage()));
                     } else {
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);

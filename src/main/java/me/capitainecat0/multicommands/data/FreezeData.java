@@ -20,8 +20,8 @@ public class FreezeData {
             File file = new File(MultiCommands.getInstance().getDataFolder()+"/player-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
-            configuration.set("balance", BalanceData.getBalance(player));
-            configuration.set("banned", BannedData.isBanned());
+            configuration.set("balance", 0);
+            configuration.set("banned", false);
             configuration.set("freeze", false);
             try {
                 configuration.save(file);

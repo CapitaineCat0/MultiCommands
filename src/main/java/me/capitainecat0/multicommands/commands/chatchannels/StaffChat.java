@@ -53,14 +53,14 @@ public class StaffChat implements CommandExecutor, Listener {
         if(event.getMessage().startsWith(STAFFCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = STAFFCHAT.getMessage().replace("%player%", event.getPlayer().getName()).replace("%msg%", s).replace(STAFFCHAT_PREFIX.getMessage(), "");
+                String format = STAFFCHAT.getMessage().replace("%player%", event.getPlayer().getName()).replace("%msg%", s).replace(STAFFCHAT_PREFIX.getMessage(), " ");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(STAFFCHAT_PERM.getPermission())) {
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
-                        sendMessage(player, format);
+                        sendMessage(player, format.replace("%prefix%", STAFFCHAT_PREFIX.getMessage()));
                     } else {
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);

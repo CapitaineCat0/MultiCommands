@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.PluginCore.colored;
 
@@ -19,7 +20,11 @@ public class Chat implements Listener {
         Player sender = event.getPlayer();
         String senderNickName = sender.getCustomName();
         String msg = colored(event.getMessage());
-        if(msg.startsWith("!") || msg.startsWith("<") || msg.startsWith("#") || msg.startsWith("%") || msg.startsWith(">")){
+        if(msg.startsWith(STAFFCHAT_PREFIX.getMessage())
+                || msg.startsWith(ADMINCHAT_PREFIX.getMessage())
+                || msg.startsWith(BUILDERCHAT_PREFIX.getMessage())
+                || msg.startsWith(DEVCHAT_PREFIX.getMessage())
+                || msg.startsWith(MODOCHAT_PREFIX.getMessage())){
             event.setCancelled(true);
         }else{
                 if(senderNickName != null){

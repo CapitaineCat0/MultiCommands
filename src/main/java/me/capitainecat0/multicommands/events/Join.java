@@ -30,7 +30,7 @@ public class Join implements Listener {
        new BalanceData(player);
        new BannedData(player);
        if(BannedData.isBanned()){
-           player.kickPlayer(BAN_PREFIX.getMessage().replace("%reason%", colored(new BannedData(player).getReason())));
+           player.kickPlayer(colored(BAN_PREFIX.getMessage().replace("%reason%", new BannedData(player).getReason().replace(player.getName(), " "))));
        }
            if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                String joinText = "&8{ &a+ &8} &e- &a>&f%luckperms_prefix% &3%player_name%";

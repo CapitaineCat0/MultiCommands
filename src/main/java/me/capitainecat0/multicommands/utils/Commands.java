@@ -3,10 +3,7 @@ package me.capitainecat0.multicommands.utils;
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.commands.*;
 import me.capitainecat0.multicommands.commands.chatchannels.*;
-import me.capitainecat0.multicommands.utils.tabcompleter.BasicTab;
-import me.capitainecat0.multicommands.utils.tabcompleter.BossActionTitleTab;
-import me.capitainecat0.multicommands.utils.tabcompleter.EconomyTab;
-import me.capitainecat0.multicommands.utils.tabcompleter.GamemodeTab;
+import me.capitainecat0.multicommands.utils.tabcompleter.*;
 
 import java.util.Objects;
 
@@ -33,6 +30,9 @@ public class Commands {
         MultiCommands.instance().registerCommand(new Broadcast(), "broadcast");
         sendConsoleMessage("&e - BUILDERCHAT / BCHAT");
         MultiCommands.instance().registerCommand(new BuilderChat(), "builderchat");
+        sendConsoleMessage("&e - CHAT");
+        Objects.requireNonNull(MultiCommands.instance().getCommand("chat")).setTabCompleter(new ChatTab());
+        MultiCommands.instance().registerCommand(new Chat(), "chat");
         sendConsoleMessage("&e - CLEARINVENTORY / CI");
         Objects.requireNonNull(MultiCommands.instance().getCommand("clearinventory")).setTabCompleter(new BasicTab());
         MultiCommands.instance().registerCommand(new ClearInventory(), "clearinventory");
@@ -78,6 +78,9 @@ public class Commands {
         MultiCommands.instance().registerCommand(new List(), "list");
         sendConsoleMessage("&e - MODOCHAT / MCHAT");
         MultiCommands.instance().registerCommand(new ModoChat(), "modochat");
+        sendConsoleMessage("&e - MSG");
+        Objects.requireNonNull(MultiCommands.instance().getCommand("msg")).setTabCompleter(new BasicTab());
+        MultiCommands.instance().registerCommand(new PrivateMessager(), "msg");
         sendConsoleMessage("&e - MULTICOMMANDS / MC");
         MultiCommands.instance().registerCommand(new MultiHelp(), "multihelp");
         sendConsoleMessage("&e - MULTIINFOS / MI");

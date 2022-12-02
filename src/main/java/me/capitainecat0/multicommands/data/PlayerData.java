@@ -11,21 +11,6 @@ import java.io.IOException;
 
 public class PlayerData {
 
-    public PlayerData(@NotNull OfflinePlayer player) {
-        if(!existsPlayerData(player, "player-data")){
-            File file = new File(MultiCommands.getInstance().getDataFolder()+"/player-data/", player.getUniqueId()+".yml");
-            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-            configuration.set("pseudo", player.getName());
-            configuration.set("balance", BalanceData.getBalance(player));
-            configuration.set("banned", BannedData.isBanned());
-            configuration.set("freeze", FreezeData.isFrozen());
-            try {
-                configuration.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
     public static boolean existsPlayerData(Player player, String folderName){
         File file = new File(MultiCommands.getInstance().getDataFolder()+"/"+folderName+"/", player.getUniqueId()+".yml");

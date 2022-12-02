@@ -20,9 +20,9 @@ public class BannedData {
             File file = new File(MultiCommands.getInstance().getDataFolder()+"/player-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());
-            configuration.set("balance", BalanceData.getBalance(player));
+            configuration.set("balance", 0);
             configuration.set("banned", false);
-            configuration.set("freeze", FreezeData.isFrozen());
+            configuration.set("freeze", false);
             try {
                 configuration.save(file);
             } catch (IOException e) {

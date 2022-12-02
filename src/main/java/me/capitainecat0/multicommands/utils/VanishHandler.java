@@ -14,9 +14,8 @@ public class VanishHandler {
     public void toggleVanish(Player player){
         if(vanished.contains(player)){
             showPlayer(player);
-        }else{
-            hidePlayer(player);
         }
+            hidePlayer(player);
     }
 
     public static ArrayList<Player> getVanished(){
