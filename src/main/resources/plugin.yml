@@ -2,8 +2,8 @@ name: MultiCommands
 version: '${version}'
 main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
-authors: [CapitaineCat0]
-description: Essentials custom développé pour HallOfGames
+authors: [CapitaineCat0, It'sTheSky]
+description: Custom essentials build
 website: www.hallofgames.fr/plugins
 softdepend:
   - MultiMaintenance
@@ -20,7 +20,7 @@ commands:
     description:  Permet d'envoyer des messages privés entre dévelopeurs
     aliases: dc
   modochat:
-    description: Permet d'envoyer des messages privés entre modos
+    description: Permet d'envoyer des messages privés entre modérateurs
     aliases: mchat
   staffchat:
     description: Permet d'envoyer des messages privés entre staff

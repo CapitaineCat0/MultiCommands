@@ -5,7 +5,7 @@
 # - CHAT | chat
 # - TITLE | title
 # - BOSSBAR | bossbar
-send-message-on: CHAT
+send-message-on: ACTIONBAR
 
 #Activer et gérer les effets sonores:
 #Liste des effets sonores de Minecraft

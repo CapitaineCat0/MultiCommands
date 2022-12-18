@@ -12,7 +12,6 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.intellij.lang.annotations.Subst;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -29,15 +28,17 @@ public class MessengerUtils {
     private static BossBar finalBossbar;
     //Define the language name
     private static Properties language;
+
     /**
      *
-     * @param key
-     * @return Get the message config by key
+     * @param key Message key
+     * @return The message config
      */
     public static String lang(String key) {
         checkLangFiles();
         return language.getProperty(MultiCommands.colored(key).replace("\"", ""));
     }
+
     /**
      *
      * Reload language config file
@@ -46,6 +47,7 @@ public class MessengerUtils {
         language = null;
         checkLangFiles();
     }
+
     /**
      *
      * Check if language config file exists
@@ -73,12 +75,13 @@ public class MessengerUtils {
             }
         }
     }
+
     /**
      *
-     * @param sender
-     * @param commandName
-     * @param message
-     * Send message to player on different format channel.
+     * @param sender Command sender
+     * @param commandName Command name
+     * @param message Message that be sent to command sender
+     * Message will be sent on different format channel.
      * Change format on config file
      */
     public static void getMsgSendConfig(CommandSender sender, String commandName, String message){
@@ -101,6 +104,7 @@ public class MessengerUtils {
         }
 
     }
+
     /**
      *
      * @implNote
@@ -110,14 +114,16 @@ public class MessengerUtils {
         MultiCommands.getInstance().adventure().players().hideBossBar(finalBossbar);
         finalBossbar = null;
     }
+
     /**
      *
-     * @param message
+     * @param message Message sent
      * Send console message
      **/
     public static void sendConsoleMessage(String message){
         Bukkit.getConsoleSender().sendMessage(MultiCommands.colored(message));
     }
+
     /**
      *
      * @param message
@@ -126,6 +132,7 @@ public class MessengerUtils {
     public static void sendBroadcastMessage(String message){
         Bukkit.getServer().broadcastMessage(MultiCommands.colored(message));
     }
+
     /**
      *
      * @param message
@@ -135,44 +142,46 @@ public class MessengerUtils {
         final TextComponent component = Component.text(MultiCommands.colored(message));
         MultiCommands.getInstance().adventure().players().sendMessage(component);
     }
+
     /**
      *
-     * @param player
-     * @param message
-     * Send message to player
+     * @param player command executor
+     * @param message Message sent
      */
     public static void sendMessage(Player player, String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));
         MultiCommands.getInstance().adventure().player(player).sendMessage(component);
     }
+
     /**
      *
-     * @param sender
-     * @param message
-     * Send message to command sender
+     * @param sender Command sender
+     * @param message Message sent
      **/
     public static void sendMessage(CommandSender sender, String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));
         MultiCommands.getInstance().adventure().sender(sender).sendMessage(component);
     }
+
     /**
      *
-     * @param sender
-     * @param commandName
-     * @param message
-     * Send message to command sender with command name
+     * @param sender Command sender
+     * @param commandName Command name
+     * @param message Message sent
+     * Send message to command sender, with command name
      */
     private static void sendMessage(CommandSender sender, String commandName, String message){
         final TextComponent component = Component.text(MultiCommands.colored("&3"+commandName+": "+message));
         MultiCommands.getInstance().adventure().sender(sender).sendMessage(component);
     }
+
     /**
      *
-     * @param sender
-     * @param title
-     * @param author
-     * @param message
-     * Open custom book to player
+     * @param sender Command sender
+     * @param title Book title
+     * @param author Book author
+     * @param message Message wrote
+     * <br>Open custom book to player
      */
     public static void openBook(CommandSender sender, String title, String author, Collection<Component> message) {
         Component bookTitle = Component.text(title);
@@ -180,13 +189,14 @@ public class MessengerUtils {
         Book book = Book.book(bookTitle, bookAuthor, message);
         MultiCommands.getInstance().adventure().sender(sender).openBook(book);
     }
+
     /**
      *
-     * @param sender
-     * @param sound
-     * @param volume
-     * @param pitch
-     * Play Adventure API sounds to player
+     * @param sender Command sender
+     * @param sound Adventure's sounds
+     * @param volume Sound volume
+     * @param pitch Sound pitch
+     * <br>Play Adventure API sounds to player
      */
     public static void playSound(CommandSender sender, String sound, float volume, float pitch){
         try{
@@ -197,13 +207,14 @@ public class MessengerUtils {
             sendConsoleMessage("&cAn internal error was come !&e"+error);
         }
     }
+
     /**
      *
-     * @param sender
-     * @param sound
-     * @param volume
-     * @param pitch
-     * Play bukkit sounds to player
+     * @param sender Command sender
+     * @param sound Bukkit sounds
+     * @param volume Sound volume
+     * @param pitch Sound pitch
+     * <br>Play Bukkit sounds to player
      */
     public static void playSound(CommandSender sender, org.bukkit.Sound sound, float volume, float pitch){
         Player player = (Player) sender;
@@ -214,10 +225,10 @@ public class MessengerUtils {
             sendConsoleMessage("&cAn internal error was come !&e"+error);
         }
     }
+
     /**
      *
-     * @return
-     * "sound-enabled" value
+     * @return "sound-enabled" value
      */
     public static boolean soundEnabled(){
         if(MultiCommands.getInstance().getConfig().get("enable-command-sounds") != null){
@@ -229,6 +240,7 @@ public class MessengerUtils {
         }
         return false;
     }
+
     /**
      *
      * @return "feed-heal-sound" value
@@ -243,14 +255,16 @@ public class MessengerUtils {
         }
         return false;
     }
+
     /**
      *
      * @param player
-     * Stop sounds to player
+     * <br>Stop sounds to player
      */
     public static void stopSound(Player player){
         MultiCommands.getInstance().adventure().player(player).stopSound(SoundStop.all());
     }
+
     /**
      *
      * Stop sounds for every online players
@@ -258,15 +272,16 @@ public class MessengerUtils {
     public static void stopSound(){
         MultiCommands.getInstance().adventure().players().stopSound(SoundStop.all());
     }
+
     /**
      *
-     * @param sender
-     * @param commandName
-     * @param message
-     * @param fadeIn
-     * @param stay
-     * @param fadeOut
-     * Send title message to command sender
+     * @param sender Command sender
+     * @param commandName Command name
+     * @param message Message sent
+     * @param fadeIn In milliseconds
+     * @param stay In milliseconds
+     * @param fadeOut In milliseconds
+     * <br>Send title message to command sender
      */
     private static void sendTitle(CommandSender sender, String commandName, String message, Duration fadeIn, Duration stay, Duration fadeOut){
         final Title.Times times = new Title.Times() {
@@ -290,14 +305,15 @@ public class MessengerUtils {
         final Title title = Title.title(mainTitle, subtitle, times);
         MultiCommands.getInstance().adventure().sender(sender).showTitle(title);
     }
+
     /**
      *
-     * @param title
-     * @param message
-     * @param fadeIn
-     * @param stay
-     * @param fadeOut
-     * Send title message for every online players
+     * @param title Title name
+     * @param message Message sent
+     * @param fadeIn In milliseconds
+     * @param stay In milliseconds
+     * @param fadeOut In milliseconds
+     * <br>Send title message for every online players
      */
     public static void sendTitle(String title, String message, Duration fadeIn, Duration stay, Duration fadeOut) {
         final Title.Times times = new Title.Times() {
@@ -321,15 +337,16 @@ public class MessengerUtils {
         final Title finalTitle = Title.title(mainTitle, subtitle, times);
         MultiCommands.getInstance().adventure().players().showTitle(finalTitle);
     }
+
     /**
      *
-     * @param player
-     * @param title
-     * @param message
-     * @param fadeIn
-     * @param stay
-     * @param fadeOut
-     * Send title message to player
+     * @param player Message receiver
+     * @param title Title name
+     * @param message Message sent
+     * @param fadeIn In milliseconds
+     * @param stay In milliseconds
+     * @param fadeOut In milliseconds
+     * <br>Send title message to player
      */
     public static void sendTitle(Player player, String title, String message, Duration fadeIn, Duration stay, Duration fadeOut) {
         final Title.Times times = new Title.Times() {
@@ -353,69 +370,77 @@ public class MessengerUtils {
         final Title finalTitle = Title.title(mainTitle, subtitle, times);
         MultiCommands.getInstance().adventure().player(player).showTitle(finalTitle);
     }
+
     /**
      *
-     * @param sender
-     * @param message
-     * Send BossBar message to command sender
+     * @param sender Command sender
+     * @param message Message sent
+     * <br>Send BossBar message to command sender
      */
     private static void sendBossBar(CommandSender sender, String message) {
         final Component name = Component.text(MultiCommands.colored(message));
         finalBossbar = BossBar.bossBar(name, (float) 1, BossBar.Color.GREEN, BossBar.Overlay.NOTCHED_20);
         MultiCommands.getInstance().adventure().sender(sender).showBossBar(finalBossbar);
     }
+
     /**
      *
-     * @param progress
-     * @param color
-     * @param overlay
-     * @param message
-     * Send BossBar message for every online players
+     * @param progress In percent
+     * @param color BossBar color
+     * @param overlay BossBar overlay
+     * @param message Message sent
+     * <br>Send BossBar message for every online players
+     * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     public static void sendBossBar(float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
         final Component name = Component.text(MultiCommands.colored(message));
         finalBossbar = BossBar.bossBar(name, progress, color, overlay);
         MultiCommands.getInstance().adventure().players().showBossBar(finalBossbar);
     }
+
     /**
      *
-     * @param player
-     * @param progress
-     * @param color
-     * @param overlay
-     * @param message
-     * Send BossBar message to player
+     * @param player Receiver
+     * @param progress In percent
+     * @param color BossBar color
+     * @param overlay BossBar overlay
+     * @param message Message sent
+     * <br>Send BossBar message to player
+     * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     public static void sendBossBar(Player player, float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
         final Component name = Component.text(MultiCommands.colored(message));
         finalBossbar = BossBar.bossBar(name, progress, color, overlay);
         MultiCommands.getInstance().adventure().player(player).showBossBar(finalBossbar);
     }
+
     /**
      *
-     * @param sender
-     * @param commandName
-     * @param message
-     * Send ActionBar message to command sender
+     * @param sender Command sender
+     * @param commandName Command name
+     * @param message Message sent
+     * <br>Send ActionBar message to command sender
      */
     private static void sendActionBar(CommandSender sender, String commandName, String message){
         final TextComponent component = Component.text(MultiCommands.colored("&3"+commandName+": "+message));
         MultiCommands.getInstance().adventure().sender(sender).sendActionBar(component);
     }
+
     /**
      *
-     * @param message
-     * Send ActionBar message to every online players
+     * @param message Message sent
+     * <br>Send ActionBar message to every online players
      */
     public static void sendActionBar(String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));
         MultiCommands.getInstance().adventure().players().sendActionBar(component);
     }
+
     /**
      *
-     * @param player
-     * @param message
-     * Send ActionBar message to player
+     * @param player Receiver
+     * @param message Message sent
+     * <br>Send ActionBar message to player
      */
     public static void sendActionBar(Player player, String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));
