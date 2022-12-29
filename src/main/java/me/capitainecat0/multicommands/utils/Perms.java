@@ -21,10 +21,15 @@ public enum Perms {
     ENDERCHEST_PERM_SELF("multicommands.enderchest.self"),
     ENDERCHEST_PERM_OTHER("multicommands.enderchest.other"),
     ECONOMY_PERM_ALL("multicommands.economy.*"),
-    ECONOMY_PERM_ADD("multicommands.economy.add"),
+    ECONOMY_PERM_ADD("multicommands.economy.deposit"),
+    ECONOMY_PERM_BANK_ADD("multicommands.economy.bank.deposit"),
+    ECONOMY_PERM_BALANCE("multicommands.economy.balance"),
+    ECONOMY_PERM_BANK_CREATE("multicommands.economy.bank.create"),
+    ECONOMY_PERM_BANK_RESET("multicommands.economy.bank.reset"),
+    ECONOMY_PERM_BANK_REMOVE("multicommands.economy.bank.withdraw"),
     ECONOMY_PERM_SET("multicommands.economy.set"),
     ECONOMY_PERM_RESET("multicommands.economy.reset"),
-    ECONOMY_PERM_REMOVE("multicommands.economy.remove"),
+    ECONOMY_PERM_REMOVE("multicommands.economy.withdraw"),
     FURNACE("multicommands.furnace"),
     FEED_PERM_ALL("multicommands.feed.*"),
     FEED_PERM_SELF("multicommands.feed.self"),
@@ -80,7 +85,7 @@ public enum Perms {
     BUILDERCHAT_PERM("multicommands.chat.builder"),
 
 
-    ;
+;
 
 
     private final String perm;

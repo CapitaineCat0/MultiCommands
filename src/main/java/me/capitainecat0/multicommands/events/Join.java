@@ -8,7 +8,9 @@ import me.capitainecat0.multicommands.data.PlayerData;
 import me.capitainecat0.multicommands.utils.Perms;
 import me.capitainecat0.multicommands.utils.VanishHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +27,10 @@ public class Join implements Listener {
     public void onJoin(PlayerJoinEvent event){
         hideActiveBossBar();
        Player player = event.getPlayer();
+       Economy economy = null;
+       if(!economy.hasAccount(player)){
+           economy.createPlayerAccount(player);
+       }
       // new PlayerData(player);
        new FreezeData(player);
        new BalanceData(player);

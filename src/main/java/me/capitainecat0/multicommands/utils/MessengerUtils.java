@@ -81,7 +81,7 @@ public class MessengerUtils {
      * @param sender Command sender
      * @param commandName Command name
      * @param message Message that be sent to command sender
-     * Message will be sent on different format channel.
+     * <br>Message will be sent on different format channel.
      * Change format on config file
      */
     public static void getMsgSendConfig(CommandSender sender, String commandName, String message){
@@ -93,10 +93,6 @@ public class MessengerUtils {
             }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "TITLE") || Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "title")){
                 sendTitle(sender, commandName, message, Duration.ofSeconds(1),Duration.ofSeconds(3),Duration.ofSeconds(1));
             }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "BOSSBAR") || Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "bossbar")){
-                //Documentation: http://localhost:63342/MultiCommands/adventure-api-4.11.0-javadoc.jar/net/kyori/adventure/bossbar/package-summary.html?_ijt=ovsm8m1392pvrl2p085r2ceba8&_ij_reload=RELOAD_ON_SAVE
-                //progress 0 bare à 0%
-                //progress 0.5 bare à 50%
-                //progress 1 bare à 100%
                 sendBossBar(sender, MultiCommands.colored(message));
             }
         }else{
@@ -376,6 +372,7 @@ public class MessengerUtils {
      * @param sender Command sender
      * @param message Message sent
      * <br>Send BossBar message to command sender
+     * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     private static void sendBossBar(CommandSender sender, String message) {
         final Component name = Component.text(MultiCommands.colored(message));

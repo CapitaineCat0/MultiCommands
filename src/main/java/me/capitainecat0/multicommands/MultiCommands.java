@@ -5,7 +5,12 @@ import me.capitainecat0.multicommands.utils.CustomCraft;
 import me.capitainecat0.multicommands.utils.Events;
 import me.capitainecat0.multicommands.utils.PluginCore;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.io.File;
 import java.io.InputStream;
@@ -14,11 +19,19 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMes
 
 public final class MultiCommands extends PluginCore<MultiCommands> {
 
+    private Economy vaultEconomy;
+    private Permission vaultPermission;
+    private Chat vaultChat;
     private static MultiCommands instance;
     private BukkitAudiences adventure;
 
     @Override
     protected boolean start(MultiCommands main) {
+        if(!setupEconomy()){
+            sendConsoleMessage("&cEconomy system doesn't hook to VaultAPI! Hooking to local Economy.");
+        }else{
+            sendConsoleMessage("&aVaultAPI found! Hooking into it...");
+        }
         this.adventure = BukkitAudiences.create(this);
         saveResourceAs("config.yml");
         instance = main;
@@ -86,5 +99,41 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
     @Override
     public void registerEvent(Listener listener) {
         super.registerEvent(listener);
+    }
+    public boolean setupEconomy() {
+        if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        vaultEconomy = rsp.getProvider();
+        return vaultEconomy != null;
+    }
+
+    private boolean setupChat() {
+        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+        vaultChat = rsp.getProvider();
+        return vaultChat != null;
+    }
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        vaultPermission = rsp.getProvider();
+        return vaultPermission != null;
+    }
+
+    public Economy getEconomy() {
+        return vaultEconomy;
+    }
+
+    public Permission getPermissions() {
+        return vaultPermission;
+    }
+
+    public Chat getChat() {
+        return vaultChat;
     }
 }

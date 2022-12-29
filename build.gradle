@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def version = '0.91.4'
+def version = '0.92'
 
 shadowJar {
     archiveName = "MultiCommands.jar"
@@ -11,18 +11,20 @@ shadowJar {
 
 repositories {
     mavenCentral()
-    maven { url = 'https://jitpack.io/' }
-    maven { url = 'https://oss.sonatype.org/content/groups/public/' }
-    maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
-    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url = 'https://jitpack.io/' } // Maven
+    maven { url = 'https://oss.sonatype.org/content/groups/public/' } // Maven
+    maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' } // PlaceHolderAPI
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' } // PaperMC
+    maven { url 'https://jitpack.io' } // Vault
 }
 
 dependencies {
-    shadow 'io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT'
-    compileOnly 'me.clip:placeholderapi:2.11.2'
-    shadow fileTree(dir: 'libs', include: '*.jar')
-    implementation 'com.google.code.gson:gson:2.10'
-    implementation 'net.kyori:adventure-platform-bukkit:4.1.2'
+    shadow 'io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT' // PaperMC
+    compileOnly 'me.clip:placeholderapi:2.11.2' // PlaceHolderAPI
+    shadow fileTree(dir: 'libs', include: '*.jar') // Fichier de build
+    implementation 'com.google.code.gson:gson:2.10' // Json
+    implementation 'net.kyori:adventure-platform-bukkit:4.2.0' // Adventure
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7" // Vault
 }
 
 def targetJavaVersion = 17

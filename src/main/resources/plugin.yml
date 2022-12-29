@@ -8,6 +8,7 @@ website: www.hallofgames.fr/plugins
 softdepend:
   - MultiMaintenance
   - PlaceholderAPI
+  - Vault
 commands:
   #channels staff:
   adminchat:
@@ -37,6 +38,8 @@ commands:
     description: Envoyer un message d'alerte
   ban:
     description: Permet de bannir un joueur
+  bank:
+    description: Permet de gérer la banque (requiert Vault)
   bossbar:
     description: Permet d'envoyer un message dans la bossbar
   broadcast:

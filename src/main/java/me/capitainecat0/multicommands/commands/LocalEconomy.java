@@ -16,7 +16,7 @@ import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
-public class Economy implements CommandExecutor {
+public class LocalEconomy implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
@@ -51,7 +51,7 @@ public class Economy implements CommandExecutor {
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             BalanceData.setBalance(target.getPlayer(), BalanceData.getBalance(target.getPlayer())+Integer.parseInt(args[2]));
-                            getMsgSendConfig(sender, command.getName(), ECONOMY_ADD.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
+                            getMsgSendConfig(sender, command.getName(), ECONOMY_DEPOSIT.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                         }else{
                             getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                         }
@@ -75,7 +75,7 @@ public class Economy implements CommandExecutor {
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             BalanceData.setBalance(target.getPlayer(), BalanceData.getBalance(target.getPlayer())-Integer.parseInt(args[2]));
-                            getMsgSendConfig(sender, command.getName(), ECONOMY_REMOVE.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
+                            getMsgSendConfig(sender, command.getName(), ECONOMY_WITHDRAW.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                         }else{
                             getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[1]));
                         }
@@ -150,7 +150,7 @@ public class Economy implements CommandExecutor {
                         Player target = Bukkit.getPlayerExact(args[1]);
                         if(target != null){
                             BalanceData.setBalance(target.getPlayer(), BalanceData.getBalance(target.getPlayer())+Integer.parseInt(args[2]));
-                            sendConsoleMessage(ECONOMY_ADD.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
+                            sendConsoleMessage(ECONOMY_DEPOSIT.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                         }else{
                             sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                         }
@@ -163,7 +163,7 @@ public class Economy implements CommandExecutor {
                         Player target = Bukkit.getPlayerExact(args[1]);
                         if(target != null){
                             BalanceData.setBalance(target.getPlayer(), BalanceData.getBalance(target.getPlayer())-Integer.parseInt(args[2]));
-                            sendConsoleMessage(ECONOMY_REMOVE.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
+                            sendConsoleMessage(ECONOMY_WITHDRAW.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                         }else{
                             sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                         }
