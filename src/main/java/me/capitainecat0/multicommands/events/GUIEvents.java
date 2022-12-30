@@ -18,8 +18,8 @@ public class GUIEvents implements Listener {
         GUICreator gui = GUICreator.getGUI(player);
         if(gui != null){
             event.setCancelled(true);
-            if(event.getClickedInventory() != null){
-                if(event.getRawSlot() > event.getClickedInventory().getSize()){
+            if(event.getInventory() != null){
+                if(event.getRawSlot() > event.getInventory().getSize()){
                     if(gui.getGeneralInvClickAction() != null) gui.getGeneralInvClickAction().click(player, event);
                 }else if(gui.getGeneralClickAction() != null) {
                     gui.getGeneralClickAction().click(player, event);

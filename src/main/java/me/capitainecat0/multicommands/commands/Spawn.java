@@ -28,7 +28,7 @@ public class Spawn implements CommandExecutor {
             getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
         }else{
             if(sender instanceof Player){
-                Location location = MultiCommands.getInstance().getConfig().getLocation("spawn");
+                /**Location location = MultiCommands.getInstance().getConfig().getLocation("spawn");
                 if(location != null){
                     ((Player) sender).teleport(location);
                     if(soundEnabled()){
@@ -42,7 +42,7 @@ public class Spawn implements CommandExecutor {
                     getMsgSendConfig(sender, command.getName(), SPAWN_ERROR.getMessage());
                 }
             }else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));*/
             }
         }
         return false;

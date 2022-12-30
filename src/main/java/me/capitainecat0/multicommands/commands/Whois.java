@@ -59,7 +59,8 @@ public class Whois implements CommandExecutor {
                     sendMessage(sender, "&6Adresse IP&8: &c" + target.getAddress());
                     if (sender instanceof Player) {
                         coordinates.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + target.getName()));
-                        sender.spigot().sendMessage(coordinates);
+                        sendMessage(sender, coordinates.getFont());
+                        //sender.spigot().sendMessage(coordinates);
                     } else {
                         sendMessage(sender, "&6Coordonnées&8:"
                                 + " &eX&c" + target.getLocation().getX()

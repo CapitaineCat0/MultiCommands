@@ -1,14 +1,11 @@
 package me.capitainecat0.multicommands;
 
-import me.capitainecat0.multicommands.utils.Commands;
-import me.capitainecat0.multicommands.utils.CustomCraft;
-import me.capitainecat0.multicommands.utils.Events;
-import me.capitainecat0.multicommands.utils.PluginCore;
+import me.capitainecat0.multicommands.commands.EconomyImplementer;
+import me.capitainecat0.multicommands.utils.*;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
@@ -24,14 +21,14 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
     private Chat vaultChat;
     private static MultiCommands instance;
     private BukkitAudiences adventure;
+    private static EconomyImplementer implementer;
+    private VaultHook vaultHook;
 
     @Override
     protected boolean start(MultiCommands main) {
-        if(!setupEconomy()){
-            sendConsoleMessage("&cEconomy system doesn't hook to VaultAPI! Hooking to local Economy.");
-        }else{
-            sendConsoleMessage("&aVaultAPI found! Hooking into it...");
-        }
+        implementer = new EconomyImplementer();
+        vaultHook = new VaultHook();
+        vaultHook.hook();
         this.adventure = BukkitAudiences.create(this);
         saveResourceAs("config.yml");
         instance = main;
@@ -57,6 +54,11 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
             this.adventure.close();
             this.adventure = null;
         }
+        vaultHook.unHook();
+    }
+
+    public static EconomyImplementer getImplementer(){
+        return implementer;
     }
 
     public static MultiCommands getInstance(){
@@ -101,10 +103,9 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         super.registerEvent(listener);
     }
     public boolean setupEconomy() {
-        if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
-
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             return false;

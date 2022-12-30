@@ -35,7 +35,8 @@ public class List implements CommandExecutor {
                 TextComponent playerTP = new TextComponent("  §e- §b" + p.getName() + " §c-> §8[]");
                 if (sender instanceof Player) {
                     playerTP.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
-                    sender.spigot().sendMessage(playerTP);
+                    sendMessage(sender, playerTP.getFont());
+                    //sender.spigot().sendMessage(playerTP);
                 } else {
                     sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
                 }
@@ -44,7 +45,8 @@ public class List implements CommandExecutor {
                 TextComponent playerTP = new TextComponent("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
                 if (sender instanceof Player) {
                     playerTP.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
-                    sender.spigot().sendMessage(playerTP);
+                    sendMessage(sender, playerTP.getFont());
+                    //sender.spigot().sendMessage(playerTP);
                 } else {
                     sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
                 }

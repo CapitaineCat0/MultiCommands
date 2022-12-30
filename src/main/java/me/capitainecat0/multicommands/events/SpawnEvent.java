@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class SpawnEvent implements Listener {
-
+/**
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         hideActiveBossBar();
@@ -40,5 +40,5 @@ public class SpawnEvent implements Listener {
             }
             getMsgSendConfig(event.getPlayer(), "spawn", Messenger.SPAWN_DONE.getMessage());
         }
-    }
+    }*/
 }

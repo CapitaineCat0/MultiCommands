@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-public class PDCStorage implements PlayerStorageManager {
+public class PDCStorage {//implements PlayerStorageManager {
 
-	private static NamespacedKey key(String key) {
+/**	private static NamespacedKey key(String key) {
 		return new NamespacedKey(MultiCommands.instance(), key);
 	}
 
@@ -28,6 +28,6 @@ public class PDCStorage implements PlayerStorageManager {
 		dataContainer.set(key("player"), PersistentDataType.STRING, player.getName());
 
 		return new DataObject();
-	}
+	}*/
 
 }

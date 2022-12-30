@@ -1,5 +1,6 @@
-package me.capitainecat0.multicommands;
+package me.capitainecat0.multicommands.commands;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.BalanceData;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;

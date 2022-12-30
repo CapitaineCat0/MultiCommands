@@ -75,11 +75,11 @@ public class HelpGUI extends GUICreator{
             }
         });
 
-        setItem(11, ItemCreator.create(Material.BELL, "&3Alert", Collections.singletonList("&7Permet d'envoyer un message d'alerte")), (player, event) -> {
+        setItem(11, ItemCreator.create(Material.STONE, "&3Alert", Collections.singletonList("&7Permet d'envoyer un message d'alerte")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.ALERT_PERM.getPermission()) && item.getType() == Material.BELL){
+            if(!player.hasPermission(Perms.ALERT_PERM.getPermission()) && item.getType() == Material.STONE){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
@@ -96,11 +96,11 @@ public class HelpGUI extends GUICreator{
             }
         });
 
-        setItem(12, ItemCreator.create(Material.LECTERN, "&3Broadcast", Collections.singletonList("&7Permet d'envoyer un broadcast")), (player, event) -> {
+        setItem(12, ItemCreator.create(Material.STONE, "&3Broadcast", Collections.singletonList("&7Permet d'envoyer un broadcast")), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
             ItemStack item = event.getCurrentItem();
             assert item != null;
-            if(!player.hasPermission(Perms.BROADCAST_PERM.getPermission()) && item.getType() == Material.LECTERN){
+            if(!player.hasPermission(Perms.BROADCAST_PERM.getPermission()) && item.getType() == Material.STONE){
                 if(soundEnabled()){
                     playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
@@ -371,14 +371,16 @@ public class HelpGUI extends GUICreator{
                             TextComponent playerTP = new TextComponent("  §e- §b" + p.getName() + " §c-> §8[]");
                             if (player != null) {
                                 playerTP.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
-                                player.spigot().sendMessage(playerTP);
+                                sendMessage(player, playerTP.getFont());
+                                //player.spigot().sendMessage(playerTP);
                             }
                             //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
                         }else{
                             TextComponent playerTP = new TextComponent("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
                             if (player != null) {
                                 playerTP.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
-                                player.spigot().sendMessage(playerTP);
+                                sendMessage(player, playerTP.getFont());
+                                //player.spigot().sendMessage(playerTP);
                             }
                             //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
                         }
@@ -424,7 +426,7 @@ public class HelpGUI extends GUICreator{
                     if(soundEnabled()){
                         playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    int ping = player.getPing();
+                    int ping = 0;//player.getPing();
                     if(ping < 50){
                         sendMessage(player, PING_SELF_MSG.getMessage().replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
                     }

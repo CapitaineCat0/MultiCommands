@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def version = '0.92'
+def version = '0.92.1'
 
 shadowJar {
     archiveName = "MultiCommands.jar"
@@ -15,7 +15,7 @@ repositories {
     maven { url = 'https://oss.sonatype.org/content/groups/public/' } // Maven
     maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' } // PlaceHolderAPI
     maven { url = 'https://repo.papermc.io/repository/maven-public/' } // PaperMC
-    maven { url 'https://jitpack.io' } // Vault
+    maven { url = 'https://jitpack.io' } // Vault
 }
 
 dependencies {

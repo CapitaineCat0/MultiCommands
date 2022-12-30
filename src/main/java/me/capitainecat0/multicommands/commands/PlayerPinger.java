@@ -32,7 +32,7 @@ public class PlayerPinger implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    int ping = ((Player) sender).getPing();
+                    int ping = 0;//((Player) sender).getPing();
                     if(ping < 50){
                         sendMessage(sender, PING_SELF_MSG.getMessage().replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
                     }
@@ -53,7 +53,7 @@ public class PlayerPinger implements CommandExecutor {
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
                     assert target != null;
-                    ping = target.getPing();
+                    ping = 0;//target.getPing();
                     if (ping < 50) {
                         sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%player%", target.getName()).replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
                     }

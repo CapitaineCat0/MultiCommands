@@ -1,11 +1,10 @@
 package me.capitainecat0.multicommands.utils;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.VaultBank;
+import me.capitainecat0.multicommands.commands.VaultBank;
 import me.capitainecat0.multicommands.commands.*;
 import me.capitainecat0.multicommands.commands.chatchannels.*;
 import me.capitainecat0.multicommands.utils.tabcompleter.*;
-import net.milkbowl.vault.economy.Economy;
 
 import java.util.Objects;
 
@@ -48,11 +47,10 @@ public class Commands {
             MultiCommands.instance().registerCommand(new LocalEconomy(), "economy");
             Objects.requireNonNull(MultiCommands.instance().getCommand("economy")).setTabCompleter(new EconomyTab());
         }else{
-            sendConsoleMessage("&aVaultAPI found! Hooking into it...");
+            sendConsoleMessage("&aVaultAPI found! Hooking commands ...");
             MultiCommands.instance().registerCommand(new VaultEconomy(), "economy");
-            MultiCommands.instance().registerCommand(new VaultBank(), "bank");
             Objects.requireNonNull(MultiCommands.instance().getCommand("economy")).setTabCompleter(new EconomyTab());
-            Objects.requireNonNull(MultiCommands.instance().getCommand("bank")).setTabCompleter(new EconomyBankTab());
+            //Objects.requireNonNull(MultiCommands.instance().getCommand("bank")).setTabCompleter(new EconomyBankTab());
         }
         sendConsoleMessage("&e - ENDERCHEST / EC");
         Objects.requireNonNull(MultiCommands.instance().getCommand("enderchest")).setTabCompleter(new BasicTab());
@@ -122,5 +120,9 @@ public class Commands {
         sendConsoleMessage("&e - WHOIS");
         Objects.requireNonNull(MultiCommands.instance().getCommand("whois")).setTabCompleter(new BasicTab());
         MultiCommands.instance().registerCommand(new Whois(), "whois");
+        if(MultiCommands.getInstance().setupEconomy()){
+            sendConsoleMessage("&aHooking to Vault is Done!");
+        }
+
     }
 }

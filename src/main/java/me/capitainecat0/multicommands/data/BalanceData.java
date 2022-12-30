@@ -3,9 +3,7 @@ package me.capitainecat0.multicommands.data;
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +14,7 @@ import static me.capitainecat0.multicommands.data.PlayerData.existsPlayerData;
 public class BalanceData {
 
     private static @NotNull OfflinePlayer player;
-    private static int balance;
+    private static double balance;
 
     public BalanceData(@NotNull OfflinePlayer player) {
         if(!existsPlayerData(player, "player-data")){
@@ -41,7 +39,7 @@ public class BalanceData {
         return Integer.parseInt(Objects.requireNonNull(configuration.get("balance")).toString());
     }
 
-    public static void setBalance(OfflinePlayer player, int newBal){
+    public static void setBalance(OfflinePlayer player, double newBal){
         File file = PlayerData.getPlayerDataFile(player, "player-data");
         assert file != null;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);

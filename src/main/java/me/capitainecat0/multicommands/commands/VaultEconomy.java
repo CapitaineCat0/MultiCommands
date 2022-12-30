@@ -21,7 +21,7 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.playSound;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class VaultEconomy implements CommandExecutor {
-    private static Economy economy = null;
+    private static Economy economy = MultiCommands.getImplementer();
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
