@@ -51,7 +51,7 @@ public class Helpop implements CommandExecutor {
                     getMsgSendConfig(sender, command.getName(), HELPOP_DONE.getMessage());
                     sendMessage(sender," §8- §7" + bc);
                 }else{
-                    sendMessage(sender, HELPOP_NO_ADMINS.getMessage());
+                    //sendMessage(sender, HELPOP_NO_ADMINS.getMessage());
                 }
             }
 

@@ -13,6 +13,8 @@ send-message-on: ACTIONBAR
 
 enable-command-sounds: true
 
+console-setup: true
+
 #Pas de permissions / Erreurs en tous genres :
 no-perm-sound: "BLOCK_ANVIL_PLACE"
 
@@ -25,4 +27,10 @@ feed-heal-sounds: true
 #Activer / désactiver le GUI d'aide
 enable-help-gui: true
 
+#Valeurs max en bloc que la commande prend en compte
+#pour les coordonées X et Z
+random-teleporter-max-X: 5000
+random-teleporter-max-Z: 5000
+
+#Ne pas changer ces valeurs, sauf si vous savez ce que vous faites
 spawn:

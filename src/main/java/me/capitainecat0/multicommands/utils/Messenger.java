@@ -48,6 +48,8 @@ public enum Messenger {
     ECONOMY_BANK_RESET(lang("economy_bank_reset")),
     ECONOMY_BANK_WITHDRAW(lang("economy_bank_withdraw")),
     ECONOMY_BALANCE_OTHER(lang("economy_balance_other")),
+    ECONOMY_PAY_SENT(lang("economy_pay_sender")),
+    ECONOMY_PAY_OTHER(lang("economy_pay_receiver")),
     ECONOMY_DEPOSIT(lang("economy_deposit")),
     ECONOMY_WITHDRAW(lang("economy_withdraw")),
     ECONOMY_RESET(lang("economy_reset")),

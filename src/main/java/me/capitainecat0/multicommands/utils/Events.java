@@ -19,8 +19,8 @@ public class Events implements Listener{
         MultiCommands.instance().registerEvent(new BlockRegen());
         sendConsoleMessage("&e - BUILDERCHAT-EVENT");
         MultiCommands.instance().registerEvent(new BuilderChat());
-        sendConsoleMessage("&e - CHAT-EVENT");
-        MultiCommands.instance().registerEvent(new Chat());
+        /*sendConsoleMessage("&e - CHAT-EVENT");
+        MultiCommands.instance().registerEvent(new Chat());*/
         sendConsoleMessage("&e - DEATH-EVENT");
         MultiCommands.instance().registerEvent(new Death());
         sendConsoleMessage("&e - DEVCHAT-EVENT");
@@ -31,8 +31,8 @@ public class Events implements Listener{
         MultiCommands.instance().registerEvent(new Fly());
         sendConsoleMessage("&e - GUI-EVENTS");
         MultiCommands.instance().registerEvent(new GUIEvents());
-        sendConsoleMessage("&e - JOIN-EVENT");
-        MultiCommands.instance().registerEvent(new Join());
+        sendConsoleMessage("&e - JOIN-EVENT &c(inactif)");
+        //MultiCommands.instance().registerEvent(new Join());
         sendConsoleMessage("&e - LEAVE-EVENT");
         MultiCommands.instance().registerEvent(new Leave());
         sendConsoleMessage("&e - MODOCHAT-EVENT");

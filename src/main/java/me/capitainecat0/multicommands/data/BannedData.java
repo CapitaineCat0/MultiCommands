@@ -16,7 +16,7 @@ public class BannedData {
     private static String raison;
 
     public BannedData(@NotNull OfflinePlayer player) {
-        if(!existsPlayerData(player, "player-data")){
+        if(!existsPlayerData("player-data", player)){
             File file = new File(MultiCommands.getInstance().getDataFolder()+"/player-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());

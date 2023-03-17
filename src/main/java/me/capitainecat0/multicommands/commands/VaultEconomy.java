@@ -14,6 +14,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.geom.Arc2D;
+
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.Messenger.NOT_A_PLAYER;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
@@ -30,21 +32,49 @@ public class VaultEconomy implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE.getMessage().replace("%balance%", economy.format(economy.getBalance((OfflinePlayer) sender))));
+                double balance = economy.getBalance((OfflinePlayer) sender);
+                getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE.getMessage().replace("%balance%", ""+balance));
+                return true;
             }else if(args.length == 2 && args[0].equalsIgnoreCase("get")){
                 Player target = Bukkit.getPlayerExact(args[1]);
                 if(target != null){
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE.getMessage().replace("%balance%", economy.format(economy.getBalance(target))));
+                    getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE_OTHER.getMessage().replace("%balance%", economy.getBalance(target)+"").replace("%player%", target.getName()));
                 }else{
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
                     getMsgSendConfig(sender, command.getName(),Messenger.NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                 }
+            }else if(args.length == 3 && args[0].equalsIgnoreCase("pay")){
+                Player target = Bukkit.getPlayerExact(args[1]);
+                double value = Double.parseDouble(args[2]);
+                try{
+                    if(target != null){
+                        if(soundEnabled()){
+                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        }
+                        economy.withdrawPlayer(((Player) sender).getPlayer(),  value);
+                        economy.depositPlayer(target, value);
+                        getMsgSendConfig(sender, command.getName(), ECONOMY_PAY_SENT.getMessage().replace("%value%", args[2]).replace("%player%", target.getName()));
+                        getMsgSendConfig(target, command.getName(), ECONOMY_PAY_OTHER.getMessage().replace("%value%", args[2]).replace("%player%", sender.getName()));
+                    }else{
+                        if(soundEnabled()){
+                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        }
+                        getMsgSendConfig(sender, command.getName(),Messenger.NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                    }
+                }catch (NumberFormatException e){
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    }
+                    getMsgSendConfig(sender, command.getName(),"&cAn internal error was come! Please contact an administrator or plugin developper's &d(CapitaineCat0#2268, ItsTheSky#1234)&c!");
+                    sendConsoleMessage("&cError &e"+e);
+                }
             }
+
             if(sender.hasPermission(ECONOMY_PERM_ADD.getPermission()) || sender.hasPermission(ECONOMY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
                 if(args[0].equalsIgnoreCase("deposit")){
                     if(args.length <= 2){

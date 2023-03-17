@@ -28,14 +28,14 @@ public class List implements CommandExecutor {
 
         sendMessage(sender, "&aVous avez &e" + Bukkit.getOnlinePlayers().size() + " &ajoueurs sur &c" + Bukkit.getServer().getMaxPlayers() + " &aconnectés:");
         sendMessage(sender, "&7Les crochets &8[] &7vous affichent le pseudo modifié avec &e/nick&7.");
-        sendMessage(sender, "&7Cliquer sur le pseudo vous téléportera au joueur.");
+        //sendMessage(sender, "&7Cliquer sur le pseudo vous téléportera au joueur.");
         sendMessage(sender,"");
         for (Player p : Bukkit.getOnlinePlayers()) {
             if(Objects.equals(p.getCustomName(), p.getName())){
                 TextComponent playerTP = new TextComponent("  §e- §b" + p.getName() + " §c-> §8[]");
                 if (sender instanceof Player) {
                     playerTP.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
-                    sendMessage(sender, playerTP.getFont());
+                    sendMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[]");
                     //sender.spigot().sendMessage(playerTP);
                 } else {
                     sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
@@ -45,7 +45,7 @@ public class List implements CommandExecutor {
                 TextComponent playerTP = new TextComponent("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
                 if (sender instanceof Player) {
                     playerTP.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
-                    sendMessage(sender, playerTP.getFont());
+                    sendMessage(sender,"  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
                     //sender.spigot().sendMessage(playerTP);
                 } else {
                     sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");

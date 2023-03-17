@@ -36,7 +36,7 @@ public class MessengerUtils {
      */
     public static String lang(String key) {
         checkLangFiles();
-        return language.getProperty(MultiCommands.colored(key).replace("\"", ""));
+        return language.getProperty(MultiCommands.colored(key.replace("\"", "")));
     }
 
     /**
@@ -86,13 +86,17 @@ public class MessengerUtils {
      */
     public static void getMsgSendConfig(CommandSender sender, String commandName, String message){
         if(MultiCommands.getInstance().getConfig().get("send-message-on") != null){
-            if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "CHAT") || Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "chat")){
+            if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "CHAT") ||
+                    Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "chat")){
                 sendMessage(sender, commandName, message);
-            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "ACTIONBAR") || Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "actionbar")){
+            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "ACTIONBAR") ||
+                    Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "actionbar")){
                 sendActionBar(sender, commandName, message);
-            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "TITLE") || Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "title")){
-                sendTitle(sender, commandName, message, Duration.ofSeconds(1),Duration.ofSeconds(3),Duration.ofSeconds(1));
-            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "BOSSBAR") || Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "bossbar")){
+            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "TITLE") ||
+                    Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "title")){
+                sendTitle(sender, commandName, message);
+            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "BOSSBAR") ||
+                    Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "bossbar")){
                 sendBossBar(sender, MultiCommands.colored(message));
             }
         }else{
@@ -224,7 +228,7 @@ public class MessengerUtils {
 
     /**
      *
-     * @return "sound-enabled" value
+     * @return boolean value
      */
     public static boolean soundEnabled(){
         if(MultiCommands.getInstance().getConfig().get("enable-command-sounds") != null){
@@ -274,26 +278,23 @@ public class MessengerUtils {
      * @param sender Command sender
      * @param commandName Command name
      * @param message Message sent
-     * @param fadeIn In milliseconds
-     * @param stay In milliseconds
-     * @param fadeOut In milliseconds
      * <br>Send title message to command sender
      */
-    private static void sendTitle(CommandSender sender, String commandName, String message, Duration fadeIn, Duration stay, Duration fadeOut){
+    private static void sendTitle(CommandSender sender, String commandName, String message){
         final Title.Times times = new Title.Times() {
             @Override
             public @NotNull Duration fadeIn() {
-                return fadeIn;
+                return Duration.ofSeconds(1);
             }
 
             @Override
             public @NotNull Duration stay() {
-                return stay;
+                return Duration.ofSeconds(3);
             }
 
             @Override
             public @NotNull Duration fadeOut() {
-                return fadeOut;
+                return Duration.ofSeconds(1);
             }
         };
         final Component mainTitle = Component.text("§3"+commandName);
@@ -306,26 +307,23 @@ public class MessengerUtils {
      *
      * @param title Title name
      * @param message Message sent
-     * @param fadeIn In milliseconds
-     * @param stay In milliseconds
-     * @param fadeOut In milliseconds
      * <br>Send title message for every online players
      */
-    public static void sendTitle(String title, String message, Duration fadeIn, Duration stay, Duration fadeOut) {
+    public static void sendTitle(String title, String message) {
         final Title.Times times = new Title.Times() {
             @Override
             public @NotNull Duration fadeIn() {
-                return fadeIn;
+                return Duration.ofSeconds(1);
             }
 
             @Override
             public @NotNull Duration stay() {
-                return stay;
+                return Duration.ofSeconds(3);
             }
 
             @Override
             public @NotNull Duration fadeOut() {
-                return fadeOut;
+                return Duration.ofSeconds(1);
             }
         };
         final Component mainTitle = Component.text(MultiCommands.colored(title));
@@ -339,26 +337,23 @@ public class MessengerUtils {
      * @param player Message receiver
      * @param title Title name
      * @param message Message sent
-     * @param fadeIn In milliseconds
-     * @param stay In milliseconds
-     * @param fadeOut In milliseconds
      * <br>Send title message to player
      */
-    public static void sendTitle(Player player, String title, String message, Duration fadeIn, Duration stay, Duration fadeOut) {
+    public static void sendTitle(Player player, String title, String message) {
         final Title.Times times = new Title.Times() {
             @Override
             public @NotNull Duration fadeIn() {
-                return fadeIn;
+                return Duration.ofSeconds(1);
             }
 
             @Override
             public @NotNull Duration stay() {
-                return stay;
+                return Duration.ofSeconds(3);
             }
 
             @Override
             public @NotNull Duration fadeOut() {
-                return fadeOut;
+                return Duration.ofSeconds(1);
             }
         };
         final Component mainTitle = Component.text(MultiCommands.colored(title));

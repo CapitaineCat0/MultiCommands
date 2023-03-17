@@ -10,36 +10,27 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EconomyTab implements org.bukkit.command.TabCompleter {
+public class RandomTPTab implements org.bukkit.command.TabCompleter {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if(args.length == 1){
             List<String> arguments = new ArrayList<>();
-            arguments.add("deposit");
-            arguments.add("pay");
-            arguments.add("get");
-            arguments.add("reset");
-            arguments.add("set");
-            arguments.add("withdraw");
-            return arguments;
-        }
-        else if(args.length == 2) {
-            List<String> playersNames = new ArrayList<>();
-            Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
-            Bukkit.getServer().getOnlinePlayers().toArray(players);
-            for (Player player : players) {
-                playersNames.add(player.getName());
-            }
-            return playersNames;
-        }
-        else if(args.length == 3){
-            List<String> arguments = new ArrayList<>();
-            arguments.add("10");
-            arguments.add("100");
+            arguments.add("250");
+            arguments.add("500");
             arguments.add("1000");
+            arguments.add("1500");
+            arguments.add("2000");
             return arguments;
-
+        }
+        if(args.length == 2){
+            List<String> arguments = new ArrayList<>();
+            arguments.add("250");
+            arguments.add("500");
+            arguments.add("1000");
+            arguments.add("1500");
+            arguments.add("2000");
+            return arguments;
         }
         return null;
     }

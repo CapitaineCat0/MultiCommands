@@ -82,7 +82,7 @@ public class TP implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z"+z));
+                            getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z "+z));
                         }catch(NumberFormatException ex){
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -104,8 +104,8 @@ public class TP implements CommandExecutor {
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), TELEPORT_OTHER_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z"+z));
-                                getMsgSendConfig(sender, command.getName(), TELEPORT_OTHER_TO_COORDINATES_SENDER.getMessage().replace("%player%", target.getName()).replace("%loc%", "X "+x+" Y "+y+" Z"+z));
+                                getMsgSendConfig(target, command.getName(), TELEPORT_OTHER_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z "+z));
+                                getMsgSendConfig(sender, command.getName(), TELEPORT_OTHER_TO_COORDINATES_SENDER.getMessage().replace("%player%", target.getName()).replace("%loc%", "X "+x+" Y "+y+" Z "+z));
                             }catch(NumberFormatException ex){
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -153,8 +153,8 @@ public class TP implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), TELEPORT_OTHER_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z"+z));
-                            sendConsoleMessage(TELEPORT_OTHER_TO_COORDINATES_SENDER.getMessage().replace("%player%", target.getName()).replace("%loc%", "X "+x+" Y "+y+" Z"+z));
+                            getMsgSendConfig(target, command.getName(), TELEPORT_OTHER_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z "+z));
+                            sendConsoleMessage(TELEPORT_OTHER_TO_COORDINATES_SENDER.getMessage().replace("%player%", target.getName()).replace("%loc%", "X "+x+" Y "+y+" Z "+z));
                         }catch(NumberFormatException ex){
                             sendConsoleMessage(TELEPORT_OTHER_INVALID_COORDINATES.getMessage());
                         }

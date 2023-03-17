@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def version = '0.92.1'
+def version = '0.93.3 (no-economy)'
 
 shadowJar {
     archiveName = "MultiCommands.jar"

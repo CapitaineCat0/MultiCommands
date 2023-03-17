@@ -12,11 +12,11 @@ public class VaultHook {
     Economy economy = MultiCommands.getImplementer();
     public void hook(){
         Bukkit.getServicesManager().register(Economy.class, economy, MultiCommands.getInstance(), ServicePriority.Normal);
-        sendConsoleMessage("&aVaultAPI found! Hooking into it...");
+        sendConsoleMessage("&aVaultAPI found! Hooking on it...");
     }
 
     public void unHook(){
         Bukkit.getServicesManager().unregister(Economy.class, economy);
-        sendConsoleMessage("&cEconomy system doesn't hook to VaultAPI! Hooking to local Economy.");
+        sendConsoleMessage("&cEconomy system disabled.");
     }
 }

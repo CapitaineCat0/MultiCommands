@@ -49,18 +49,22 @@ public class Whois implements CommandExecutor {
                 }
                 Player target = Bukkit.getPlayerExact(args[0]);
                 if (target != null) {
-                    TextComponent coordinates = new TextComponent(colored("&6Coordonnées&8:"
+                    /*TextComponent coordinates = new TextComponent(colored("&6Coordonnées&8:"
                             + " &eX&c" + target.getLocation().getX()
                             + " &eY&c " + target.getLocation().getY()
-                            + " &eZ&c " + target.getLocation().getZ()));
+                            + " &eZ&c " + target.getLocation().getZ()));*/
+                    sendMessage(sender,"&6Coordonnées&8:"
+                            + " &eX&c" + target.getLocation().getX()
+                            + " &eY&c " + target.getLocation().getY()
+                            + " &eZ&c " + target.getLocation().getZ());
                     sendMessage(sender, "&6Vrai pseudo&8: " + target.getName());
                     sendMessage(sender, "&6Nickname&8: &c" + target.getCustomName());
                     sendMessage(sender, "&6UUID&8: &e" + target.getUniqueId());
                     sendMessage(sender, "&6Adresse IP&8: &c" + target.getAddress());
                     if (sender instanceof Player) {
-                        coordinates.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + target.getName()));
+                        /*coordinates.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + target.getName()));
                         sendMessage(sender, coordinates.getFont());
-                        //sender.spigot().sendMessage(coordinates);
+                        //sender.spigot().sendMessage(coordinates);*/
                     } else {
                         sendMessage(sender, "&6Coordonnées&8:"
                                 + " &eX&c" + target.getLocation().getX()

@@ -1,11 +1,12 @@
 package me.capitainecat0.multicommands;
 
-import me.capitainecat0.multicommands.commands.EconomyImplementer;
+import me.capitainecat0.multicommands.utils.EconomyImplementer;
 import me.capitainecat0.multicommands.utils.*;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
@@ -26,27 +27,33 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
 
     @Override
     protected boolean start(MultiCommands main) {
-        implementer = new EconomyImplementer();
-        vaultHook = new VaultHook();
-        vaultHook.hook();
-        this.adventure = BukkitAudiences.create(this);
-        saveResourceAs("config.yml");
-        instance = main;
-        sendConsoleMessage("&a---------------+ &6MultiCommands v"+getDescription().getVersion()+"&a +---------------- ");
-        sendConsoleMessage(" ");
-        sendConsoleMessage("&5Enabling commands:");
-        sendConsoleMessage(" ");
-        Commands.init();
-        sendConsoleMessage(" ");
-        sendConsoleMessage(" ");
-        sendConsoleMessage("&5Enabling events:");
-        sendConsoleMessage(" ");
-        Events.init();
-        sendConsoleMessage(" ");
-        sendConsoleMessage("&a--------------------------------------------------------- ");
-        getServer().addRecipe(CustomCraft.saddle());
-        return true;
-    }
+        /**if(setupEconomy()){
+            implementer = new EconomyImplementer();
+            vaultHook = new VaultHook();
+            vaultHook.hook();
+        }else{*/
+            this.adventure = BukkitAudiences.create(this);
+            saveResourceAs("config.yml");
+            instance = main;
+            if(getConfig().getBoolean("console-setup")) {
+                sendConsoleMessage("&a---------------+ &6MultiCommands v" + getDescription().getVersion() + "&a +---------------- ");
+                sendConsoleMessage(" ");
+                sendConsoleMessage("&5Enabling commands:");
+                sendConsoleMessage(" ");
+                Commands.init();
+                sendConsoleMessage(" ");
+                sendConsoleMessage(" ");
+                sendConsoleMessage("&5Enabling events:");
+                sendConsoleMessage(" ");
+                Events.init();
+                sendConsoleMessage(" ");
+                sendConsoleMessage("&a--------------------------------------------------------- ");
+            }
+            getServer().addRecipe(CustomCraft.saddle());
+            return true;
+        }
+        /*return false;
+    }*/
 
     @Override
     protected void stop() {
@@ -54,7 +61,10 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
             this.adventure.close();
             this.adventure = null;
         }
-        vaultHook.unHook();
+        /*if(Bukkit.getServicesManager().getRegistration(Economy.class)!= null){
+            vaultHook.unHook();
+        }*/
+
     }
 
     public static EconomyImplementer getImplementer(){

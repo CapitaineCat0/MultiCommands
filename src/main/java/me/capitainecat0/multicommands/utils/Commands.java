@@ -41,17 +41,17 @@ public class Commands {
         MultiCommands.instance().registerCommand(new Craft(), "craft");
         sendConsoleMessage("&e - DEVCHAT / DC");
         MultiCommands.instance().registerCommand(new DevChat(), "devchat");
-        sendConsoleMessage("&e - ECO / ECONOMY");
+        /*sendConsoleMessage("&e - ECO / ECONOMY");
         if(!MultiCommands.getInstance().setupEconomy()){
-            sendConsoleMessage("&cEconomy system doesn't hook to VaultAPI! Hooking to local Economy.");
+            sendConsoleMessage("&e - &cEconomy system doesn't hook to VaultAPI! Hooking to local Economy.");
             MultiCommands.instance().registerCommand(new LocalEconomy(), "economy");
             Objects.requireNonNull(MultiCommands.instance().getCommand("economy")).setTabCompleter(new EconomyTab());
         }else{
-            sendConsoleMessage("&aVaultAPI found! Hooking commands ...");
+            sendConsoleMessage("&e - &aVaultAPI found! Hooking commands ...");
             MultiCommands.instance().registerCommand(new VaultEconomy(), "economy");
             Objects.requireNonNull(MultiCommands.instance().getCommand("economy")).setTabCompleter(new EconomyTab());
             //Objects.requireNonNull(MultiCommands.instance().getCommand("bank")).setTabCompleter(new EconomyBankTab());
-        }
+        }*/
         sendConsoleMessage("&e - ENDERCHEST / EC");
         Objects.requireNonNull(MultiCommands.instance().getCommand("enderchest")).setTabCompleter(new BasicTab());
         MultiCommands.instance().registerCommand(new EnderChest(), "enderchest");
@@ -101,6 +101,9 @@ public class Commands {
         MultiCommands.instance().registerCommand(new PlayerPinger(), "playerping");
         sendConsoleMessage("&e - MULTIRELOAD / MRELOAD");
         MultiCommands.instance().registerCommand(new MultiReload(), "multireload");
+        sendConsoleMessage("&e - RANDOMTP / RTP");
+        Objects.requireNonNull(MultiCommands.instance().getCommand("randomtp")).setTabCompleter(new RandomTPTab());
+        MultiCommands.instance().registerCommand(new RandomTP(), "randomtp");
         sendConsoleMessage("&e - SERVERINFO");
         MultiCommands.instance().registerCommand(new ServerInfo(), "serverinfo");
         sendConsoleMessage("&e - SETSPAWN");
@@ -110,6 +113,7 @@ public class Commands {
         sendConsoleMessage("&e - STAFFCHAT / SC");
         MultiCommands.instance().registerCommand(new StaffChat(), "staffchat");
         sendConsoleMessage("&e - TELEPORT / TP");
+        Objects.requireNonNull(MultiCommands.instance().getCommand("teleport")).setTabCompleter(new BasicTab());
         MultiCommands.instance().registerCommand(new TP(), "teleport");
         sendConsoleMessage("&e - TITLE");
         Objects.requireNonNull(MultiCommands.instance().getCommand("title")).setTabCompleter(new BossActionTitleTab());
@@ -120,9 +124,9 @@ public class Commands {
         sendConsoleMessage("&e - WHOIS");
         Objects.requireNonNull(MultiCommands.instance().getCommand("whois")).setTabCompleter(new BasicTab());
         MultiCommands.instance().registerCommand(new Whois(), "whois");
-        if(MultiCommands.getInstance().setupEconomy()){
+        /*if(MultiCommands.getInstance().setupEconomy()){
             sendConsoleMessage("&aHooking to Vault is Done!");
-        }
+        }*/
 
     }
 }

@@ -16,7 +16,7 @@ public class FreezeData {
     private static boolean isFrozen;
 
     public FreezeData(@NotNull OfflinePlayer player) {
-        if(!existsPlayerData(player, "player-data")){
+        if(!existsPlayerData("player-data", player)){
             File file = new File(MultiCommands.getInstance().getDataFolder()+"/player-data/", player.getUniqueId()+".yml");
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
             configuration.set("pseudo", player.getName());

@@ -27,10 +27,13 @@ public class Join implements Listener {
     public void onJoin(PlayerJoinEvent event){
         hideActiveBossBar();
        Player player = event.getPlayer();
-       Economy economy = null;
-       if(!economy.hasAccount(player)){
-           economy.createPlayerAccount(player);
-       }
+       if(MultiCommands.getInstance().setupEconomy()){
+           Economy economy = MultiCommands.getImplementer();
+           assert economy != null;
+           if(!economy.hasAccount(player)){
+               economy.createPlayerAccount(player);
+           }
+        }
       // new PlayerData(player);
        new FreezeData(player);
        new BalanceData(player);

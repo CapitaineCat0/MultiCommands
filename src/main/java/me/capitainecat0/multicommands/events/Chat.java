@@ -20,7 +20,7 @@ public class Chat implements Listener {
         hideActiveBossBar();
         Player sender = event.getPlayer();
         String senderNickName = sender.getCustomName();
-        String msg = colored(event.getMessage().replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName()));
+        String msg = colored(event.getMessage());
         if(msg.startsWith(STAFFCHAT_PREFIX.getMessage())
                 || msg.startsWith(ADMINCHAT_PREFIX.getMessage())
                 || msg.startsWith(BUILDERCHAT_PREFIX.getMessage())
@@ -32,16 +32,16 @@ public class Chat implements Listener {
                     if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                         String chat = "&7[AFK] %luckperms_prefix% &b"+senderNickName;
                         chat = PlaceholderAPI.setPlaceholders(event.getPlayer(), chat);
-                        event.setMessage(colored(chat+ "&7 > &f" + msg));
+                        event.setMessage(colored(chat+ "&7 > &f" + msg.replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName())));
                         if(!AFKHandler.getInstance().isAFK(sender)){
                             String AFKchat = "%luckperms_prefix% &b"+senderNickName;
                             AFKchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), AFKchat);
-                            event.setMessage(colored(AFKchat+ "&7 > &f" + msg));
+                            event.setMessage(colored(AFKchat+ "&7 > &f" + msg.replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName())));
                         }
                     }else{
-                        event.setMessage(colored("&7[AFK] &b"+senderNickName+" &7> &f" + msg));
+                        event.setMessage(colored("&7[AFK] &b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName())));
                         if(!AFKHandler.getInstance().isAFK(sender)){
-                            event.setMessage(colored("&b"+senderNickName+" &7> &f" + msg));
+                            event.setMessage(colored("&b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName())));
                         }
                     }
 
@@ -49,16 +49,16 @@ public class Chat implements Listener {
                     if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                         String defaultchat = "%luckperms_prefix% &b%player_name%";
                         defaultchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), defaultchat);
-                        event.setMessage(colored(defaultchat+" &7> &f" + msg));
+                        event.setMessage(colored(defaultchat+" &7> &f" + msg.replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName())));
                         if(!AFKHandler.getInstance().isAFK(sender)){
                             String defaultAFKchat = "%luckperms_prefix% &b%player_name%";
                             defaultAFKchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), defaultAFKchat);
-                            event.setMessage(colored(defaultAFKchat+" &7> &f" + msg));
+                            event.setMessage(colored(defaultAFKchat+" &7> &f" + msg.replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName())));
                         }
                     }else{
-                        event.setMessage(colored(sender+" &7> &f" + msg));
+                        event.setMessage(colored(sender+" &7> &f" + msg.replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName())));
                         if(AFKHandler.getInstance().isAFK(sender)){
-                            event.setMessage(colored("&7[AFK] &b"+sender+" &7> &f" + msg));
+                            event.setMessage(colored("&7[AFK] &b"+sender+" &7> &f" + msg.replace("CraftPlayer{name="+sender+"}", event.getPlayer().getName())));
                         }
                     }
                 }
