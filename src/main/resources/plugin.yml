@@ -38,8 +38,8 @@ commands:
     description: Envoyer un message d'alerte
   ban:
     description: Permet de bannir un joueur
-  #bank:
-   # description: Permet de gérer la banque (requiert Vault)
+  bank:
+    description: Permet de gérer la banque (requiert Vault)
   bossbar:
     description: Permet d'envoyer un message dans la bossbar
   broadcast:
@@ -55,11 +55,14 @@ commands:
   craft:
     description: Ouvrir l'établi
     aliases: workbench
-  #economy:
-   # description: Permet de gérer le systeme d'économie
-   # aliases:
-    #  - eco
-     # - econ
+  economy:
+    description: Permet de gérer le systeme d'économie
+    aliases:
+      - eco
+      - econ
+      - balance
+      - bal
+      - money
   enderchest:
     description: Ouvrir votre enderchest / celui d'un autre joueur
     aliases: ec

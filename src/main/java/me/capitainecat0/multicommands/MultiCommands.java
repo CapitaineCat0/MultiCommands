@@ -1,78 +1,97 @@
 package me.capitainecat0.multicommands;
 
-import me.capitainecat0.multicommands.utils.EconomyImplementer;
 import me.capitainecat0.multicommands.utils.*;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.logging.Logger;
 
 import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMessage;
 
-public final class MultiCommands extends PluginCore<MultiCommands> {
+public final class MultiCommands extends JavaPlugin {
 
-    private Economy vaultEconomy;
-    private Permission vaultPermission;
-    private Chat vaultChat;
+    private static final Logger log = Logger.getLogger("Minecraft");
+    public static Economy econ = null;
+    private static Permission perms = null;
+    private static Chat chat = null;
     private static MultiCommands instance;
     private BukkitAudiences adventure;
-    private static EconomyImplementer implementer;
     private VaultHook vaultHook;
 
-    @Override
-    protected boolean start(MultiCommands main) {
-        /**if(setupEconomy()){
-            implementer = new EconomyImplementer();
-            vaultHook = new VaultHook();
-            vaultHook.hook();
-        }else{*/
-            this.adventure = BukkitAudiences.create(this);
-            saveResourceAs("config.yml");
-            instance = main;
-            if(getConfig().getBoolean("console-setup")) {
-                sendConsoleMessage("&a---------------+ &6MultiCommands v" + getDescription().getVersion() + "&a +---------------- ");
-                sendConsoleMessage(" ");
-                sendConsoleMessage("&5Enabling commands:");
-                sendConsoleMessage(" ");
-                Commands.init();
-                sendConsoleMessage(" ");
-                sendConsoleMessage(" ");
-                sendConsoleMessage("&5Enabling events:");
-                sendConsoleMessage(" ");
-                Events.init();
-                sendConsoleMessage(" ");
-                sendConsoleMessage("&a--------------------------------------------------------- ");
-            }
-            getServer().addRecipe(CustomCraft.saddle());
-            return true;
-        }
-        /*return false;
-    }*/
 
     @Override
-    protected void stop() {
+    public void onEnable(){
+        if(!setupEconomy()){
+            log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        setupPermissions();
+        setupChat();
+        //implementer = new EconomyImplementer();
+        //vaultHook = new VaultHook();
+        //vaultHook.hook();
+        this.adventure = BukkitAudiences.create(this);
+        saveResourceAs("config.yml");
+        instance = this;
+        if(getConfig().getBoolean("console-setup")) {
+            sendConsoleMessage("&a---------------+ &6MultiCommands v" + getDescription().getVersion() + "&a +---------------- ");
+            sendConsoleMessage(" ");
+            sendConsoleMessage("&5Enabling commands:");
+            sendConsoleMessage(" ");
+            Commands.init();
+            sendConsoleMessage(" ");
+            sendConsoleMessage(" ");
+            sendConsoleMessage("&5Enabling events:");
+            sendConsoleMessage(" ");
+            Events.init();
+            sendConsoleMessage(" ");
+            sendConsoleMessage("&a--------------------------------------------------------- ");
+        }
+        getServer().addRecipe(CustomCraft.saddle());
+    }
+
+    @Override
+    public void onDisable(){
+        log.info(String.format("[%s] Version %s Disabled", getDescription().getName(), getDescription().getVersion()));
         if(this.adventure != null) {
             this.adventure.close();
             this.adventure = null;
         }
-        /*if(Bukkit.getServicesManager().getRegistration(Economy.class)!= null){
+        if(Bukkit.getServicesManager().getRegistration(Economy.class)!= null){
             vaultHook.unHook();
-        }*/
-
+        }
     }
 
-    public static EconomyImplementer getImplementer(){
-        return implementer;
-    }
 
     public static MultiCommands getInstance(){
         return instance;
+    }
+
+    public void registerCommand(CommandExecutor executor, String codeName) {
+        PluginCommand command = this.getCommand(codeName);
+        if (command != null) {
+            command.setExecutor(executor);
+        }
+    }
+
+    public static String colored(String text) {
+        return ChatColor.translateAlternateColorCodes('&', text);
+    }
+
+    public void registerEvent(Listener listener) {
+        Bukkit.getPluginManager().registerEvents(listener, this);
     }
     public void saveResourceAs(String inPath) {
         if (inPath != null && !inPath.isEmpty()) {
@@ -108,10 +127,6 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         return this.adventure;
     }
 
-    @Override
-    public void registerEvent(Listener listener) {
-        super.registerEvent(listener);
-    }
     public boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -120,31 +135,19 @@ public final class MultiCommands extends PluginCore<MultiCommands> {
         if (rsp == null) {
             return false;
         }
-        vaultEconomy = rsp.getProvider();
-        return vaultEconomy != null;
+        econ = rsp.getProvider();
+        return true;
     }
 
-    private boolean setupChat() {
+    private void setupChat() {
         RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-        vaultChat = rsp.getProvider();
-        return vaultChat != null;
+        assert rsp != null;
+        chat = rsp.getProvider();
     }
 
-    private boolean setupPermissions() {
+    private void setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        vaultPermission = rsp.getProvider();
-        return vaultPermission != null;
-    }
-
-    public Economy getEconomy() {
-        return vaultEconomy;
-    }
-
-    public Permission getPermissions() {
-        return vaultPermission;
-    }
-
-    public Chat getChat() {
-        return vaultChat;
+        assert rsp != null;
+        perms = rsp.getProvider();
     }
 }

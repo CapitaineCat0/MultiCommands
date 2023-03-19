@@ -34,12 +34,12 @@ public class MultiInfos implements CommandExecutor {
             }
             try{
                 Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");
-                assert MultiCommands.instance().getDescription().getDescription() != null;
+                assert MultiCommands.getInstance().getDescription().getDescription() != null;
                 sendMessage(sender, MULTIINFOS_MSG.getMessage()
-                        .replace("%plname%", MultiCommands.instance().getDescription().getName())
+                        .replace("%plname%", MultiCommands.getInstance().getDescription().getName())
                         .replace("%author%", "CapitaineCat0")
-                        .replace("%version%", MultiCommands.instance().getDescription().getVersion())
-                        .replace("%description%", MultiCommands.instance().getDescription().getDescription()));
+                        .replace("%version%", MultiCommands.getInstance().getDescription().getVersion())
+                        .replace("%description%", MultiCommands.getInstance().getDescription().getDescription()));
                 assert MultiMaintenance.instance().getDescription().getDescription() != null;
                 sendMessage(sender, MULTIINFOS_MSG.getMessage()
                         .replace("%plname%", MultiMaintenance.instance().getDescription().getName())
@@ -47,12 +47,12 @@ public class MultiInfos implements CommandExecutor {
                         .replace("%version%", MultiMaintenance.instance().getDescription().getVersion())
                         .replace("%description%", MultiMaintenance.instance().getDescription().getDescription()));
             }catch(final Exception ex) {
-                assert MultiCommands.instance().getDescription().getDescription() != null;
+                assert MultiCommands.getInstance().getDescription().getDescription() != null;
                 sendMessage(sender, MULTIINFOS_MSG.getMessage()
-                        .replace("%plname%", MultiCommands.instance().getDescription().getName())
+                        .replace("%plname%", MultiCommands.getInstance().getDescription().getName())
                         .replace("%author%", "CapitaineCat0")
-                        .replace("%version%", MultiCommands.instance().getDescription().getVersion())
-                        .replace("%description%", MultiCommands.instance().getDescription().getDescription()));
+                        .replace("%version%", MultiCommands.getInstance().getDescription().getVersion())
+                        .replace("%description%", MultiCommands.getInstance().getDescription().getDescription()));
             }
         }
         return false;

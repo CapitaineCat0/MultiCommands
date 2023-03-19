@@ -1,6 +1,7 @@
 package me.capitainecat0.multicommands.commands.chatchannels;
 
 import com.google.common.base.Joiner;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.MessengerUtils;
 import org.bukkit.Bukkit;
