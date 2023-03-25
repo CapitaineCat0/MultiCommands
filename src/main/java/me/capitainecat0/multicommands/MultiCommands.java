@@ -32,18 +32,19 @@ public final class MultiCommands extends JavaPlugin {
 
     @Override
     public void onEnable(){
-        if(!setupEconomy()){
+        /*if(!setupEconomy()){
             log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
         setupPermissions();
-        setupChat();
+        setupChat();*/
         //implementer = new EconomyImplementer();
         //vaultHook = new VaultHook();
         //vaultHook.hook();
         this.adventure = BukkitAudiences.create(this);
         saveResourceAs("config.yml");
+        saveResourceAs("warps.yml");
         instance = this;
         if(getConfig().getBoolean("console-setup")) {
             sendConsoleMessage("&a---------------+ &6MultiCommands v" + getDescription().getVersion() + "&a +---------------- ");
@@ -58,6 +59,9 @@ public final class MultiCommands extends JavaPlugin {
             Events.init();
             sendConsoleMessage(" ");
             sendConsoleMessage("&a--------------------------------------------------------- ");
+        }else{
+            Commands.init();
+            Events.init();
         }
         getServer().addRecipe(CustomCraft.saddle());
     }
@@ -69,9 +73,11 @@ public final class MultiCommands extends JavaPlugin {
             this.adventure.close();
             this.adventure = null;
         }
-        if(Bukkit.getServicesManager().getRegistration(Economy.class)!= null){
+        /*if(Bukkit.getServicesManager().getRegistration(Economy.class)!= null){
             vaultHook.unHook();
-        }
+        }else{
+            return;
+        }*/
     }
 
 

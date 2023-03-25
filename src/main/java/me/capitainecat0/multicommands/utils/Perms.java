@@ -37,7 +37,7 @@ public enum Perms {
     FLY_PERM_ALL("multicommands.fly.*"),
     FLY_PERM_SELF("multicommands.fly.self"),
     FLY_PERM_OTHER("multicommands.fly.other"),
-    FREEZE_PERM("multicommands.freeze.*"),
+    FREEZE_PERM("multicommands.freeze"),
     GAMEMODE_PERM_ALL("multicommands.gamemode.*"),
     GAMEMODE_PERM_OTHER_ALL("multicommands.gamemode.other.*"),
     GAMEMODE_SURVIVAL_PERM_SELF("multicommands.gamemode.survival.self"),
@@ -51,7 +51,7 @@ public enum Perms {
     GOD_PERM_ALL("multicommands.god.*"),
     GOD_PERM_SELF("multicommands.god.self"),
     GOD_PERM_OTHER("multicommands.god.other"),
-    HELPOP_PERM("multicommands.helpoperator"),
+    HELPOP_PERM("multicommands.helpop"),
     HEAL_PERM_ALL("multicommands.heal.*"),
     HEAL_PERM_SELF("multicommands.heal.self"),
     HEAL_PERM_OTHER("multicommands.heal.other"),
@@ -63,6 +63,7 @@ public enum Perms {
     PRIVATE_MSG_PERM("multicommands.privatemsg"),
     SERVERINFO_PERM("multicommands.serverinfo"),
     SETSPAWN_PERM("multicommands.setspawn"),
+    SETWARP_PERM("multicommands.setwarp"),
     SPAWN_PERM("multicommands.spawn"),
     TIME_PERM("multicommands.time"),
     TELEPORT_PERM("multicommands.teleport"),
@@ -70,7 +71,7 @@ public enum Perms {
     VANISH_PERM_ALL("multicommands.vanish.*"),
     VANISH_PERM_SELF("multicommands.vanish.self"),
     VANISH_PERM_OTHER("multicommands.vanish.other"),
-    WARPS("multicommands.warps"),
+    WARP_PERM("multicommands.warps"),
     WHOIS_PERM("multicommands.whois"),
 
     /* ##########################
@@ -78,6 +79,7 @@ public enum Perms {
      * ##########################*/
 
     ALL_CHAT_PERM("multicommands.chat.*"),
+    CLEARCHAT_PERM("multicommands.chat.clear"),
     ADMINCHAT_PERM("multicommands.chat.admin"),
     STAFFCHAT_PERM("multicommands.chat.staff"),
     DEVCHAT_PERM("multicommands.chat.developer"),
@@ -85,9 +87,9 @@ public enum Perms {
     BUILDERCHAT_PERM("multicommands.chat.builder"),
 
 
+
+
 ;
-
-
     private final String perm;
 
     Perms(String perm) {

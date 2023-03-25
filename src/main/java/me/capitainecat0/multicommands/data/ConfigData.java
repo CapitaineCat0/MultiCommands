@@ -3,7 +3,6 @@ package me.capitainecat0.multicommands.data;
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +22,6 @@ public class ConfigData {
     public static FileConfiguration getConfig(String folderName, String fileName){
         if(existsDataFolder(folderName) && existsConfigData(fileName)){
             YamlConfiguration.loadConfiguration(new File(MultiCommands.getInstance().getDataFolder()+"/"+folderName+"/", fileName));
-
         }
         return null;
     }
@@ -31,8 +29,16 @@ public class ConfigData {
     public static FileConfiguration getConfig(String fileName){
         if(existsConfigData(fileName)){
             YamlConfiguration.loadConfiguration(new File(MultiCommands.getInstance().getDataFolder(), fileName));
-
         }
         return null;
+    }
+
+    public static void createConfiguration(String fileName) throws IOException {
+        if(!existsConfigData(fileName)){
+            File file = new File(MultiCommands.getInstance().getDataFolder(), fileName);
+            file.createNewFile();
+        }else{
+            return ;
+        }
     }
 }

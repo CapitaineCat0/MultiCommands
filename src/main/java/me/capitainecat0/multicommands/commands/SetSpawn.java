@@ -29,7 +29,12 @@ public class SetSpawn implements CommandExecutor {
         }else{
           if(sender instanceof Player){
               Location location = ((Player) sender).getLocation();
-              MultiCommands.getInstance().getConfig().set("spawn", location);
+              MultiCommands.getInstance().getConfig().set("spawn.name", location.getWorld().getName());
+              MultiCommands.getInstance().getConfig().set("spawn.x", location.getX());
+              MultiCommands.getInstance().getConfig().set("spawn.y", location.getY());
+              MultiCommands.getInstance().getConfig().set("spawn.z", location.getZ());
+              MultiCommands.getInstance().getConfig().set("spawn.yaw", location.getYaw());
+              MultiCommands.getInstance().getConfig().set("spawn.pitch", location.getPitch());
               MultiCommands.getInstance().saveConfig();
               if(soundEnabled()){
                   playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
