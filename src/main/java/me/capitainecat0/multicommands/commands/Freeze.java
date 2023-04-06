@@ -35,7 +35,7 @@ public class Freeze implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("{0}", "<player>"));
                     return true;
                 }else if(args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -49,7 +49,7 @@ public class Freeze implements CommandExecutor {
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());
-                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%player%", target.getName()));
+                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("{0}", target.getName()));
                         } else {
                             data.setFrozen(target,true);
                             if(soundEnabled()){
@@ -57,18 +57,18 @@ public class Freeze implements CommandExecutor {
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage());
-                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%player%", target.getName()));
+                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("{0}", target.getName()));
                         }
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){
                 if(args.length == 0){
-                    sendConsoleMessage(CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
+                    sendConsoleMessage(CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
                     return true;
                 }else if(args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -78,14 +78,14 @@ public class Freeze implements CommandExecutor {
                         if (isFrozen) {
                             data.setFrozen(target,false);
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());
-                            sendConsoleMessage(FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("%player%", target.getName()));
+                            sendConsoleMessage(FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("{0}", target.getName()));
                         } else {
                             data.setFrozen(target,true);
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage());
-                            sendConsoleMessage(FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("%player%", target.getName()));
+                            sendConsoleMessage(FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("{0}", target.getName()));
                         }
                     }else{
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                     }
                 }
             }

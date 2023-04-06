@@ -34,7 +34,7 @@ public class Title implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
                 }else if(args.length > 1){
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if(target != null){
@@ -42,7 +42,7 @@ public class Title implements CommandExecutor {
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
-                        sendMessage(sender, ACTIONBAR_SENT_TO_OTHER.getMessage().replace("%player%", target.getName()));
+                        sendMessage(sender, ACTIONBAR_SENT_TO_OTHER.getMessage().replace("{0}", target.getName()));
                         sendTitle(target, args[1], bc.toString().replace(args[0], "").replace(args[1], ""));
                     }else{
                         StringBuilder bc = new StringBuilder();
@@ -55,7 +55,7 @@ public class Title implements CommandExecutor {
                 }
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
         }
 
         return true;

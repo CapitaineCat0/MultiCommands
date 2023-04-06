@@ -45,7 +45,7 @@ public class EnderChest implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                         }
                     }else{
                         if(soundEnabled()){
@@ -55,7 +55,7 @@ public class EnderChest implements CommandExecutor {
                     }
                 }
             } else if (sender instanceof ConsoleCommandSender) {
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             }
         return false;
     }

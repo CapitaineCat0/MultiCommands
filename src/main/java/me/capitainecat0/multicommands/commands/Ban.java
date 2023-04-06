@@ -11,10 +11,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+import static me.capitainecat0.multicommands.MultiCommands.colored;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
 import static me.capitainecat0.multicommands.utils.Perms.*;
-import static me.capitainecat0.multicommands.utils.PluginCore.colored;
 
 public class Ban implements CommandExecutor {
     @Override
@@ -25,7 +25,7 @@ public class Ban implements CommandExecutor {
         }
         else{
             if(args.length <= 1){
-                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player> <message>"));
+                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <message>"));
             }
             else if(args.length == 2){
                 String message = "";
@@ -33,7 +33,7 @@ public class Ban implements CommandExecutor {
                     message = message + args[i] + " ";
                 }
                 if (message.length() == 0){
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player> <message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <message>"));
                     return false;
                 }else{
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -47,7 +47,7 @@ public class Ban implements CommandExecutor {
                     }else{
                         data.setBanned(offlineTarget, false);
                     }
-                    target.kickPlayer(colored(BAN_PREFIX.getMessage().replace("%reason%", message.replace(target.getName(), ""))));
+                    target.kickPlayer(colored(BAN_PREFIX.getMessage().replace("{0}", message.replace(target.getName(), ""))));
                 }
 
 

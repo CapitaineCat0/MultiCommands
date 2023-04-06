@@ -21,8 +21,8 @@ public class PrivateMessager implements CommandExecutor {
             Player player = (Player) sender;
             PrivateMessengerHandler pmh = new PrivateMessengerHandler();
             if(target != null){
-                String message = Joiner.on(" ").join(args).replace(target.getName(), "&dDe &b"+player.getName()+"&d :&7");
-                String rmessage = Joiner.on(" ").join(args).replace(target.getName(), "&dA &b"+target.getName()+"&d :&7");
+                String message = Joiner.on(" ").join(args).replace(target.getName(), "&dFrom &b"+player.getName()+"&d :&7");
+                String rmessage = Joiner.on(" ").join(args).replace(target.getName(), "&dFor &b"+target.getName()+"&d :&7");
                 if(command.getName().equalsIgnoreCase("msg")){
                     pmh.setMessager(player);
                     sendMessage(target, message);
@@ -33,14 +33,14 @@ public class PrivateMessager implements CommandExecutor {
                         sendMessage(player, rmessage);
                         sendMessage(target, message);
                     }else{
-                        getMsgSendConfig(sender, command.getName(), "&cVous n'avez pas ouvert de discutions avec d'autres joueurs!");
+                        getMsgSendConfig(sender, command.getName(), "&cYou doesn't start discussion with any player");
                     }
                 }
             }else{
-                getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player", args[0]));
+                getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
             }
         }else{
-            getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player> <message>"));
+            getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <message>"));
         }
 
         return false;

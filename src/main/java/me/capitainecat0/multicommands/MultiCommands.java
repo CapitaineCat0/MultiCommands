@@ -22,6 +22,7 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMes
 public final class MultiCommands extends JavaPlugin {
 
     private static final Logger log = Logger.getLogger("Minecraft");
+   CooldownManager cooldownManager;
     public static Economy econ = null;
     private static Permission perms = null;
     private static Chat chat = null;
@@ -44,7 +45,10 @@ public final class MultiCommands extends JavaPlugin {
         //vaultHook.hook();
         this.adventure = BukkitAudiences.create(this);
         saveResourceAs("config.yml");
-        saveResourceAs("warps.yml");
+        saveResourceAs("lang/fr.properties");
+        saveResourceAs("lang/en.properties");
+        //saveResourceAs("warps.yml");
+        cooldownManager = new CooldownManager(this);
         instance = this;
         if(getConfig().getBoolean("console-setup")) {
             sendConsoleMessage("&a---------------+ &6MultiCommands v" + getDescription().getVersion() + "&a +---------------- ");
@@ -84,18 +88,15 @@ public final class MultiCommands extends JavaPlugin {
     public static MultiCommands getInstance(){
         return instance;
     }
-
     public void registerCommand(CommandExecutor executor, String codeName) {
         PluginCommand command = this.getCommand(codeName);
         if (command != null) {
             command.setExecutor(executor);
         }
     }
-
     public static String colored(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
-
     public void registerEvent(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
@@ -103,36 +104,34 @@ public final class MultiCommands extends JavaPlugin {
         if (inPath != null && !inPath.isEmpty()) {
             InputStream in = this.getResource(inPath);
             if (in == null) {
-                throw new IllegalArgumentException("Le fichier " + inPath + " est introuvable dans le dossier du plugin");
+                throw new IllegalArgumentException(inPath + " unreachable!");
             } else {
                 if (!this.getDataFolder().exists() && !this.getDataFolder().mkdir()) {
-                    sendConsoleMessage("&cImpossible de creer le dossier !");
+                    sendConsoleMessage("&cUnable to build folder!");
                 }
 
                 File inFile = new File(this.getDataFolder(), inPath);
                 if (!inFile.exists()) {
-                    sendConsoleMessage("&cLe fichier &e" + inFile.getName() + "&c est introuvable, creation en cours ...");
+                    sendConsoleMessage(inFile.getName() + "&c are unreachable, creating it ...");
                     this.saveResource(inPath, false);
                     if (!inFile.exists()) {
-                        sendConsoleMessage("&cImpossible de copier le fichier !");
+                        sendConsoleMessage("&cUnable to copy &e"+inFile.getName()+"&c file!");
                     } else {
-                        sendConsoleMessage("&aLe fichier &e" + inFile.getName() + "&a a ete cree !");
+                        sendConsoleMessage("&e"+inFile.getName() + "&a successfully created!");
                     }
                 }
 
             }
         } else {
-            throw new IllegalArgumentException("Le dossier ne doit pas etre vide/null !");
+            throw new IllegalArgumentException("Folder cannot be empty/null !");
         }
     }
-
     public BukkitAudiences adventure() {
         if(this.adventure == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         }
         return this.adventure;
     }
-
     public boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -144,16 +143,17 @@ public final class MultiCommands extends JavaPlugin {
         econ = rsp.getProvider();
         return true;
     }
-
     private void setupChat() {
         RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
         assert rsp != null;
         chat = rsp.getProvider();
     }
-
     private void setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         assert rsp != null;
         perms = rsp.getProvider();
+    }
+    public CooldownManager getCooldownManager(){
+        return cooldownManager;
     }
 }

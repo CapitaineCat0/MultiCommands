@@ -37,7 +37,7 @@ public class Whois implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
                     return true;
                 }
 
@@ -53,42 +53,42 @@ public class Whois implements CommandExecutor {
                             + " &eX&c" + target.getLocation().getX()
                             + " &eY&c " + target.getLocation().getY()
                             + " &eZ&c " + target.getLocation().getZ()));*/
-                    sendMessage(sender,"&6Coordonnées&8:"
+                    sendMessage(sender,"&6Coordinates&8:"
                             + " &eX&c" + target.getLocation().getX()
                             + " &eY&c " + target.getLocation().getY()
                             + " &eZ&c " + target.getLocation().getZ());
-                    sendMessage(sender, "&6Vrai pseudo&8: " + target.getName());
+                    sendMessage(sender, "&6Real name&8: " + target.getName());
                     sendMessage(sender, "&6Nickname&8: &c" + target.getCustomName());
                     sendMessage(sender, "&6UUID&8: &e" + target.getUniqueId());
-                    sendMessage(sender, "&6Adresse IP&8: &c" + target.getAddress());
+                    sendMessage(sender, "&6IP Address&8: &c" + target.getAddress());
                     if (sender instanceof Player) {
                         /*coordinates.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + target.getName()));
                         sendMessage(sender, coordinates.getFont());
                         //sender.spigot().sendMessage(coordinates);*/
                     } else {
-                        sendMessage(sender, "&6Coordonnées&8:"
+                        sendMessage(sender, "&6Coordinates&8:"
                                 + " &eX&c" + target.getLocation().getX()
                                 + " &eY&c " + target.getLocation().getY()
                                 + " &eZ&c " + target.getLocation().getZ());
                     }
-                    sendMessage(sender, "&6Monde&8: &5" + target.getWorld().getName());
+                    sendMessage(sender, "&6World&8: &5" + target.getWorld().getName());
                     sendMessage(sender, "&6Fly-mode&8: &a" + target.getAllowFlight());
                     sendMessage(sender, "&6Gamemode&8: &d" + target.getGameMode());
                     sendMessage(sender, "&6God-Mode&8: &e" + target.isInvulnerable());
-                    sendMessage(sender, "&6Operateur&8: &b" + target.isOp());
+                    sendMessage(sender, "&6Operato&8: &b" + target.isOp());
                     //sender.sendMessage("§6Client version: §f" );
-                    sendMessage(sender, "&6Whitelisté&8: &f" + target.isWhitelisted());
-                    sendMessage(sender, "&6Vanish&8: &7" + VanishHandler.getInstance().isVanished(target.getPlayer()));
+                    sendMessage(sender, "&6Whitelisted&8: &f" + target.isWhitelisted());
+                    sendMessage(sender, "&6Vanished&8: &7" + VanishHandler.getInstance().isVanished(target.getPlayer()));
                     sendMessage(sender, "&6Balance&8: &e" + BalanceData.getBalance(target));
                     try {
                         Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");
                         if (MultiMaintenance.getAUTHORIZED().contains(target.getUniqueId())) {
-                            sendMessage(sender, "&6Accès lors de maintenance&8: &f Oui");
+                            sendMessage(sender, "&6Maintenance access&8: &f Yes");
                         } else if (!MultiMaintenance.getAUTHORIZED().contains(target.getUniqueId())) {
-                            sendMessage(sender, "&6Accès lors de maintenance&8: &f Non");
+                            sendMessage(sender, "&6Maintenance access&8: &f No");
                         }
                     } catch (final Exception ex) {
-                        sendMessage(sender, "&7Installez &cMulti&dMaintenance &7 pour afficher plus d'informations!");
+                        sendMessage(sender, "&7Install &cMulti&dMaintenance &7to show more informations!");
                     }
                 }else{
                     if(sender instanceof Player){
@@ -96,7 +96,7 @@ public class Whois implements CommandExecutor {
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
                     }
-                    sendMessage(sender, NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                    sendMessage(sender, NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                 }
             }
         }

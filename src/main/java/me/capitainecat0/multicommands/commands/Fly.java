@@ -55,7 +55,7 @@ public class Fly implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), FLY_TOGGLE_ON_BY_ADMIN.getMessage());
-                                getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_ON_SENDER.getMessage().replace("%player%", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_ON_SENDER.getMessage().replace("{0}", target.getName()));
                             }else if(target.getAllowFlight()){
                                 target.setAllowFlight(false);
                                 if(soundEnabled()){
@@ -65,13 +65,13 @@ public class Fly implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), FLY_TOGGLE_OFF_BY_ADMIN.getMessage());
-                                getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF_SENDER.getMessage().replace("%player%", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF_SENDER.getMessage().replace("{0}", target.getName()));
                             }
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                         }
                     }else{
                         if(soundEnabled()){
@@ -82,7 +82,7 @@ public class Fly implements CommandExecutor {
                 }
             }else if(sender instanceof ConsoleCommandSender) {
                 if (args.length == 0) {
-                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("%cmd%", command.getName()));
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()));
                 }
                 if (args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -93,17 +93,17 @@ public class Fly implements CommandExecutor {
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), FLY_TOGGLE_ON_BY_ADMIN.getMessage());
-                            sendConsoleMessage(FLY_TOGGLE_ON_SENDER.getMessage().replace("%player%", target.getName()));
+                            sendConsoleMessage(FLY_TOGGLE_ON_SENDER.getMessage().replace("{0}", target.getName()));
                         } else if (target.getAllowFlight()) {
                             target.setAllowFlight(false);
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF_BY_ADMIN.getMessage());
-                            sendConsoleMessage(FLY_TOGGLE_OFF_SENDER.getMessage().replace("%player%", target.getName()));
+                            sendConsoleMessage(FLY_TOGGLE_OFF_SENDER.getMessage().replace("{0}", target.getName()));
                         }
                     } else {
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                     }
                 }
             }

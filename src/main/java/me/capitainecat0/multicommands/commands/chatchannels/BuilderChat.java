@@ -27,7 +27,7 @@ public class BuilderChat implements CommandExecutor, Listener {
         hideActiveBossBar();
         if (args.length >= 1) {
             String s = Joiner.on(" ").join(args);
-            String format = BUILDERCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", BUILDERCHAT_PREFIX.getMessage());
+            String format = BUILDERCHAT.getMessage().replace("{0}", BUILDERCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
 
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.hasPermission(BUILDERCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
@@ -44,7 +44,7 @@ public class BuilderChat implements CommandExecutor, Listener {
             }
             Bukkit.getServer().getConsoleSender().sendMessage(MultiCommands.colored(format));
         } else{
-            getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<message>"));
+            getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
         }
         return false;
     }
@@ -54,14 +54,14 @@ public class BuilderChat implements CommandExecutor, Listener {
         if(event.getMessage().startsWith(BUILDERCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = BUILDERCHAT.getMessage().replace("%player%", event.getPlayer().getName()).replace("%msg%", s).replace(BUILDERCHAT_PREFIX.getMessage(), " ");
+                String format = BUILDERCHAT.getMessage().replace("{1}", event.getPlayer().getName()).replace("{2}", s).replace(BUILDERCHAT_PREFIX.getMessage(), " ");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(BUILDERCHAT_PERM.getPermission())) {
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
-                        sendMessage(player, format.replace("%prefix%", BUILDERCHAT_PREFIX.getMessage()));
+                        sendMessage(player, format.replace("{0}", BUILDERCHAT_PREFIX.getMessage()));
                     } else {
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -71,7 +71,7 @@ public class BuilderChat implements CommandExecutor, Listener {
                 }
                 Bukkit.getServer().getConsoleSender().sendMessage(MultiCommands.colored(format));
             } else{
-                getMsgSendConfig(event.getPlayer(), "BuilderChat", CMD_NO_ARGS.getMessage().replace("%cmd%", "BuilderChat"));
+                getMsgSendConfig(event.getPlayer(), "BuilderChat", CMD_NO_ARGS.getMessage().replace("<command>", "BuilderChat"));
             }
         }return false;
     }

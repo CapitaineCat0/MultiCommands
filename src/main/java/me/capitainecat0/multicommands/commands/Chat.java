@@ -24,22 +24,22 @@ public class Chat implements CommandExecutor {
             getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
         }else{
             if(args.length < 1){
-                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "< admin | builder | clear | dev | modo | staff >"));
+                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "< admin | builder | clear | dev | modo | staff >"));
             }else if(args.length == 1){
                 if(args[0].equalsIgnoreCase("admin")){
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "[admin] <message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "[admin] <message>"));
                 }
                 else if(args[0].equalsIgnoreCase("builder")){
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "[builder] <message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "[builder] <message>"));
                 }
                 else if(args[0].equalsIgnoreCase("dev")){
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "[dev] <message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "[dev] <message>"));
                 }
                 else if(args[0].equalsIgnoreCase("modo")){
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "[modo] <message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "[modo] <message>"));
                 }
                 else if(args[0].equalsIgnoreCase("staff")){
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "[staff] <message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "[staff] <message>"));
                 }
                 if(args[0].equalsIgnoreCase("toggle")){
 
@@ -153,7 +153,7 @@ public class Chat implements CommandExecutor {
             }else if(args.length >= 2){
                 if(args[0].equalsIgnoreCase("admin")){
                     String s = Joiner.on(" ").join(args).replace("admin", " ");
-                    String format = ADMINCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", ADMINCHAT_PREFIX.getMessage());
+                    String format = ADMINCHAT.getMessage().replace("{0}", ADMINCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.hasPermission(ADMINCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
                             if(soundEnabled()){
@@ -171,8 +171,7 @@ public class Chat implements CommandExecutor {
                 }
                 else if(args[0].equalsIgnoreCase("builder")){
                     String s = Joiner.on(" ").join(args).replace("builder", " ");
-                    String format = BUILDERCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", BUILDERCHAT.getMessage());
-                    for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+                    String format = BUILDERCHAT.getMessage().replace("{0}", BUILDERCHAT.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);                    for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.hasPermission(BUILDERCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
                             if(soundEnabled()){
                                 playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -189,7 +188,7 @@ public class Chat implements CommandExecutor {
                 }
                 else if(args[0].equalsIgnoreCase("dev")){
                     String s = Joiner.on(" ").join(args).replace("dev", " ");
-                    String format = DEVCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", DEVCHAT.getMessage());
+                    String format = DEVCHAT.getMessage().replace("{0}", DEVCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.hasPermission(DEVCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
                             if(soundEnabled()){
@@ -207,7 +206,7 @@ public class Chat implements CommandExecutor {
                 }
                 else if(args[0].equalsIgnoreCase("modo")){
                     String s = Joiner.on(" ").join(args).replace("modo", " ");
-                    String format = MODOCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", MODOCHAT_PREFIX.getMessage());
+                    String format = MODOCHAT.getMessage().replace("{0}", MODOCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.hasPermission(MODOCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
                             if(soundEnabled()){
@@ -225,7 +224,7 @@ public class Chat implements CommandExecutor {
                 }
                 else if(args[0].equalsIgnoreCase("staff")){
                     String s = Joiner.on(" ").join(args).replace("staff", " ");
-                    String format = STAFFCHAT.getMessage().replace("%player%", sender.getName()).replace("%msg%", s).replace("%prefix%", STAFFCHAT_PREFIX.getMessage());
+                    String format = STAFFCHAT.getMessage().replace("{0}", STAFFCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.hasPermission(STAFFCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
                             if(soundEnabled()){

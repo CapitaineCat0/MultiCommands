@@ -54,7 +54,7 @@ public class MultiHelp implements CommandExecutor {
                                 +"&6 - &b/whois <joueur> &7Permet d'afficher les informations d'un joueur\n");
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
         }
         return false;
     }

@@ -25,7 +25,7 @@ public class RandomTP implements CommandExecutor{
             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
         }else{
             if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             }else{
                 Player player = ((Player)sender);
                 if(args.length < 2){
@@ -42,7 +42,7 @@ public class RandomTP implements CommandExecutor{
                     location.setY(y);
 
                     player.teleport(location);
-                    getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z "+z));
+                    getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("{0}", "X "+x+" Y "+y+" Z "+z));
                 }else if(args.length == 2){
                     try{
                         int maxX = Integer.parseInt(args[0]);
@@ -58,7 +58,7 @@ public class RandomTP implements CommandExecutor{
                         location.setY(y);
 
                         player.teleport(location);
-                        getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("%loc%", "X "+x+" Y "+y+" Z "+z));
+                        getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("{0}", "X "+x+" Y "+y+" Z "+z));
                     }catch (Error error){
                         sendConsoleMessage(error.getMessage());
                     }

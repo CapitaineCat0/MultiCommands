@@ -32,7 +32,7 @@ public class Plugins implements Listener {
             if(soundEnabled()){
                 playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
             }
-            sendMessage(event.getPlayer(), "&6Plugins chargés &7(&c" + Bukkit.getPluginManager().getPlugins().length + "&7)&8:");
+            sendMessage(event.getPlayer(), "&6Plugins loaded &7(&c" + Bukkit.getPluginManager().getPlugins().length + "&7)&8:");
             Plugin[] pm = Bukkit.getPluginManager().getPlugins();
             for (Plugin p : pm) {
                 try{
@@ -42,7 +42,7 @@ public class Plugins implements Listener {
                         sendMessage(event.getPlayer(), "  &3- &b" + p.getName() + " &8" + p.getDescription().getVersion() + " &c(disabled)");
                     }
                 }catch(Error e){
-                    sendMessage(event.getPlayer(), "&cUne erreur est survenue :&e" + e);
+                    sendMessage(event.getPlayer(), "&cAn error occurred :&e" + e);
                 }
             }
         }

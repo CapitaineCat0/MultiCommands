@@ -59,7 +59,7 @@ public class God implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), GOD_OTHER_OFF.getMessage());
-                                getMsgSendConfig(sender, command.getName(), GOD_OTHER_ADMIN_OFF.getMessage().replace("%player%", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), GOD_OTHER_ADMIN_OFF.getMessage().replace("{0}", target.getName()));
                             }else if(!target.isInvulnerable()){
                                 target.setInvulnerable(true);
                                 target.setGlowing(true);
@@ -70,13 +70,13 @@ public class God implements CommandExecutor {
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
                                 getMsgSendConfig(target, command.getName(), GOD_OTHER_ON.getMessage());
-                                getMsgSendConfig(sender, command.getName(), GOD_OTHER_ADMIN_ON.getMessage().replace("%player%", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), GOD_OTHER_ADMIN_ON.getMessage().replace("{0}", target.getName()));
                             }
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                         }
                     }else{
                         if(soundEnabled()){
@@ -88,7 +88,7 @@ public class God implements CommandExecutor {
                 }
             }else if(sender instanceof ConsoleCommandSender){
                 if(args.length == 0){
-                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("%cmd%", command.getName()));
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()));
                 }
                 if(args.length == 1){
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -100,7 +100,7 @@ public class God implements CommandExecutor {
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(target, command.getName(), GOD_OTHER_OFF.getMessage());
-                            sendConsoleMessage(GOD_OTHER_ADMIN_OFF.getMessage().replace("%player%", target.getName()));
+                            sendConsoleMessage(GOD_OTHER_ADMIN_OFF.getMessage().replace("{0}", target.getName()));
                         }else if(!target.isInvulnerable()){
                             target.setInvulnerable(true);
                             target.setGlowing(true);
@@ -108,10 +108,10 @@ public class God implements CommandExecutor {
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             getMsgSendConfig(sender, command.getName(), GOD_OTHER_ON.getMessage());
-                            sendConsoleMessage(GOD_OTHER_ADMIN_ON.getMessage().replace("%player%", target.getName()));
+                            sendConsoleMessage(GOD_OTHER_ADMIN_ON.getMessage().replace("{0}", target.getName()));
                         }
                     }else{
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                     }
                 }
             }

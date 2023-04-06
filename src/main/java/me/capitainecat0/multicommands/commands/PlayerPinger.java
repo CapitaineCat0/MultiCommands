@@ -34,16 +34,16 @@ public class PlayerPinger implements CommandExecutor {
                     }
                     int ping = 0;//((Player) sender).getPing();
                     if(ping < 50){
-                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
+                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{0}", MultiCommands.colored("&a" + ping + " ms")));
                     }
                     if(ping > 50){
-                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("%ping%", MultiCommands.colored("&e" + ping + " ms")));
+                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{0}", MultiCommands.colored("&e" + ping + " ms")));
                     }
                     if(ping > 300){
-                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("%ping%", MultiCommands.colored("&c" + ping + " ms")));
+                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{%ping%}", MultiCommands.colored("&c" + ping + " ms")));
                     }
                 }else if(sender instanceof ConsoleCommandSender){
-                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("%cmd%", command.getName()));
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage());
                 }
             }else if(args.length == 1) {
                 Player target = Bukkit.getPlayerExact(args[0]);
@@ -55,23 +55,23 @@ public class PlayerPinger implements CommandExecutor {
                     assert target != null;
                     ping = 0;//target.getPing();
                     if (ping < 50) {
-                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%player%", target.getName()).replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", MultiCommands.colored("&a" + ping + " ms")));
                     }
                     if (ping > 50) {
-                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%player%", target.getName()).replace("%ping%", MultiCommands.colored("&e" + ping + " ms")));
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", MultiCommands.colored("&e" + ping + " ms")));
                     }
                     if (ping > 300) {
-                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("%player%", target.getName()).replace("%ping%", MultiCommands.colored("&c" + ping + " ms")));
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", MultiCommands.colored("&c" + ping + " ms")));
                     }
                 } else if (sender instanceof ConsoleCommandSender) {
                     if (ping < 50) {
-                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("%player%", target.getName()).replace("%ping%", MultiCommands.colored("&a" + ping + " ms")));
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", MultiCommands.colored("&a" + ping + " ms")));
                     }
                     if (ping > 50) {
-                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("%player%", target.getName()).replace("%ping%", MultiCommands.colored("&e" + ping + " ms")));
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", MultiCommands.colored("&e" + ping + " ms")));
                     }
                     if (ping > 300) {
-                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("%player%", target.getName()).replace("%ping%", MultiCommands.colored("&c" + ping + " ms")));
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", MultiCommands.colored("&c" + ping + " ms")));
                     }
                 }
 

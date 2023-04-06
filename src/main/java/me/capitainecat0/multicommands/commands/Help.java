@@ -8,8 +8,7 @@ import org.bukkit.help.HelpTopic;
 import org.jetbrains.annotations.NotNull;
 
 import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 
 public class Help implements CommandExecutor {
@@ -21,9 +20,9 @@ public class Help implements CommandExecutor {
             return true;
         }
         if(args.length == 0){
-            sender.sendMessage("§6Aide des différentes commandes§8:");
+            sendMessage(sender, "&6Commands help &8:");
             for(HelpTopic help : Bukkit.getHelpMap().getHelpTopics()){
-                sender.sendMessage(" §e-" + help.getName() + " §7" + help.getShortText());
+                sendMessage(sender, " &e-" + help.getName() + " &7" + help.getShortText());
             }
             /*for(Plugin plugin : Bukkit.getPluginManager().getPlugins()){
                 sender.sendMessage("§6 -§e" + plugin.getName() + "§8: §b/help " + plugin.getName());

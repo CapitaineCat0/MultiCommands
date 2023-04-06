@@ -7,11 +7,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import static me.capitainecat0.multicommands.MultiCommands.colored;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 import static me.capitainecat0.multicommands.utils.Perms.KICK_PERM;
-import static me.capitainecat0.multicommands.utils.PluginCore.colored;
 
 public class Kick implements CommandExecutor {
     @Override
@@ -22,7 +22,7 @@ public class Kick implements CommandExecutor {
         }
         else{
             if(args.length == 0){
-                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<player>"));
+                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
             }
             // /kick joueur raison
             // /kick args[0] args[1]
@@ -40,7 +40,7 @@ public class Kick implements CommandExecutor {
                 if (message.length() == 0){
                     target.kickPlayer(colored(KICK_PREFIX.getMessage()));
                     }else{
-                    target.kickPlayer(colored(KICK_PREFIX.getMessage().replace("%reason%", message.replace(target.getName(), ""))));
+                    target.kickPlayer(colored(KICK_PREFIX.getMessage().replace("{0}", message.replace(target.getName(), ""))));
                     }
             }
         }

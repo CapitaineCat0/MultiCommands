@@ -42,7 +42,7 @@ public class SetSpawn implements CommandExecutor {
               getMsgSendConfig(sender, command.getName(), Messenger.SETSPAWN_DONE.getMessage()//.replace("%loc%", (CharSequence) location)
               );
           }else if(sender instanceof ConsoleCommandSender){
-              sendConsoleMessage(Messenger.NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+              sendConsoleMessage(Messenger.NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
           }
         }
         return true;

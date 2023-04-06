@@ -40,20 +40,20 @@ public class ServerInfo implements CommandExecutor {
             sendMessage(sender, "&6IP &c/&6 Port: &c" + Bukkit.getServer().getIp() + " &e:&c " + Bukkit.getServer().getPort());
             sendMessage(sender, "&6Jar: &c" + Bukkit.getServer().getVersion());
             sendMessage(sender, "&6Version: &c" + Bukkit.getServer().getBukkitVersion());
-            sendMessage(sender, "&6Joueurs connectés: &c" + Bukkit.getServer().getOnlinePlayers().size() + "&e / &c" + Bukkit.getServer().getMaxPlayers());
-            sendMessage(sender, "&6Opérateurs: &7(&c" + Bukkit.getServer().getOperators().size() + "&7)");
+            sendMessage(sender, "&6Players: &c" + Bukkit.getServer().getOnlinePlayers().size() + "&e / &c" + Bukkit.getServer().getMaxPlayers());
+            sendMessage(sender, "&6Operators: &7(&c" + Bukkit.getServer().getOperators().size() + "&7)");
             for (OfflinePlayer op : Bukkit.getOperators()) {
                 sendMessage(sender, "&c- &7" + op.getName());
             }
-            sendMessage(sender, "&6Whitelistés: &7(&c" + Bukkit.getServer().getWhitelistedPlayers().size() + "&7)");
+            sendMessage(sender, "&6Whitelisted: &7(&c" + Bukkit.getServer().getWhitelistedPlayers().size() + "&7)");
             for(OfflinePlayer wl : Bukkit.getWhitelistedPlayers()){
                 sendMessage(sender, "&c- &7" + wl.getName());
             }
-            sendMessage(sender, "&6Bannis: &7(&c" + Bukkit.getServer().getBannedPlayers().size() + "&7) ");
+            sendMessage(sender, "&6Banned: &7(&c" + Bukkit.getServer().getBannedPlayers().size() + "&7) ");
             for(OfflinePlayer ban : Bukkit.getBannedPlayers()){
                 sendMessage(sender, "&c- &7" + ban.getName());
             }
-            sendMessage(sender, "&6Vanish: &7(&c" + VanishHandler.getVanished().size() + "&7)");
+            sendMessage(sender, "&6Vanished: &7(&c" + VanishHandler.getVanished().size() + "&7)");
             for(OfflinePlayer vanished : VanishHandler.getVanished()){
                 sendMessage(sender, "&c- &7" + vanished.getName());
             }
@@ -65,7 +65,7 @@ public class ServerInfo implements CommandExecutor {
                 Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");
                 OfflinePlayer player;
 
-                sendMessage(sender, "&6Joueurs whitelistés &8(multimaintenance) &7(&c" + MultiMaintenance.getAUTHORIZED().size() + "&7)");
+                sendMessage(sender, "&6Whitelisted players &8(multimaintenance) &7(&c" + MultiMaintenance.getAUTHORIZED().size() + "&7)");
                 for (UUID uuid : MultiMaintenance.getAUTHORIZED()) {
                     player = Bukkit.getOfflinePlayer(uuid);
                     sendMessage(sender, "&e-&a " + player.getName());
@@ -73,10 +73,10 @@ public class ServerInfo implements CommandExecutor {
                 if (MultiMaintenance.ENABLED) {
                     sendMessage(sender, me.capitainecat0.multimaintenance.utils.Messenger.MAINTENANCE_STATUS.getMessage().replace("%status", "&aactive"));
                 }else {
-                    sendMessage(sender, me.capitainecat0.multimaintenance.utils.Messenger.MAINTENANCE_STATUS.getMessage().replace("%status", "&cdésactivée"));
+                    sendMessage(sender, me.capitainecat0.multimaintenance.utils.Messenger.MAINTENANCE_STATUS.getMessage().replace("%status", "&cinactive"));
                 }
             }catch(final Exception ex) {
-                sendMessage(sender, "&7Installez &cMulti§&Maintenance &7pour afficher plus d'informations!");
+                sendMessage(sender, "&7Install &cMulti§&Maintenance &7to show more informations!");
             }
             sendMessage(sender, "&a&m-+----------------------------------------------------------------+-");
         }

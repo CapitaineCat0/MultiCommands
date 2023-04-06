@@ -17,11 +17,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import static me.capitainecat0.multicommands.MultiCommands.colored;
 import static me.capitainecat0.multicommands.MultiCommands.econ;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.sendBroadcastMessage;
-import static me.capitainecat0.multicommands.utils.PluginCore.colored;
 
 public class Join implements Listener {
 
@@ -55,8 +54,8 @@ public class Join implements Listener {
                Component join = Component.text(joinText);
                event.setJoinMessage(joinText);
            }else {
-               Component join = Component.text(ONJOIN.getMessage().replace("%player%", player.getName()));
-               event.setJoinMessage(ONJOIN.getMessage().replace("%player%", player.getName()));
+               Component join = Component.text(ONJOIN.getMessage().replace("{0}", player.getName()));
+               event.setJoinMessage(colored(ONJOIN.getMessage().replace("{0}", player.getName())));
                if (player.hasPermission(Perms.VANISH_PERM_SELF.getPermission()) || player.hasPermission(Perms.VANISH_PERM_ALL.getPermission()) || player.hasPermission(Perms.ALL_PERMS.getPermission())) {
                    VanishHandler.getVanished().add(player);
                }

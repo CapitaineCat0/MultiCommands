@@ -52,7 +52,7 @@ public class Feed implements CommandExecutor {
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), FEED_OTHER_SENDER.getMessage().replace("%player%", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), FEED_OTHER_SENDER.getMessage().replace("{0}", target.getName()));
                                 getMsgSendConfig(target, command.getName(), FEED_OTHER.getMessage());
                             }else{
                                 if(soundEnabled()){
@@ -64,13 +64,13 @@ public class Feed implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                         }
                     }
                 }
             }
             else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("%cmd%", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()));
             }
             if(args.length == 1){
                 Player target = Bukkit.getPlayerExact(args[0]);
@@ -80,13 +80,13 @@ public class Feed implements CommandExecutor {
                         if(soundFeedHealEnabled()){
                             playSound(target, Sound.ENTITY_GENERIC_EAT, 1f, 1f);
                         }
-                        sendConsoleMessage(FEED_OTHER_SENDER.getMessage().replace("%player%", target.getName()));
+                        sendConsoleMessage(FEED_OTHER_SENDER.getMessage().replace("{0}", target.getName()));
                         getMsgSendConfig(target, command.getName(), FEED_OTHER.getMessage());
                     }else{
-                        sendConsoleMessage(FEED_ALREADY_SENDER.getMessage().replace("%player%", target.getName()));
+                        sendConsoleMessage(FEED_ALREADY_SENDER.getMessage().replace("{0}", target.getName()));
                     }
                 }else{
-                    sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                    sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                 }
             }
         return false;

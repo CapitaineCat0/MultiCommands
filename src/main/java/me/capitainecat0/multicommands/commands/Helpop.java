@@ -28,7 +28,7 @@ public class Helpop implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<message>"));
+                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
                 return true;
             }
                 StringBuilder bc = new StringBuilder();
@@ -41,7 +41,7 @@ public class Helpop implements CommandExecutor {
                         if(soundEnabled()){
                             playSound(operators.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
-                        sendConsoleMessage("§c[Aide Admin] §7" + sender.getName() + "§8: §f" + bc);
+                        sendConsoleMessage("§c[Admin Help] §7" + sender.getName() + "§8: §f" + bc);
                         sendMessage(operators.getPlayer(),"§c[Admin Help] §7" + sender.getName() + "§8: §f" + bc);
                     }
 
@@ -58,7 +58,7 @@ public class Helpop implements CommandExecutor {
 
 
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
         }
         return false;
     }

@@ -109,6 +109,8 @@ public class Commands {
             MultiCommands.getInstance().registerCommand(new ServerInfo(), "serverinfo");
             sendConsoleMessage("&e - SETSPAWN");
             MultiCommands.getInstance().registerCommand(new SetSpawn(), "setspawn");
+            sendConsoleMessage("&e - SETWARP");
+            MultiCommands.getInstance().registerCommand(new SetWarp(), "setwarp");
             sendConsoleMessage("&e - SPAWN");
             MultiCommands.getInstance().registerCommand(new Spawn(), "spawn");
             sendConsoleMessage("&e - STAFFCHAT / SC");
@@ -122,6 +124,8 @@ public class Commands {
             sendConsoleMessage("&e - VANISH / V");
             Objects.requireNonNull(MultiCommands.getInstance().getCommand("vanish")).setTabCompleter(new BasicTab());
             MultiCommands.getInstance().registerCommand(new Vanish(), "vanish");
+            sendConsoleMessage("&e - WARP");
+            MultiCommands.getInstance().registerCommand(new Warp(), "warp");
             sendConsoleMessage("&e - WHOIS");
             Objects.requireNonNull(MultiCommands.getInstance().getCommand("whois")).setTabCompleter(new BasicTab());
             MultiCommands.getInstance().registerCommand(new Whois(), "whois");
@@ -188,6 +192,7 @@ public class Commands {
             MultiCommands.getInstance().registerCommand(new RandomTP(), "randomtp");
             MultiCommands.getInstance().registerCommand(new ServerInfo(), "serverinfo");
             MultiCommands.getInstance().registerCommand(new SetSpawn(), "setspawn");
+            MultiCommands.getInstance().registerCommand(new SetWarp(), "setwarp");
             MultiCommands.getInstance().registerCommand(new Spawn(), "spawn");
             MultiCommands.getInstance().registerCommand(new StaffChat(), "staffchat");
             Objects.requireNonNull(MultiCommands.getInstance().getCommand("teleport")).setTabCompleter(new BasicTab());
@@ -197,6 +202,7 @@ public class Commands {
             Objects.requireNonNull(MultiCommands.getInstance().getCommand("vanish")).setTabCompleter(new BasicTab());
             MultiCommands.getInstance().registerCommand(new Vanish(), "vanish");
             Objects.requireNonNull(MultiCommands.getInstance().getCommand("whois")).setTabCompleter(new BasicTab());
+            MultiCommands.getInstance().registerCommand(new Warp(), "warp");
             MultiCommands.getInstance().registerCommand(new Whois(), "whois");
         }
 

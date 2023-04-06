@@ -40,15 +40,15 @@ public class Gamemode implements CommandExecutor {
                     if(args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")){
                         if(sender.hasPermission(GAMEMODE_SURVIVAL_PERM_SELF.getPermission()) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
                             if (args[0].equalsIgnoreCase("0")) {
-                                this.gamemode = "0 (survie)";
+                                this.gamemode = "0 (survival)";
                             } else if (args[0].equalsIgnoreCase("survival")) {
-                                this.gamemode = "survie";
+                                this.gamemode = "survival";
                             }
                             player.setGameMode(GameMode.SURVIVAL);
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
+                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -59,15 +59,15 @@ public class Gamemode implements CommandExecutor {
                     } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
                         if(sender.hasPermission(GAMEMODE_CREATIVE_PERM_SELF.getPermission()) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
                             if (args[0].equalsIgnoreCase("1")) {
-                                this.gamemode = "1 (créatif)";
+                                this.gamemode = "1 (creative)";
                             } else if (args[0].equalsIgnoreCase("creative")) {
-                                this.gamemode = "creatif";
+                                this.gamemode = "creative";
                             }
                             player.setGameMode(GameMode.CREATIVE);
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
+                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -80,15 +80,15 @@ public class Gamemode implements CommandExecutor {
                                 || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission())
                                 || sender.hasPermission(ALL_PERMS.getPermission())){
                             if (args[0].equalsIgnoreCase("2")) {
-                                this.gamemode = "2 (aventure)";
+                                this.gamemode = "2 (adventure)";
                             } else if (args[0].equalsIgnoreCase("adventure")) {
-                                this.gamemode = "aventure";
+                                this.gamemode = "adventure";
                             }
                             player.setGameMode(GameMode.ADVENTURE);
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
+                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -102,15 +102,15 @@ public class Gamemode implements CommandExecutor {
                                 || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission())
                                 || sender.hasPermission(ALL_PERMS.getPermission())){
                             if (args[0].equalsIgnoreCase("3")) {
-                                this.gamemode = "3 (spectateur)";
+                                this.gamemode = "3 (spectator)";
                             } else if (args[0].equalsIgnoreCase("spectator")) {
-                                this.gamemode = "spectateur";
+                                this.gamemode = "spectator";
                             }
                             player.setGameMode(GameMode.SPECTATOR);
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("%gamemode%", gamemode));
+                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -129,9 +129,9 @@ public class Gamemode implements CommandExecutor {
                                     || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission())
                                     || sender.hasPermission(ALL_PERMS.getPermission())){
                                 if (args[0].equalsIgnoreCase("0")) {
-                                    this.gamemode = "0 (survie)";
+                                    this.gamemode = "0 (survival)";
                                 } else if (args[0].equalsIgnoreCase("survival")) {
-                                    this.gamemode = "survie";
+                                    this.gamemode = "survival";
                                 }
                                 target.setGameMode(GameMode.SURVIVAL);
                                 if(soundEnabled()){
@@ -140,8 +140,8 @@ public class Gamemode implements CommandExecutor {
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -155,17 +155,17 @@ public class Gamemode implements CommandExecutor {
                                     || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission())
                                     || sender.hasPermission(ALL_PERMS.getPermission())){
                                 if (args[0].equalsIgnoreCase("1")) {
-                                    this.gamemode = "1 (créatif)";
+                                    this.gamemode = "1 (creative)";
                                 } else if (args[0].equalsIgnoreCase("creative")) {
-                                    this.gamemode = "creatif";
+                                    this.gamemode = "creative";
                                 }
                                 target.setGameMode(GameMode.CREATIVE);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -179,17 +179,17 @@ public class Gamemode implements CommandExecutor {
                                     || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission())
                                     || sender.hasPermission(ALL_PERMS.getPermission())){
                                 if (args[0].equalsIgnoreCase("2")) {
-                                    this.gamemode = "2 (aventure)";
+                                    this.gamemode = "2 (adventure)";
                                 } else if (args[0].equalsIgnoreCase("adventure")) {
-                                    this.gamemode = "aventure";
+                                    this.gamemode = "adventure";
                                 }
                                 target.setGameMode(GameMode.ADVENTURE);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -203,17 +203,17 @@ public class Gamemode implements CommandExecutor {
                                     || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission())
                                     || sender.hasPermission(ALL_PERMS.getPermission())){
                                 if (args[0].equalsIgnoreCase("3")) {
-                                    this.gamemode = "3 (spectateur)";
+                                    this.gamemode = "3 (spectator)";
                                 } else if (args[0].equalsIgnoreCase("spectator")) {
-                                    this.gamemode = "spectateur";
+                                    this.gamemode = "spectator";
                                 }
                                 target.setGameMode(GameMode.SPECTATOR);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -226,12 +226,12 @@ public class Gamemode implements CommandExecutor {
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%p", args[0]));
+                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                     }
                 }
             }else if (sender instanceof ConsoleCommandSender) {
                 if(args.length <= 1){
-                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("%cmd%", command.getName()));
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()));
                 }
                 if(args.length == 2){
                     Player target = Bukkit.getPlayerExact(args[1]);
@@ -239,55 +239,55 @@ public class Gamemode implements CommandExecutor {
                     if (target != null) {
                         if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
                             if (args[0].equalsIgnoreCase("0")) {
-                                this.gamemode = "0 (survie)";
+                                this.gamemode = "0 (survival)";
                             } else if (args[0].equalsIgnoreCase("survival")) {
-                                this.gamemode = "survie";
+                                this.gamemode = "survival";
                             }
                             target.setGameMode(GameMode.SURVIVAL);
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
                         } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
                             if (args[0].equalsIgnoreCase("1")) {
-                                this.gamemode = "1 (créatif)";
+                                this.gamemode = "1 (creative)";
                             } else if (args[0].equalsIgnoreCase("creative")) {
-                                this.gamemode = "creatif";
+                                this.gamemode = "creative";
                             }
                             target.setGameMode(GameMode.CREATIVE);
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
                         }else if(args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")){
                             if (args[0].equalsIgnoreCase("2")) {
-                                this.gamemode = "2 (aventure)";
+                                this.gamemode = "2 (adventure)";
                             } else if (args[0].equalsIgnoreCase("adventure")) {
-                                this.gamemode = "aventure";
+                                this.gamemode = "adventure";
                             }
                             target.setGameMode(GameMode.ADVENTURE);
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
                         }else if(args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")){
                             if (args[0].equalsIgnoreCase("3")) {
-                                this.gamemode = "3 (spectateur)";
+                                this.gamemode = "3 (spectator)";
                             } else if (args[0].equalsIgnoreCase("spectator")) {
-                                this.gamemode = "spectateur";
+                                this.gamemode = "spectator";
                             }
                             target.setGameMode(GameMode.SPECTATOR);
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("%gamemode%", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("%gamemode%", gamemode).replace("%player%", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
                         }
                     } else {
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%p", args[1]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[1]));
                     }
                 }
             }

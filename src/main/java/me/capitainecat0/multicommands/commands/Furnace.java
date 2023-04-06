@@ -32,7 +32,7 @@ public class Furnace implements CommandExecutor {
             return true;
         }else{
             if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
                 return true;
             }else{
                 ItemStack result = null;
@@ -49,7 +49,7 @@ public class Furnace implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), FURNACE_DONE.getMessage().replace("%items%", baseItem.getAmount()+" "+baseItem.getType().name()));
+                    getMsgSendConfig(sender, command.getName(), FURNACE_DONE.getMessage().replace("{0}", baseItem.getAmount()+" "+baseItem.getType().name()));
 
                     result.setAmount(baseItem.getAmount());
                     ((Player)sender).setItemInHand(result);
@@ -58,7 +58,7 @@ public class Furnace implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), FURNACE_ERROR.getMessage().replace("%item%", block.getType()+""));
+                    getMsgSendConfig(sender, command.getName(), FURNACE_ERROR.getMessage().replace("{0}", block.getType()+""));
                 }
             }
         }

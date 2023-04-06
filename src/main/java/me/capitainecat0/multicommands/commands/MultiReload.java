@@ -7,6 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -29,7 +30,7 @@ public class MultiReload implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            sendMessage(sender, CMD_NO_PERM.getMessage().replace("%cmd%", command.getName()));
+            sendMessage(sender, CMD_NO_PERM.getMessage());
             return true;
         }else {
             if(sender instanceof Player){
@@ -37,8 +38,14 @@ public class MultiReload implements CommandExecutor {
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 }
                 sendMessage(sender, PLUGIN_RELOADED.getMessage());
+                MessengerUtils.reloadLang();
+                MultiCommands.getInstance().reloadConfig();
+            }else if(sender instanceof ConsoleCommandSender){
+                sendConsoleMessage(PLUGIN_RELOADED.getMessage());
+                MessengerUtils.reloadLang();
+                MultiCommands.getInstance().reloadConfig();
             }
-            MessengerUtils.reloadLang();
+
         }
         return false;
     }

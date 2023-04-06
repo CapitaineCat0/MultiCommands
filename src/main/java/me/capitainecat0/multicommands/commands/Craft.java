@@ -34,7 +34,7 @@ public class Craft implements CommandExecutor {
                 ((Player)sender).openWorkbench(((Player)sender).getLocation(), true);
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
         }
         return false;
     }

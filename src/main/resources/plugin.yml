@@ -13,27 +13,22 @@ commands:
   #channels staff:
   adminchat:
     description: Permet d'envoyer des messages privés entre admins
-    usage: </command>
     aliases: ac
     permission: multicommands.chat.admin
   builderchat:
     description: Permet d'envoyer des messages privés entre builders
-    usage: </command>
     aliases: bchat
     permission: multicommands.chat.builder
   devchat:
     description:  Permet d'envoyer des messages privés entre dévelopeurs
-    usage: </command>
     aliases: dc
     permission: multicommands.chat.developer
   modochat:
     description: Permet d'envoyer des messages privés entre modérateurs
-    usage: </command>
     aliases: mchat
     permission: multicommands.chat.moderator
   staffchat:
     description: Permet d'envoyer des messages privés entre staff
-    usage: </command>
     aliases: sc
     permission: multicommands.chat.staff
 
@@ -42,52 +37,41 @@ commands:
 
   actionbar:
     description: Permet d'envoyer un message dans la barre d'action
-    usage: </command>
     permission: multicommands.actionbar
   afk:
     description: Permet de gérer le mode AFK
-    usage: </command>
     permission: multicommands.afk
   alert:
     description: Envoyer un message d'alerte
-    usage: </command>
     permission: multicommands.alert
   ban:
     description: Permet de bannir un joueur
-    usage: </command>
     permission: multicommands.ban
   bank:
     description: Permet de gérer la banque (requiert Vault)
-    usage: </command>
     permission: multicommands.economy
   bossbar:
     description: Permet d'envoyer un message dans la bossbar
-    usage: </command>
     permission: multicommands.bossbar
   broadcast:
     description: Envoyer un broadcast
-    usage: </command>
     aliases: bc
     permission: multicommands.broadcast
   chat:
     description: Permet de gérer le chat
-    usage: </command>
     permission: multicommands.chat
   clear:
     description: Vider son inventaire / celui d'un autre joueur
-    usage: </command>
     aliases:
       - ci
       - clearinventory
     permission: multicommands.clearinventory
   craft:
     description: Ouvrir l'établi
-    usage: </command>
     aliases: workbench
     permission: multicommands.craft
   economy:
     description: Permet de gérer le systeme d'économie
-    usage: </command>
     aliases:
       - eco
       - econ
@@ -97,60 +81,46 @@ commands:
     permission: multicommands.economy
   enderchest:
     description: Ouvrir votre enderchest / celui d'un autre joueur
-    usage: </command>
     aliases: ec
     permission: multicommands.enderchest
   feed:
     description: Permet de se nourrir / un autre joueur
-    usage: </command>
     permission: multicommands.feed
   fly:
     description: Permet de gérer votre fly-mode / celui d'un autre joueur
-    usage: </command>
     permission: multicommands.fly
   freeze:
     description: Geler un joueur
-    usage: </command>
     permission: multicommands.freeze
   furnace:
     description: Permet de cuire les items que vous tenez
-    usage: </command>
     permission: multicommands.furnace
   gamemode:
     description: Permet de changer votre mode de jeu / celui d'un autre joueur
-    usage: </command>
     aliases: gm
     permission: multicommands.gamemode
   god:
     description: Permet de gérer votre invulnérabilité / celle d'un autre joueur
-    usage: </command>
     permission: multicommands.god
   heal:
     description: Permet de se soigner / un autre joueur
-    usage: </command>
     permission: multicommands.heal
   helpop:
     description: Permet d'envoyer un message aux opérateurs
-    usage: </command>
     permission: multicommands.helpop
   invsee:
     description: Permet d'afficher et d'interagir avec l'inventaire d'un autre joueur
-    usage: </command>
     permission: multicommands.invsee
   kick:
     description: Permet d'expulser un joueur
-    usage: </command>
     permission: multicommands.kick
   list:
     description: Permet d'afficher les joueurs connectés
-    usage: </command>
   msg:
     description: Permet d'envoyer un message privé
-    usage: </command>
     aliases: r
   multihelp:
     description: Permet d'afficher l'aide des plugins Multi
-    usage: </command>
     permission: multicommands.multihelp
     aliases:
       - mhelp
@@ -160,7 +130,6 @@ commands:
       - mc
   multiinfos:
     description: Permet d'afficher les informations d'un plugin de la série Multi
-    usage: </command>
     permission: multicommands.multiinfos
     aliases:
       - minfos
@@ -170,11 +139,9 @@ commands:
       - multinfos
   nick:
     description: Permet de changer votre pseudo
-    usage: </command>
     permission: multicommands.nick
   ping:
     description: Permet d'afficher votre ping / celui d'un autre
-    usage: </command>
     permission: multicommands.playerpinger
     aliases:
       - pping
@@ -182,44 +149,44 @@ commands:
       - playerpinger
   mreload:
     description: Permet de recharger les configurations
-    usage: </command>
     permission: multicommands.multireload
     aliases:
       - multireload
   randomtp:
     description: Permet de se téléporter aléatoirement sur la carte
-    usage: </command>
     aliases:
       - rtp
       - randomteleport
   serverinfo:
     description: Permet d'afficher les informations sur le serveur
-    usage: </command>
     permission: multicommands.serverinfo
   setspawn:
     description: Permet de placer le spawn du monde
-    usage: </command>
     permission: multicommands.setspawn
+  #setwarp:
+    #description: Permet de créer des warps
+
+    #permission: multicommands.setwarp
   spawn:
     description: Permet de vous téléporter au spawn du monde
-    usage: </command>
   tp:
     description: Permet de se téléporter / un autre joueur
-    usage: </command>
     permission: multicommands.teleport
     aliases: teleport
   title:
     description: Permet d'envoyer un message en titre
-    usage: </command>
     permission: multicommands.title
   vanish:
     description: Permet de gérer votre vanish
-    usage: </command>
     permission: multicommands.vanish
     aliases: v
+  #warp:
+   #description: Permet de se téléporter aux warps
+
+    #aliases: warps
+    #permission: multicommands.warp
   whois:
     description: Permet d'afficher les informations sur un joueur
-    usage: </command>
     permission: multicommands.whois
 
 permissions:

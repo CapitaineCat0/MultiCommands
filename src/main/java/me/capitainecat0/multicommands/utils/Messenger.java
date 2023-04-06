@@ -50,7 +50,7 @@ public enum Messenger {
     ECONOMY_BALANCE_OTHER(lang("economy_balance_other")),
     ECONOMY_PAY_SENT(lang("economy_pay_sender")),
     ECONOMY_PAY_OTHER(lang("economy_pay_receiver")),
-    ECONOMY_DEPOSIT(lang("economy_deposit")),
+    ECONOMY_DEPOSIT(lang("economy_gave")),
     ECONOMY_WITHDRAW(lang("economy_withdraw")),
     ECONOMY_RESET(lang("economy_reset")),
     ECONOMY_SET(lang("economy_set")),
@@ -77,8 +77,8 @@ public enum Messenger {
     FREEZE_MOVE(lang("freeze_move")),
     FREEZE_PICKUP(lang("freeze_pickup_item")),
     FREEZE_PLACE(lang("freeze_place")),
-    FURNACE_ERROR("&cL'item &e%item% &cne peux pas être cuit!"),
-    FURNACE_DONE("&aVous avez fait cuire &e%items%&a."),
+    FURNACE_ERROR(lang("furnace_error")),
+    FURNACE_DONE(lang("furnace_done")),
     GAMEMODE_SELF(lang("gamemode_self")),
     GAMEMODE_OTHER(lang("gamemode_by_admin")),
     GAMEMODE_OTHER_ADMIN(lang("gamemode_admin")),
@@ -97,6 +97,7 @@ public enum Messenger {
     HEAL_ALREADY_SENDER(lang("heal_admin_already")),
     INVSEE_ADMIN(lang("invsee_admin")),
     KICK_PREFIX(lang("kick_prefix")),
+    LIST(lang("list")),
     MULTIINFOS_MSG(MultiCommands.colored("""
             &a&m-+------------+-&7 - &e&l{ &6%plname%&7 - &2[&dinfos&2] &e&l} &7- &a&m-+-----------+-
              &7- &6/multihelp &7=> Vous permet d'afficher l'aide des plugins de la série Multi
@@ -131,9 +132,11 @@ public enum Messenger {
     /* ##########################
      * #        events          #
      * ##########################*/
-    ONJOIN(MultiCommands.colored(lang("join_message"))),
-    ONLEAVE(MultiCommands.colored(lang("leave_message"))),
-    DEATHLOC(MultiCommands.colored(lang("death_message"))),
+    ONJOIN(lang("join_message")),
+    ONLEAVE(lang("leave_message")),
+
+    ONDEATH(lang("death_message")),
+    DEATHLOC(lang("death_message_loc")),
     ;
 
     private final String msg;

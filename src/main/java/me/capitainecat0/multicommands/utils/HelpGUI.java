@@ -35,7 +35,7 @@ public class HelpGUI extends GUICreator{
          * ##.....##
          *
          * # -> Vitres dans les angles
-         * @ → Items au centre
+         * @ -> Items au centre
          */
         setItem(0, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
         setItem(1, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));

@@ -32,20 +32,20 @@ public class Nick implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<nickname>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<nickname>"));
                     return true;
                 } else if(args.length == 1){
                     Player player = (Player) sender;
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("%newName", MultiCommands.colored(args[0])));
+                    getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("{0}", MultiCommands.colored(args[0])));
                     player.setCustomName(MultiCommands.colored(args[0]));
                     player.setCustomNameVisible(true);
                 }
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage());
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             return true;
         }
         return false;

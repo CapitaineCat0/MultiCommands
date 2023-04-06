@@ -61,7 +61,7 @@ public class SetWarp implements CommandExecutor {
                       }
                   }
               }else{
-                  getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "<warpName>"));
+                  getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<warpName>"));
               }
               if(soundEnabled()){
                   playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -69,7 +69,7 @@ public class SetWarp implements CommandExecutor {
               getMsgSendConfig(sender, command.getName(), SETSPAWN_DONE.getMessage()//.replace("%loc%", (CharSequence) location)
               );
           }else if(sender instanceof ConsoleCommandSender){
-              sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+              sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
           }
         }
         return true;

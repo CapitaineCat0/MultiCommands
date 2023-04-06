@@ -30,21 +30,27 @@ public class Spawn implements CommandExecutor {
             getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
         }else{
             if(sender instanceof Player){
-                Location location = new Location(
-                        Bukkit.getWorld(Objects.requireNonNull(MultiCommands.getInstance().getConfig().getString("spawn.name"))),
-                        MultiCommands.getInstance().getConfig().getDouble("spawn.x"),
-                        MultiCommands.getInstance().getConfig().getDouble("spawn.y"),
-                        MultiCommands.getInstance().getConfig().getDouble("spawn.z"),
-                        MultiCommands.getInstance().getConfig().getInt("spawn.yaw"),
-                        MultiCommands.getInstance().getConfig().getInt("spawn.pitch"));
-                ((Player) sender).teleport(location);
-
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                if(MultiCommands.getInstance().getConfig().get("spawn.name") != null){
+                    Location location = new Location(
+                            Bukkit.getWorld(Objects.requireNonNull(MultiCommands.getInstance().getConfig().getString("spawn.name"))),
+                            MultiCommands.getInstance().getConfig().getDouble("spawn.x"),
+                            MultiCommands.getInstance().getConfig().getDouble("spawn.y"),
+                            MultiCommands.getInstance().getConfig().getDouble("spawn.z"),
+                            MultiCommands.getInstance().getConfig().getInt("spawn.yaw"),
+                            MultiCommands.getInstance().getConfig().getInt("spawn.pitch"));
+                    ((Player) sender).teleport(location);
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    }
+                    getMsgSendConfig(sender, command.getName(), SPAWN_DONE.getMessage());
+                }else{
+                    if(soundEnabled()){
+                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    }
+                    getMsgSendConfig(sender, command.getName(), SPAWN_ERROR.getMessage());
                 }
-                getMsgSendConfig(sender, command.getName(), SPAWN_DONE.getMessage());
             }else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("%cmd%", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             }
         }
         return false;

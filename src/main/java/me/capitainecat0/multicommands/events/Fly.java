@@ -12,7 +12,7 @@ public class Fly implements Listener {
     @EventHandler
     public void onFlying(PlayerToggleFlightEvent event){
         hideActiveBossBar();
-        if(event.getPlayer().isFlying() && event.isFlying()){
+        if(event.getPlayer().isFlying()){
             Particle.DustOptions dustOptions = new Particle.DustOptions(Color.GRAY, 5.0F);
             event.getPlayer().spawnParticle(Particle.REDSTONE, event.getPlayer().getLocation(), 1, dustOptions);
         }

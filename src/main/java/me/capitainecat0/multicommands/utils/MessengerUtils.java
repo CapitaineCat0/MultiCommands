@@ -36,7 +36,7 @@ public class MessengerUtils {
      */
     public static String lang(String key) {
         checkLangFiles();
-        return language.getProperty(MultiCommands.colored(key.replace("\"", "")));
+        return language.getProperty(MultiCommands.colored(key));
     }
 
     /**
@@ -53,15 +53,18 @@ public class MessengerUtils {
      * Check if language config file exists
      */
     private static void checkLangFiles() {
-        final File langFile = new File(MultiCommands.getInstance().getDataFolder(), "lang.properties");
+        String langFormat = (String) MultiCommands.getInstance().getConfig().get("lang");
+        final File langFile = new File(MultiCommands.getInstance().getDataFolder(), "lang/"+langFormat+".properties");
         langFile.getParentFile().mkdirs();
 
-        if (!langFile.exists())
-            MultiCommands.getInstance().saveResourceAs("lang.properties");
+        if (!langFile.exists()) {
+            MultiCommands.getInstance().saveResourceAs("lang/fr.properties");
+            MultiCommands.getInstance().saveResourceAs("lang/en.properties");
+        }
 
         if (language == null) {
             final Properties defaultLang = new Properties();
-            try (final InputStream is = MultiCommands.getInstance().getResource("lang.properties")) {
+            try (final InputStream is = MultiCommands.getInstance().getResource("lang/en.properties")) {
                 defaultLang.load(is);
             } catch (final Exception e) {
                 e.printStackTrace();
@@ -83,6 +86,7 @@ public class MessengerUtils {
      * @param message Message that be sent to command sender
      * <br>Message will be sent on different format channel.
      * Change format on config file
+     * <br>(need to use AdventureAPI)
      */
     public static void getMsgSendConfig(CommandSender sender, String commandName, String message){
         if(MultiCommands.getInstance().getConfig().get("send-message-on") != null){
@@ -107,7 +111,6 @@ public class MessengerUtils {
 
     /**
      *
-     * @implNote
      * Hide BossBar for player that execute plugin's feature
      **/
     public static void hideActiveBossBar() {
@@ -118,7 +121,7 @@ public class MessengerUtils {
     /**
      *
      * @param message Message sent
-     * Send console message
+     * <br>Send console message
      **/
     public static void sendConsoleMessage(String message){
         Bukkit.getConsoleSender().sendMessage(MultiCommands.colored(message));
@@ -127,7 +130,7 @@ public class MessengerUtils {
     /**
      *
      * @param message
-     * Send broadcastMessage
+     * <br>Send broadcastMessage
      **/
     public static void sendBroadcastMessage(String message){
         Bukkit.getServer().broadcastMessage(MultiCommands.colored(message));
@@ -136,7 +139,7 @@ public class MessengerUtils {
     /**
      *
      * @param message
-     * Send message to online players
+     * <br>Send message to online players
      */
     public static void sendMessage(String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));
@@ -147,6 +150,7 @@ public class MessengerUtils {
      *
      * @param player command executor
      * @param message Message sent
+     * <br>Send message to player
      */
     public static void sendMessage(Player player, String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));
@@ -157,7 +161,8 @@ public class MessengerUtils {
      *
      * @param sender Command sender
      * @param message Message sent
-     **/
+     * <br>Send message to sender
+     */
     public static void sendMessage(CommandSender sender, String message){
         final TextComponent component = Component.text(MultiCommands.colored(message));
         MultiCommands.getInstance().adventure().sender(sender).sendMessage(component);
@@ -168,7 +173,7 @@ public class MessengerUtils {
      * @param sender Command sender
      * @param commandName Command name
      * @param message Message sent
-     * Send message to command sender, with command name
+     * <br>Send message to command sender, with command name
      */
     private static void sendMessage(CommandSender sender, String commandName, String message){
         final TextComponent component = Component.text(MultiCommands.colored("&3"+commandName+": "+message));
