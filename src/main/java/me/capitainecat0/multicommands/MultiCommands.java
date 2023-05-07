@@ -1,159 +1,146 @@
 package me.capitainecat0.multicommands;
 
+import java.util.logging.Logger;
+
 import me.capitainecat0.multicommands.utils.*;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.logging.Logger;
-
-import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMessage;
-
 public final class MultiCommands extends JavaPlugin {
-
     private static final Logger log = Logger.getLogger("Minecraft");
-   CooldownManager cooldownManager;
+    static CooldownManager cooldownManager;
     public static Economy econ = null;
     private static Permission perms = null;
     private static Chat chat = null;
-    private static MultiCommands instance;
+
     private BukkitAudiences adventure;
     private VaultHook vaultHook;
+    private static MultiCommands instance;
 
 
-    @Override
-    public void onEnable(){
-        /*if(!setupEconomy()){
-            log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-        setupPermissions();
-        setupChat();*/
-        //implementer = new EconomyImplementer();
-        //vaultHook = new VaultHook();
-        //vaultHook.hook();
-        this.adventure = BukkitAudiences.create(this);
-        saveResourceAs("config.yml");
-        saveResourceAs("lang/fr.properties");
-        saveResourceAs("lang/en.properties");
-        //saveResourceAs("warps.yml");
-        cooldownManager = new CooldownManager(this);
+    public void onEnable() {
         instance = this;
-        if(getConfig().getBoolean("console-setup")) {
-            sendConsoleMessage("&a---------------+ &6MultiCommands v" + getDescription().getVersion() + "&a +---------------- ");
-            sendConsoleMessage(" ");
-            sendConsoleMessage("&5Enabling commands:");
-            sendConsoleMessage(" ");
-            Commands.init();
-            sendConsoleMessage(" ");
-            sendConsoleMessage(" ");
-            sendConsoleMessage("&5Enabling events:");
-            sendConsoleMessage(" ");
-            Events.init();
-            sendConsoleMessage(" ");
-            sendConsoleMessage("&a--------------------------------------------------------- ");
-        }else{
-            Commands.init();
-            Events.init();
+        cooldownManager = new CooldownManager(this);
+        adventure = BukkitAudiences.create(this);
+        MessengerUtils.saveResourceAs("config.yml");
+        MessengerUtils.saveResourceAs("lang/fr.properties");
+        MessengerUtils.saveResourceAs("lang/en.properties");
+        if (this.getConfig().getBoolean("console-setup")) {
+            MessengerUtils.sendConsoleMessage("&a---------------+ &6MultiCommands v" + this.getDescription().getVersion() + "&a +---------------- ");
+            MessengerUtils.sendConsoleMessage(" ");
+            MessengerUtils.sendConsoleMessage("&5Enabling commands:");
+            MessengerUtils.sendConsoleMessage(" ");
+
+            try {
+                Commands.init();
+            } catch (Error error) {
+                MessengerUtils.sendConsoleMessage(error.getMessage());
+            }
+
+            MessengerUtils.sendConsoleMessage(" ");
+            MessengerUtils.sendConsoleMessage(" ");
+            MessengerUtils.sendConsoleMessage("&5Enabling events:");
+            MessengerUtils.sendConsoleMessage(" ");
+
+            try {
+                Events.init();
+            } catch (Error error) {
+                MessengerUtils.sendConsoleMessage(error.getMessage());
+            }
+
+            MessengerUtils.sendConsoleMessage(" ");
+            MessengerUtils.sendConsoleMessage("&a--------------------------------------------------------- ");
+        } else {
+            try {
+                Commands.init();
+            } catch (Error error) {
+                MessengerUtils.sendConsoleMessage(error.getMessage());
+            }
+
+            try {
+                Events.init();
+            } catch (Error error) {
+                MessengerUtils.sendConsoleMessage(error.getMessage());
+            }
         }
-        getServer().addRecipe(CustomCraft.saddle());
+
+        try {
+            this.getServer().addRecipe(CustomCraft.saddle());
+        } catch (Error error) {
+            MessengerUtils.sendConsoleMessage(error.getMessage());
+        }
+
     }
 
-    @Override
-    public void onDisable(){
-        log.info(String.format("[%s] Version %s Disabled", getDescription().getName(), getDescription().getVersion()));
-        if(this.adventure != null) {
+    public void onDisable() {
+        log.info(String.format("[%s] Version %s Disabled", this.getDescription().getName(), this.getDescription().getVersion()));
+        if (this.adventure != null) {
             this.adventure.close();
             this.adventure = null;
         }
-        /*if(Bukkit.getServicesManager().getRegistration(Economy.class)!= null){
-            vaultHook.unHook();
-        }else{
-            return;
-        }*/
+
     }
 
+    public boolean setupEconomy() {
+        if (this.getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        } else {
+            RegisteredServiceProvider<Economy> rsp = this.getServer().getServicesManager().getRegistration(Economy.class);
+            if (rsp == null) {
+                return false;
+            } else {
+                econ = (Economy)rsp.getProvider();
+                return true;
+            }
+        }
+    }
 
-    public static MultiCommands getInstance(){
+    private void setupChat() {
+        RegisteredServiceProvider<Chat> rsp = this.getServer().getServicesManager().getRegistration(Chat.class);
+
+        assert rsp != null;
+
+        chat = (Chat)rsp.getProvider();
+    }
+
+    private void setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = this.getServer().getServicesManager().getRegistration(Permission.class);
+
+        assert rsp != null;
+
+        perms = (Permission)rsp.getProvider();
+    }
+
+    public static CooldownManager getCooldownManager() {
+        return cooldownManager;
+    }
+    public static MultiCommands getInstance() {
         return instance;
     }
+
+    public BukkitAudiences adventure() {
+        if(adventure == null) {
+            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+        }
+        return adventure;
+    }
+
     public void registerCommand(CommandExecutor executor, String codeName) {
         PluginCommand command = this.getCommand(codeName);
         if (command != null) {
             command.setExecutor(executor);
         }
     }
-    public static String colored(String text) {
-        return ChatColor.translateAlternateColorCodes('&', text);
-    }
     public void registerEvent(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
-    public void saveResourceAs(String inPath) {
-        if (inPath != null && !inPath.isEmpty()) {
-            InputStream in = this.getResource(inPath);
-            if (in == null) {
-                throw new IllegalArgumentException(inPath + " unreachable!");
-            } else {
-                if (!this.getDataFolder().exists() && !this.getDataFolder().mkdir()) {
-                    sendConsoleMessage("&cUnable to build folder!");
-                }
 
-                File inFile = new File(this.getDataFolder(), inPath);
-                if (!inFile.exists()) {
-                    sendConsoleMessage(inFile.getName() + "&c are unreachable, creating it ...");
-                    this.saveResource(inPath, false);
-                    if (!inFile.exists()) {
-                        sendConsoleMessage("&cUnable to copy &e"+inFile.getName()+"&c file!");
-                    } else {
-                        sendConsoleMessage("&e"+inFile.getName() + "&a successfully created!");
-                    }
-                }
-
-            }
-        } else {
-            throw new IllegalArgumentException("Folder cannot be empty/null !");
-        }
-    }
-    public BukkitAudiences adventure() {
-        if(this.adventure == null) {
-            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-        }
-        return this.adventure;
-    }
-    public boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        econ = rsp.getProvider();
-        return true;
-    }
-    private void setupChat() {
-        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-        assert rsp != null;
-        chat = rsp.getProvider();
-    }
-    private void setupPermissions() {
-        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        assert rsp != null;
-        perms = rsp.getProvider();
-    }
-    public CooldownManager getCooldownManager(){
-        return cooldownManager;
-    }
 }

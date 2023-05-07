@@ -11,9 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-import static me.capitainecat0.multicommands.MultiCommands.colored;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class Ban implements CommandExecutor {

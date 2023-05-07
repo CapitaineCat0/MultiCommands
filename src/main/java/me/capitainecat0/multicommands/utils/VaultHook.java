@@ -1,21 +1,18 @@
 package me.capitainecat0.multicommands.utils;
 
-import me.capitainecat0.multicommands.MultiCommands;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.ServicePriority;
 
 import static me.capitainecat0.multicommands.MultiCommands.econ;
-import static me.capitainecat0.multicommands.MultiCommands.getInstance;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMessage;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class VaultHook {
 
     public void hook(){
-        if(getInstance().setupEconomy()){
-            Bukkit.getServicesManager().register(Economy.class, econ, MultiCommands.getInstance(), ServicePriority.Normal);
+        /*if(api().setupEconomy()){
+            Bukkit.getServicesManager().register(Economy.class, econ, MultiCommands.api(), ServicePriority.Normal);
             sendConsoleMessage("&aVaultAPI found! Hooking on it...");
-        }
+        }*/
     }
 
     public void unHook(){

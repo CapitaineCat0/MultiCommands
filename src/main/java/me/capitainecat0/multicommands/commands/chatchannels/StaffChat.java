@@ -41,7 +41,7 @@ public class StaffChat implements CommandExecutor, Listener {
                     getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                 }
             }
-            Bukkit.getServer().getConsoleSender().sendMessage(MultiCommands.colored(format));
+            Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
         } else{
             getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
         }
@@ -68,7 +68,7 @@ public class StaffChat implements CommandExecutor, Listener {
                         getMsgSendConfig(player, "StaffChat", CMD_NO_PERM.getMessage());
                     }
                 }
-                Bukkit.getServer().getConsoleSender().sendMessage(MultiCommands.colored(format));
+                Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
             } else{
                 getMsgSendConfig(event.getPlayer(), "StaffChat", CMD_NO_ARGS.getMessage().replace("<command>", "StaffChat"));
             }

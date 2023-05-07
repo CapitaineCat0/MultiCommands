@@ -17,7 +17,6 @@ import java.util.Collections;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.playSound;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class ModoChat implements CommandExecutor, Listener {
@@ -42,7 +41,7 @@ public class ModoChat implements CommandExecutor, Listener {
                     getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                 }
             }
-            Bukkit.getServer().getConsoleSender().sendMessage(MultiCommands.colored(format));
+            Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
         } else{
             getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
         }
@@ -69,7 +68,7 @@ public class ModoChat implements CommandExecutor, Listener {
                         getMsgSendConfig(player, "ModoChat", CMD_NO_PERM.getMessage());
                     }
                 }
-                Bukkit.getServer().getConsoleSender().sendMessage(MultiCommands.colored(format));
+                Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
             } else{
                 getMsgSendConfig(event.getPlayer(), "ModoChat", CMD_NO_ARGS.getMessage().replace("<command>", "ModoChat"));
             }

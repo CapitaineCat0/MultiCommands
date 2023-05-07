@@ -2,7 +2,6 @@ package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.*;
-import me.capitainecat0.multimaintenance.MultiMaintenance;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
@@ -11,8 +10,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
 
 import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
@@ -61,7 +58,7 @@ public class ServerInfo implements CommandExecutor {
             for(OfflinePlayer afk : AFKHandler.getAFK()){
                 sendMessage(sender, "&c- &7" + afk.getName());
             }
-            try{
+           /* try{
                 Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");
                 OfflinePlayer player;
 
@@ -77,7 +74,7 @@ public class ServerInfo implements CommandExecutor {
                 }
             }catch(final Exception ex) {
                 sendMessage(sender, "&7Install &cMulti§&Maintenance &7to show more informations!");
-            }
+            }*/
             sendMessage(sender, "&a&m-+----------------------------------------------------------------+-");
         }
         return false;

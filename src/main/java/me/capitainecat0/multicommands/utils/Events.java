@@ -6,7 +6,7 @@ import me.capitainecat0.multicommands.commands.Plugins;
 import me.capitainecat0.multicommands.events.*;
 import org.bukkit.event.Listener;
 
-import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMessage;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class Events implements Listener{
     public static void init(){

@@ -1,8 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -13,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static me.capitainecat0.multicommands.utils.Messenger.LIST;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.playSound;
+import static me.capitainecat0.multicommands.utils.Messenger.LIST;
+import static me.capitainecat0.multicommands.utils.Messenger.LIST_HOVER;
 
 public class List implements CommandExecutor {
     @Override
@@ -27,28 +25,25 @@ public class List implements CommandExecutor {
             }
         }
 
-        sendMessage(sender, LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getMaxPlayers()+""));
-        //sendMessage(sender, "&7Cliquer sur le pseudo vous téléportera au joueur.");
+        sendMessage(sender, LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getServer().getMaxPlayers()+""));
         sendMessage(sender,"");
         for (Player p : Bukkit.getOnlinePlayers()) {
             if(Objects.equals(p.getCustomName(), p.getName())){
-                TextComponent playerTP = new TextComponent("  §e- §b" + p.getName() + " §c-> §8[]");
                 if (sender instanceof Player) {
-                    playerTP.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
-                    sendMessage(sender, "  &e- &b" + p.getName() + " &c-> &8[]");
+                    sendCommandMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[]", "/tp"+p.getName());
+                    sendHoverMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[]", p.getName(), LIST_HOVER.getMessage().replace("{0}", p.getName()));
                     //sender.spigot().sendMessage(playerTP);
                 } else {
-                    sendMessage(sender, "  &e- &b" + p.getName() + " &c-> &8[]");
+                    sendMessage(sender,"  §e- §b" + p.getName() + " §c-> §8[]");
                 }
                 //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
             }else{
-                TextComponent playerTP = new TextComponent("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
                 if (sender instanceof Player) {
-                    playerTP.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
-                    sendMessage(sender,"  &e- &b" + p.getName() + " &c-> &8[ "+p.getCustomName()+" &8]");
+                    sendCommandMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" ]", "/tp"+p.getName());
+                    sendHoverMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" ]", p.getCustomName(), LIST_HOVER.getMessage().replace("{0}", Objects.requireNonNull(p.getCustomName())));
                     //sender.spigot().sendMessage(playerTP);
                 } else {
-                    sendMessage(sender, "  &e- &b" + p.getName() + " &c-> &8[ "+p.getCustomName()+" &8]");
+                    sendMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
                 }
                 //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
             }

@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.Messenger.ADMINCHAT_PREFIX;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.playSound;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class Chat implements CommandExecutor {
@@ -167,7 +166,7 @@ public class Chat implements CommandExecutor {
                             getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                         }
                     }
-                    sendConsoleMessage(MultiCommands.colored(format));
+                    sendConsoleMessage(colored(format));
                 }
                 else if(args[0].equalsIgnoreCase("builder")){
                     String s = Joiner.on(" ").join(args).replace("builder", " ");
@@ -184,7 +183,7 @@ public class Chat implements CommandExecutor {
                             getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                         }
                     }
-                    sendConsoleMessage(MultiCommands.colored(format));
+                    sendConsoleMessage(colored(format));
                 }
                 else if(args[0].equalsIgnoreCase("dev")){
                     String s = Joiner.on(" ").join(args).replace("dev", " ");
@@ -202,7 +201,7 @@ public class Chat implements CommandExecutor {
                             getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                         }
                     }
-                    sendConsoleMessage(MultiCommands.colored(format));
+                    sendConsoleMessage(colored(format));
                 }
                 else if(args[0].equalsIgnoreCase("modo")){
                     String s = Joiner.on(" ").join(args).replace("modo", " ");
@@ -220,7 +219,7 @@ public class Chat implements CommandExecutor {
                             getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                         }
                     }
-                    sendConsoleMessage(MultiCommands.colored(format));
+                    sendConsoleMessage(colored(format));
                 }
                 else if(args[0].equalsIgnoreCase("staff")){
                     String s = Joiner.on(" ").join(args).replace("staff", " ");
@@ -238,7 +237,7 @@ public class Chat implements CommandExecutor {
                             getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                         }
                     }
-                    sendConsoleMessage(MultiCommands.colored(format));
+                    sendConsoleMessage(colored(format));
                 }
             }
         }

@@ -3,9 +3,6 @@ package me.capitainecat0.multicommands.commands;
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.BalanceData;
 import me.capitainecat0.multicommands.utils.VanishHandler;
-import me.capitainecat0.multimaintenance.MultiMaintenance;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -18,7 +15,6 @@ import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 import static me.capitainecat0.multicommands.utils.Perms.WHOIS_PERM;
-import static me.capitainecat0.multimaintenance.utils.PluginCore.colored;
 
 public class Whois implements CommandExecutor {
     @Override
@@ -80,7 +76,7 @@ public class Whois implements CommandExecutor {
                     sendMessage(sender, "&6Whitelisted&8: &f" + target.isWhitelisted());
                     sendMessage(sender, "&6Vanished&8: &7" + VanishHandler.getInstance().isVanished(target.getPlayer()));
                     sendMessage(sender, "&6Balance&8: &e" + BalanceData.getBalance(target));
-                    try {
+                    /*try {
                         Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");
                         if (MultiMaintenance.getAUTHORIZED().contains(target.getUniqueId())) {
                             sendMessage(sender, "&6Maintenance access&8: &f Yes");
@@ -89,7 +85,7 @@ public class Whois implements CommandExecutor {
                         }
                     } catch (final Exception ex) {
                         sendMessage(sender, "&7Install &cMulti&dMaintenance &7to show more informations!");
-                    }
+                    }*/
                 }else{
                     if(sender instanceof Player){
                         if(soundEnabled()){

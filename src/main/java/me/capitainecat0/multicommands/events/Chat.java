@@ -1,7 +1,6 @@
 package me.capitainecat0.multicommands.events;
 
 
-import io.papermc.paper.event.player.AsyncChatEvent;
 import me.capitainecat0.multicommands.utils.AFKHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -10,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import static me.capitainecat0.multicommands.MultiCommands.colored;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 

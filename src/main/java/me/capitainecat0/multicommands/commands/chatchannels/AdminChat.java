@@ -1,9 +1,7 @@
 package me.capitainecat0.multicommands.commands.chatchannels;
 
 import com.google.common.base.Joiner;
-import io.papermc.paper.event.player.AsyncChatEvent;
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.utils.MessengerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -16,6 +14,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
+
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
@@ -42,7 +41,7 @@ public class AdminChat implements CommandExecutor, Listener {
                     getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                 }
             }
-            Bukkit.getServer().getConsoleSender().sendMessage(MultiCommands.colored(format));
+            Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
         } else{
             getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
         }
@@ -69,7 +68,7 @@ public class AdminChat implements CommandExecutor, Listener {
                         getMsgSendConfig(player, "AdminChat", CMD_NO_PERM.getMessage());
                     }
                 }
-                Bukkit.getServer().getConsoleSender().sendMessage(MultiCommands.colored(format));
+                Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
             } else{
                 getMsgSendConfig(event.getPlayer(), "AdminChat", CMD_NO_ARGS.getMessage().replace("<command>", "AdminChat"));
             }

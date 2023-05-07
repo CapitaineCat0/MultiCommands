@@ -2,12 +2,9 @@ package me.capitainecat0.multicommands.data;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.IOException;
 
 public class PlayerData {
 

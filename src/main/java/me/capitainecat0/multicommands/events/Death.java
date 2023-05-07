@@ -14,7 +14,6 @@ import java.util.Objects;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
 
 public class Death implements Listener {
 

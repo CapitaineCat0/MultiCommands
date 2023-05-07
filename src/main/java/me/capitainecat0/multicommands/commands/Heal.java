@@ -74,6 +74,39 @@ public class Heal implements CommandExecutor {
                         getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                         return true;
                     }
+                }if(args.length == 1 && args[0].equalsIgnoreCase("all")){
+                    if(sender.hasPermission(HEAL_PERM_OTHER.getPermission()) || sender.hasPermission(HEAL_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                        Player target = (Player) Bukkit.getOnlinePlayers();
+                        if(target != null){
+                            if(target.getHealth() != 20){
+                                target.setHealth(20);
+                                if(soundFeedHealEnabled()){
+                                    playSound(target, Sound.ENTITY_GENERIC_DRINK, 1f, 1f);
+                                }
+                                if(soundEnabled()){
+                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                                }
+                                getMsgSendConfig(target, command.getName(), HEAL_OTHER.getMessage());
+                                getMsgSendConfig(sender, command.getName(), HEAL_OTHER_SENDER.getMessage().replace("{0}", target.getName()));
+                            }else{
+                                if(soundEnabled()){
+                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                                }
+                                getMsgSendConfig(sender, command.getName(), HEAL_ALREADY_SENDER.getMessage().replace("{0}", target.getName()));
+                            }
+                        }else{
+                            if(soundEnabled()){
+                                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                            }
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+                        }
+                    }else{
+                        if(soundEnabled()){
+                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        }
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                        return true;
+                    }
                 }
             }else if(sender instanceof ConsoleCommandSender){
                 sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()));
@@ -95,6 +128,23 @@ public class Heal implements CommandExecutor {
                     sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                 }
             }
+            if(args.length == 1 && args[0].equalsIgnoreCase("all")){
+            Player target = (Player) Bukkit.getOnlinePlayers();
+            if(target != null){
+                if(target.getHealth() != 20){
+                    target.setHealth(20);
+                    if(soundFeedHealEnabled()){
+                        playSound(target, Sound.ENTITY_GENERIC_DRINK, 1f, 1f);
+                    }
+                    getMsgSendConfig(target, command.getName(), HEAL_OTHER.getMessage());
+                    sendConsoleMessage(HEAL_OTHER_SENDER.getMessage().replace("{0}", target.getName()));
+                }else{
+                    sendConsoleMessage(HEAL_ALREADY_SENDER.getMessage().replace("{0}", target.getName()));
+                }
+            }else{
+                sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+            }
+        }
         return false;
     }
 }

@@ -6,8 +6,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class AFKHandler {
     private static final ArrayList<Player> afk = new ArrayList<>();

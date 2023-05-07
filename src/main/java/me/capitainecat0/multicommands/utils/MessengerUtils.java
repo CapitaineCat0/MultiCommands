@@ -8,26 +8,44 @@ import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.sound.SoundStop;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.Tag;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Properties;
-
 public class MessengerUtils {
 
+    private static MultiCommands instance = MultiCommands.getInstance();
     //Define the bossbar name
     private static BossBar finalBossbar;
     //Define the language name
     private static Properties language;
+
+
+    /**
+     *
+     * @param text
+     * <br>Simple ChatColor translation
+     */
+    public static String colored(String text) {
+        return ChatColor.translateAlternateColorCodes('&', text);
+    }
+
 
     /**
      *
@@ -36,7 +54,7 @@ public class MessengerUtils {
      */
     public static String lang(String key) {
         checkLangFiles();
-        return language.getProperty(MultiCommands.colored(key));
+        return language.getProperty(colored(key));
     }
 
     /**
@@ -58,22 +76,22 @@ public class MessengerUtils {
         langFile.getParentFile().mkdirs();
 
         if (!langFile.exists()) {
-            MultiCommands.getInstance().saveResourceAs("lang/fr.properties");
-            MultiCommands.getInstance().saveResourceAs("lang/en.properties");
+            saveResourceAs("lang/fr.properties");
+            saveResourceAs("lang/en.properties");
         }
 
         if (language == null) {
             final Properties defaultLang = new Properties();
-            try (final InputStream is = MultiCommands.getInstance().getResource("lang/en.properties")) {
+            try (final InputStream is = instance.getResource("lang/"+langFormat+".properties")) {
                 defaultLang.load(is);
-            } catch (final Exception e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
 
             language = new Properties(defaultLang);
             try (final InputStream is = new FileInputStream(langFile)) {
                 language.load(is);
-            } catch (final Exception e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         }
@@ -89,19 +107,19 @@ public class MessengerUtils {
      * <br>(need to use AdventureAPI)
      */
     public static void getMsgSendConfig(CommandSender sender, String commandName, String message){
-        if(MultiCommands.getInstance().getConfig().get("send-message-on") != null){
-            if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "CHAT") ||
-                    Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "chat")){
+        if(instance.getConfig().get("send-message-on") != null){
+            if(Objects.equals(instance.getConfig().get("send-message-on"), "CHAT") ||
+                    Objects.equals(instance.getConfig().get("send-message-on"), "chat")){
                 sendMessage(sender, commandName, message);
-            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "ACTIONBAR") ||
-                    Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "actionbar")){
+            }else if(Objects.equals(instance.getConfig().get("send-message-on"), "ACTIONBAR") ||
+                    Objects.equals(instance.getConfig().get("send-message-on"), "actionbar")){
                 sendActionBar(sender, commandName, message);
-            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "TITLE") ||
-                    Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "title")){
+            }else if(Objects.equals(instance.getConfig().get("send-message-on"), "TITLE") ||
+                    Objects.equals(instance.getConfig().get("send-message-on"), "title")){
                 sendTitle(sender, commandName, message);
-            }else if(Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "BOSSBAR") ||
-                    Objects.equals(MultiCommands.getInstance().getConfig().get("send-message-on"), "bossbar")){
-                sendBossBar(sender, MultiCommands.colored(message));
+            }else if(Objects.equals(instance.getConfig().get("send-message-on"), "BOSSBAR") ||
+                    Objects.equals(instance.getConfig().get("send-message-on"), "bossbar")){
+                sendBossBar(sender, colored(message));
             }
         }else{
             sendMessage(sender, commandName, message);
@@ -114,7 +132,7 @@ public class MessengerUtils {
      * Hide BossBar for player that execute plugin's feature
      **/
     public static void hideActiveBossBar() {
-        MultiCommands.getInstance().adventure().players().hideBossBar(finalBossbar);
+        instance.adventure().players().hideBossBar(finalBossbar);
         finalBossbar = null;
     }
 
@@ -124,7 +142,7 @@ public class MessengerUtils {
      * <br>Send console message
      **/
     public static void sendConsoleMessage(String message){
-        Bukkit.getConsoleSender().sendMessage(MultiCommands.colored(message));
+        Bukkit.getConsoleSender().sendMessage(colored(message));
     }
 
     /**
@@ -133,7 +151,7 @@ public class MessengerUtils {
      * <br>Send broadcastMessage
      **/
     public static void sendBroadcastMessage(String message){
-        Bukkit.getServer().broadcastMessage(MultiCommands.colored(message));
+        Bukkit.getServer().broadcastMessage(colored(message));
     }
 
     /**
@@ -142,8 +160,8 @@ public class MessengerUtils {
      * <br>Send message to online players
      */
     public static void sendMessage(String message){
-        final TextComponent component = Component.text(MultiCommands.colored(message));
-        MultiCommands.getInstance().adventure().players().sendMessage(component);
+        final TextComponent component = Component.text(colored(message));
+        instance.adventure().players().sendMessage(component);
     }
 
     /**
@@ -153,8 +171,8 @@ public class MessengerUtils {
      * <br>Send message to player
      */
     public static void sendMessage(Player player, String message){
-        final TextComponent component = Component.text(MultiCommands.colored(message));
-        MultiCommands.getInstance().adventure().player(player).sendMessage(component);
+        final TextComponent component = Component.text(colored(message));
+        instance.adventure().player(player).sendMessage(component);
     }
 
     /**
@@ -164,8 +182,8 @@ public class MessengerUtils {
      * <br>Send message to sender
      */
     public static void sendMessage(CommandSender sender, String message){
-        final TextComponent component = Component.text(MultiCommands.colored(message));
-        MultiCommands.getInstance().adventure().sender(sender).sendMessage(component);
+        final TextComponent component = Component.text(colored(message));
+        instance.adventure().sender(sender).sendMessage(component);
     }
 
     /**
@@ -176,7 +194,163 @@ public class MessengerUtils {
      * <br>Send message to command sender, with command name
      */
     private static void sendMessage(CommandSender sender, String commandName, String message){
-        final TextComponent component = Component.text(MultiCommands.colored("&3"+commandName+": "+message));
+        final TextComponent component = Component.text(colored("&3"+commandName+": "+message));
+        instance.adventure().sender(sender).sendMessage(component);
+    }
+
+    /**
+     *
+     * @param message
+     * @param hover Hover text
+     * @param text Text revile
+     * <br>Send message to all online players
+     * <br>with custom over text
+     */
+    public static void sendHoverMessage(String message, String hover, String text){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(hover, Tag.styling(HoverEvent.showText(Component.text(colored(text))))));
+        instance.adventure().players().sendMessage(component);
+    }
+
+    /**
+     *
+     * @param player
+     * @param message
+     * @param hover Hover text
+     * @param text Text revile
+     * <br>Send message to specific player
+     * <br>with custom over text
+     */
+    public static void sendHoverMessage(Player player, String message, String hover, String text){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(hover, Tag.styling(HoverEvent.showText(Component.text(colored(text))))));
+        instance.adventure().player(player).sendMessage(component);
+    }
+
+    /**
+     *
+     * @param sender
+     * @param message
+     * @param hover Hover text
+     * @param text Text revile
+     * <br>Send message to command sender
+     * <br>with custom over text
+     */
+    public static void sendHoverMessage(CommandSender sender, String message, String hover, String text){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(hover, Tag.styling(HoverEvent.showText(Component.text(colored(text))))));
+        instance.adventure().sender(sender).sendMessage(component);
+    }
+
+    /**
+     *
+     * @param message
+     * @param command
+     * <br>Send message to all online players
+     * <br>with clickable text command
+     */
+    public static void sendCommandMessage(String message, String command){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.runCommand(command))));
+        instance.adventure().players().sendMessage(component);
+    }
+
+    /**
+     *
+     * @param player
+     * @param message
+     * @param command
+     * <br>Send message to specific player
+     * <br>with clickable text command
+     */
+    public static void sendCommandMessage(Player player, String message, String command){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.runCommand(command))));
+        instance.adventure().player(player).sendMessage(component);
+    }
+
+    /**
+     *
+     * @param sender
+     * @param message
+     * @param command
+     * <br>Send message to command sender
+     * <br>with clickable text command
+     */
+    public static void sendCommandMessage(CommandSender sender, String message, String command){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.runCommand(command))));
+        instance.adventure().sender(sender).sendMessage(component);
+    }
+
+    /**
+     *
+     * @param message
+     * @param url
+     * <br>Send message to all online players
+     * <br>with clickable url
+     */
+    public static void sendURLMessage(String message, String url){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        instance.adventure().players().sendMessage(component);
+    }
+
+    /**
+     *
+     * @param player
+     * @param message
+     * @param url
+     * <br>Send message to specific player
+     * <br>with clickable url
+     */
+    public static void sendURLMessage(Player player, String message, String url){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        instance.adventure().player(player).sendMessage(component);
+    }
+
+    /**
+     *
+     * @param sender
+     * @param message
+     * @param url
+     * <br>Send message to command sender
+     * <br>with clickable url
+     */
+    public static void sendURLMessage(CommandSender sender, String message, String url){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        instance.adventure().sender(sender).sendMessage(component);
+    }
+
+    /**
+     *
+     * @param message
+     * @param command
+     * <br>Send message to all online players
+     * <br>with clickable text command
+     */
+    public static void sendSuggestCommandMessage(String message, String command){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
+        instance.adventure().players().sendMessage(component);
+    }
+
+    /**
+     *
+     * @param player
+     * @param message
+     * @param command
+     * <br>Send message to specific player
+     * <br>with clickable text command
+     */
+    public static void sendSuggestCommandMessage(Player player, String message, String command){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
+
+        instance.adventure().player(player).sendMessage(component);
+    }
+
+    /**
+     *
+     * @param sender
+     * @param message
+     * @param command
+     * <br>Send message to command sender
+     * <br>with clickable text command
+     */
+    public static void sendSuggestCommandMessage(CommandSender sender, String message, String command){
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
         MultiCommands.getInstance().adventure().sender(sender).sendMessage(component);
     }
 
@@ -192,7 +366,7 @@ public class MessengerUtils {
         Component bookTitle = Component.text(title);
         Component bookAuthor = Component.text(author);
         Book book = Book.book(bookTitle, bookAuthor, message);
-        MultiCommands.getInstance().adventure().sender(sender).openBook(book);
+        instance.adventure().sender(sender).openBook(book);
     }
 
     /**
@@ -206,7 +380,7 @@ public class MessengerUtils {
     public static void playSound(CommandSender sender, String sound, float volume, float pitch){
         try{
             Sound musicDisc = Sound.sound(Key.key(sound), Sound.Source.MUSIC, volume, pitch);
-            MultiCommands.getInstance().adventure().sender(sender).playSound(musicDisc);
+            instance.adventure().sender(sender).playSound(musicDisc);
         }catch(Error error){
             sendMessage(sender, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
             sendConsoleMessage("&cAn internal error was come !&e"+error);
@@ -236,10 +410,10 @@ public class MessengerUtils {
      * @return boolean value
      */
     public static boolean soundEnabled(){
-        if(MultiCommands.getInstance().getConfig().get("enable-command-sounds") != null){
-            if(MultiCommands.getInstance().getConfig().getBoolean("enable-command-sounds")){
+        if(instance.getConfig().get("enable-command-sounds") != null){
+            if(instance.getConfig().getBoolean("enable-command-sounds")){
                 return true;
-            }else if(!MultiCommands.getInstance().getConfig().getBoolean("enable-command-sounds")){
+            }else if(!instance.getConfig().getBoolean("enable-command-sounds")){
                 return false;
             }
         }
@@ -251,10 +425,10 @@ public class MessengerUtils {
      * @return "feed-heal-sound" value
      */
     public static boolean soundFeedHealEnabled(){
-        if(MultiCommands.getInstance().getConfig().get("feed-heal-sounds") != null){
-            if(MultiCommands.getInstance().getConfig().getBoolean("feed-heal-sounds")){
+        if(instance.getConfig().get("feed-heal-sounds") != null){
+            if(instance.getConfig().getBoolean("feed-heal-sounds")){
                 return true;
-            }else if(!MultiCommands.getInstance().getConfig().getBoolean("feed-heal-sounds")){
+            }else if(!instance.getConfig().getBoolean("feed-heal-sounds")){
                 return false;
             }
         }
@@ -267,7 +441,7 @@ public class MessengerUtils {
      * <br>Stop sounds to player
      */
     public static void stopSound(Player player){
-        MultiCommands.getInstance().adventure().player(player).stopSound(SoundStop.all());
+        instance.adventure().player(player).stopSound(SoundStop.all());
     }
 
     /**
@@ -275,7 +449,7 @@ public class MessengerUtils {
      * Stop sounds for every online players
      */
     public static void stopSound(){
-        MultiCommands.getInstance().adventure().players().stopSound(SoundStop.all());
+        instance.adventure().players().stopSound(SoundStop.all());
     }
 
     /**
@@ -303,9 +477,9 @@ public class MessengerUtils {
             }
         };
         final Component mainTitle = Component.text("§3"+commandName);
-        final Component subtitle = Component.text(MultiCommands.colored(message));
+        final Component subtitle = Component.text(colored(message));
         final Title title = Title.title(mainTitle, subtitle, times);
-        MultiCommands.getInstance().adventure().sender(sender).showTitle(title);
+        instance.adventure().sender(sender).showTitle(title);
     }
 
     /**
@@ -331,10 +505,10 @@ public class MessengerUtils {
                 return Duration.ofSeconds(1);
             }
         };
-        final Component mainTitle = Component.text(MultiCommands.colored(title));
-        final Component subtitle = Component.text(MultiCommands.colored(message));
+        final Component mainTitle = Component.text(colored(title));
+        final Component subtitle = Component.text(colored(message));
         final Title finalTitle = Title.title(mainTitle, subtitle, times);
-        MultiCommands.getInstance().adventure().players().showTitle(finalTitle);
+        instance.adventure().players().showTitle(finalTitle);
     }
 
     /**
@@ -361,10 +535,10 @@ public class MessengerUtils {
                 return Duration.ofSeconds(1);
             }
         };
-        final Component mainTitle = Component.text(MultiCommands.colored(title));
-        final Component subtitle = Component.text(MultiCommands.colored(message));
+        final Component mainTitle = Component.text(colored(title));
+        final Component subtitle = Component.text(colored(message));
         final Title finalTitle = Title.title(mainTitle, subtitle, times);
-        MultiCommands.getInstance().adventure().player(player).showTitle(finalTitle);
+        instance.adventure().player(player).showTitle(finalTitle);
     }
 
     /**
@@ -375,9 +549,9 @@ public class MessengerUtils {
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     private static void sendBossBar(CommandSender sender, String message) {
-        final Component name = Component.text(MultiCommands.colored(message));
+        final Component name = Component.text(colored(message));
         finalBossbar = BossBar.bossBar(name, (float) 1, BossBar.Color.GREEN, BossBar.Overlay.NOTCHED_20);
-        MultiCommands.getInstance().adventure().sender(sender).showBossBar(finalBossbar);
+        instance.adventure().sender(sender).showBossBar(finalBossbar);
     }
 
     /**
@@ -390,9 +564,9 @@ public class MessengerUtils {
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     public static void sendBossBar(float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
-        final Component name = Component.text(MultiCommands.colored(message));
+        final Component name = Component.text(colored(message));
         finalBossbar = BossBar.bossBar(name, progress, color, overlay);
-        MultiCommands.getInstance().adventure().players().showBossBar(finalBossbar);
+        instance.adventure().players().showBossBar(finalBossbar);
     }
 
     /**
@@ -406,9 +580,9 @@ public class MessengerUtils {
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     public static void sendBossBar(Player player, float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
-        final Component name = Component.text(MultiCommands.colored(message));
+        final Component name = Component.text(colored(message));
         finalBossbar = BossBar.bossBar(name, progress, color, overlay);
-        MultiCommands.getInstance().adventure().player(player).showBossBar(finalBossbar);
+        instance.adventure().player(player).showBossBar(finalBossbar);
     }
 
     /**
@@ -419,8 +593,8 @@ public class MessengerUtils {
      * <br>Send ActionBar message to command sender
      */
     private static void sendActionBar(CommandSender sender, String commandName, String message){
-        final TextComponent component = Component.text(MultiCommands.colored("&3"+commandName+": "+message));
-        MultiCommands.getInstance().adventure().sender(sender).sendActionBar(component);
+        final TextComponent component = Component.text(colored("&3"+commandName+": "+message));
+        instance.adventure().sender(sender).sendActionBar(component);
     }
 
     /**
@@ -429,8 +603,8 @@ public class MessengerUtils {
      * <br>Send ActionBar message to every online players
      */
     public static void sendActionBar(String message){
-        final TextComponent component = Component.text(MultiCommands.colored(message));
-        MultiCommands.getInstance().adventure().players().sendActionBar(component);
+        final TextComponent component = Component.text(colored(message));
+        instance.adventure().players().sendActionBar(component);
     }
 
     /**
@@ -440,7 +614,45 @@ public class MessengerUtils {
      * <br>Send ActionBar message to player
      */
     public static void sendActionBar(Player player, String message){
-        final TextComponent component = Component.text(MultiCommands.colored(message));
-        MultiCommands.getInstance().adventure().player(player).sendActionBar(component);
+        final TextComponent component = Component.text(colored(message));
+        instance.adventure().player(player).sendActionBar(component);
+    }
+
+    /**
+     *
+     * @param player Receiver
+     *  <br>Send Tablist to player
+     */
+    public static void sendTablist(Player player){
+        final Component header = Component.text(colored(MultiCommands.getInstance().getConfig().getString("tablist.header")));
+        final Component footer = Component.text(colored(MultiCommands.getInstance().getConfig().getString("tablist.footer")));
+        player.sendPlayerListHeaderAndFooter(header, footer);
+    }
+
+    public static void saveResourceAs(String inPath) {
+        if (inPath != null && !inPath.isEmpty()) {
+            InputStream in = MultiCommands.getInstance().getResource(inPath);
+            if (in == null) {
+                throw new IllegalArgumentException(inPath + " unreachable!");
+            } else {
+                if (!MultiCommands.getInstance().getDataFolder().exists() && !MultiCommands.getInstance().getDataFolder().mkdir()) {
+                    sendConsoleMessage("&cUnable to build folder!");
+                }
+
+                File inFile = new File(MultiCommands.getInstance().getDataFolder(), inPath);
+                if (!inFile.exists()) {
+                    sendConsoleMessage(inFile.getName() + "&c are unreachable, creating it ...");
+                    MultiCommands.getInstance().saveResource(inPath, false);
+                    if (!inFile.exists()) {
+                        sendConsoleMessage("&cUnable to copy &e"+inFile.getName()+"&c file!");
+                    } else {
+                        sendConsoleMessage("&e"+inFile.getName() + "&a successfully created!");
+                    }
+                }
+
+            }
+        } else {
+            throw new IllegalArgumentException("Folder cannot be empty/null !");
+        }
     }
 }

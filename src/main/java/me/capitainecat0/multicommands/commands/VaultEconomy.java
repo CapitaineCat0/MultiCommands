@@ -2,7 +2,6 @@ package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.utils.Messenger;
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
@@ -17,7 +16,6 @@ import static me.capitainecat0.multicommands.MultiCommands.econ;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.Messenger.NOT_A_PLAYER;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.playSound;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class VaultEconomy implements CommandExecutor {
@@ -44,7 +42,7 @@ public class VaultEconomy implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(),Messenger.NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                    getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                 }
             }else if(args.length == 3 && args[0].equalsIgnoreCase("pay")){
                 Player target = Bukkit.getPlayerExact(args[1]);
@@ -62,7 +60,7 @@ public class VaultEconomy implements CommandExecutor {
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(),Messenger.NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                     }
                 }catch (NumberFormatException e){
                     if(soundEnabled()){

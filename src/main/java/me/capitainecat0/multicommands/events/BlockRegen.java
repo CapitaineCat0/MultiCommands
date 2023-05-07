@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
-import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class BlockRegen implements Listener {
 

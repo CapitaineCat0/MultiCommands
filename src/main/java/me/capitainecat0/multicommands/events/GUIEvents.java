@@ -8,7 +8,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 
-import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class GUIEvents implements Listener {
     @EventHandler

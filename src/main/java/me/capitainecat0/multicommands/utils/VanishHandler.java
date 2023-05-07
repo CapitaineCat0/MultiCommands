@@ -2,7 +2,6 @@ package me.capitainecat0.multicommands.utils;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

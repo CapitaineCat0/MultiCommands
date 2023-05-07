@@ -1,7 +1,5 @@
 package me.capitainecat0.multicommands.utils;
 
-import me.capitainecat0.multicommands.MultiCommands;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -10,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class GUICreator {
     private static final Map<UUID, GUICreator> openGUIS = new HashMap<>();
@@ -30,13 +29,13 @@ public class GUICreator {
 
     public GUICreator(int size, String name){
         uuid = UUID.randomUUID();
-        inventory = Bukkit.createInventory(null, size, MultiCommands.colored(name));
+        inventory = Bukkit.createInventory(null, size, colored(name));
         viewerID = null;
     }
 
     public GUICreator(int size, String name, String viewerID){
         uuid = UUID.randomUUID();
-        inventory = Bukkit.createInventory(null, size, MultiCommands.colored(name));
+        inventory = Bukkit.createInventory(null, size, colored(name));
         this.viewerID = viewerID;
     }
 

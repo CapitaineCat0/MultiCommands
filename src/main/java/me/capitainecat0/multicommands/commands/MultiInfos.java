@@ -1,7 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multimaintenance.MultiMaintenance;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -40,12 +39,12 @@ public class MultiInfos implements CommandExecutor {
                         .replace("%author%", "CapitaineCat0")
                         .replace("%version%", MultiCommands.getInstance().getDescription().getVersion())
                         .replace("%description%", MultiCommands.getInstance().getDescription().getDescription()));
-                assert MultiMaintenance.instance().getDescription().getDescription() != null;
+                /*assert MultiMaintenance.instance().getDescription().getDescription() != null;
                 sendMessage(sender, MULTIINFOS_MSG.getMessage()
                         .replace("%plname%", MultiMaintenance.instance().getDescription().getName())
                         .replace("%author%", "CapitaineCat0")
                         .replace("%version%", MultiMaintenance.instance().getDescription().getVersion())
-                        .replace("%description%", MultiMaintenance.instance().getDescription().getDescription()));
+                        .replace("%description%", MultiMaintenance.instance().getDescription().getDescription()));*/
             }catch(final Exception ex) {
                 assert MultiCommands.getInstance().getDescription().getDescription() != null;
                 sendMessage(sender, MULTIINFOS_MSG.getMessage()

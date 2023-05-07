@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.sendMessage;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class PrivateMessager implements CommandExecutor {
     @Override

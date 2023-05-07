@@ -58,7 +58,7 @@ public class LocalEconomy implements CommandExecutor {
                     }
                 }
             }else{
-                getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             }
 
             if(sender.hasPermission(ECONOMY_PERM_REMOVE.getPermission()) || sender.hasPermission(ECONOMY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){

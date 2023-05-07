@@ -5,9 +5,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import static me.capitainecat0.multicommands.MultiCommands.colored;
 import static me.capitainecat0.multicommands.utils.Messenger.ONLEAVE;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class Leave implements Listener {
 

@@ -1,9 +1,7 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,6 +15,7 @@ import java.util.Objects;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
+import static me.capitainecat0.multicommands.utils.Perms.HELPOP_PERM;
 
 public class Helpop implements CommandExecutor {
 
@@ -35,14 +34,14 @@ public class Helpop implements CommandExecutor {
                 for(String part : args) {
                     bc.append(part).append(" ");
                 }
-            for (OfflinePlayer operators : Bukkit.getOperators()) {
+            for (Player operators : Bukkit.getOnlinePlayers()) {
                 if(Bukkit.getOnlinePlayers().contains(operators)){
-                    if(Objects.requireNonNull(operators.getPlayer()).hasPermission(ALL_PERMS.getPermission()) || operators.getPlayer().hasPermission(Perms.HELPOP_PERM.getPermission())){
+                    if(Objects.requireNonNull(operators.getPlayer()).hasPermission(ALL_PERMS.getPermission()) || operators.getPlayer().hasPermission(HELPOP_PERM.getPermission())){
                         if(soundEnabled()){
                             playSound(operators.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
-                        sendConsoleMessage("§c[Admin Help] §7" + sender.getName() + "§8: §f" + bc);
-                        sendMessage(operators.getPlayer(),"§c[Admin Help] §7" + sender.getName() + "§8: §f" + bc);
+                        sendConsoleMessage(HELPOP_FORMAT.getMessage() + sender.getName() + "§8: §f" + bc);
+                        sendMessage(operators.getPlayer(),HELPOP_FORMAT.getMessage() + sender.getName() + "§8: §f" + bc);
                     }
 
                     if(soundEnabled()){
@@ -51,7 +50,7 @@ public class Helpop implements CommandExecutor {
                     getMsgSendConfig(sender, command.getName(), HELPOP_DONE.getMessage());
                     sendMessage(sender," §8- §7" + bc);
                 }else{
-                    //sendMessage(sender, HELPOP_NO_ADMINS.getMessage());
+                    sendMessage(sender, HELPOP_NO_ADMINS.getMessage());
                 }
             }
 

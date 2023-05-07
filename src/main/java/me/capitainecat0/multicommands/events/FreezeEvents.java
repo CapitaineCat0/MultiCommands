@@ -16,8 +16,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.jetbrains.annotations.NotNull;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.getMsgSendConfig;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class FreezeEvents implements Listener {
 
@@ -27,12 +26,12 @@ public class FreezeEvents implements Listener {
         FreezeData data = new FreezeData(player);
         boolean isFrozen = data.isFrozen();
         if (isFrozen) {
-            if(!MultiCommands.getInstance().getCooldownManager().isPlayerCooldown(player)){
-                MultiCommands.getInstance().getCooldownManager().addPlayerCooldown(player, 5);
+            if(!MultiCommands.getCooldownManager().isPlayerCooldown(player)){
+                MultiCommands.getCooldownManager().addPlayerCooldown(player, 5);
             }
             event.setCancelled(true);
             hideActiveBossBar();
-            if(MultiCommands.getInstance().getCooldownManager().isPlayerCooldown(player)){
+            if(MultiCommands.getCooldownManager().isPlayerCooldown(player)){
                 getMsgSendConfig(player, "BreakBlock", FREEZE_BREAK.getMessage());
             }
 

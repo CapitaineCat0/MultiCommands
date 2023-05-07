@@ -27,6 +27,7 @@ public class GamemodeTab implements org.bukkit.command.TabCompleter {
             Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
             Bukkit.getServer().getOnlinePlayers().toArray(players);
             for (Player player : players) {
+                playersNames.add("all");
                 playersNames.add(player.getName());
             }
             return playersNames;

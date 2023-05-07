@@ -1,7 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.data.BannedData;
 import me.capitainecat0.multicommands.data.FreezeData;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -14,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.playSound;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 import static me.capitainecat0.multicommands.utils.Perms.FREEZE_PERM;
 

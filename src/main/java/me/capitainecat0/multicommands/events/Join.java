@@ -1,27 +1,20 @@
 package me.capitainecat0.multicommands.events;
 
-import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.BalanceData;
 import me.capitainecat0.multicommands.data.BannedData;
 import me.capitainecat0.multicommands.data.FreezeData;
-import me.capitainecat0.multicommands.data.PlayerData;
 import me.capitainecat0.multicommands.utils.Perms;
 import me.capitainecat0.multicommands.utils.VanishHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import static me.capitainecat0.multicommands.MultiCommands.colored;
-import static me.capitainecat0.multicommands.MultiCommands.econ;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
-import static me.capitainecat0.multicommands.utils.MessengerUtils.hideActiveBossBar;
-
+import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class Join implements Listener {
 
     @EventHandler
@@ -35,11 +28,11 @@ public class Join implements Listener {
                economy.createPlayerAccount(player);
            }
         }*/
-        if(MultiCommands.getInstance().setupEconomy()){
+        /*if(MultiCommands.setupEconomy()){
             if(!econ.hasAccount(player)){
                 econ.createPlayerAccount(player);
             }
-        }
+        }*/
       // new PlayerData(player);
        new FreezeData(player);
        new BalanceData(player);

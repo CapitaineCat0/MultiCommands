@@ -1,12 +1,9 @@
 package me.capitainecat0.multicommands.events;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -14,10 +11,8 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.Objects;
 
-import static me.capitainecat0.multicommands.utils.Messenger.SPAWN_DONE;
 import static me.capitainecat0.multicommands.utils.Messenger.SPAWN_ERROR;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-
 public class SpawnEvent implements Listener {
 
     @EventHandler

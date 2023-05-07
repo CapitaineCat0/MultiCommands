@@ -1,7 +1,6 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -40,14 +39,14 @@ public class BossBar implements CommandExecutor {
                             bc.append(part).append(" ");
                         }
                         sendMessage(sender, ACTIONBAR_SENT_TO_OTHER.getMessage().replace("{0}", target.getName()));
-                        sendBossBar(target,1, net.kyori.adventure.bossbar.BossBar.Color.GREEN, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_20, MultiCommands.colored(bc.toString().replace(args[0], "")));
+                        sendBossBar(target,1, net.kyori.adventure.bossbar.BossBar.Color.GREEN, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_20, colored(bc.toString().replace(args[0], "")));
                     }else{
                         StringBuilder bc = new StringBuilder();
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
                         sendMessage(sender, ACTIONBAR_SENT_TO_ALL.getMessage());
-                        sendBossBar(1, net.kyori.adventure.bossbar.BossBar.Color.GREEN, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_20, MultiCommands.colored(bc.toString().replace(args[0], "")));
+                        sendBossBar(1, net.kyori.adventure.bossbar.BossBar.Color.GREEN, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_20, colored(bc.toString().replace(args[0], "")));
                     }
 
                 }

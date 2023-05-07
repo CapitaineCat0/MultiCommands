@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 import static me.capitainecat0.multicommands.data.PlayerData.existsPlayerData;
 

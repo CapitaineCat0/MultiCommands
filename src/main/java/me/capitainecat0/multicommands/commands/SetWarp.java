@@ -2,8 +2,6 @@ package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.ConfigData;
-import me.capitainecat0.multicommands.utils.Messenger;
-import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
