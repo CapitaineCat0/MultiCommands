@@ -1,0 +1,405 @@
+name: MultiCommands
+version: '0.96'
+main: me.capitainecat0.multicommands.MultiCommands
+api-version: 1.13
+authors: [CapitaineCat0, It'sTheSky]
+description: Custom essentials build
+website: www.hallofgames.fr/plugins
+softdepend:
+  - MultiMaintenance
+  - PlaceholderAPI
+  - Vault
+commands:
+  #channels staff:
+  adminchat:
+    description: Permet d'envoyer des messages privés entre admins
+    aliases: ac
+    permission: multicommands.chat.admin
+  builderchat:
+    description: Permet d'envoyer des messages privés entre builders
+    aliases: bchat
+    permission: multicommands.chat.builder
+  devchat:
+    description:  Permet d'envoyer des messages privés entre dévelopeurs
+    aliases: dc
+    permission: multicommands.chat.developer
+  modochat:
+    description: Permet d'envoyer des messages privés entre modérateurs
+    aliases: mchat
+    permission: multicommands.chat.moderator
+  staffchat:
+    description: Permet d'envoyer des messages privés entre staff
+    aliases: sc
+    permission: multicommands.chat.staff
+
+
+  #commandes:
+
+  actionbar:
+    description: Permet d'envoyer un message dans la barre d'action
+    permission: multicommands.actionbar
+  afk:
+    description: Permet de gérer le mode AFK
+    permission: multicommands.afk
+  alert:
+    description: Envoyer un message d'alerte
+    permission: multicommands.alert
+  ban:
+    description: Permet de bannir un joueur
+    permission: multicommands.ban
+  bank:
+    description: Permet de gérer la banque (requiert Vault)
+    permission: multicommands.economy
+  bossbar:
+    description: Permet d'envoyer un message dans la bossbar
+    permission: multicommands.bossbar
+  broadcast:
+    description: Envoyer un broadcast
+    aliases: bc
+    permission: multicommands.broadcast
+  chat:
+    description: Permet de gérer le chat
+    permission: multicommands.chat
+  clear:
+    description: Vider son inventaire / celui d'un autre joueur
+    aliases:
+      - ci
+      - clearinventory
+    permission: multicommands.clearinventory
+  craft:
+    description: Ouvrir l'établi
+    aliases: workbench
+    permission: multicommands.craft
+  economy:
+    description: Permet de gérer le systeme d'économie
+    aliases:
+      - eco
+      - econ
+      - balance
+      - bal
+      - money
+    permission: multicommands.economy
+  enderchest:
+    description: Ouvrir votre enderchest / celui d'un autre joueur
+    aliases: ec
+    permission: multicommands.enderchest
+  feed:
+    description: Permet de se nourrir / un autre joueur
+    permission: multicommands.feed
+  fly:
+    description: Permet de gérer votre fly-mode / celui d'un autre joueur
+    permission: multicommands.fly
+  freeze:
+    description: Geler un joueur
+    permission: multicommands.freeze
+  furnace:
+    description: Permet de cuire les items que vous tenez
+    permission: multicommands.furnace
+  gamemode:
+    description: Permet de changer votre mode de jeu / celui d'un autre joueur
+    aliases: gm
+    permission: multicommands.gamemode
+  god:
+    description: Permet de gérer votre invulnérabilité / celle d'un autre joueur
+    permission: multicommands.god
+  heal:
+    description: Permet de se soigner / un autre joueur
+    permission: multicommands.heal
+  helpop:
+    description: Permet d'envoyer un message aux opérateurs
+    permission: multicommands.helpop
+  invsee:
+    description: Permet d'afficher et d'interagir avec l'inventaire d'un autre joueur
+    permission: multicommands.invsee
+  kick:
+    description: Permet d'expulser un joueur
+    permission: multicommands.kick
+  list:
+    description: Permet d'afficher les joueurs connectés
+  msg:
+    description: Permet d'envoyer un message privé
+    aliases: r
+  multihelp:
+    description: Permet d'afficher l'aide des plugins Multi
+    permission: multicommands.multihelp
+    aliases:
+      - mhelp
+      - multicmdhelp
+      - multicommandhelp
+      - mcmd
+      - mc
+  multiinfos:
+    description: Permet d'afficher les informations d'un plugin de la série Multi
+    permission: multicommands.multiinfos
+    aliases:
+      - minfos
+      - minfo
+      - multiinfo
+      - multinfo
+      - multinfos
+  nick:
+    description: Permet de changer votre pseudo
+    permission: multicommands.nick
+  ping:
+    description: Permet d'afficher votre ping / celui d'un autre
+    permission: multicommands.playerpinger
+    aliases:
+      - pping
+      - playerping
+      - playerpinger
+  mreload:
+    description: Permet de recharger les configurations
+    permission: multicommands.multireload
+    aliases:
+      - multireload
+  randomtp:
+    description: Permet de se téléporter aléatoirement sur la carte
+    aliases:
+      - rtp
+      - randomteleport
+  serverinfo:
+    description: Permet d'afficher les informations sur le serveur
+    permission: multicommands.serverinfo
+  setspawn:
+    description: Permet de placer le spawn du monde
+    permission: multicommands.setspawn
+  #setwarp:
+    #description: Permet de créer des warps
+
+    #permission: multicommands.setwarp
+  spawn:
+    description: Permet de vous téléporter au spawn du monde
+  tp:
+    description: Permet de se téléporter / un autre joueur
+    permission: multicommands.teleport
+    aliases: teleport
+  title:
+    description: Permet d'envoyer un message en titre
+    permission: multicommands.title
+  vanish:
+    description: Permet de gérer votre vanish
+    permission: multicommands.vanish
+    aliases: v
+  #warp:
+   #description: Permet de se téléporter aux warps
+
+    #aliases: warps
+    #permission: multicommands.warp
+  whois:
+    description: Permet d'afficher les informations sur un joueur
+    permission: multicommands.whois
+
+permissions:
+  multicommands.*:
+    default: op
+    description: Permet d'avoir accès à toutes les commandes
+  multicommands.actionbar:
+    default: true
+    description: actionbar - permission
+  multicommands.afk:
+    default: true
+    description: afk - permission
+  multicommands.alert:
+    default: op
+    description: alert - permission
+  multicommands.ban:
+    default: op
+    description: ban - permission
+  multicommands.bossbar:
+    default: true
+    description: bossbar - permission
+  multicommands.broadcast:
+    default: op
+    description: broadcast - permission
+  multicommands.clearinventory.*:
+    default: op
+    description: clear inventory - permission
+  multicommands.clearinventory.self:
+    default: true
+    description: self clear inventory - permission
+  multicommands.clearinventory.other:
+    default: true
+    description: other clear inventory - permission
+  multicommands.craft:
+    default: true
+    description: craft - permission
+  multicommands.enderchest.*:
+    default: op
+    description: enderchest - permission
+  multicommands.enderchest.self:
+    default: true
+    description: self enderchest - permission
+  multicommands.enderchest.other:
+    default: op
+    description: other enderchest - permission
+  multicommands.economy.*:
+    default: op
+    description: economy - permission
+  multicommands.economy.balance:
+    default: true
+    description: economy balance - permission
+  multicommands.economy.deposit:
+    default: true
+    description: economy deposit - permission
+  multicommands.economy.set:
+    default: op
+    description: economy set - permission
+  multicommands.economy.reset:
+    default: op
+    description: economy reset - permission
+  multicommands.economy.withdraw:
+    default: true
+    description: economy withdraw - permission
+  multicommands.economy.bank.*:
+    default: op
+    description: economy bank - permission
+  multicommands.economy.bank.deposit:
+    default: true
+    description: economy bank deposit - permission
+  multicommands.economy.bank.create:
+    default: true
+    description: economy bank create - permission
+  multicommands.economy.bank.reset:
+    default: op
+    description: economy bank reset - permission
+  multicommands.economy.bank.withdraw:
+    default: true
+    description: economy bank withdraw - permission
+  multicommands.furnace:
+    default: true
+    description: furnace - permission
+  multicommands.feed.*:
+    default: op
+    description: feed - permission
+  multicommands.feed.self:
+    default: true
+    description: self feed - permission
+  multicommands.feed.other:
+    default: op
+    description: other feed - permission
+  multicommands.fly.*:
+    default: op
+    description: fly - permission
+  multicommands.fly.self:
+    default: true
+    description: self fly - permission
+  multicommands.fly.other:
+    default: op
+    description: other fly - permission
+  multicommands.freeze:
+    default: op
+    description: freeze - permission
+  multicommands.gamemode.*:
+    default: op
+    description: gamemode - permission
+  multicommands.gamemode.other.*:
+    default: op
+    description: other gamemode - permission
+  multicommands.gamemode.survival.self:
+    default: true
+    description: self survival gamemode - permission
+  multicommands.gamemode.survival.other:
+    default: op
+    description: other survival gamemode - permission
+  multicommands.gamemode.creative.self:
+    default: true
+    description: self creative gamemode - permission
+  multicommands.gamemode.creative.other:
+    default: op
+    description: other creative gamemode - permission
+  multicommands.gamemode.adventure.self:
+    default: true
+    description: self adventure gamemode - permission
+  multicommands.gamemode.adventure.other:
+    default: op
+    description: other adventure gamemode
+  multicommands.gamemode.spectator.self:
+    default: true
+    description: self spectator gamemode - permission
+  multicommands.gamemode.spectator.other:
+    default: op
+    description: other spectator gamemode - permission
+  multicommands.god.*:
+    default: op
+    description: god - permission
+  multicommands.god.self:
+    default: true
+    description: self god - permission
+  multicommands.god.other:
+    default: op
+    description: other god - permission
+  multicommands.helpop:
+    default: op
+    description: helpop - permission
+  multicommands.heal.*:
+    default: op
+    description: heal - permission
+  multicommands.heal.self:
+    default: true
+    description: self heal - permission
+  multicommands.heal.other:
+    default: op
+    description: other heal - permission
+  multicommands.invsee:
+    default: op
+    description: invsee - permission
+  multicommands.kick:
+    default: op
+    description: kick - permission
+  multicommands.multiionfos:
+    default: op
+    description: infos - permissions
+  multicommands.nick:
+    default: true
+    description: nick - permission
+  multicommands.playerpinger:
+    default: op
+    description: player ping - permission
+  multicommands.serverinfo:
+    default: op
+    description: serverinfo - permission
+  multicommands.setspawn:
+    default: op
+    description: setspawn - permission
+  multicommands.spawn:
+    default: true
+    description: spawn - permission
+  multicommands.teleport:
+    default: op
+    description: teleport - permission
+  multicommands.title:
+    default: true
+    description: title - permission
+  multicommands.vanish.*:
+    default: op
+    description: vanish - permission
+  multicommands.vanish.self:
+    default: true
+    description: self vanish - permission
+  multicommands.vanish.other:
+    default: op
+    description: other vanish - permission
+  multicommands.whois:
+    default: op
+    description: whois - permission
+  multicommands.chat.*:
+    default: op
+    description: chat - permission
+  multicommands.chat.clear:
+    default: op
+    description: clear chat - permission
+  multicommands.chat.admin:
+    default: op
+    description: admin chat - permission
+  multicommands.chat.staff:
+    default: op
+    description: staff chat - permission
+  multicommands.chat.developer:
+    default: op
+    description: developer chat - permission
+  multicommands.chat.moderator:
+    default: op
+    description: moderator chat - permission
+  multicommands.chat.builder:
+    default: op
+    description: builder chat - permission

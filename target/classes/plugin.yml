@@ -1,0 +1,122 @@
+name: MultiCommands
+version: '0.85'
+main: 'me.capitainecat0.multicommands.MultiCommands'
+api-version: 1.13
+authors: [CapitaineCat0]
+description: Essentials custom développé pour HallOfGames
+website: www.hallofgames.fr/plugins
+softdepend:
+  - MultiMaintenance
+commands:
+  #channels staff:
+  adminchat:
+    description: Permet d'envoyer des messages privés entre admins
+    aliases: ac
+  builderchat:
+    description: Permet d'envoyer des messages privés entre builders
+    aliases: bchat
+  devchat:
+    description:  Permet d'envoyer des messages privés entre dévelopeurs
+    aliases: dc
+  modochat:
+    description: Permet d'envoyer des messages privés entre modos
+    aliases: mchat
+  staffchat:
+    description: Permet d'envoyer des messages privés entre staff
+    aliases: sc
+
+
+  #commandes:
+
+  actionbar:
+    description: Permet d'envoyer un message dans la barre d'action
+  afk:
+    description: Permet de gérer le mode AFK
+  alert:
+    description: Envoyer un message d'alerte
+  bossbar:
+    description: Permet d'envoyer un message dans la bossbar
+  broadcast:
+    description: Envoyer un broadcast
+    aliases: bc
+  clear:
+    description: Vider son inventaire / celui d'un autre joueur
+    aliases:
+      - ci
+      - clearinventory
+  craft:
+    description: Ouvrir l'établi
+    aliases: workbench
+  economy:
+    description: Permet de gérer le systeme d'économie
+    aliases:
+      - eco
+      - econ
+  enderchest:
+    description: Ouvrir votre enderchest / celui d'un autre joueur
+    aliases: ec
+  feed:
+    description: Permet de se nourrir / un autre joueur
+  fly:
+    description: Permet de gérer votre fly-mode / celui d'un autre joueur
+  freeze:
+    description: Geler un joueur
+  furnace:
+    description: Permet de cuire les items que vous tenez
+  gamemode:
+    description: Permet de changer votre mode de jeu / celui d'un autre joueur
+    aliases: gm
+  god:
+    description: Permet de gérer votre invulnérabilité / celle d'un autre joueur
+  heal:
+    description: Permet de se soigner / un autre joueur
+  helpop:
+    description: Permet d'envoyer un message aux opérateurs
+  invsee:
+    description: Permet d'afficher et d'interagir avec l'inventaire d'un autre joueur
+  list:
+    description: Permet d'afficher les joueurs connectés
+  multihelp:
+    description: Permet d'afficher l'aide des plugins Multi
+    aliases:
+      - mhelp
+      - multicmdhelp
+      - multicommandhelp
+      - mcmd
+      - mc
+  multiinfos:
+    description: Permet d'afficher les informations d'un plugin de la série Multi
+    aliases:
+      - minfos
+      - minfo
+      - multiinfo
+      - multinfo
+      - multinfos
+  nick:
+    description: Permet de changer votre pseudo
+  ping:
+    description: Permet d'afficher votre ping / celui d'un autre
+    aliases:
+      - pping
+      - playerping
+      - playerpinger
+  mreload:
+    description: Permet de recharger les configurations
+    aliases:
+      - multireload
+  serverinfo:
+    description: Permet d'afficher les informations sur le serveur
+  setspawn:
+    description: Permet de placer le spawn du monde
+  spawn:
+    description: Permet de vous téléporter au spawn du monde
+  tp:
+    description: Permet de se téléporter / un autre joueur
+    aliases: teleport
+  title:
+    description: Permet d'envoyer un message en titre
+  vanish:
+    description: Permet de gérer votre vanish
+    aliases: v
+  whois:
+    description: Permet d'afficher les informations sur un joueur

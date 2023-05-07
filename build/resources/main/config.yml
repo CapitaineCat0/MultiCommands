@@ -1,0 +1,40 @@
+#Configuration file of MultiCommands
+
+#Change the default language of messages
+lang: en
+
+#Messages can be sent to different channels :
+# - ACTIONBAR | actionbar
+# - CHAT | chat
+# - TITLE | title
+# - BOSSBAR | bossbar
+send-message-on: ACTIONBAR
+
+#Manage sound effects:
+#Minecraft effects list
+#https://www.digminecraft.com/lists/sound_list_pc.php
+
+enable-command-sounds: true
+
+console-setup: true
+
+#Errors / no perms sound:
+no-perm-sound: "BLOCK_ANVIL_PLACE"
+
+#Command done:
+cmd-done-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+
+#Custom sounds:
+feed-heal-sounds: true
+
+#Enable / disable HelpGUI:
+#(usefully if you use an older paper version or using spigot/bukkit server jar)
+enable-help-gui: true
+
+#Max blocks value for X and Z coords
+random-teleporter-max-X: 25000
+random-teleporter-max-Z: 25000
+
+#/!\ DON'T TOUCH THAT SECTION /!\
+#(but if you know what you're doing make it)
+spawn:

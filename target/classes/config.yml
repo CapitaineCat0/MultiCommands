@@ -1,0 +1,28 @@
+#Configuration file of MultiCommands
+
+#Les messages peuvent êtres envoyés de plusieurs façons :
+# - ACTIONBAR | actionbar
+# - CHAT | chat
+# - TITLE | title
+# - BOSSBAR | bossbar
+send-message-on: CHAT
+
+#Activer et gérer les effets sonores:
+#Liste des effets sonores de Minecraft
+#https://www.digminecraft.com/lists/sound_list_pc.php
+
+enable-command-sounds: true
+
+#Pas de permissions / Erreurs en tous genres :
+no-perm-sound: "BLOCK_ANVIL_PLACE"
+
+#Commande effectuée:
+cmd-done-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+
+#Sons custom:
+feed-heal-sounds: true
+
+#Activer / désactiver le GUI d'aide
+enable-help-gui: true
+
+spawn:
