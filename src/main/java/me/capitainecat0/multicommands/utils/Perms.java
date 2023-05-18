@@ -9,7 +9,6 @@ public enum Perms {
     ACTIONBAR_PERMS("multicommands.actionbar"),
     AFK_PERM("multicommands.afk"),
     ALERT_PERM("multicommands.alert"),
-
     BAN_PERM("multicommands.ban"),
     BOSSBAR_PERM("multicommands.bossbar"),
     BROADCAST_PERM("multicommands.broadcast"),
@@ -48,6 +47,9 @@ public enum Perms {
     GAMEMODE_ADVENTURE_PERM_OTHER("multicommands.gamemode.adventure.other"),
     GAMEMODE_SPECTATOR_PERM_SELF("multicommands.gamemode.spectator.self"),
     GAMEMODE_SPECTATOR_PERM_OTHER("multicommands.gamemode.spectator.other"),
+    GIVE_PERM("multicommands.give"),
+    GIVE_OVERSIZE_PERM("multicommands.give.oversize"),
+    GIVE_UNSAFE_ENCHANTMENT("multicommands.unsafe.enchantment"),
     GOD_PERM_ALL("multicommands.god.*"),
     GOD_PERM_SELF("multicommands.god.self"),
     GOD_PERM_OTHER("multicommands.god.other"),

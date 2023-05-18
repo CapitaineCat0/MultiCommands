@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def version = '0.96'
+def version = '0.97'
 
 shadowJar {
     archiveName = "MultiCommands.jar"
@@ -20,12 +20,15 @@ repositories {
 dependencies {
     shadow 'io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT' // PaperMC
     compileOnly 'me.clip:placeholderapi:2.11.2' // PlaceHolderAPI
+    compileOnly 'net.luckperms:api:5.0' // LuckPerms
     shadow fileTree(dir: 'libs', include: '*.jar') // Fichier de build
     implementation 'com.google.code.gson:gson:2.10.1' // Json
     implementation 'net.kyori:adventure-platform-bukkit:4.3.0' // Adventure
     implementation 'net.kyori:adventure-api:4.13.1' // Adventure
     implementation "net.kyori:adventure-text-minimessage:4.13.1" // Adventure
-    compileOnly "com.github.MilkBowl:VaultAPI:1.7.1" // Vault
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7.1" ){  // Vault
+        exclude group: "org.bukkit", module: "bukkit"
+    }
 }
 
 def targetJavaVersion = 17

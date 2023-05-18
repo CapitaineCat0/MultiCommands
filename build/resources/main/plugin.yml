@@ -1,5 +1,5 @@
 name: MultiCommands
-version: '0.96'
+version: '0.97.1'
 main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
 authors: [CapitaineCat0, It'sTheSky]
@@ -60,6 +60,8 @@ commands:
   chat:
     description: Permet de gérer le chat
     permission: multicommands.chat
+  compass:
+    description: Permet de connaitre votre orientation et vos coordonées
   clear:
     description: Vider son inventaire / celui d'un autre joueur
     aliases:

@@ -71,7 +71,6 @@ public class BalanceData {
         //return Integer.parseInt(Objects.requireNonNull(configuration.get("balance")).toString());
     }
     /**
-     *
      * @param player Player name
      * @return player balance data
      */

@@ -35,6 +35,8 @@ public class Commands {
             sendConsoleMessage("&e - CHAT");
             Objects.requireNonNull(getInstance().getCommand("chat")).setTabCompleter(new ChatTab());
             getInstance().registerCommand(new Chat(), "chat");
+            sendConsoleMessage("&e - COMPASS");
+            getInstance().registerCommand(new Compass(), "compass");
             sendConsoleMessage("&e - CLEARINVENTORY / CI");
             Objects.requireNonNull(getInstance().getCommand("clearinventory")).setTabCompleter(new BasicTab());
             getInstance().registerCommand(new ClearInventory(), "clearinventory");
@@ -144,6 +146,7 @@ public class Commands {
             getInstance().registerCommand(new BuilderChat(), "builderchat");
             Objects.requireNonNull(getInstance().getCommand("chat")).setTabCompleter(new ChatTab());
             getInstance().registerCommand(new Chat(), "chat");
+            getInstance().registerCommand(new Compass(), "compass");
             Objects.requireNonNull(getInstance().getCommand("clearinventory")).setTabCompleter(new BasicTab());
             getInstance().registerCommand(new ClearInventory(), "clearinventory");
             getInstance().registerCommand(new Craft(), "craft");

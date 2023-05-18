@@ -28,7 +28,7 @@ public class List implements CommandExecutor {
         sendMessage(sender, LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getServer().getMaxPlayers()+""));
         sendMessage(sender,"");
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if(Objects.equals(p.getCustomName(), p.getName())){
+            if(p.getCustomName() == null){
                 if (sender instanceof Player) {
                     sendCommandMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[]", "/tp"+p.getName());
                     sendHoverMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[]", p.getName(), LIST_HOVER.getMessage().replace("{0}", p.getName()));
@@ -40,7 +40,7 @@ public class List implements CommandExecutor {
             }else{
                 if (sender instanceof Player) {
                     sendCommandMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" ]", "/tp"+p.getName());
-                    sendHoverMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" ]", p.getCustomName(), LIST_HOVER.getMessage().replace("{0}", Objects.requireNonNull(p.getCustomName())));
+                    sendHoverMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" ]", p.getCustomName(), LIST_HOVER.getMessage().replace("{0}", p.getName()));
                     //sender.spigot().sendMessage(playerTP);
                 } else {
                     sendMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
