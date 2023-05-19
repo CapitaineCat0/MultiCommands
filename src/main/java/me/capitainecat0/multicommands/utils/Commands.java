@@ -123,6 +123,8 @@ public class Commands {
             sendConsoleMessage("&e - TITLE");
             Objects.requireNonNull(getInstance().getCommand("title")).setTabCompleter(new BossActionTitleTab());
             getInstance().registerCommand(new Title(), "title");
+            sendConsoleMessage("&e - TOP");
+            getInstance().registerCommand(new Top(), "top");
             sendConsoleMessage("&e - VANISH / V");
             Objects.requireNonNull(getInstance().getCommand("vanish")).setTabCompleter(new BasicTab());
             getInstance().registerCommand(new Vanish(), "vanish");
@@ -202,6 +204,7 @@ public class Commands {
             getInstance().registerCommand(new TP(), "teleport");
             Objects.requireNonNull(getInstance().getCommand("title")).setTabCompleter(new BossActionTitleTab());
             getInstance().registerCommand(new Title(), "title");
+            getInstance().registerCommand(new Top(), "top");
             Objects.requireNonNull(getInstance().getCommand("vanish")).setTabCompleter(new BasicTab());
             getInstance().registerCommand(new Vanish(), "vanish");
             Objects.requireNonNull(getInstance().getCommand("whois")).setTabCompleter(new BasicTab());

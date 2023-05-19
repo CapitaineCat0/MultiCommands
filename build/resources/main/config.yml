@@ -31,6 +31,12 @@ feed-heal-sounds: true
 #(usefully if you use an older paper version or using spigot/bukkit server jar)
 enable-help-gui: true
 
+#Give command:
+default_stack_size: 64
+oversize_stack_size: 256
+allow_unsafe_enchantment: true
+drop_inventory_full: true
+
 #Max blocks value for X and Z coords
 random-teleporter-max-X: 25000
 random-teleporter-max-Z: 25000

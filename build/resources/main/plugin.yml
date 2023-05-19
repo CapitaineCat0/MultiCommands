@@ -1,5 +1,5 @@
 name: MultiCommands
-version: '0.97.1'
+version: '0.98'
 main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
 authors: [CapitaineCat0, It'sTheSky]
@@ -178,6 +178,8 @@ commands:
   title:
     description: Permet d'envoyer un message en titre
     permission: multicommands.title
+  top:
+    description: Permet de se téléporter sur le bloc le plus haut
   vanish:
     description: Permet de gérer votre vanish
     permission: multicommands.vanish
