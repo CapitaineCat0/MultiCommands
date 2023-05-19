@@ -17,9 +17,12 @@ public class Top implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player){
-            Location loc = ((Player) sender).getLocation();
-            Location highest = (Location) ((Player) sender).getLocation().getWorld().getHighestBlockAt(loc);
-            ((Player) sender).teleport(highest);
+            final double topX = ((Player) sender).getLocation().getBlockX();
+            final double topZ = ((Player) sender).getLocation().getBlockZ();
+            final double topY = ((Player) sender).getWorld().getHighestBlockYAt((int) topX, (int) topZ);
+            final float pitch = ((Player) sender).getLocation().getPitch();
+            final float yaw = ((Player) sender).getLocation().getYaw();
+            ((Player) sender).teleport(new Location(((Player) sender).getWorld(), topX, topY, topZ, yaw, pitch));
         }else if(sender instanceof ConsoleCommandSender){
             sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
         }
