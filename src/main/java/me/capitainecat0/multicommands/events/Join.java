@@ -6,13 +6,19 @@ import me.capitainecat0.multicommands.data.FreezeData;
 import me.capitainecat0.multicommands.utils.Perms;
 import me.capitainecat0.multicommands.utils.VanishHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.Objects;
+import java.util.function.Consumer;
+
+import static me.capitainecat0.multicommands.MultiCommands.getInstance;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class Join implements Listener {
@@ -44,14 +50,17 @@ public class Join implements Listener {
            if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                String joinText = "&8{ &a+ &8} &e- &a>&f%luckperms_prefix% &3%player_name%";
                joinText = PlaceholderAPI.setPlaceholders(event.getPlayer(), joinText);
-               Component join = Component.text(joinText);
+               //Component join = Component.text(joinText);
                event.setJoinMessage(joinText);
            }else {
-               Component join = Component.text(ONJOIN.getMessage().replace("{0}", player.getName()));
+               //Component join = Component.text(ONJOIN.getMessage().replace("{0}", player.getName()));
                event.setJoinMessage(colored(ONJOIN.getMessage().replace("{0}", player.getName())));
                if (player.hasPermission(Perms.VANISH_PERM_SELF.getPermission()) || player.hasPermission(Perms.VANISH_PERM_ALL.getPermission()) || player.hasPermission(Perms.ALL_PERMS.getPermission())) {
                    VanishHandler.getVanished().add(player);
                }
            }
+        final Component header = Component.text((Consumer<? super TextComponent.Builder>) Objects.requireNonNull(getInstance().getConfig().get("tablist.header")));
+        final Component footer = Component.text((Consumer<? super TextComponent.Builder>) Objects.requireNonNull(getInstance().getConfig().get("tablist.footer")));
+        player.sendPlayerListHeaderAndFooter(header, footer);
     }
 }

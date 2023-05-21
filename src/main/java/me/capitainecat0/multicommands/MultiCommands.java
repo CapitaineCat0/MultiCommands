@@ -10,6 +10,8 @@ import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -133,12 +135,27 @@ public final class MultiCommands extends JavaPlugin {
         return adventure;
     }
 
-    public void registerCommand(CommandExecutor executor, String codeName) {
-        PluginCommand command = this.getCommand(codeName);
-        if (command != null) {
-            command.setExecutor(executor);
+    public void registerCommand(CommandExecutor executor, String command) {
+        PluginCommand cmd = this.getCommand(command);
+        if (cmd != null) {
+            cmd.setExecutor(executor);
         }
     }
+    public void registerCommand(CommandExecutor executor, String command, TabCompleter tabCompleter) {
+        PluginCommand cmd = this.getCommand(command);
+        if (cmd != null) {
+            cmd.setExecutor(executor);
+            cmd.setTabCompleter(tabCompleter);
+        }
+    }
+    /*public void registerCommand(CommandExecutor executor, String command, TabCompleter tabCompleter, TabExecutor tabExecutor) {
+        PluginCommand cmd = this.getCommand(command);
+        if (cmd != null) {
+            cmd.setExecutor(executor);
+            cmd.setTabCompleter(tabCompleter);
+            cmd.setExecutor(tabExecutor);
+        }
+    }*/
     public void registerEvent(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
