@@ -29,15 +29,15 @@ public class SetWarp implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }else{
           if(sender instanceof Player){
               if(args.length == 1){
-                  if(ConfigData.existsConfigData("warps.yml")){
+                  if(ConfigData.existsConfigData("oldconfig.dat")){
                       String warpName = args[0];
                       Location location = ((Player) sender).getLocation();
-                      FileConfiguration config = (YamlConfiguration) ConfigData.getConfig("warps.yml").get(warpName);
-                      ConfigData.getConfig("warps.yml").set("warps.name", warpName);
+                      FileConfiguration config = (YamlConfiguration) ConfigData.getConfig("oldconfig.dat").get(warpName);
+                      ConfigData.getConfig("oldconfig.dat").set("warps.name", warpName);
                       config.set("warps.name.world", location.getWorld().getName());
                       config.set("warps.name.x", location.getX());
                       config.set("warps.name.y", location.getY());
@@ -46,28 +46,28 @@ public class SetWarp implements CommandExecutor {
                       config.set("warps.name.pitch", location.getPitch());
                       config.saveToString();
                       try {
-                          config.save("warps.yml");
+                          config.save("oldconfig.dat");
                       } catch (IOException e) {
                           sendConsoleMessage(e.getMessage());
                       }
                       MultiCommands.getInstance().saveConfig();
                   }else{
                       try {
-                          ConfigData.createConfiguration("warps.yml");
+                          ConfigData.createConfiguration("oldconfig.dat");
                       } catch (IOException e) {
                           sendConsoleMessage(e.getMessage());
                       }
                   }
               }else{
-                  getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<warpName>"));
+                  getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<warpName>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
               }
               if(soundEnabled()){
                   playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
               }
-              getMsgSendConfig(sender, command.getName(), SETSPAWN_DONE.getMessage()//.replace("%loc%", (CharSequence) location)
+              getMsgSendConfig(sender, command.getName(), SETSPAWN_DONE.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage())//.replace("%loc%", (CharSequence) location)
               );
           }else if(sender instanceof ConsoleCommandSender){
-              sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+              sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
           }
         }
         return true;

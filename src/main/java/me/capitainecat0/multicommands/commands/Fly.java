@@ -27,19 +27,19 @@ public class Fly implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_ON.getMessage());
+                            getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_ON.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else if(((Player)sender).getAllowFlight()){
                             ((Player)sender).setAllowFlight(false);
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF.getMessage());
+                            getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         return true;
                     }
                 }else if(args.length == 1){
@@ -50,39 +50,35 @@ public class Fly implements CommandExecutor {
                                 target.setAllowFlight(true);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), FLY_TOGGLE_ON_BY_ADMIN.getMessage());
-                                getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_ON_SENDER.getMessage().replace("{0}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), FLY_TOGGLE_ON_BY_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_ON_SENDER.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else if(target.getAllowFlight()){
                                 target.setAllowFlight(false);
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), FLY_TOGGLE_OFF_BY_ADMIN.getMessage());
-                                getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF_SENDER.getMessage().replace("{0}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), FLY_TOGGLE_OFF_BY_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF_SENDER.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM_TO_OTHER.getMessage());
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM_TO_OTHER.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender) {
                 if (args.length == 0) {
-                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()));
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }
                 if (args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -92,18 +88,18 @@ public class Fly implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), FLY_TOGGLE_ON_BY_ADMIN.getMessage());
-                            sendConsoleMessage(FLY_TOGGLE_ON_SENDER.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), FLY_TOGGLE_ON_BY_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(FLY_TOGGLE_ON_SENDER.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         } else if (target.getAllowFlight()) {
                             target.setAllowFlight(false);
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF_BY_ADMIN.getMessage());
-                            sendConsoleMessage(FLY_TOGGLE_OFF_SENDER.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(sender, command.getName(), FLY_TOGGLE_OFF_BY_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(FLY_TOGGLE_OFF_SENDER.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     } else {
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }
             }

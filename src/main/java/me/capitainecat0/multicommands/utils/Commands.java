@@ -1,16 +1,8 @@
 package me.capitainecat0.multicommands.utils;
 
-import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.commands.*;
 import me.capitainecat0.multicommands.commands.chatchannels.*;
 import me.capitainecat0.multicommands.utils.tabcompleter.*;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 import static me.capitainecat0.multicommands.MultiCommands.getInstance;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
@@ -112,6 +104,8 @@ public class Commands {
             getInstance().registerCommand(new Title(), "title", new BossActionTitleTab());
             sendConsoleMessage("&e - TOP");
             getInstance().registerCommand(new Top(), "top");
+            sendConsoleMessage("&e - UNBAN");
+            getInstance().registerCommand(new UnBan(), "unban");
             sendConsoleMessage("&e - VANISH / V");
             getInstance().registerCommand(new Vanish(), "vanish", new BasicTab());
             sendConsoleMessage("&e - WARP");
@@ -171,6 +165,7 @@ public class Commands {
             getInstance().registerCommand(new TP(), "teleport", new BasicTab());
             getInstance().registerCommand(new Title(), "title", new BossActionTitleTab());
             getInstance().registerCommand(new Top(), "top");
+            getInstance().registerCommand(new UnBan(), "unban");
             getInstance().registerCommand(new Vanish(), "vanish", new BasicTab());
             getInstance().registerCommand(new Warp(), "warp");
             getInstance().registerCommand(new Whois(), "whois", new BasicTab());

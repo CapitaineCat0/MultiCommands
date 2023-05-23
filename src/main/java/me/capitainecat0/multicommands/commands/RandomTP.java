@@ -21,11 +21,11 @@ public class RandomTP implements CommandExecutor{
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!sender.hasPermission(TELEPORT_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
         }else{
             if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }else{
                 Player player = ((Player)sender);
                 if(args.length < 2){
@@ -42,7 +42,7 @@ public class RandomTP implements CommandExecutor{
                     location.setY(y);
 
                     player.teleport(location);
-                    getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("{0}", "X "+x+" Y "+y+" Z "+z));
+                    getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("{0}", "X "+x+" Y "+y+" Z "+z).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }else if(args.length == 2){
                     try{
                         int maxX = Integer.parseInt(args[0]);
@@ -58,9 +58,9 @@ public class RandomTP implements CommandExecutor{
                         location.setY(y);
 
                         player.teleport(location);
-                        getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("{0}", "X "+x+" Y "+y+" Z "+z));
+                        getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_COORDINATES.getMessage().replace("{0}", "X "+x+" Y "+y+" Z "+z).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }catch (Error error){
-                        sendConsoleMessage(error.getMessage());
+                        sendConsoleMessage(error.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }
             }

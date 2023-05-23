@@ -23,7 +23,7 @@ public class Alert implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 return true;
             }
             else{
@@ -31,7 +31,7 @@ public class Alert implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("{0}", "<message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("{0}", "<message>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     return true;
                 }else {
                     StringBuilder bc = new StringBuilder();
@@ -41,12 +41,12 @@ public class Alert implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), ALERT_CMD.getMessage());
-                    sendBroadcastMessage(ALERT_PREFIX.getMessage() + "&r " + bc);
+                    getMsgSendConfig(sender, command.getName(), ALERT_CMD.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    sendBroadcastMessage(ALERT_PREFIX.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()) + "&r " + bc);
                 }
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
 
         return false;

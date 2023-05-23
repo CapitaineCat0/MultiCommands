@@ -26,7 +26,7 @@ public class Spawn implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }else{
             if(sender instanceof Player){
                 if(MultiCommands.getInstance().getConfig().get("spawn.name") != null){
@@ -41,15 +41,15 @@ public class Spawn implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), SPAWN_DONE.getMessage());
+                    getMsgSendConfig(sender, command.getName(), SPAWN_DONE.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }else{
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), SPAWN_ERROR.getMessage());
+                    getMsgSendConfig(sender, command.getName(), SPAWN_ERROR.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }
             }else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }
         }
         return false;

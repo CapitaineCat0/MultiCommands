@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 
-import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
-import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_RELOADED;
+import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 
@@ -23,18 +22,18 @@ public class MultiReload implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            sendMessage(sender, CMD_NO_PERM.getMessage());
+            sendMessage(sender, CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             return true;
         }else {
             if(sender instanceof Player){
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 }
-                sendMessage(sender, PLUGIN_RELOADED.getMessage());
+                sendMessage(sender, PLUGIN_RELOADED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 reloadLang();
                 MultiCommands.getInstance().reloadConfig();
             }else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(PLUGIN_RELOADED.getMessage());
+                sendConsoleMessage(PLUGIN_RELOADED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 reloadLang();
                 MultiCommands.getInstance().reloadConfig();
             }

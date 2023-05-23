@@ -24,7 +24,7 @@ public class Freeze implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             return true;
         }
         else{
@@ -33,7 +33,7 @@ public class Freeze implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("{0}", "<player>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("{0}", "<player>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     return true;
                 }else if(args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -46,27 +46,27 @@ public class Freeze implements CommandExecutor {
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());
-                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         } else {
                             data.setFrozen(target,true);
                             if(soundEnabled()){
                                 playSound(target, Sound.BLOCK_ANVIL_PLACE, 1f, 1f);
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage());
-                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){
                 if(args.length == 0){
-                    sendConsoleMessage(CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
+                    sendConsoleMessage(CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     return true;
                 }else if(args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
@@ -75,15 +75,15 @@ public class Freeze implements CommandExecutor {
                         final boolean isFrozen = FreezeData.isFrozen();
                         if (isFrozen) {
                             data.setFrozen(target,false);
-                            getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage());
-                            sendConsoleMessage(FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         } else {
                             data.setFrozen(target,true);
-                            getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage());
-                            sendConsoleMessage(FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     }else{
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }
             }

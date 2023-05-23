@@ -7,8 +7,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.capitainecat0.multicommands.utils.Messenger.COMPASS_LOC;
-import static me.capitainecat0.multicommands.utils.Messenger.NO_CONSOLE_COMMAND;
+import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMessage;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.sendMessage;
 
@@ -105,12 +104,12 @@ public class Compass implements CommandExecutor {
             int x = ((Player) sender).getLocation().getBlockX();
             int y = ((Player) sender).getLocation().getBlockY();
             int z = ((Player) sender).getLocation().getBlockZ();
-            sendMessage(sender, COMPASS_LOC.getMessage().replace("{0}", loc).replace("{1}", bearing + ""));
+            sendMessage(sender, COMPASS_LOC.getMessage().replace("{0}", loc).replace("{1}", bearing + "").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             sendMessage(sender, bearingMap);
             sendMessage(sender, "&7Localisation: &eX"+x+" &eY"+y+" &eZ"+z);
 
         } else if (sender instanceof ConsoleCommandSender) {
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage());
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
         return false;
     }

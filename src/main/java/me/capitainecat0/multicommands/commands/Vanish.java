@@ -29,19 +29,19 @@ public class Vanish implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_SELF.getMessage());
+                            getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_SELF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else if(handler.isVanished(player)){
                             handler.toggleVanish(player);
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_SELF.getMessage());
+                            getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_SELF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         return true;
                     }
                 }else if (args.length == 1){
@@ -53,31 +53,27 @@ public class Vanish implements CommandExecutor {
                                 handler.toggleVanish(target);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), VANISH_ENABLED_OTHER.getMessage());
-                                getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), VANISH_ENABLED_OTHER.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else if(handler.isVanished(target)){
                                 handler.toggleVanish(target);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), VANISH_DISABLED_OTHER.getMessage());
-                                getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), VANISH_DISABLED_OTHER.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }
                         }else{
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     }
                 }
 
             }else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }
         return false;
     }

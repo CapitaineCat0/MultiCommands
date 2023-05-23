@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.jetbrains.annotations.NotNull;
@@ -17,51 +18,50 @@ import java.util.Objects;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
-import static me.capitainecat0.multicommands.utils.Perms.FURNACE;
+import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class Furnace implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(!sender.hasPermission(FURNACE.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-            }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
-            return true;
-        }else{
-            if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
-                return true;
-            }else{
-                ItemStack result = null;
-                final ItemStack baseItem = ((Player)sender).getItemInHand();
-                final Iterator<Recipe> i = Bukkit.recipeIterator();
-                while(i.hasNext()){
-                    Recipe recipe = i.next();
-                    if(recipe == null) continue;
-                    if(recipe.getResult().getType() != baseItem.getType()) continue;
-                    result = recipe.getResult();
-                    break;
-                }
-                if(result != null){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(sender, command.getName(), FURNACE_DONE.getMessage().replace("{0}", baseItem.getAmount()+" "+baseItem.getType().name()));
-
-                    result.setAmount(baseItem.getAmount());
-                    ((Player)sender).setItemInHand(result);
-                }else{
-                    ItemStack block = Objects.requireNonNull(((Player) sender).getEquipment()).getItemInMainHand();
+        ItemStack result;
+        ItemStack baseItem;
+        Iterator i;
+        Recipe recipe;
+        FurnaceRecipe furnaceRecipe;
+            if (sender instanceof Player) {
+                if (!sender.hasPermission(FURNACE_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())) {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), FURNACE_ERROR.getMessage().replace("{0}", block.getType()+""));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    return true;
+                }else{
+                result = null;
+                baseItem = ((Player) sender).getItemInHand();
+                i = Bukkit.recipeIterator();
+
+                while(i.hasNext()) {
+                    recipe = (Recipe)i.next();
+                    if (recipe instanceof FurnaceRecipe) {
+                        furnaceRecipe = (FurnaceRecipe)recipe;
+                        if (furnaceRecipe.getInput().getType() == baseItem.getType()) {
+                            result = furnaceRecipe.getResult();
+                            break;
+                        }
+                    }
                 }
+                if (result != null) {
+                    sendMessage(sender, FURNACE_DONE.getMessage().replace("{0}", String.valueOf(baseItem.getAmount())).replace("{1}", baseItem.getType().name()));
+                    result.setAmount(baseItem.getAmount());
+                    ((Player) sender).setItemInHand(result);
+                    } else {
+                        sendMessage(sender, FURNACE_ERROR.getMessage().replace("{0}", baseItem.getType().name()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    }
             }
-        }
+        }else if(sender instanceof ConsoleCommandSender){
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+            }
         return false;
     }
 }

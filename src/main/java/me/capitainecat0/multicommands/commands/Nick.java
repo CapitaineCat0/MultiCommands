@@ -24,7 +24,7 @@ public class Nick implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 return true;
             }
             else{
@@ -32,20 +32,20 @@ public class Nick implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<nickname>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<nickname>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     return true;
                 } else if(args.length == 1){
                     Player player = (Player) sender;
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("{0}", colored(args[0])));
+                    getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("{0}", colored(args[0])).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     player.setCustomName(colored(args[0]));
                     player.setCustomNameVisible(true);
                 }
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             return true;
         }
         return false;

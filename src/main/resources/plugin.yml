@@ -183,6 +183,9 @@ commands:
   top:
     description: Permet de se téléporter sur le bloc le plus haut
     permission: multicommands.top
+  unban:
+    description: Permet de débannir un joueur
+    permission: multicommands.unban
   vanish:
     description: Permet de gérer votre vanish
     permission: multicommands.vanish
@@ -383,6 +386,9 @@ permissions:
   multicommands.top:
     default: true
     description: top - permission
+  multicommands.unban:
+    default: op
+    description: unban - permission
   multicommands.vanish.*:
     default: op
     description: vanish - permission

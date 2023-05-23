@@ -8,8 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
-import static me.capitainecat0.multicommands.utils.Messenger.MULTIINFOS_MSG;
+import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 import static me.capitainecat0.multicommands.utils.Perms.MULTIINFOS_PERM;
@@ -22,7 +21,7 @@ public class MultiInfos implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             return true;
         }
         else{

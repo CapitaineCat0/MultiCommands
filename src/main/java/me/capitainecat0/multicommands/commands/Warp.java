@@ -27,15 +27,15 @@ public class Warp implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }else{
             if(sender instanceof Player){
                 if(args.length < 1) {
                     getMsgSendConfig(sender, command.getName(), "&6Warp list:");
-                    sendMessage(sender, String.valueOf(ConfigData.getConfig("warps.yml").getStringList("warps.name")));
+                    sendMessage(sender, String.valueOf(ConfigData.getConfig("oldconfig.dat").getStringList("warps.name")));
                 }else{
-                    if(ConfigData.existsConfigData("warps.yml")){
-                        FileConfiguration config = ConfigData.getConfig("warps.yml");
+                    if(ConfigData.existsConfigData("oldconfig.dat")){
+                        FileConfiguration config = ConfigData.getConfig("oldconfig.dat");
                         assert config != null;
                         Location location = new Location(
                                 Bukkit.getWorld(Objects.requireNonNull(config.getString("warps.name.world"))),
@@ -50,9 +50,9 @@ public class Warp implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), SPAWN_DONE.getMessage());
+                getMsgSendConfig(sender, command.getName(), SPAWN_DONE.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }
         }
         return false;

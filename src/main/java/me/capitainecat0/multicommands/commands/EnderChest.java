@@ -29,7 +29,7 @@ public class EnderChest implements CommandExecutor {
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         return true;
                     }
                 } else if (args.length == 1) {
@@ -39,23 +39,23 @@ public class EnderChest implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                           getMsgSendConfig(target, command.getName(), ENDERCHEST_ADMIN_OPEN.getMessage());
+                           getMsgSendConfig(target, command.getName(), ENDERCHEST_ADMIN_OPEN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             ((Player)sender).openInventory(target.getEnderChest());
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM_TO_OTHER.getMessage());
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM_TO_OTHER.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }
             } else if (sender instanceof ConsoleCommandSender) {
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }
         return false;
     }

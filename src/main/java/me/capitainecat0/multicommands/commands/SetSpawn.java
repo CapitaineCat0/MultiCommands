@@ -12,6 +12,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class SetSpawn implements CommandExecutor {
 
@@ -22,7 +23,7 @@ public class SetSpawn implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }else{
           if(sender instanceof Player){
               Location location = ((Player) sender).getLocation();
@@ -36,10 +37,10 @@ public class SetSpawn implements CommandExecutor {
               if(soundEnabled()){
                   playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
               }
-              getMsgSendConfig(sender, command.getName(), Messenger.SETSPAWN_DONE.getMessage()//.replace("%loc%", (CharSequence) location)
+              getMsgSendConfig(sender, command.getName(), Messenger.SETSPAWN_DONE.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage())//.replace("%loc%", (CharSequence) location)
               );
           }else if(sender instanceof ConsoleCommandSender){
-              sendConsoleMessage(Messenger.NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+              sendConsoleMessage(Messenger.NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
           }
         }
         return true;

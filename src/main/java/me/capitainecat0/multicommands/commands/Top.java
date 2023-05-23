@@ -10,8 +10,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
-import static me.capitainecat0.multicommands.utils.Messenger.NO_CONSOLE_COMMAND;
+import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
@@ -25,7 +24,7 @@ public class Top implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 return true;
             }
             else {
@@ -40,7 +39,7 @@ public class Top implements CommandExecutor {
                 ((Player) sender).teleport(new Location(((Player) sender).getWorld(), topX, topY, topZ, yaw, pitch));
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
         return false;
     }

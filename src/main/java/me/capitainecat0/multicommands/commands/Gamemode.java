@@ -42,12 +42,12 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
+                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             return true;
                         }
                     } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
@@ -61,12 +61,12 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
+                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             return true;
                         }
                     } else if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
@@ -82,12 +82,12 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
+                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             return true;
                         }
 
@@ -104,12 +104,12 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
+                            getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else{
                             if(soundEnabled()){
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             return true;
                         }
                     }
@@ -134,13 +134,13 @@ public class Gamemode implements CommandExecutor {
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                                 return true;
                             }
                         } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
@@ -158,8 +158,8 @@ public class Gamemode implements CommandExecutor {
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -182,13 +182,13 @@ public class Gamemode implements CommandExecutor {
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                                 return true;
                             }
                         }else if(args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")){
@@ -206,13 +206,13 @@ public class Gamemode implements CommandExecutor {
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                                 return true;
                             }
                         }
@@ -239,12 +239,10 @@ public class Gamemode implements CommandExecutor {
                                 target.setGameMode(GameMode.SURVIVAL);
                                 if(soundEnabled()){
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -267,13 +265,13 @@ public class Gamemode implements CommandExecutor {
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                                 return true;
                             }
                         }else if(args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")){
@@ -291,8 +289,8 @@ public class Gamemode implements CommandExecutor {
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
@@ -315,13 +313,13 @@ public class Gamemode implements CommandExecutor {
                                     playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                                getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }else{
                                 if(soundEnabled()){
                                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                                 }
-                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                                 return true;
                             }
                         }
@@ -350,8 +348,8 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
                             if (args[0].equalsIgnoreCase("1")) {
                                 this.gamemode = "1 (creative)";
@@ -362,8 +360,8 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else if(args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")){
                             if (args[0].equalsIgnoreCase("2")) {
                                 this.gamemode = "2 (adventure)";
@@ -374,8 +372,8 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else if(args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")){
                             if (args[0].equalsIgnoreCase("3")) {
                                 this.gamemode = "3 (spectator)";
@@ -386,11 +384,11 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     } else {
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[1]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[1]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }if(args.length == 2 && args[1].equalsIgnoreCase("all")){
                     Player target = (Player) Bukkit.getOnlinePlayers();
@@ -406,8 +404,8 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         } else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")){
                             if (args[0].equalsIgnoreCase("1")) {
                                 this.gamemode = "1 (creative)";
@@ -418,8 +416,8 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else if(args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")){
                             if (args[0].equalsIgnoreCase("2")) {
                                 this.gamemode = "2 (adventure)";
@@ -430,8 +428,8 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }else if(args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")){
                             if (args[0].equalsIgnoreCase("3")) {
                                 this.gamemode = "3 (spectator)";
@@ -442,11 +440,11 @@ public class Gamemode implements CommandExecutor {
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
-                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode));
-                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), GAMEMODE_OTHER.getMessage().replace("{0}", gamemode).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            sendConsoleMessage(GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", gamemode).replace("{1}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         }
                     } else {
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[1]));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[1]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }
             }

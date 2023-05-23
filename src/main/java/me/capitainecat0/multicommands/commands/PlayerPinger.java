@@ -23,7 +23,7 @@ public class PlayerPinger implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             return true;
         }
         else{
@@ -34,16 +34,16 @@ public class PlayerPinger implements CommandExecutor {
                     }
                     int ping = 0;//((Player) sender).getPing();
                     if(ping < 50){
-                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{0}", colored("&a" + ping + " ms")));
+                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{0}", colored("&a" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                     if(ping > 50){
-                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{0}", colored("&e" + ping + " ms")));
+                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{0}", colored("&e" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                     if(ping > 300){
-                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{0}", colored("&c" + ping + " ms")));
+                        sendMessage(sender, PING_SELF_MSG.getMessage().replace("{0}", colored("&c" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }else if(sender instanceof ConsoleCommandSender){
-                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage());
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }
             }else if(args.length == 1) {
                 Player target = Bukkit.getPlayerExact(args[0]);
@@ -55,23 +55,23 @@ public class PlayerPinger implements CommandExecutor {
                     assert target != null;
                     ping = 0;//target.getPing();
                     if (ping < 50) {
-                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&a" + ping + " ms")));
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&a" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                     if (ping > 50) {
-                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&e" + ping + " ms")));
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&e" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                     if (ping > 300) {
-                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&c" + ping + " ms")));
+                        sendMessage(sender, PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&c" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 } else if (sender instanceof ConsoleCommandSender) {
                     if (ping < 50) {
-                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&a" + ping + " ms")));
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&a" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                     if (ping > 50) {
-                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&e" + ping + " ms")));
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&e" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                     if (ping > 300) {
-                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&c" + ping + " ms")));
+                        sendConsoleMessage(PING_OTHER_MSG.getMessage().replace("{0}", target.getName()).replace("{1}", colored("&c" + ping + " ms")).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }
 

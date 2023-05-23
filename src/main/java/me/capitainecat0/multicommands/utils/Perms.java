@@ -30,7 +30,7 @@ public enum Perms {
     ECONOMY_PERM_SET("multicommands.economy.set"),
     ECONOMY_PERM_RESET("multicommands.economy.reset"),
     ECONOMY_PERM_REMOVE("multicommands.economy.withdraw"),
-    FURNACE("multicommands.furnace"),
+    FURNACE_PERM("multicommands.furnace"),
     FEED_PERM_ALL("multicommands.feed.*"),
     FEED_PERM_SELF("multicommands.feed.self"),
     FEED_PERM_OTHER("multicommands.feed.other"),

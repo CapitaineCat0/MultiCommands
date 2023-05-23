@@ -8,6 +8,7 @@ import org.bukkit.help.HelpTopic;
 import org.jetbrains.annotations.NotNull;
 
 import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
+import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 
@@ -16,7 +17,7 @@ public class Help implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if(!sender.hasPermission(ALL_PERMS.getPermission())){
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             return true;
         }
         if(args.length == 0){

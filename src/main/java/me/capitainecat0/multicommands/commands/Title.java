@@ -25,13 +25,13 @@ public class Title implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }else{
                 if(args.length == 0){
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }else if(args.length > 1){
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if(target != null){
@@ -39,20 +39,20 @@ public class Title implements CommandExecutor {
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
-                        sendMessage(sender, ACTIONBAR_SENT_TO_OTHER.getMessage().replace("{0}", target.getName()));
+                        sendMessage(sender, ACTIONBAR_SENT_TO_OTHER.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         sendTitle(target, args[1], bc.toString().replace(args[0], "").replace(args[1], ""));
                     }else{
                         StringBuilder bc = new StringBuilder();
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
-                        sendMessage(sender, ACTIONBAR_SENT_TO_ALL.getMessage());
+                        sendMessage(sender, ACTIONBAR_SENT_TO_ALL.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         sendTitle(args[0], bc.toString().replace(args[0], ""));
                     }
                 }
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
 
         return true;

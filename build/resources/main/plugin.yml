@@ -1,5 +1,5 @@
 name: MultiCommands
-version: '0.98'
+version: '0.100'
 main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
 authors: [CapitaineCat0, It'sTheSky]
@@ -44,6 +44,9 @@ commands:
   alert:
     description: Envoyer un message d'alerte
     permission: multicommands.alert
+  anvil:
+    description: Permet d'ouvrir l'enclume
+    permission: multicommands.anvil
   ban:
     description: Permet de bannir un joueur
     permission: multicommands.ban
@@ -167,7 +170,6 @@ commands:
     permission: multicommands.setspawn
   #setwarp:
     #description: Permet de créer des warps
-
     #permission: multicommands.setwarp
   spawn:
     description: Permet de vous téléporter au spawn du monde
@@ -180,6 +182,10 @@ commands:
     permission: multicommands.title
   top:
     description: Permet de se téléporter sur le bloc le plus haut
+    permission: multicommands.top
+  unban:
+    description: Permet de débannir un joueur
+    permission: multicommands.unban
   vanish:
     description: Permet de gérer votre vanish
     permission: multicommands.vanish
@@ -206,6 +212,9 @@ permissions:
   multicommands.alert:
     default: op
     description: alert - permission
+  multicommands.anvil:
+    default: true
+    description: anvil - permission
   multicommands.ban:
     default: op
     description: ban - permission
@@ -374,6 +383,12 @@ permissions:
   multicommands.title:
     default: true
     description: title - permission
+  multicommands.top:
+    default: true
+    description: top - permission
+  multicommands.unban:
+    default: op
+    description: unban - permission
   multicommands.vanish.*:
     default: op
     description: vanish - permission

@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.Plugin;
 
 import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
+import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class Plugins implements Listener {
@@ -26,7 +27,7 @@ public class Plugins implements Listener {
                 if(soundEnabled()){
                     playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(event.getPlayer(), "plugins", CMD_NO_PERM.getMessage());
+                getMsgSendConfig(event.getPlayer(), "plugins", CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 return;
             }
             if(soundEnabled()){

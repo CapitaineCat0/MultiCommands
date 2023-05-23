@@ -11,9 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
-import static me.capitainecat0.multicommands.utils.Messenger.LIST;
-import static me.capitainecat0.multicommands.utils.Messenger.LIST_HOVER;
 
 public class List implements CommandExecutor {
     @Override
@@ -25,7 +24,7 @@ public class List implements CommandExecutor {
             }
         }
 
-        sendMessage(sender, LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getServer().getMaxPlayers()+""));
+        sendMessage(sender, LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getServer().getMaxPlayers()+"").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         sendMessage(sender,"");
         for (Player p : Bukkit.getOnlinePlayers()) {
             if(p.getCustomName() == null){

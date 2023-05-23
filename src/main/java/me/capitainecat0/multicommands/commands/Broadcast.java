@@ -20,7 +20,7 @@ public class Broadcast implements CommandExecutor {
             if(soundEnabled()){
                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             return true;
         }
             else{
@@ -28,7 +28,7 @@ public class Broadcast implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     return true;
                 }else {
                     StringBuilder bc = new StringBuilder();
@@ -38,7 +38,7 @@ public class Broadcast implements CommandExecutor {
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), BROADCAST_CMD.getMessage());
+                    getMsgSendConfig(sender, command.getName(), BROADCAST_CMD.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     sendBroadcastMessage(BROADCAST_PREFIX.getMessage() + "&r " + bc);
                 }
             }return false;

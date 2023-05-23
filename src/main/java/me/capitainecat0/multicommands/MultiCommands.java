@@ -11,7 +11,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,7 +21,6 @@ public final class MultiCommands extends JavaPlugin {
     public static Economy econ = null;
     private static Permission perms = null;
     private static Chat chat = null;
-
     private BukkitAudiences adventure;
     private VaultHook vaultHook;
     private static MultiCommands instance;

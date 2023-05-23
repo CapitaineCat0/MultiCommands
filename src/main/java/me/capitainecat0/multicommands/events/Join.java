@@ -59,8 +59,6 @@ public class Join implements Listener {
                    VanishHandler.getVanished().add(player);
                }
            }
-        final Component header = Component.text((Consumer<? super TextComponent.Builder>) Objects.requireNonNull(getInstance().getConfig().get("tablist.header")));
-        final Component footer = Component.text((Consumer<? super TextComponent.Builder>) Objects.requireNonNull(getInstance().getConfig().get("tablist.footer")));
-        player.sendPlayerListHeaderAndFooter(header, footer);
+           sendTablist(player);
     }
 }

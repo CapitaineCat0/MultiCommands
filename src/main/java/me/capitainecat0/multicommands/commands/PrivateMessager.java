@@ -36,10 +36,10 @@ public class PrivateMessager implements CommandExecutor {
                     }
                 }
             }else{
-                getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
+                getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }
         }else{
-            getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <message>"));
+            getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <message>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
 
         return false;

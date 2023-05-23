@@ -27,7 +27,7 @@ public class Helpop implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
+                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 return true;
             }
                 StringBuilder bc = new StringBuilder();
@@ -41,23 +41,23 @@ public class Helpop implements CommandExecutor {
                             playSound(operators.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         }
                         sendConsoleMessage(HELPOP_FORMAT.getMessage() + sender.getName() + "§8: §f" + bc);
-                        sendMessage(operators.getPlayer(),HELPOP_FORMAT.getMessage() + sender.getName() + "§8: §f" + bc);
+                        sendMessage(operators.getPlayer(),HELPOP_FORMAT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()) + sender.getName() + "§8: §f" + bc);
                     }
 
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), HELPOP_DONE.getMessage());
+                    getMsgSendConfig(sender, command.getName(), HELPOP_DONE.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     sendMessage(sender," §8- §7" + bc);
                 }else{
-                    sendMessage(sender, HELPOP_NO_ADMINS.getMessage());
+                    sendMessage(sender, HELPOP_NO_ADMINS.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }
             }
 
 
 
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
         return false;
     }

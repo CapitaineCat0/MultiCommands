@@ -30,20 +30,20 @@ public class AFKHandler {
     private void enableAFK(Player player){
         if(afk.contains(player))return;
         for (Player people : Bukkit.getOnlinePlayers()) {
-            people.sendMessage(AFK_BROADCAST_ENABLED.getMessage().replace("%player%", player.getName()));
+            people.sendMessage(AFK_BROADCAST_ENABLED.getMessage().replace("{0}", player.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
         hideActiveBossBar();
-        getMsgSendConfig(player, "afk", AFK_ENABLED.getMessage());
+        getMsgSendConfig(player, "afk", AFK_ENABLED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         player.setInvulnerable(true);
         afk.add(player);
     }
 
     private void disableAFK(Player player){
         for (Player people : Bukkit.getOnlinePlayers()) {
-            people.sendMessage(AFK_BROADCAST_DISABLED.getMessage().replace("%player%", player.getName()));
+            people.sendMessage(AFK_BROADCAST_DISABLED.getMessage().replace("{0}", player.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
         hideActiveBossBar();
-        getMsgSendConfig(player, "afk",AFK_DISABLED.getMessage());
+        getMsgSendConfig(player, "afk",AFK_DISABLED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         player.setInvulnerable(false);
         afk.remove(player);
     }
