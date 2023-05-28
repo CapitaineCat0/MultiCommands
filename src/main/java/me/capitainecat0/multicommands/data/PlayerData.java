@@ -33,4 +33,12 @@ public class PlayerData {
             return null;
         }
     }
+    public static boolean existsData(String folderName, Player player){
+        File file = new File(MultiCommands.getInstance().getDataFolder()+"/"+folderName+"/", player.getUniqueId()+".yml");
+        return file.exists();
+    }
+    public static boolean existsData(String folderName, String fileName){
+        File file = new File(MultiCommands.getInstance().getDataFolder()+"/"+folderName+"/", fileName+".yml");
+        return file.exists();
+    }
 }

@@ -15,16 +15,15 @@ import java.util.Objects;
 
 import static me.capitainecat0.multicommands.MultiCommands.getInstance;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
-import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
-public class Kick implements CommandExecutor {
+public class KickAll implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if(sender instanceof Player){
-            if(!sender.hasPermission(KICK_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+            if(!sender.hasPermission(KICKALL_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 }
@@ -39,44 +38,36 @@ public class Kick implements CommandExecutor {
                     getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }
                 else if(args.length == 2){
-                    Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
                     StringBuilder bc = new StringBuilder();
                     for(String part : args) {
                         bc.append(part).append(" ");
                     }
                     String kickReason = bc.toString().replace(args[0], "");
-                    final PlayerKickEvent event = new PlayerKickEvent(target, kickReason, KICK_PREFIX.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    getInstance().getServer().getPluginManager().callEvent(event);
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    sendMessage(KICK_ALERT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    if (event.isCancelled()) {
-                        return false;
+                    for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                        if (!(sender instanceof Player) || !onlinePlayer.getName().equalsIgnoreCase(sender.getName())) {
+                            if (!onlinePlayer.hasPermission(KICKALL_EXEMPT_PERM.getPermission())) {
+                                onlinePlayer.kickPlayer(kickReason);
+                            }
+                        }
                     }
                 }
             }
         }else if(sender instanceof ConsoleCommandSender){
             if(args.length <= 1){
-               sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }
             else if(args.length == 2){
-                Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
                 StringBuilder bc = new StringBuilder();
                 for(String part : args) {
                     bc.append(part).append(" ");
                 }
                 String kickReason = bc.toString().replace(args[0], "");
-                final PlayerKickEvent event = new PlayerKickEvent(target, kickReason, KICK_PREFIX.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                getInstance().getServer().getPluginManager().callEvent(event);
-                sendMessage(KICK_ALERT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                sendConsoleMessage(KICK_ALERT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                if (event.isCancelled()) {
-                    return false;
+                for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    if (!onlinePlayer.hasPermission(KICKALL_EXEMPT_PERM.getPermission())) {
+                        onlinePlayer.kickPlayer(kickReason);}
                 }
             }
         }
-
         return false;
     }
 }

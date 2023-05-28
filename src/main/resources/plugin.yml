@@ -50,6 +50,10 @@ commands:
   ban:
     description: Permet de bannir un joueur
     permission: multicommands.ban
+  banip:
+    description: Permet de bannir un joueur via l'ip
+    permission: multicommands.banip
+    aliases: ban-ip
   bank:
     description: Permet de gérer la banque (requiert Vault)
     permission: multicommands.economy
@@ -119,6 +123,12 @@ commands:
   kick:
     description: Permet d'expulser un joueur
     permission: multicommands.kick
+  kickall:
+    description: Permet d'expulser tout les joueurs
+    permission: multicommands.kickall
+  kill:
+    description: Permet de tuer un joueur
+    permission: multicommands.kill
   list:
     description: Permet d'afficher les joueurs connectés
   msg:
@@ -186,6 +196,9 @@ commands:
   unban:
     description: Permet de débannir un joueur
     permission: multicommands.unban
+  unbanip:
+    description: Permet de débannir un joueur via l'ip
+    permission: multicommands.unbanip
   vanish:
     description: Permet de gérer votre vanish
     permission: multicommands.vanish
@@ -218,6 +231,9 @@ permissions:
   multicommands.ban:
     default: op
     description: ban - permission
+  multicommands.banip:
+    default: op
+    description: banip - permission
   multicommands.bossbar:
     default: true
     description: bossbar - permission
@@ -359,6 +375,12 @@ permissions:
   multicommands.kick:
     default: op
     description: kick - permission
+  multicommands.kickall:
+    default: op
+    description: kickall - permission
+  multicommands.kill:
+    default: op
+    description: kill - permission
   multicommands.multiionfos:
     default: op
     description: infos - permissions
@@ -389,6 +411,9 @@ permissions:
   multicommands.unban:
     default: op
     description: unban - permission
+  multicommands.unbanip:
+    default: op
+    description: unbanip - permission
   multicommands.vanish.*:
     default: op
     description: vanish - permission

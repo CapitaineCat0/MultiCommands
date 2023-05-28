@@ -22,6 +22,8 @@ public class Commands {
             getInstance().registerCommand(new Anvil(), "anvil");
             sendConsoleMessage("&e - BAN");
             getInstance().registerCommand(new Ban(), "ban", new BasicTab());
+            sendConsoleMessage("&e - BAN-IP");
+            getInstance().registerCommand(new BanIP(), "banip", new BasicTab());
             sendConsoleMessage("&e - BOSSBAR");
             getInstance().registerCommand(new BossBar(), "bossbar", new BossActionTitleTab());
             sendConsoleMessage("&e - BROADCAST / BC");
@@ -70,6 +72,10 @@ public class Commands {
             getInstance().registerCommand(new Invsee(), "invsee", new BasicTab());
             sendConsoleMessage("&e - KICK");
             getInstance().registerCommand(new Kick(), "kick", new BasicTab());
+            sendConsoleMessage("&e - KICKALL");
+            getInstance().registerCommand(new KickAll(), "kickall");
+            sendConsoleMessage("&e - KILL");
+            getInstance().registerCommand(new Kill(), "kill", new BasicTab());
             sendConsoleMessage("&e - LIST");
             getInstance().registerCommand(new List(), "list");
             sendConsoleMessage("&e - MODOCHAT / MCHAT");
@@ -120,6 +126,7 @@ public class Commands {
             getInstance().registerCommand(new Alert(), "alert");
             getInstance().registerCommand(new Anvil(), "anvil");
             getInstance().registerCommand(new Ban(), "ban", new BasicTab());
+            getInstance().registerCommand(new BanIP(), "banip", new BasicTab());
             getInstance().registerCommand(new BossBar(), "bossbar", new BossActionTitleTab());
             getInstance().registerCommand(new Broadcast(), "broadcast");
             getInstance().registerCommand(new BuilderChat(), "builderchat");
@@ -148,6 +155,8 @@ public class Commands {
             getInstance().registerCommand(new Helpop(), "helpop");
             getInstance().registerCommand(new Invsee(), "invsee", new BasicTab());
             getInstance().registerCommand(new Kick(), "kick", new BasicTab());
+            getInstance().registerCommand(new Kill(), "kill", new BasicTab());
+            getInstance().registerCommand(new KickAll(), "kickall");
             getInstance().registerCommand(new List(), "list");
             getInstance().registerCommand(new ModoChat(), "modochat");
             getInstance().registerCommand(new PrivateMessager(), "msg", new BasicTab());
