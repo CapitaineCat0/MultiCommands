@@ -51,6 +51,7 @@ public class MultiHelp implements CommandExecutor {
                         "\n&6 - &b/kick <player> " + HELP_KICK.getMessage() +
                         "\n&6 - &b/kickall " + HELP_KICKALL.getMessage() +
                         "\n&6 - &b/kill [player] " + HELP_KILL.getMessage() +
+                        "\n&6 - &b/level <add | set | remove> [player] " + HELP_LEVEL.getMessage() +
                         "\n&6 - &b/list " + HELP_LIST.getMessage() +
                         "\n&6 - &b/mi | multiinfos " + HELP_MULTIINFOS.getMessage() +
                         "\n&6 - &b/nick " + HELP_NICK.getMessage() +
@@ -93,6 +94,7 @@ public class MultiHelp implements CommandExecutor {
                     "\n&6 - &b/kick <player> " + HELP_KICK.getMessage() +
                     "\n&6 - &b/kickall " + HELP_KICKALL.getMessage() +
                     "\n&6 - &b/kill [player] " + HELP_KILL.getMessage() +
+                    "\n&6 - &b/level <add | set | remove> [player] " + HELP_LEVEL.getMessage() +
                     "\n&6 - &b/list " + HELP_LIST.getMessage() +
                     "\n&6 - &b/mi | multiinfos " + HELP_MULTIINFOS.getMessage() +
                     "\n&6 - &b/nick " + HELP_NICK.getMessage() +

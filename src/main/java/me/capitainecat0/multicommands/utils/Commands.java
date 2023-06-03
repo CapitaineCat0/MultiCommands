@@ -76,6 +76,8 @@ public class Commands {
             getInstance().registerCommand(new KickAll(), "kickall");
             sendConsoleMessage("&e - KILL");
             getInstance().registerCommand(new Kill(), "kill", new BasicTab());
+            sendConsoleMessage("&e - LEVEL");
+            getInstance().registerCommand(new Level(), "level", new LevelTab());
             sendConsoleMessage("&e - LIST");
             getInstance().registerCommand(new List(), "list");
             sendConsoleMessage("&e - MODOCHAT / MCHAT");
@@ -155,8 +157,9 @@ public class Commands {
             getInstance().registerCommand(new Helpop(), "helpop");
             getInstance().registerCommand(new Invsee(), "invsee", new BasicTab());
             getInstance().registerCommand(new Kick(), "kick", new BasicTab());
-            getInstance().registerCommand(new Kill(), "kill", new BasicTab());
             getInstance().registerCommand(new KickAll(), "kickall");
+            getInstance().registerCommand(new Kill(), "kill", new BasicTab());
+            getInstance().registerCommand(new Level(), "level", new LevelTab());
             getInstance().registerCommand(new List(), "list");
             getInstance().registerCommand(new ModoChat(), "modochat");
             getInstance().registerCommand(new PrivateMessager(), "msg", new BasicTab());

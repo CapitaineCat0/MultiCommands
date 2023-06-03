@@ -129,6 +129,12 @@ commands:
   kill:
     description: Permet de tuer un joueur
     permission: multicommands.kill
+  level:
+    description: Permet de changer l'expérience
+    permission: multicommands.level.*
+    aliases:
+      - exp
+      - experience
   list:
     description: Permet d'afficher les joueurs connectés
   msg:
@@ -381,6 +387,18 @@ permissions:
   multicommands.kill:
     default: op
     description: kill - permission
+  multicommands.level.*:
+    default: op
+    description: level - permission
+  multicommands.level.add:
+    default: true
+    description: level - permission
+  multicommands.level.set:
+    default: true
+    description: level - permission
+  multicommands.level.remove:
+    default: true
+    description: level - permission
   multicommands.multiionfos:
     default: op
     description: infos - permissions

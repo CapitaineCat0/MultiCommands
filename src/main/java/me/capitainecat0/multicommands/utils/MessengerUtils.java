@@ -28,6 +28,9 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Properties;
+
+import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
+
 public class MessengerUtils {
 
     private static MultiCommands instance = MultiCommands.getInstance();
@@ -110,10 +113,10 @@ public class MessengerUtils {
         if(instance.getConfig().get("send-message-on") != null){
             if(Objects.equals(instance.getConfig().get("send-message-on"), "CHAT") ||
                     Objects.equals(instance.getConfig().get("send-message-on"), "chat")){
-                sendMessage(sender, commandName, message);
+                sendMessage(sender, message);
             }else if(Objects.equals(instance.getConfig().get("send-message-on"), "ACTIONBAR") ||
                     Objects.equals(instance.getConfig().get("send-message-on"), "actionbar")){
-                sendActionBar(sender, commandName, message);
+                sendActionBar(sender, message.replace(PLUGIN_PREFIX.getMessage(), ""));
             }else if(Objects.equals(instance.getConfig().get("send-message-on"), "TITLE") ||
                     Objects.equals(instance.getConfig().get("send-message-on"), "title")){
                 sendTitle(sender, commandName, message);
@@ -122,7 +125,7 @@ public class MessengerUtils {
                 sendBossBar(sender, colored(message));
             }
         }else{
-            sendMessage(sender, commandName, message);
+            sendMessage(sender, message);
         }
 
     }
@@ -404,6 +407,40 @@ public class MessengerUtils {
             sendConsoleMessage("&cAn internal error was come !&e"+error);
         }
     }
+    /**
+     *
+     * @param player
+     * @param sound Adventure's sounds
+     * @param volume Sound volume
+     * @param pitch Sound pitch
+     * <br>Play Adventure API sounds to player
+     */
+    public static void playSound(Player player, String sound, float volume, float pitch){
+        try{
+            Sound musicDisc = Sound.sound(Key.key(sound), Sound.Source.MUSIC, volume, pitch);
+            instance.adventure().player(player.getUniqueId()).playSound(musicDisc);
+        }catch(Error error){
+            sendMessage(player, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
+            sendConsoleMessage("&cAn internal error was come !&e"+error);
+        }
+    }
+
+    /**
+     *
+     * @param player
+     * @param sound Bukkit sounds
+     * @param volume Sound volume
+     * @param pitch Sound pitch
+     * <br>Play Bukkit sounds to player
+     */
+    public static void playSound(Player player, org.bukkit.Sound sound, float volume, float pitch){
+        try{
+            player.getWorld().playSound(player.getLocation(),sound,volume, pitch);
+        }catch(Error error){
+            sendMessage(player, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
+            sendConsoleMessage("&cAn internal error was come !&e"+error);
+        }
+    }
 
     /**
      *
@@ -616,6 +653,17 @@ public class MessengerUtils {
     public static void sendActionBar(Player player, String message){
         final TextComponent component = Component.text(colored(message));
         instance.adventure().player(player).sendActionBar(component);
+    }
+
+    /**
+     *
+     * @param sender Command sender
+     * @param message Message sent
+     * <br>Send ActionBar message to player
+     */
+    public static void sendActionBar(CommandSender sender, String message){
+        final TextComponent component = Component.text(colored(message));
+        instance.adventure().sender(sender).sendActionBar(component);
     }
 
     /**

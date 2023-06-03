@@ -223,9 +223,8 @@ public class Gamemode implements CommandExecutor {
                         getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                     }
                 }else if (args.length == 2 && args[1].equalsIgnoreCase("all")) {
-                    Player target = (Player) Bukkit.getOnlinePlayers();
                     hideActiveBossBar();
-                    if (target != null) {
+                    for (Player target : Bukkit.getOnlinePlayers()) {
                         if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
                             if(sender.hasPermission(GAMEMODE_SURVIVAL_PERM_OTHER.getPermission())
                                     || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission())
@@ -323,11 +322,6 @@ public class Gamemode implements CommandExecutor {
                                 return true;
                             }
                         }
-                    } else {
-                        if(soundEnabled()){
-                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                        }
-                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                     }
                 }
             }else if (sender instanceof ConsoleCommandSender) {

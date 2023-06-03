@@ -44,7 +44,7 @@ public class ServerInfo implements CommandExecutor {
             sendMessage(sender, "&6IP &c/&6 Port: &c" + Bukkit.getServer().getIp() + " &e:&c " + Bukkit.getServer().getPort());
             sendMessage(sender, "&6Jar: &c" + Bukkit.getServer().getVersion());
             sendMessage(sender, "&6Version: &c" + Bukkit.getServer().getBukkitVersion());
-            sendMessage(sender, "&6Uptime: &c" + ManagementFactory.getRuntimeMXBean().getStartTime() / 1024 / 1024);
+            //sendMessage(sender, "&6Uptime: &c" + ManagementFactory.getRuntimeMXBean().getStartTime() / 1024 / 1024 + " &6milliseconds &8(&e"+ManagementFactory.getRuntimeMXBean().getStartTime() / 1024 / 1024 / 1000 +"h&8)");
             sendMessage(sender, "&6TPS: &a"+ Arrays.toString(Bukkit.getTPS()));
             sendMessage(sender, "&6MaxRam: &c" + Runtime.getRuntime().maxMemory() / 1024 / 1024 +" &6Go");
             sendMessage(sender, "&6FreeRam: &c" + Runtime.getRuntime().freeMemory() / 1024 / 1024+" &6Go &e/ &c" + Runtime.getRuntime().totalMemory() / 1024 / 1024+" &6Go");
