@@ -36,7 +36,7 @@ public class MultiHelp implements CommandExecutor {
                         "\n&6 - &b/bc | broadcast <message> " + HELP_BROADCAST.getMessage() +
                         "\n&6 - &b/ci | clearinventory [player] " + HELP_CLEARINV.getMessage() +
                         "\n&6 - &b/craft | workbench " + HELP_CRAFT.getMessage() +
-                        "\n&6 - &b/compass" + HELP_COMPASS.getMessage() +
+                        "\n&6 - &b/compass " + HELP_COMPASS.getMessage() +
                         "\n&6 - &b/ec | enderchest [player] " + HELP_ENDERCHEST.getMessage() +
                         //"\n&6 - &b/eco | economy <add | set | remove | reset> <player> " + HELP_ECONOMY.getMessage() +
                         "\n&6 - &b/feed [player] " + HELP_FEED.getMessage() +
@@ -54,6 +54,7 @@ public class MultiHelp implements CommandExecutor {
                         "\n&6 - &b/level <add | set | remove> [player] " + HELP_LEVEL.getMessage() +
                         "\n&6 - &b/list " + HELP_LIST.getMessage() +
                         "\n&6 - &b/mi | multiinfos " + HELP_MULTIINFOS.getMessage() +
+                        "\n&6 - &b/mute <player> [reason] " + HELP_MUTE.getMessage() +
                         "\n&6 - &b/nick " + HELP_NICK.getMessage() +
                         "\n&6 - &b/ping | playerpinger " + HELP_PING.getMessage() +
                         "\n&6 - &b/pl | plugins " + HELP_PLUGINS.getMessage() +
@@ -97,6 +98,7 @@ public class MultiHelp implements CommandExecutor {
                     "\n&6 - &b/level <add | set | remove> [player] " + HELP_LEVEL.getMessage() +
                     "\n&6 - &b/list " + HELP_LIST.getMessage() +
                     "\n&6 - &b/mi | multiinfos " + HELP_MULTIINFOS.getMessage() +
+                    "\n&6 - &b/mute <player> [reason] " + HELP_MUTE.getMessage() +
                     "\n&6 - &b/nick " + HELP_NICK.getMessage() +
                     "\n&6 - &b/ping | playerpinger " + HELP_PING.getMessage() +
                     "\n&6 - &b/pl | plugins " + HELP_PLUGINS.getMessage() +

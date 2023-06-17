@@ -84,6 +84,8 @@ public class Commands {
             getInstance().registerCommand(new ModoChat(), "modochat");
             sendConsoleMessage("&e - MSG");
             getInstance().registerCommand(new PrivateMessager(), "msg", new BasicTab());
+            sendConsoleMessage("&e - MUTE / M");
+            getInstance().registerCommand(new Mute(), "mute", new BasicTab());
             sendConsoleMessage("&e - MULTICOMMANDS / MC");
             getInstance().registerCommand(new MultiHelp(), "multihelp");
             sendConsoleMessage("&e - MULTIINFOS / MI");
@@ -163,6 +165,7 @@ public class Commands {
             getInstance().registerCommand(new List(), "list");
             getInstance().registerCommand(new ModoChat(), "modochat");
             getInstance().registerCommand(new PrivateMessager(), "msg", new BasicTab());
+            getInstance().registerCommand(new Mute(), "mute", new BasicTab());
             getInstance().registerCommand(new MultiHelp(), "multihelp");
             getInstance().registerCommand(new MultiInfos(), "multiinfos");
             getInstance().registerCommand(new Nick(), "nick");

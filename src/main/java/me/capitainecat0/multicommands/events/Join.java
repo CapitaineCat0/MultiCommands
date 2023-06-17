@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.events;
 
+import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.BalanceData;
 import me.capitainecat0.multicommands.data.BannedData;
 import me.capitainecat0.multicommands.data.FreezeData;
@@ -59,6 +60,6 @@ public class Join implements Listener {
                    VanishHandler.getVanished().add(player);
                }
            }
-           sendTablist(player);
+           sendTablist(player, Component.text(colored(Objects.requireNonNull(getInstance().getConfig().getString("tablist.header")))), Component.text(colored(Objects.requireNonNull(getInstance().getConfig().getString("tablist.footer")))));
     }
 }

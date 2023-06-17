@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.Objects;
 
+import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
 import static me.capitainecat0.multicommands.utils.Messenger.SPAWN_ERROR;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class SpawnEvent implements Listener {
@@ -31,7 +32,7 @@ public class SpawnEvent implements Listener {
             if(soundEnabled()){
                 playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            sendMessage(event.getPlayer(), SPAWN_ERROR.getMessage());
+            sendMessage(event.getPlayer(), SPAWN_ERROR.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
     }
 
@@ -51,7 +52,7 @@ public class SpawnEvent implements Listener {
             if(soundEnabled()){
                 playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             }
-            sendMessage(event.getPlayer(), SPAWN_ERROR.getMessage());
+            sendMessage(event.getPlayer(), SPAWN_ERROR.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
     }
 }

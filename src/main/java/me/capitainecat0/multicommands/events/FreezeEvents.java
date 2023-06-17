@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.events;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.FreezeData;
 import org.bukkit.Location;
@@ -32,9 +33,8 @@ public class FreezeEvents implements Listener {
             event.setCancelled(true);
             hideActiveBossBar();
             if(MultiCommands.getCooldownManager().isPlayerCooldown(player)){
-                getMsgSendConfig(player, "BreakBlock", FREEZE_BREAK.getMessage());
+                getMsgSendConfig(player, event.getEventName(), FREEZE_BREAK.getMessage());
             }
-
         }
     }
 
@@ -46,7 +46,7 @@ public class FreezeEvents implements Listener {
         if (isFrozen) {
             event.setCancelled(true);
             hideActiveBossBar();
-            getMsgSendConfig(player, "DropItem", FREEZE_DROP.getMessage());
+            getMsgSendConfig(player, event.getEventName(), FREEZE_DROP.getMessage());
         }
     }
 
@@ -66,7 +66,7 @@ public class FreezeEvents implements Listener {
             event.setTo(loc);
             player.teleport(loc);
             hideActiveBossBar();
-            getMsgSendConfig(player, "Move", FREEZE_MOVE.getMessage());
+            getMsgSendConfig(player, event.getEventName(), FREEZE_MOVE.getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ public class FreezeEvents implements Listener {
         if (isFrozen) {
             event.setCancelled(true);
             hideActiveBossBar();
-            getMsgSendConfig(player, "PickupItem", FREEZE_PICKUP.getMessage());
+            getMsgSendConfig(player, event.getEventName(), FREEZE_PICKUP.getMessage());
         }
     }
 
@@ -90,19 +90,19 @@ public class FreezeEvents implements Listener {
         if (isFrozen) {
             event.setCancelled(true);
             hideActiveBossBar();
-            getMsgSendConfig(player, "PlaceBlock", FREEZE_PLACE.getMessage());
+            getMsgSendConfig(player, event.getEventName(), FREEZE_PLACE.getMessage());
         }
     }
 
     @EventHandler
-    public void onChat(@NotNull AsyncPlayerChatEvent event){
+    public void onChat(@NotNull AsyncChatEvent event){
         Player player = event.getPlayer();
         FreezeData data = new FreezeData(player);
         boolean isFrozen = data.isFrozen();
         if (isFrozen) {
             event.setCancelled(true);
             hideActiveBossBar();
-            getMsgSendConfig(player, "Chat", FREEZE_CHAT.getMessage());
+            getMsgSendConfig(player, event.getEventName(), FREEZE_CHAT.getMessage());
         }
     }
 

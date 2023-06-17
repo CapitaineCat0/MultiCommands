@@ -41,9 +41,7 @@ public class MessengerUtils {
 
 
     /**
-     *
-     * @param text
-     * <br>Simple ChatColor translation
+     * @param text <br>Simple ChatColor translation
      */
     public static String colored(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
@@ -669,11 +667,11 @@ public class MessengerUtils {
     /**
      *
      * @param player Receiver
+     * @param header Tablist Header
+     * @param footer Tablist footer
      *  <br>Send Tablist to player
      */
-    public static void sendTablist(Player player){
-        final Component header = Component.text(colored(MultiCommands.getInstance().getConfig().getString("tablist.header")));
-        final Component footer = Component.text(colored(MultiCommands.getInstance().getConfig().getString("tablist.footer")));
+    public static void sendTablist(Player player, Component header, Component footer){
         player.sendPlayerListHeaderAndFooter(header, footer);
     }
 

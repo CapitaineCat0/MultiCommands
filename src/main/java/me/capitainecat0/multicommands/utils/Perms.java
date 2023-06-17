@@ -68,6 +68,7 @@ public enum Perms {
     LEVEL_ADD_PERM("multicommands.level.add"),
     LEVEL_SET_PERM("multicommands.level.set"),
     LEVEL_REMOVE_PERM("multicommands.level.remove"),
+    MUTE_PERM("multicommands.mute"),
     MULTIINFOS_PERM("multicommands.multiinfos"),
     NICKNAME_PERMS("multicommands.nick"),
     PLAYERPINGER_PERM("multicommands.playerpinger"),

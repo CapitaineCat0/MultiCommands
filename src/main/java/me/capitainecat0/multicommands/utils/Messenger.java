@@ -29,6 +29,7 @@ public enum Messenger {
     HELP_KILL(MessengerUtils.lang("help_kill")),
     HELP_LEVEL(MessengerUtils.lang("help_level")),
     HELP_LIST(MessengerUtils.lang("help_list")),
+    HELP_MUTE(MessengerUtils.lang("help_mute")),
     HELP_MULTIINFOS(MessengerUtils.lang("help_multiinfos")),
     HELP_NICK(MessengerUtils.lang("help_nick")),
     HELP_PING(MessengerUtils.lang("help_ping")),
@@ -145,6 +146,13 @@ public enum Messenger {
     LEVEL_REMOVE_OTHER(MessengerUtils.lang("level_remove_other")),
     LIST(MessengerUtils.lang("list")),
     LIST_HOVER(MessengerUtils.lang("list_hover")),
+    MUTE_CHAT(MessengerUtils.lang("mute_chat")),
+    MUTE_ENABLED(MessengerUtils.lang("mute_enabled")),
+    MUTE_ENABLED_REASON(MessengerUtils.lang("mute_enabled_reason")),
+    MUTE_DISABLED(MessengerUtils.lang("mute_disabled")),
+    MUTE_ENABLED_ADMIN(MessengerUtils.lang("mute_enabled_admin")),
+    MUTE_ENABLED_REASON_ADMIN(MessengerUtils.lang("mute_enabled_reason_admin")),
+    MUTE_DISABLED_ADMIN(MessengerUtils.lang("mute_disabled_admin")),
     MULTIINFOS_MSG(colored(
             "&a&m-+------------+-&7 - &e&l{ &6%plname%&7 - &2[&dinfos&2] &e&l} &7- &a&m-+-----------+-" +
             "\n &7- &6/multihelp &7=> Vous permet d'afficher l'aide des plugins de la série Multi" +

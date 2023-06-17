@@ -1,7 +1,10 @@
 package me.capitainecat0.multicommands.events;
 
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.capitainecat0.multicommands.utils.AFKHandler;
+import me.capitainecat0.multicommands.utils.FreezeHandler;
+import me.capitainecat0.multicommands.utils.MuteHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,7 +21,7 @@ public class Chat implements Listener {
         hideActiveBossBar();
         Player sender = event.getPlayer();
         String senderNickName = sender.getCustomName();
-        String msg = colored(event.getMessage());
+        String msg = colored(event.getMessage().toString());
         if(msg.startsWith(STAFFCHAT_PREFIX.getMessage())
                 || msg.startsWith(ADMINCHAT_PREFIX.getMessage())
                 || msg.startsWith(BUILDERCHAT_PREFIX.getMessage())
@@ -26,6 +29,7 @@ public class Chat implements Listener {
                 || msg.startsWith(MODOCHAT_PREFIX.getMessage())){
             event.setCancelled(true);
         }else{
+            if(!MuteHandler.getInstance().isMuted(sender) || !FreezeHandler.getInstance().isFreeze(sender)){
                 if(senderNickName != null){
                     if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                         String chat = "&7[AFK] %luckperms_prefix% &b"+senderNickName;
@@ -60,6 +64,14 @@ public class Chat implements Listener {
                         }
                     }
                 }
+            }else{
+                event.setCancelled(true);
+             if(FreezeHandler.getFreeze().contains(sender)){
+                 getMsgSendConfig(sender, event.getEventName(), FREEZE_CHAT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+             }else if(MuteHandler.getMuted().contains(sender)){
+                 getMsgSendConfig(sender, event.getEventName(), MUTE_CHAT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", MuteHandler.getReason().toString()));
+             }
+            }
         }
     }
 }

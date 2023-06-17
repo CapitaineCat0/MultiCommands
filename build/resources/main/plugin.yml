@@ -1,5 +1,5 @@
 name: MultiCommands
-version: '1.2'
+version: '0.1.3.1'
 main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
 authors: [CapitaineCat0, It'sTheSky]
@@ -158,6 +158,10 @@ commands:
       - multiinfo
       - multinfo
       - multinfos
+  mute:
+    description: Permet de rendre muet un joueur
+    permission: multicommands.mute
+    aliases: m
   nick:
     description: Permet de changer votre pseudo
     permission: multicommands.nick
@@ -401,7 +405,10 @@ permissions:
     description: level - permission
   multicommands.multiionfos:
     default: op
-    description: infos - permissions
+    description: infos - permission
+  multicommands.mute:
+    default: op
+    description: mute - permission
   multicommands.nick:
     default: true
     description: nick - permission

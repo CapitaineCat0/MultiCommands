@@ -2,6 +2,7 @@ package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.FreezeData;
+import me.capitainecat0.multicommands.utils.FreezeHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -40,7 +41,8 @@ public class Freeze implements CommandExecutor {
                     if(target != null){
                         final FreezeData data = new FreezeData(target);
                         final boolean isFrozen = FreezeData.isFrozen();
-                        if (isFrozen) {
+                        if (isFrozen && FreezeHandler.getInstance().isFreeze(target)) {
+                            FreezeHandler.getInstance().toggleFreeze(target);
                             data.setFrozen(target,false);
                             if(soundEnabled()){
                                 playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -49,6 +51,7 @@ public class Freeze implements CommandExecutor {
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             getMsgSendConfig(sender, command.getName(), FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         } else {
+                            FreezeHandler.getInstance().toggleFreeze(target);
                             data.setFrozen(target,true);
                             if(soundEnabled()){
                                 playSound(target, Sound.BLOCK_ANVIL_PLACE, 1f, 1f);
@@ -73,11 +76,13 @@ public class Freeze implements CommandExecutor {
                     if(target != null){
                         final FreezeData data = new FreezeData(target);
                         final boolean isFrozen = FreezeData.isFrozen();
-                        if (isFrozen) {
+                        if (isFrozen && FreezeHandler.getInstance().isFreeze(target)) {
+                            FreezeHandler.getInstance().toggleFreeze(target);
                             data.setFrozen(target,false);
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_OFF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             sendConsoleMessage(FREEZE_TOGGLE_OFF_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         } else {
+                            FreezeHandler.getInstance().toggleFreeze(target);
                             data.setFrozen(target,true);
                             getMsgSendConfig(target, command.getName(), FREEZE_TOGGLE_ON.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             sendConsoleMessage(FREEZE_TOGGLE_ON_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));

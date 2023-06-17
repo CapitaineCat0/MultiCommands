@@ -158,6 +158,10 @@ commands:
       - multiinfo
       - multinfo
       - multinfos
+  mute:
+    description: Permet de rendre muet un joueur
+    permission: multicommands.mute
+    aliases: m
   nick:
     description: Permet de changer votre pseudo
     permission: multicommands.nick
@@ -401,7 +405,10 @@ permissions:
     description: level - permission
   multicommands.multiionfos:
     default: op
-    description: infos - permissions
+    description: infos - permission
+  multicommands.mute:
+    default: op
+    description: mute - permission
   multicommands.nick:
     default: true
     description: nick - permission
