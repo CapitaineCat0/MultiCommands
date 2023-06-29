@@ -15,6 +15,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import static me.capitainecat0.multicommands.utils.MessengerUtils.saveResourceAs;
+import static me.capitainecat0.multicommands.utils.MessengerUtils.sendConsoleMessage;
+
+
 public final class MultiCommands extends JavaPlugin {
     private static final Logger log = Logger.getLogger("Minecraft");
     static CooldownManager cooldownManager;
@@ -30,52 +34,52 @@ public final class MultiCommands extends JavaPlugin {
         instance = this;
         cooldownManager = new CooldownManager(this);
         adventure = BukkitAudiences.create(this);
-        MessengerUtils.saveResourceAs("config.yml");
-        MessengerUtils.saveResourceAs("lang/fr.properties");
-        MessengerUtils.saveResourceAs("lang/en.properties");
+        saveResourceAs("config.yml");
+        saveResourceAs("lang/fr.properties");
+        saveResourceAs("lang/en.properties");
         if (this.getConfig().getBoolean("console-setup")) {
-            MessengerUtils.sendConsoleMessage("&a---------------+ &6MultiCommands v" + this.getDescription().getVersion() + "&a +---------------- ");
-            MessengerUtils.sendConsoleMessage(" ");
-            MessengerUtils.sendConsoleMessage("&5Enabling commands:");
-            MessengerUtils.sendConsoleMessage(" ");
+            sendConsoleMessage("&a---------------+ &6MultiCommands v" + this.getDescription().getVersion() + "&a +---------------- ");
+            sendConsoleMessage(" ");
+            sendConsoleMessage("&5Enabling commands:");
+            sendConsoleMessage(" ");
 
             try {
                 Commands.init();
             } catch (Error error) {
-                MessengerUtils.sendConsoleMessage(error.getMessage());
+                sendConsoleMessage(error.getMessage());
             }
 
-            MessengerUtils.sendConsoleMessage(" ");
-            MessengerUtils.sendConsoleMessage(" ");
-            MessengerUtils.sendConsoleMessage("&5Enabling events:");
-            MessengerUtils.sendConsoleMessage(" ");
+            sendConsoleMessage(" ");
+            sendConsoleMessage(" ");
+            sendConsoleMessage("&5Enabling events:");
+            sendConsoleMessage(" ");
 
             try {
                 Events.init();
             } catch (Error error) {
-                MessengerUtils.sendConsoleMessage(error.getMessage());
+                sendConsoleMessage(error.getMessage());
             }
 
-            MessengerUtils.sendConsoleMessage(" ");
-            MessengerUtils.sendConsoleMessage("&a--------------------------------------------------------- ");
+            sendConsoleMessage(" ");
+            sendConsoleMessage("&a--------------------------------------------------------- ");
         } else {
             try {
                 Commands.init();
             } catch (Error error) {
-                MessengerUtils.sendConsoleMessage(error.getMessage());
+                sendConsoleMessage(error.getMessage());
             }
 
             try {
                 Events.init();
             } catch (Error error) {
-                MessengerUtils.sendConsoleMessage(error.getMessage());
+                sendConsoleMessage(error.getMessage());
             }
         }
 
         try {
             this.getServer().addRecipe(CustomCraft.saddle());
         } catch (Error error) {
-            MessengerUtils.sendConsoleMessage(error.getMessage());
+            sendConsoleMessage(error.getMessage());
         }
 
     }
@@ -157,5 +161,4 @@ public final class MultiCommands extends JavaPlugin {
     public void registerEvent(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
-
 }

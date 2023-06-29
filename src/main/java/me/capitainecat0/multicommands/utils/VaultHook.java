@@ -9,8 +9,8 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class VaultHook {
 
     public void hook(){
-        /*if(api().setupEconomy()){
-            Bukkit.getServicesManager().register(Economy.class, econ, MultiCommands.api(), ServicePriority.Normal);
+        /*if(getInstance().setupEconomy()){
+            Bukkit.getServicesManager().register(Economy.class, econ, MultiCommands.getInstance(), ServicePriority.Normal);
             sendConsoleMessage("&aVaultAPI found! Hooking on it...");
         }*/
     }

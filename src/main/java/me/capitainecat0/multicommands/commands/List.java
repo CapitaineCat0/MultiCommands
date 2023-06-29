@@ -29,20 +29,20 @@ public class List implements CommandExecutor {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if(p.getCustomName() == null){
                 if (sender instanceof Player) {
-                    sendCommandMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[]", "/tp"+p.getName());
-                    sendHoverMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[]", p.getName(), LIST_HOVER.getMessage().replace("{0}", p.getName()));
+                    sendCommandMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]", "tp "+p.getName());
+                    sendHoverMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]", p.getName(), LIST_HOVER.getMessage().replace("{0}", p.getName().toString().toLowerCase()));
                     //sender.spigot().sendMessage(playerTP);
                 } else {
-                    sendMessage(sender,"  §e- §b" + p.getName() + " §c-> §8[]");
+                    sendMessage(sender,"  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]");
                 }
                 //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
             }else{
                 if (sender instanceof Player) {
-                    sendCommandMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" ]", "/tp"+p.getName());
-                    sendHoverMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" ]", p.getCustomName(), LIST_HOVER.getMessage().replace("{0}", p.getName()));
+                    sendCommandMessage((Player) sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]", "tp "+p.getName());
+                    sendHoverMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]", p.getCustomName(), LIST_HOVER.getMessage().replace("{0}", p.getName().toString().toLowerCase()));
                     //sender.spigot().sendMessage(playerTP);
                 } else {
-                    sendMessage(sender, "  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
+                    sendMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]");
                 }
                 //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
             }

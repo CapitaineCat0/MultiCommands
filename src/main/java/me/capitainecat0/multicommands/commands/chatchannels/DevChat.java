@@ -26,7 +26,7 @@ public class DevChat implements CommandExecutor, Listener {
         hideActiveBossBar();
         if (args.length >= 1) {
             String s = Joiner.on(" ").join(args);
-            String format = DEVCHAT.getMessage().replace("{0}", DEVCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s).replace("{prefix}", PLUGIN_PREFIX.getMessage());
+            String format = DEVCHAT.getMessage().replace("{0}", DEVCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
 
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.hasPermission(DEVCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
@@ -53,7 +53,7 @@ public class DevChat implements CommandExecutor, Listener {
         if(event.getMessage().startsWith(DEVCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = DEVCHAT.getMessage().replace("{1}", event.getPlayer().getName()).replace("{2}", s).replace(DEVCHAT_PREFIX.getMessage(), " ").replace("{prefix}", PLUGIN_PREFIX.getMessage());
+                String format = DEVCHAT.getMessage().replace("{1}", event.getPlayer().getName()).replace("{2}", s).replace(DEVCHAT_PREFIX.getMessage(), " ");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(DEVCHAT_PERM.getPermission())) {
@@ -65,12 +65,12 @@ public class DevChat implements CommandExecutor, Listener {
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(player, "DevChat", CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                        getMsgSendConfig(player, "DevChat", CMD_NO_PERM.getMessage());
                     }
                 }
                 Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
             } else{
-                getMsgSendConfig(event.getPlayer(), "DevChat", CMD_NO_ARGS.getMessage().replace("<command>", "DevChat").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                getMsgSendConfig(event.getPlayer(), "DevChat", CMD_NO_ARGS.getMessage().replace("<command>", "DevChat"));
             }
         }return false;
     }

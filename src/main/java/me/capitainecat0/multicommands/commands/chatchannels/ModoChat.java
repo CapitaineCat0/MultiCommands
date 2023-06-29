@@ -26,7 +26,7 @@ public class ModoChat implements CommandExecutor, Listener {
         hideActiveBossBar();
         if (args.length >= 1) {
             String s = Joiner.on(" ").join(args);
-            String format = MODOCHAT.getMessage().replace("{0}", MODOCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s).replace("{prefix}", PLUGIN_PREFIX.getMessage());
+            String format = MODOCHAT.getMessage().replace("{0}", MODOCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
 
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.hasPermission(MODOCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
@@ -53,7 +53,7 @@ public class ModoChat implements CommandExecutor, Listener {
         if(event.getMessage().startsWith(MODOCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = MODOCHAT.getMessage().replace("{1}", event.getPlayer().getName()).replace("{2}", s).replace(MODOCHAT_PREFIX.getMessage(), " ").replace("{prefix}", PLUGIN_PREFIX.getMessage());
+                String format = MODOCHAT.getMessage().replace("{1}", event.getPlayer().getName()).replace("{2}", s).replace(MODOCHAT_PREFIX.getMessage(), " ");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(MODOCHAT_PERM.getPermission())) {
@@ -65,12 +65,12 @@ public class ModoChat implements CommandExecutor, Listener {
                         if(soundEnabled()){
                             playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        getMsgSendConfig(player, "ModoChat", CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                        getMsgSendConfig(player, "ModoChat", CMD_NO_PERM.getMessage());
                     }
                 }
                 Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
             } else{
-                getMsgSendConfig(event.getPlayer(), "ModoChat", CMD_NO_ARGS.getMessage().replace("<command>", "ModoChat").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                getMsgSendConfig(event.getPlayer(), "ModoChat", CMD_NO_ARGS.getMessage().replace("<command>", "ModoChat"));
             }
         }return false;
     }

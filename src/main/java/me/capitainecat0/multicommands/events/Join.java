@@ -52,7 +52,7 @@ public class Join implements Listener {
                String joinText = "&8{ &a+ &8} &e- &a>&f%luckperms_prefix% &3%player_name%";
                joinText = PlaceholderAPI.setPlaceholders(event.getPlayer(), joinText);
                //Component join = Component.text(joinText);
-               event.setJoinMessage(joinText);
+               event.setJoinMessage(colored(joinText));
            }else {
                //Component join = Component.text(ONJOIN.getMessage().replace("{0}", player.getName()));
                event.setJoinMessage(colored(ONJOIN.getMessage().replace("{0}", player.getName())));
@@ -60,6 +60,6 @@ public class Join implements Listener {
                    VanishHandler.getVanished().add(player);
                }
            }
-           sendTablist(player, Component.text(colored(Objects.requireNonNull(getInstance().getConfig().getString("tablist.header")))), Component.text(colored(Objects.requireNonNull(getInstance().getConfig().getString("tablist.footer")))));
+           //sendTablist(player, Component.text(colored(Objects.requireNonNull(getInstance().getConfig().getString("tablist.header")))), Component.text(colored(Objects.requireNonNull(getInstance().getConfig().getString("tablist.footer")))));
     }
 }

@@ -16,6 +16,8 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -114,7 +116,7 @@ public class MessengerUtils {
                 sendMessage(sender, message);
             }else if(Objects.equals(instance.getConfig().get("send-message-on"), "ACTIONBAR") ||
                     Objects.equals(instance.getConfig().get("send-message-on"), "actionbar")){
-                sendActionBar(sender, message.replace(PLUGIN_PREFIX.getMessage(), ""));
+                sendActionBar(sender, message);
             }else if(Objects.equals(instance.getConfig().get("send-message-on"), "TITLE") ||
                     Objects.equals(instance.getConfig().get("send-message-on"), "title")){
                 sendTitle(sender, commandName, message);
@@ -123,7 +125,7 @@ public class MessengerUtils {
                 sendBossBar(sender, colored(message));
             }
         }else{
-            sendMessage(sender, message);
+            sendMessage(sender, message.replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
 
     }
@@ -143,7 +145,7 @@ public class MessengerUtils {
      * <br>Send console message
      **/
     public static void sendConsoleMessage(String message){
-        Bukkit.getConsoleSender().sendMessage(colored(message));
+        Bukkit.getConsoleSender().sendMessage(colored(message.replace("{prefix}", MultiCommands.getInstance().getDescription().getName())));
     }
 
     /**
@@ -152,7 +154,7 @@ public class MessengerUtils {
      * <br>Send broadcastMessage
      **/
     public static void sendBroadcastMessage(String message){
-        Bukkit.getServer().broadcastMessage(colored(message));
+        Bukkit.getServer().broadcastMessage(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
     }
 
     /**
@@ -161,7 +163,7 @@ public class MessengerUtils {
      * <br>Send message to online players
      */
     public static void sendMessage(String message){
-        final TextComponent component = Component.text(colored(message));
+        final TextComponent component = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         instance.adventure().players().sendMessage(component);
     }
 
@@ -172,7 +174,7 @@ public class MessengerUtils {
      * <br>Send message to player
      */
     public static void sendMessage(Player player, String message){
-        final TextComponent component = Component.text(colored(message));
+        final TextComponent component = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         instance.adventure().player(player).sendMessage(component);
     }
 
@@ -183,7 +185,7 @@ public class MessengerUtils {
      * <br>Send message to sender
      */
     public static void sendMessage(CommandSender sender, String message){
-        final TextComponent component = Component.text(colored(message));
+        final TextComponent component = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         instance.adventure().sender(sender).sendMessage(component);
     }
 
@@ -195,7 +197,7 @@ public class MessengerUtils {
      * <br>Send message to command sender, with command name
      */
     private static void sendMessage(CommandSender sender, String commandName, String message){
-        final TextComponent component = Component.text(colored("&3"+commandName+": "+message));
+        final TextComponent component = Component.text(colored("&3"+commandName+": "+message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         instance.adventure().sender(sender).sendMessage(component);
     }
 
@@ -208,7 +210,7 @@ public class MessengerUtils {
      * <br>with custom over text
      */
     public static void sendHoverMessage(String message, String hover, String text){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(hover, Tag.styling(HoverEvent.showText(Component.text(colored(text))))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(hover, Tag.styling(HoverEvent.showText(Component.text(colored(text.replace("{prefix}", PLUGIN_PREFIX.getMessage())))))));
         instance.adventure().players().sendMessage(component);
     }
 
@@ -222,7 +224,7 @@ public class MessengerUtils {
      * <br>with custom over text
      */
     public static void sendHoverMessage(Player player, String message, String hover, String text){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(hover, Tag.styling(HoverEvent.showText(Component.text(colored(text))))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(hover.replace("{prefix}", PLUGIN_PREFIX.getMessage()), Tag.styling(HoverEvent.showText(Component.text(colored(text.replace("{prefix}", PLUGIN_PREFIX.getMessage())))))));
         instance.adventure().player(player).sendMessage(component);
     }
 
@@ -236,7 +238,8 @@ public class MessengerUtils {
      * <br>with custom over text
      */
     public static void sendHoverMessage(CommandSender sender, String message, String hover, String text){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(hover, Tag.styling(HoverEvent.showText(Component.text(colored(text))))));
+        String input = "<hover:show_text:"+message+"</hover>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().sender(sender).sendMessage(component);
     }
 
@@ -248,7 +251,7 @@ public class MessengerUtils {
      * <br>with clickable text command
      */
     public static void sendCommandMessage(String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.runCommand(command))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(command, Tag.styling(ClickEvent.runCommand(command))));
         instance.adventure().players().sendMessage(component);
     }
 
@@ -261,7 +264,8 @@ public class MessengerUtils {
      * <br>with clickable text command
      */
     public static void sendCommandMessage(Player player, String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.runCommand(command))));
+        String input = "<click:run_command:/"+command+">"+colored(message)+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().player(player).sendMessage(component);
     }
 
@@ -274,7 +278,8 @@ public class MessengerUtils {
      * <br>with clickable text command
      */
     public static void sendCommandMessage(CommandSender sender, String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.runCommand(command))));
+        String input = "<click:run_command:/"+command+">"+message+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().sender(sender).sendMessage(component);
     }
 
@@ -286,7 +291,7 @@ public class MessengerUtils {
      * <br>with clickable url
      */
     public static void sendURLMessage(String message, String url){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
         instance.adventure().players().sendMessage(component);
     }
 
@@ -299,7 +304,7 @@ public class MessengerUtils {
      * <br>with clickable url
      */
     public static void sendURLMessage(Player player, String message, String url){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
         instance.adventure().player(player).sendMessage(component);
     }
 
@@ -312,7 +317,7 @@ public class MessengerUtils {
      * <br>with clickable url
      */
     public static void sendURLMessage(CommandSender sender, String message, String url){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
         instance.adventure().sender(sender).sendMessage(component);
     }
 
@@ -324,7 +329,7 @@ public class MessengerUtils {
      * <br>with clickable text command
      */
     public static void sendSuggestCommandMessage(String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
         instance.adventure().players().sendMessage(component);
     }
 
@@ -337,7 +342,7 @@ public class MessengerUtils {
      * <br>with clickable text command
      */
     public static void sendSuggestCommandMessage(Player player, String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
 
         instance.adventure().player(player).sendMessage(component);
     }
@@ -351,7 +356,7 @@ public class MessengerUtils {
      * <br>with clickable text command
      */
     public static void sendSuggestCommandMessage(CommandSender sender, String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
+        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
         MultiCommands.getInstance().adventure().sender(sender).sendMessage(component);
     }
 
@@ -512,7 +517,7 @@ public class MessengerUtils {
             }
         };
         final Component mainTitle = Component.text("§3"+commandName);
-        final Component subtitle = Component.text(colored(message));
+        final Component subtitle = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         final Title title = Title.title(mainTitle, subtitle, times);
         instance.adventure().sender(sender).showTitle(title);
     }
@@ -541,7 +546,7 @@ public class MessengerUtils {
             }
         };
         final Component mainTitle = Component.text(colored(title));
-        final Component subtitle = Component.text(colored(message));
+        final Component subtitle = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         final Title finalTitle = Title.title(mainTitle, subtitle, times);
         instance.adventure().players().showTitle(finalTitle);
     }
@@ -571,7 +576,7 @@ public class MessengerUtils {
             }
         };
         final Component mainTitle = Component.text(colored(title));
-        final Component subtitle = Component.text(colored(message));
+        final Component subtitle = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         final Title finalTitle = Title.title(mainTitle, subtitle, times);
         instance.adventure().player(player).showTitle(finalTitle);
     }
@@ -584,7 +589,7 @@ public class MessengerUtils {
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     private static void sendBossBar(CommandSender sender, String message) {
-        final Component name = Component.text(colored(message));
+        final Component name = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         finalBossbar = BossBar.bossBar(name, (float) 1, BossBar.Color.GREEN, BossBar.Overlay.NOTCHED_20);
         instance.adventure().sender(sender).showBossBar(finalBossbar);
     }
@@ -599,7 +604,7 @@ public class MessengerUtils {
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     public static void sendBossBar(float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
-        final Component name = Component.text(colored(message));
+        final Component name = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         finalBossbar = BossBar.bossBar(name, progress, color, overlay);
         instance.adventure().players().showBossBar(finalBossbar);
     }
@@ -615,7 +620,7 @@ public class MessengerUtils {
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
      */
     public static void sendBossBar(Player player, float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
-        final Component name = Component.text(colored(message));
+        final Component name = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         finalBossbar = BossBar.bossBar(name, progress, color, overlay);
         instance.adventure().player(player).showBossBar(finalBossbar);
     }
@@ -628,7 +633,7 @@ public class MessengerUtils {
      * <br>Send ActionBar message to command sender
      */
     private static void sendActionBar(CommandSender sender, String commandName, String message){
-        final TextComponent component = Component.text(colored("&3"+commandName+": "+message));
+        final TextComponent component = Component.text(colored("&3"+commandName+": "+message.replace("{prefix}", "")));
         instance.adventure().sender(sender).sendActionBar(component);
     }
 
@@ -638,7 +643,7 @@ public class MessengerUtils {
      * <br>Send ActionBar message to every online players
      */
     public static void sendActionBar(String message){
-        final TextComponent component = Component.text(colored(message));
+        final TextComponent component = Component.text(colored(message.replace("{prefix}", " ")));
         instance.adventure().players().sendActionBar(component);
     }
 
@@ -649,7 +654,7 @@ public class MessengerUtils {
      * <br>Send ActionBar message to player
      */
     public static void sendActionBar(Player player, String message){
-        final TextComponent component = Component.text(colored(message));
+        final TextComponent component = Component.text(colored(message.replace("{prefix}", "")));
         instance.adventure().player(player).sendActionBar(component);
     }
 
@@ -660,7 +665,7 @@ public class MessengerUtils {
      * <br>Send ActionBar message to player
      */
     public static void sendActionBar(CommandSender sender, String message){
-        final TextComponent component = Component.text(colored(message));
+        final TextComponent component = Component.text(colored(message.replace("{prefix}", "")));
         instance.adventure().sender(sender).sendActionBar(component);
     }
 

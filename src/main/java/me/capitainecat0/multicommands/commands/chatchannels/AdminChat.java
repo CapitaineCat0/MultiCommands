@@ -2,6 +2,7 @@ package me.capitainecat0.multicommands.commands.chatchannels;
 
 import com.google.common.base.Joiner;
 import me.capitainecat0.multicommands.MultiCommands;
+import me.capitainecat0.multicommands.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -27,7 +28,7 @@ public class AdminChat implements CommandExecutor, Listener {
         hideActiveBossBar();
         if (args.length >= 1) {
             String s = Joiner.on(" ").join(args);
-            String format = ADMINCHAT.getMessage().replace("{0}", ADMINCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s).replace("{prefix}", PLUGIN_PREFIX.getMessage());
+            String format = ADMINCHAT.getMessage().replace("{0}", ADMINCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.hasPermission(ADMINCHAT_PERM.getPermission()) || player.hasPermission(ALL_CHAT_PERM.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())) {
                     if(soundEnabled()){
@@ -38,12 +39,12 @@ public class AdminChat implements CommandExecutor, Listener {
                     if(soundEnabled()){
                         playSound(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    getMsgSendConfig(player, command.getName(), CMD_NO_PERM.getMessage());
                 }
             }
             Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
         } else{
-            getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+            getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
         }
         return false;
     }
@@ -53,7 +54,7 @@ public class AdminChat implements CommandExecutor, Listener {
         if(event.getMessage().startsWith(ADMINCHAT_PREFIX.getMessage())){
             if (event.getMessage().length() >= 1) {
                 String s = Joiner.on(" ").join(Collections.singleton(event.getMessage()));
-                String format = ADMINCHAT.getMessage().replace("{1}", event.getPlayer().getName()).replace("{2}", s).replace(ADMINCHAT_PREFIX.getMessage()," ").replace("{prefix}", PLUGIN_PREFIX.getMessage());
+                String format = ADMINCHAT.getMessage().replace("{1}", event.getPlayer().getName()).replace("{2}", s).replace(ADMINCHAT_PREFIX.getMessage()," ");
 
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     if (player.hasPermission(ADMINCHAT_PERM.getPermission())) {
@@ -70,7 +71,7 @@ public class AdminChat implements CommandExecutor, Listener {
                 }
                 Bukkit.getServer().getConsoleSender().sendMessage(colored(format));
             } else{
-                getMsgSendConfig(event.getPlayer(), "AdminChat", CMD_NO_ARGS.getMessage().replace("<command>", "AdminChat").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                getMsgSendConfig(event.getPlayer(), "AdminChat", CMD_NO_ARGS.getMessage().replace("<command>", "AdminChat"));
             }
         }return false;
     }
