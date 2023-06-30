@@ -16,12 +16,11 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -48,7 +47,6 @@ public class MessengerUtils {
     public static String colored(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
-
 
     /**
      *
@@ -233,14 +231,12 @@ public class MessengerUtils {
      * @param sender
      * @param message
      * @param hover Hover text
-     * @param text Text revile
      * <br>Send message to command sender
-     * <br>with custom over text
+     * <br>with custom hover text
      */
-    public static void sendHoverMessage(CommandSender sender, String message, String hover, String text){
-        String input = "<hover:show_text:"+message+"</hover>";
-        Component component = MiniMessage.miniMessage().deserialize(input);
-        instance.adventure().sender(sender).sendMessage(component);
+    public static void sendHoverMessage(CommandSender sender, String message, String hover){
+        Component finalMessage = Component.text(message+MiniMessage.miniMessage().deserialize("<hover:show_text:"+hover));
+        instance.adventure().sender(sender).sendMessage(finalMessage);
     }
 
     /**

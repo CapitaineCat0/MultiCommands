@@ -30,19 +30,17 @@ public class List implements CommandExecutor {
             if(p.getCustomName() == null){
                 if (sender instanceof Player) {
                     sendCommandMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]", "tp "+p.getName());
-                    sendHoverMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]", p.getName(), LIST_HOVER.getMessage().replace("{0}", p.getName().toString().toLowerCase()));
                     //sender.spigot().sendMessage(playerTP);
                 } else {
-                    sendMessage(sender,"  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]");
+                    sendConsoleMessage("  &e- &b" + p.getName() + " &c-> &8[]");
                 }
                 //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
             }else{
                 if (sender instanceof Player) {
                     sendCommandMessage((Player) sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]", "tp "+p.getName());
-                    sendHoverMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]", p.getCustomName(), LIST_HOVER.getMessage().replace("{0}", p.getName().toString().toLowerCase()));
                     //sender.spigot().sendMessage(playerTP);
                 } else {
-                    sendMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]");
+                    sendConsoleMessage("  &e- &b" + p.getName() + " &c-> &8[ "+p.getCustomName()+" &8]");
                 }
                 //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
             }
