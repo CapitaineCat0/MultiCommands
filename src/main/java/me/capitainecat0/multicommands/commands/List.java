@@ -15,35 +15,43 @@ import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class List implements CommandExecutor {
+    
+    /**
+     *
+     * The List commands can list all connected players
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(sender instanceof Player){
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-            }
-        }
+        try{
+            if(sender instanceof Player){
 
-        sendMessage(sender, LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getServer().getMaxPlayers()+"").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-        sendMessage(sender,"");
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if(p.getCustomName() == null){
-                if (sender instanceof Player) {
-                    sendCommandMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]", "tp "+p.getName());
-                    //sender.spigot().sendMessage(playerTP);
-                } else {
-                    sendConsoleMessage("  &e- &b" + p.getName() + " &c-> &8[]");
-                }
-                //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
-            }else{
-                if (sender instanceof Player) {
-                    sendCommandMessage((Player) sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]", "tp "+p.getName());
-                    //sender.spigot().sendMessage(playerTP);
-                } else {
-                    sendConsoleMessage("  &e- &b" + p.getName() + " &c-> &8[ "+p.getCustomName()+" &8]");
-                }
-                //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
+                playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
             }
+
+            sendMessage(sender, LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getServer().getMaxPlayers()+""));
+            sendMessage(sender,"");
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if(p.getCustomName() == null){
+                    if (sender instanceof Player) {
+                        sendCommandMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]", "tp "+p.getName());
+                        //sender.spigot().sendMessage(playerTP);
+                    } else {
+                        sendConsoleMessage("  &e- &b" + p.getName() + " &c-> &8[]");
+                    }
+                    //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
+                }else{
+                    if (sender instanceof Player) {
+                        sendCommandMessage((Player) sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]", "tp "+p.getName());
+                        //sender.spigot().sendMessage(playerTP);
+                    } else {
+                        sendConsoleMessage("  &e- &b" + p.getName() + " &c-> &8[ "+p.getCustomName()+" &8]");
+                    }
+                    //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[ "+p.getCustomName()+" §8]");
+                }
+            }
+        }catch(Exception e){
+            sendCommandExceptionMessage(e, command.getName());
         }
         return false;
     }

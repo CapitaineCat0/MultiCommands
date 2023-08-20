@@ -1,5 +1,5 @@
 name: MultiCommands
-version: '1.4.2'
+version: '1.4.4'
 main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
 authors: [CapitaineCat0, It'sTheSky]
@@ -197,6 +197,9 @@ commands:
     description: Permet de se téléporter / un autre joueur
     permission: multicommands.teleport
     aliases: teleport
+  tpa:
+    description: Permet d'envoyer une requête de téléportation à un autre joueur
+    permission: multicommands.tpa
   title:
     description: Permet d'envoyer un message en titre
     permission: multicommands.title
@@ -271,39 +274,6 @@ permissions:
   multicommands.enderchest.other:
     default: op
     description: other enderchest - permission
-  multicommands.economy.*:
-    default: op
-    description: economy - permission
-  multicommands.economy.balance:
-    default: true
-    description: economy balance - permission
-  multicommands.economy.deposit:
-    default: true
-    description: economy deposit - permission
-  multicommands.economy.set:
-    default: op
-    description: economy set - permission
-  multicommands.economy.reset:
-    default: op
-    description: economy reset - permission
-  multicommands.economy.withdraw:
-    default: true
-    description: economy withdraw - permission
-  multicommands.economy.bank.*:
-    default: op
-    description: economy bank - permission
-  multicommands.economy.bank.deposit:
-    default: true
-    description: economy bank deposit - permission
-  multicommands.economy.bank.create:
-    default: true
-    description: economy bank create - permission
-  multicommands.economy.bank.reset:
-    default: op
-    description: economy bank reset - permission
-  multicommands.economy.bank.withdraw:
-    default: true
-    description: economy bank withdraw - permission
   multicommands.furnace:
     default: true
     description: furnace - permission
@@ -403,7 +373,10 @@ permissions:
   multicommands.level.remove:
     default: true
     description: level - permission
-  multicommands.multiionfos:
+  multicommands.multihelp:
+    default: true
+    description: help - permission
+  multicommands.multiinfos:
     default: op
     description: infos - permission
   multicommands.mute:
@@ -433,6 +406,18 @@ permissions:
   multicommands.top:
     default: true
     description: top - permission
+  multicommands.tpa:
+    default: true
+    description: tpa - permission
+  multicommands.tpa.*:
+    default: op
+    description: tpa - permission
+  multicommands.tpa.accept:
+    default: true
+    description: tpa - permission
+  multicommands.tpa.deny:
+    default: true
+    description: tpa - permission
   multicommands.unban:
     default: op
     description: unban - permission

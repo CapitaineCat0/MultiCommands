@@ -79,6 +79,10 @@ public enum Perms {
     SPAWN_PERM("multicommands.spawn"),
     TIME_PERM("multicommands.time"),
     TELEPORT_PERM("multicommands.teleport"),
+    TPA_PERM("multicommands.tpa"),
+    TPA_ALL_PERM("multicommands.tpa.*"),
+    TPA_ACCEPT_PERM("multicommands.tpa.accept"),
+    TPA_DENY_PERM("multicommands.tpa.deny"),
     TITLE_PERM("multicommands.title"),
     TOP_PERM("multicommands.top"),
     UNBAN_PERM("multicommands.unban"),
@@ -107,10 +111,29 @@ public enum Perms {
 ;
     private final String perm;
 
+    /**
+     * The Perms function is used to determine whether a user has the
+     * permissions necessary to perform an action.
+     * The function takes in a String
+     * that represents the permission level required for an action, and returns true if
+     * the user's permission level is equal to or greater than that of the required permission.
+
+     *
+     * @param perm Set the value of the perm field
+     *
+     * @return The perm value
+     */
     Perms(String perm) {
         this.perm = perm;
     }
 
+    /**
+     * The getPermission function returns the permission string of a command.
+     *
+     *
+     *
+     * @return The permission of the user
+     */
     public String getPermission() {
         return perm;
     }

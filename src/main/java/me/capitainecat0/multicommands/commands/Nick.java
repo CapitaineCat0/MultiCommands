@@ -16,37 +16,46 @@ import static me.capitainecat0.multicommands.utils.Perms.NICKNAME_PERMS;
 
 public class Nick implements CommandExecutor {
 
+    /**
+     *
+     * La commande &quot;/nick&quot; requiert la permission &quot;multicommands.nick&quot; pour fonctionner.
+     * <br>Cette commande permet de changer votre pseudo en jeu.
+     * <br>Ce nouveau pseudo sera affiché dans le chat ou la tablist.
+     */
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if(sender instanceof Player){
-            if(!sender.hasPermission(NICKNAME_PERMS.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                return true;
-            }
-            else{
-                if(args.length == 0){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<nickname>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+            try{
+                if(!sender.hasPermission(NICKNAME_PERMS.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                     return true;
-                } else if(args.length == 1){
-                    Player player = (Player) sender;
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("{0}", colored(args[0])).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    player.setCustomName(colored(args[0]));
-                    player.setCustomNameVisible(true);
                 }
+                else{
+                    if(args.length == 0){
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<nickname>"));
+                        return true;
+                    } else if(args.length == 1){
+                        Player player = (Player) sender;
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("{0}", colored(args[0])));
+                        player.setCustomName(colored(args[0]));
+                        player.setCustomNameVisible(true);
+                    }
+                }
+            }catch (Exception e){
+                sendCommandExceptionMessage(e, command.getName());
             }
         }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-            return true;
+            try{
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+                return true;
+            }catch (Exception e){
+                sendCommandExceptionMessage(e, command.getName());
+            }
         }
         return false;
     }

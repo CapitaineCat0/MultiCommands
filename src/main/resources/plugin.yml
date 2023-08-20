@@ -197,6 +197,9 @@ commands:
     description: Permet de se téléporter / un autre joueur
     permission: multicommands.teleport
     aliases: teleport
+  tpa:
+    description: Permet d'envoyer une requête de téléportation à un autre joueur
+    permission: multicommands.tpa
   title:
     description: Permet d'envoyer un message en titre
     permission: multicommands.title
@@ -403,6 +406,18 @@ permissions:
   multicommands.top:
     default: true
     description: top - permission
+  multicommands.tpa:
+    default: true
+    description: tpa - permission
+  multicommands.tpa.*:
+    default: op
+    description: tpa - permission
+  multicommands.tpa.accept:
+    default: true
+    description: tpa - permission
+  multicommands.tpa.deny:
+    default: true
+    description: tpa - permission
   multicommands.unban:
     default: op
     description: unban - permission

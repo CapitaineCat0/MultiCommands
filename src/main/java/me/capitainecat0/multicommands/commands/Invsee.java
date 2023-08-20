@@ -16,42 +16,43 @@ import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 import static me.capitainecat0.multicommands.utils.Perms.INVSEE_PERM;
 
 public class Invsee implements CommandExecutor {
+
+    /**
+     *
+     * The Invsee command can open targeted player's inventory to command sender
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         hideActiveBossBar();
-        if(!sender.hasPermission(INVSEE_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+        try{
+            if(!sender.hasPermission(INVSEE_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                return true;
             }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-            return true;
-        }
-        else{
-            if(sender instanceof Player){
-                if(args.length == 0){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                    }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    return true;
-                }else if(args.length == 1){
-                    Player target = Bukkit.getPlayerExact(args[0]);
-                    if(target != null){
-                        ((Player) sender).openInventory(target.getInventory());
-                        if(soundEnabled()){
-                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+            else{
+                if(sender instanceof Player){
+                    if(args.length == 0){
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
+                        return true;
+                    }else if(args.length == 1){
+                        Player target = Bukkit.getPlayerExact(args[0]);
+                        if(target != null){
+                            ((Player) sender).openInventory(target.getInventory());
+                            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                            getMsgSendConfig(sender, command.getName(), INVSEE_ADMIN.getMessage().replace("{0}", target.getName()));
+                        }else{
+                            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                         }
-                        getMsgSendConfig(sender, command.getName(), INVSEE_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    }else{
-                        if(soundEnabled()){
-                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                        }
-                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
+                }else if(sender instanceof ConsoleCommandSender){
+                    sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
                 }
-            }else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
             }
+        }catch (Exception e){
+            sendCommandExceptionMessage(e, command.getName());
         }
         return false;
     }

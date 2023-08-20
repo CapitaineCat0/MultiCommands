@@ -2,9 +2,12 @@ package me.capitainecat0.multicommands.utils;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+
+import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 
 public class VanishHandler {
     private static final ArrayList<Player> vanished = new ArrayList<>();
@@ -29,6 +32,10 @@ public class VanishHandler {
         if(vanished.contains(player)) return;
         for (Player people : Bukkit.getOnlinePlayers()) {
             people.hidePlayer(MultiCommands.getInstance(),player);
+        }for(Player operators : Bukkit.getOnlinePlayers()){
+            if(operators.hasPermission(ALL_PERMS.getPermission())){
+                operators.showPlayer(MultiCommands.getInstance(), player);
+            }
         }
         vanished.add(player);
     }

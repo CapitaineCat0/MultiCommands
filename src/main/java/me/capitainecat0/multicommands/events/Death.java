@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class Death implements Listener {
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent event) {
+    public void onDeath(@NotNull PlayerDeathEvent event) {
         hideActiveBossBar();
         Player player = event.getEntity().getPlayer();
         Player killer = event.getEntity().getKiller();
@@ -48,14 +49,10 @@ public class Death implements Listener {
                     MultiCommands.getInstance().getConfig().getInt("spawn.yaw"),
                     MultiCommands.getInstance().getConfig().getInt("spawn.pitch"));
             event.getPlayer().teleport(location);
-            if(soundEnabled()){
-                playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-            }
+            playSoundIfEnabled(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
             sendMessage(event.getPlayer(), SPAWN_DONE.getMessage());
         }else{
-            if(soundEnabled()){
-                playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-            }
+            playSoundIfEnabled(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             sendMessage(event.getPlayer(), SPAWN_ERROR.getMessage());
         }
     }

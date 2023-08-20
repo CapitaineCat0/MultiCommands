@@ -17,12 +17,14 @@ import static me.capitainecat0.multicommands.utils.Messenger.*;
 
 public class MultiHelp implements CommandExecutor {
 
+    /**
+     *
+     * The MultiHelp command sends a help menu of multicommands
+     */
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if (sender instanceof Player) {
-            if (soundEnabled()) {
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-            }
+            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
 
             if (MultiCommands.getInstance().getConfig().getBoolean("enable-help-gui")) {
                 (new HelpGUI()).open((Player)sender);

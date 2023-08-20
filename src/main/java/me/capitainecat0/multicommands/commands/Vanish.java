@@ -16,65 +16,69 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class Vanish implements CommandExecutor {
+
+    /**
+     * La commande &quot;/vanish&quot; requiert la permission &quot;multicommands.vanish&quot; pour fonctionner.
+     * <br>Cette commande permet de gérer votre vanish.
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
+        try{
             if(sender instanceof Player){
-                if(args.length == 0){
-                    if(sender.hasPermission(VANISH_PERM_SELF.getPermission()) || sender.hasPermission(VANISH_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                boolean hasVanishPerm = sender.hasPermission(VANISH_PERM_SELF.getPermission()) || sender.hasPermission(VANISH_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                boolean hasOtherVanishPerm = sender.hasPermission(VANISH_PERM_OTHER.getPermission()) || sender.hasPermission(VANISH_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                if (args.length == 0) {
+                    if (hasVanishPerm) {
                         Player player = (Player) sender;
                         VanishHandler handler = VanishHandler.getInstance();
-                        if(!handler.isVanished(player)){
+                        boolean isVanished = handler.isVanished(player);
+                        if (!isVanished) {
                             handler.toggleVanish(player);
-                            if(soundEnabled()){
-                                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                            }
-                            getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_SELF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                        }else if(handler.isVanished(player)){
+                            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                            getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_SELF.getMessage());
+                        } else {
                             handler.toggleVanish(player);
-                            if(soundEnabled()){
-                                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                            }
-                            getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_SELF.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                            getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_SELF.getMessage());
                         }
-                    }else{
-                        if(soundEnabled()){
-                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                        }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    } else {
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                         return true;
                     }
-                }else if (args.length == 1){
-                    if(sender.hasPermission(VANISH_PERM_OTHER.getPermission()) || sender.hasPermission(VANISH_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                } else if (args.length == 1) {
+                    if (hasOtherVanishPerm) {
                         Player target = Bukkit.getPlayerExact(args[0]);
                         VanishHandler handler = VanishHandler.getInstance();
-                        if(target != null){
-                            if(!handler.isVanished(target)){
+                        if (target != null) {
+                            boolean isVanished = handler.isVanished(target);
+                            if (!isVanished) {
                                 handler.toggleVanish(target);
-                                if(soundEnabled()){
-                                    playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                getMsgSendConfig(target, command.getName(), VANISH_ENABLED_OTHER.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                                getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                            }else if(handler.isVanished(target)){
+                                String doneSound = MultiCommands.getInstance().getConfig().getString("cmd-done-sound");
+                                playSoundIfEnabled(target, Sound.valueOf(doneSound), 1f, 1f);
+                                playSoundIfEnabled(sender, Sound.valueOf(doneSound), 1f, 1f);
+                                getMsgSendConfig(target, command.getName(), VANISH_ENABLED_OTHER.getMessage());
+                                getMsgSendConfig(sender, command.getName(), VANISH_ENABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                            } else {
                                 handler.toggleVanish(target);
-                                if(soundEnabled()){
-                                    playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                getMsgSendConfig(target, command.getName(), VANISH_DISABLED_OTHER.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                                getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_ADMIN.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                String doneSound = MultiCommands.getInstance().getConfig().getString("cmd-done-sound");
+                                playSoundIfEnabled(target, Sound.valueOf(doneSound), 1f, 1f);
+                                playSoundIfEnabled(sender, Sound.valueOf(doneSound), 1f, 1f);
+                                getMsgSendConfig(target, command.getName(), VANISH_DISABLED_OTHER.getMessage());
+                                getMsgSendConfig(sender, command.getName(), VANISH_DISABLED_ADMIN.getMessage().replace("{0}", target.getName()));
                             }
-                        }else{
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                        } else {
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                         }
                     }
                 }
-
             }else if(sender instanceof ConsoleCommandSender){
-                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             }
+        }catch(Exception e){
+            sendCommandExceptionMessage(e, command.getName());
+        }
         return false;
     }
 }

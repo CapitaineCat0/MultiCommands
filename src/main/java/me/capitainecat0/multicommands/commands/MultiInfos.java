@@ -14,21 +14,19 @@ import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 import static me.capitainecat0.multicommands.utils.Perms.MULTIINFOS_PERM;
 
 public class MultiInfos implements CommandExecutor {
+
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if(!sender.hasPermission(MULTIINFOS_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-            }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             return true;
         }
         else{
             if(sender instanceof Player){
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                }
+                playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
             }
             try{
                 Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");

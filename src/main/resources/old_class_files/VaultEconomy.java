@@ -1,8 +1,9 @@
-package me.capitainecat0.multicommands.commands;
+package old_class_files;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import net.milkbowl.vault.economy.EconomyResponse;
+import me.capitainecat0.multicommands.utils.Messenger;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,11 +14,12 @@ import org.jetbrains.annotations.NotNull;
 
 import static me.capitainecat0.multicommands.MultiCommands.econ;
 import static me.capitainecat0.multicommands.utils.Messenger.*;
+import static me.capitainecat0.multicommands.utils.Messenger.NOT_A_PLAYER;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
-public class NewVaultEconomy implements CommandExecutor {
-    private EconomyResponse r;
+public class VaultEconomy implements CommandExecutor {
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
@@ -26,83 +28,49 @@ public class NewVaultEconomy implements CommandExecutor {
                 if(soundEnabled()){
                     playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 }
-                getMsgSendConfig(sender, command.getName(), String.format("Vous avez %s dans votre poche", econ.format(econ.getBalance(((Player) sender).getPlayer()))));
+                double balance = econ.getBalance((OfflinePlayer) sender);
+                getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE.getMessage().replace("%balance%", ""+balance));
                 return true;
-            } else if(args.length == 2 && args[0].equalsIgnoreCase("get")){
+            }else if(args.length == 2 && args[0].equalsIgnoreCase("get")){
                 Player target = Bukkit.getPlayerExact(args[1]);
                 if(target != null){
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), String.format("La poche de "+target.getName()+" contient %s", econ.format(econ.getBalance(target))));
+                    getMsgSendConfig(sender, command.getName(), ECONOMY_BALANCE_OTHER.getMessage().replace("%balance%", econ.getBalance(target)+"").replace("%player%", target.getName()));
                 }else{
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
                     getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                 }
-            }else if(sender.hasPermission(ECONOMY_PERM_SET.getPermission()) || sender.hasPermission(ECONOMY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
-                    if(args[0].equalsIgnoreCase("set")){
-                        if(args.length <= 2){
-                            if(soundEnabled()){
-                                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                            }
-                            getMsgSendConfig(sender, command.getName()+" set", CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "set <player> <value>"));
-                        }else{
-                            Player target = Bukkit.getPlayerExact(args[1]);
-                            double value = Double.parseDouble(args[2]);
-                            if(target != null){
-                                if(soundEnabled()){
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                econ.withdrawPlayer(target, econ.getBalance(target.getName()));
-                                econ.depositPlayer(target, value);
-                                if(r.transactionSuccess()){
-                                    getMsgSendConfig(sender, command.getName(), String.format("Vous avez mis %s dans la poche de "+target.getName(), econ.format(r.amount)));
-                                    getMsgSendConfig(target, command.getName(), String.format("Votre poche contient maintenant %s", econ.format(r.amount)));
-                                    //getMsgSendConfig(sender, command.getName(), ECONOMY_SET.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
-                                }else{
-                                    if(soundEnabled()){
-                                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                                    }
-                                    sender.sendMessage(String.format("An error occured: %s", r.errorMessage));
-                                }
-                            }else{
-                                getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
-                            }
-                        }
-                    }
-                }else{
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
-                }
-            if(args.length == 3 && args[0].equalsIgnoreCase("pay")){
+            }else if(args.length == 3 && args[0].equalsIgnoreCase("pay")){
                 Player target = Bukkit.getPlayerExact(args[1]);
                 double value = Double.parseDouble(args[2]);
-                if(target != null){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    econ.withdrawPlayer(((Player) sender).getPlayer(), value);
-                    econ.depositPlayer(target, value);
-                    if(r.transactionSuccess()){
-                        getMsgSendConfig(sender, command.getName(), String.format("Vous avez payé "+target.getName()+" %s", econ.format(r.amount)));
-                        getMsgSendConfig(target, command.getName(), String.format("Vous avez été payé %s par "+sender.getName(), econ.format(r.amount)));
-                        //getMsgSendConfig(sender, command.getName(), ECONOMY_SET.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
+                try{
+                    if(target != null){
+                        if(soundEnabled()){
+                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        }
+                        econ.withdrawPlayer(((Player) sender).getPlayer(),  value);
+                        econ.depositPlayer(target, value);
+                        getMsgSendConfig(sender, command.getName(), ECONOMY_PAY_SENT.getMessage().replace("%value%", args[2]).replace("%player%", target.getName()));
+                        getMsgSendConfig(target, command.getName(), ECONOMY_PAY_OTHER.getMessage().replace("%value%", args[2]).replace("%player%", sender.getName()));
                     }else{
                         if(soundEnabled()){
                             playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                         }
-                        sender.sendMessage(String.format("An error occured: %s", r.errorMessage));
+                        getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
                     }
-                    getMsgSendConfig(sender, command.getName(), ECONOMY_PAY_SENT.getMessage().replace("%value%", args[2]).replace("%player%", target.getName()));
-                    getMsgSendConfig(target, command.getName(), ECONOMY_PAY_OTHER.getMessage().replace("%value%", args[2]).replace("%player%", sender.getName()));
-                }else{
+                }catch (NumberFormatException e){
                     if(soundEnabled()){
                         playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     }
-                    getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[0]));
+                    getMsgSendConfig(sender, command.getName(),"&cAn internal error was come! Please contact an administrator or plugin developper's &d(CapitaineCat0#2268, ItsTheSky#1234)&c!");
+                    sendConsoleMessage("&cError &e"+e);
                 }
             }
+
             if(sender.hasPermission(ECONOMY_PERM_ADD.getPermission()) || sender.hasPermission(ECONOMY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
                 if(args[0].equalsIgnoreCase("deposit")){
                     if(args.length <= 2){
@@ -118,14 +86,7 @@ public class NewVaultEconomy implements CommandExecutor {
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             econ.depositPlayer(target, value);
-                            if(r.transactionSuccess()){
-                                getMsgSendConfig(sender, command.getName(), ECONOMY_DEPOSIT.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
-                            }else{
-                                if(soundEnabled()){
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                                }
-                                sender.sendMessage(String.format("An error occured: %s", r.errorMessage));
-                            }
+                            getMsgSendConfig(sender, command.getName(), ECONOMY_DEPOSIT.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                         }else{
                             getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                         }
@@ -149,15 +110,7 @@ public class NewVaultEconomy implements CommandExecutor {
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             econ.withdrawPlayer(target, value);
-                            if(r.transactionSuccess()){
-                                getMsgSendConfig(sender, command.getName(), ECONOMY_WITHDRAW.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
-                            }else{
-                                if(soundEnabled()){
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                                }
-                                sender.sendMessage(String.format("An error occured: %s", r.errorMessage));
-                            }
-
+                            getMsgSendConfig(sender, command.getName(), ECONOMY_WITHDRAW.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                         }else{
                             getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                         }
@@ -166,6 +119,7 @@ public class NewVaultEconomy implements CommandExecutor {
             }else{
                 getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             }
+
             if(sender.hasPermission(ECONOMY_PERM_RESET.getPermission()) || sender.hasPermission(ECONOMY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
                 if(args[0].equalsIgnoreCase("reset")){
                     if(args.length <= 1){
@@ -180,14 +134,32 @@ public class NewVaultEconomy implements CommandExecutor {
                                 playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
                             econ.withdrawPlayer(target, econ.getBalance(target));
-                            if(r.transactionSuccess()){
-                                getMsgSendConfig(sender, command.getName(), ECONOMY_RESET.getMessage().replace("%player%", target.getName()));
-                            }else{
-                                if(soundEnabled()){
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                                }
-                                sender.sendMessage(String.format("An error occured: %s", r.errorMessage));
+                            getMsgSendConfig(sender, command.getName(), ECONOMY_RESET.getMessage().replace("%player%", target.getName()));
+                        }else{
+                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
+                        }
+                    }
+                }
+            }else{
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+            }
+            if(sender.hasPermission(ECONOMY_PERM_SET.getPermission()) || sender.hasPermission(ECONOMY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                if(args[0].equalsIgnoreCase("set")){
+                    if(args.length <= 2){
+                        if(soundEnabled()){
+                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        }
+                        getMsgSendConfig(sender, command.getName()+" set", CMD_NO_ARGS.getMessage().replace("%cmd%", command.getName()).replace("%args%", "set <player> <value>"));
+                    }else{
+                        Player target = Bukkit.getPlayerExact(args[1]);
+                        double value = Double.parseDouble(args[2]);
+                        if(target != null){
+                            if(soundEnabled()){
+                                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             }
+                            econ.withdrawPlayer(target, econ.getBalance(target));
+                            econ.depositPlayer(target, value);
+                            getMsgSendConfig(sender, command.getName(), ECONOMY_SET.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                         }else{
                             getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                         }
@@ -216,11 +188,7 @@ public class NewVaultEconomy implements CommandExecutor {
                     double value = Double.parseDouble(args[2]);
                     if(target != null){
                         econ.depositPlayer(target, value);
-                        if(r.transactionSuccess()){
-                            sendConsoleMessage(ECONOMY_DEPOSIT.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
-                        }else{
-                            sendConsoleMessage(String.format("An error occured: %s", r.errorMessage));
-                        }
+                        sendConsoleMessage(ECONOMY_DEPOSIT.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                     }else{
                         sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                     }
@@ -234,11 +202,7 @@ public class NewVaultEconomy implements CommandExecutor {
                     double value = Double.parseDouble(args[2]);
                     if(target != null){
                         econ.withdrawPlayer(target, value);
-                        if(r.transactionSuccess()){
-                            sendConsoleMessage(ECONOMY_WITHDRAW.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
-                        }else{
-                            sendConsoleMessage(String.format("An error occured: %s", r.errorMessage));
-                        }
+                        sendConsoleMessage(ECONOMY_WITHDRAW.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                     }else{
                         sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                     }
@@ -251,11 +215,7 @@ public class NewVaultEconomy implements CommandExecutor {
                     Player target = Bukkit.getPlayerExact(args[1]);
                     if(target != null){
                         econ.withdrawPlayer(target, econ.getBalance(target));
-                        if(r.transactionSuccess()){
-                            sendConsoleMessage(ECONOMY_RESET.getMessage().replace("%player%", target.getName()));
-                        }else{
-                            sendConsoleMessage(String.format("An error occured: %s", r.errorMessage));
-                        }
+                        sendConsoleMessage(ECONOMY_RESET.getMessage().replace("%player%", target.getName()));
                     }else{
                         sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                     }
@@ -270,11 +230,7 @@ public class NewVaultEconomy implements CommandExecutor {
                     if(target != null){
                         econ.withdrawPlayer(target, econ.getBalance(target));
                         econ.depositPlayer(target, value);
-                        if(r.transactionSuccess()){
-                            sendConsoleMessage(ECONOMY_SET.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
-                        }else{
-                            sendConsoleMessage(String.format("An error occured: %s", r.errorMessage));
-                        }
+                        sendConsoleMessage(ECONOMY_SET.getMessage().replace("%player%", target.getName()).replace("%balance%", args[2]));
                     }else{
                         sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("%player%", args[1]));
                     }

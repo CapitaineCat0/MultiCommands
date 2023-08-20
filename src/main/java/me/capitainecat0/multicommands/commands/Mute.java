@@ -17,112 +17,106 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class Mute implements CommandExecutor {
+
+    /**
+     *
+     * The Mute command can toggle mute for targeted player
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
             if(sender instanceof Player){
-                if(args.length == 0){
-                    if(sender.hasPermission(MUTE_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
-                        Player target = Bukkit.getPlayerExact(args[0]);
-                        StringBuilder bc = new StringBuilder();
-                        String reason = bc.toString().replace(target.getName(), "");
-                        MuteHandler handler = MuteHandler.getInstance();
-                        for(String part : args) {
-                            bc.append(part).append(" ");
-                        }
-                        if(args.length < 2){
-                            if(args.length == 0){
-                                if(soundEnabled()){
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                try{
+                    if(args.length == 0){
+                        if(sender.hasPermission(MUTE_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                            Player target = Bukkit.getPlayerExact(args[0]);
+                            StringBuilder bc = new StringBuilder();
+                            String reason = bc.toString().replace(target.getName(), "");
+                            MuteHandler handler = MuteHandler.getInstance();
+                            for(String part : args) {
+                                bc.append(part).append(" ");
+                            }
+                            if(args.length < 2){
+                                if(args.length == 0){
+                                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> [reason]"));
+                                }else{
+                                    if(!handler.isMuted(target)){
+                                        handler.toggleMute(target);
+                                        playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                                        getMsgSendConfig(sender, command.getName(), MUTE_ENABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                                        getMsgSendConfig(target, command.getName(), MUTE_ENABLED.getMessage());
+                                    }else if(handler.isMuted(target)){
+                                        MuteHandler.getMuted().remove(target);
+                                        handler.toggleMute(target);
+                                        playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                                        getMsgSendConfig(sender, command.getName(), MUTE_DISABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                                        getMsgSendConfig(target, command.getName(), MUTE_DISABLED.getMessage());
+                                    }
                                 }
-                                getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("<command>", command.getName()).replace("{0}", "<player> [reason]"));
-                            }else{
+                            }else if(args.length >= 2){
                                 if(!handler.isMuted(target)){
-                                    handler.toggleMute(target);
-                                    if(soundEnabled()){
-                                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                        playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                                    }
-                                    getMsgSendConfig(sender, command.getName(), MUTE_ENABLED_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
-                                    getMsgSendConfig(target, command.getName(), MUTE_ENABLED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                    handler.toggleMute(target, reason);
+                                    playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                                    getMsgSendConfig(sender, command.getName(), MUTE_ENABLED_REASON_ADMIN.getMessage().replace("{0}", target.getName()).replace("{1}", reason));
+                                    getMsgSendConfig(target, command.getName(), MUTE_ENABLED_REASON.getMessage().replace("{0}", reason));
                                 }else if(handler.isMuted(target)){
-                                    MuteHandler.getMuted().remove(target);
-                                    handler.toggleMute(target);
-                                    if(soundEnabled()){
-                                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                        playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                    }
-                                    getMsgSendConfig(sender, command.getName(), MUTE_DISABLED_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
-                                    getMsgSendConfig(target, command.getName(), MUTE_DISABLED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                                    handler.toggleMute(target, reason);
+                                    playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                                    getMsgSendConfig(sender, command.getName(), MUTE_DISABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                                    getMsgSendConfig(target, command.getName(), MUTE_DISABLED.getMessage());
                                 }
                             }
-                        }else if(args.length >= 2){
-                            if(!handler.isMuted(target)){
-                                handler.toggleMute(target, reason);
-                                if(soundEnabled()){
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                    playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                                }
-                                getMsgSendConfig(sender, command.getName(), MUTE_ENABLED_REASON_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()).replace("{1}", reason));
-                                getMsgSendConfig(target, command.getName(), MUTE_ENABLED_REASON.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", reason));
-                            }else if(handler.isMuted(target)){
-                                handler.toggleMute(target, reason);
-                                if(soundEnabled()){
-                                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                    playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                }
-                                getMsgSendConfig(sender, command.getName(), MUTE_DISABLED_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
-                                getMsgSendConfig(target, command.getName(), MUTE_DISABLED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                            }
+                        }else{
+                            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                            return true;
                         }
-                    }else{
-                        if(soundEnabled()){
-                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                        }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                        return true;
                     }
+                }catch(Exception e){
+                    sendCommandExceptionMessage(e, command.getName());
                 }
             }else if(sender instanceof ConsoleCommandSender){
-                Player target = Bukkit.getPlayerExact(args[0]);
-                StringBuilder bc = new StringBuilder();
-                for(String part : args) {
-                    bc.append(part).append(" ");
-                }
-                String reason = bc.toString().replace(target.getName(), "");
-                MuteHandler handler = MuteHandler.getInstance();
-                if(args.length < 2){
-                    if(!handler.isMuted(target)){
-                        handler.toggleMute(target);
-                        if(soundEnabled()){
-                            playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                        }
-                        sendConsoleMessage(MUTE_ENABLED_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
-                        getMsgSendConfig(target, command.getName(), MUTE_ENABLED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    }else if(handler.isMuted(target)){
-                        handler.toggleMute(target);
-                        if(soundEnabled()){
-                            playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                        }
-                        sendConsoleMessage(MUTE_DISABLED_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
-                        getMsgSendConfig(target, command.getName(), MUTE_DISABLED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                try{
+                    Player target = Bukkit.getPlayerExact(args[0]);
+                    StringBuilder bc = new StringBuilder();
+                    for(String part : args) {
+                        bc.append(part).append(" ");
                     }
-                }else if(args.length >= 2){
-                    if(!handler.isMuted(target)){
-                        handler.toggleMute(target, reason);
-                        if(soundEnabled()){
-                            playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    assert target != null;
+                    String reason = bc.toString().replace(target.getName(), "");
+                    MuteHandler handler = MuteHandler.getInstance();
+                    if(args.length < 2){
+                        if(!handler.isMuted(target)){
+                            handler.toggleMute(target);
+                            playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                            sendConsoleMessage(MUTE_ENABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), MUTE_ENABLED.getMessage());
+                        }else if(handler.isMuted(target)){
+                            handler.toggleMute(target);
+                            playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                            sendConsoleMessage(MUTE_DISABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), MUTE_DISABLED.getMessage());
                         }
-                        sendConsoleMessage(MUTE_ENABLED_REASON_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()).replace("{1}", reason));
-                        getMsgSendConfig(target, command.getName(), MUTE_ENABLED_REASON.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", reason));
-                    }else if(handler.isMuted(target)){
-                        handler.toggleMute(target, reason);
-                        if(soundEnabled()){
-                            playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    }else if(args.length >= 2){
+                        if(!handler.isMuted(target)){
+                            handler.toggleMute(target, reason);
+                            playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                            sendConsoleMessage(MUTE_ENABLED_REASON_ADMIN.getMessage().replace("{0}", target.getName()).replace("{1}", reason));
+                            getMsgSendConfig(target, command.getName(), MUTE_ENABLED_REASON.getMessage().replace("{0}", reason));
+                        }else if(handler.isMuted(target)){
+                            handler.toggleMute(target, reason);
+                            playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                            sendConsoleMessage(MUTE_DISABLED_ADMIN.getMessage().replace("{0}", target.getName()));
+                            getMsgSendConfig(target, command.getName(), MUTE_DISABLED.getMessage());
                         }
-                        sendConsoleMessage(MUTE_DISABLED_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
-                        getMsgSendConfig(target, command.getName(), MUTE_DISABLED.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
+                }catch(Exception e){
+                    sendCommandExceptionMessage(e, command.getName());
                 }
             }
         return false;

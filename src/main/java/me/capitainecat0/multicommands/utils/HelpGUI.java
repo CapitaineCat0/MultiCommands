@@ -42,10 +42,7 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.AFK_PERM.getPermission()) && item.getType() == Material.RED_BED) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3AFK", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
                 if (AFKHandler.getInstance().isAFK(player)) {
@@ -65,20 +62,13 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.ALERT_PERM.getPermission()) && item.getType() == Material.STONE) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Alert", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "alert", Messenger.CMD_NO_ARGS.getMessage().replace("<command>", "alert").replace("{0}", "<message>"));
                 this.close(player);
             }
-
         });
         this.setItem(12, ItemCreator.create(Material.STONE, "&3Ban", Collections.singletonList(Messenger.HELP_BAN.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -87,16 +77,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.BAN_PERM.getPermission()) && item.getType() == Material.STONE) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ban", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "ban", Messenger.CMD_NO_ARGS.getMessage().replace("<command>", "ban").replace("{0}", "[reason]"));
                 this.close(player);
             }
@@ -109,16 +93,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.BROADCAST_PERM.getPermission()) && item.getType() == Material.STONE) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Broadcast", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "broadcast", Messenger.CMD_NO_ARGS.getMessage().replace("<command>", "broadcast").replace("{0}", "<message>"));
                 this.close(player);
             }
@@ -131,16 +109,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.CLEARINVENTORY_PERM_SELF.getPermission()) && item.getType() == Material.LAVA_BUCKET) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Clear-Inventory", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "ClearInventory", Messenger.CLEARINV_SELF_DONE.getMessage());
                 player.getInventory().clear();
                 this.close(player);
@@ -154,16 +126,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.CRAFT_PERM.getPermission()) && item.getType() == Material.CRAFTING_TABLE) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Craft", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 player.openWorkbench(player.getLocation(), true);
             }
 
@@ -175,16 +141,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.ENDERCHEST_PERM_SELF.getPermission()) && item.getType() == Material.ENDER_CHEST) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ender-Chest", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 player.openInventory(player.getEnderChest());
             }
 
@@ -196,24 +156,15 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.FEED_PERM_SELF.getPermission()) && item.getType() == Material.COOKED_CHICKEN) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Feed", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
                 if (player.getFoodLevel() != 20) {
                     player.setFoodLevel(20);
-                    if (soundFeedHealEnabled()) {
-                        playSound(player, Sound.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
                     getMsgSendConfig(player, "feed", Messenger.FEED_SELF.getMessage());
                 } else {
-                    if (soundEnabled()) {
-                        playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                     getMsgSendConfig(player, "feed", Messenger.FEED_ALREADY.getMessage());
                 }
 
@@ -228,31 +179,20 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.FLY_PERM_SELF.getPermission()) && item.getType() == Material.FEATHER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Feed", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
                 if (!player.getAllowFlight()) {
                     player.setAllowFlight(true);
-                    if (soundEnabled()) {
-                        playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                     getMsgSendConfig(player, "fly", Messenger.FLY_TOGGLE_ON.getMessage());
                 } else if (player.getAllowFlight()) {
                     player.setAllowFlight(false);
-                    if (soundEnabled()) {
-                        playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                     getMsgSendConfig(player, "fly", Messenger.FLY_TOGGLE_OFF.getMessage());
                 }
-
                 this.close(player);
             }
-
         });
         this.setItem(21, ItemCreator.create(Material.BLUE_ICE, "&3Freeze", Collections.singletonList(Messenger.HELP_FREEZE.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -261,16 +201,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.FREEZE_PERM.getPermission()) && item.getType() == Material.BLUE_ICE) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Freeze", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "freeze", Messenger.CMD_NO_ARGS.getMessage().replace("<command>", "freeze").replace("{0}", "<player>"));
                 this.close(player);
             }
@@ -283,15 +217,11 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.GAMEMODE_PERM_ALL.getPermission()) && item.getType() == Material.BOOKSHELF) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Gamemode", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else {
                 (new GamemodeGUI()).open(player);
             }
-
         });
         this.setItem(23, ItemCreator.create(Material.BEDROCK, "&3God", Collections.singletonList(Messenger.HELP_GOD.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -300,33 +230,22 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.GOD_PERM_SELF.getPermission()) && item.getType() == Material.BEDROCK) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3God", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
                 if (player.isInvulnerable()) {
                     player.setInvulnerable(false);
                     player.setGlowing(false);
-                    if (soundEnabled()) {
-                        playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                     getMsgSendConfig(player, "god", Messenger.GOD_SELF_OFF.getMessage());
                 } else if (!player.isInvulnerable()) {
                     player.setInvulnerable(true);
                     player.setGlowing(true);
-                    if (soundEnabled()) {
-                        playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                     getMsgSendConfig(player, "god", Messenger.GOD_SELF_ON.getMessage());
                 }
-
                 this.close(player);
             }
-
         });
         this.setItem(24, ItemCreator.create(Material.POTION, "&3Heal", Collections.singletonList(Messenger.HELP_HEAL.getMessage()), true), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -335,30 +254,19 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.CLEARINVENTORY_PERM_SELF.getPermission()) && item.getType() == Material.POTION) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Heal", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
                 if (player.getHealth() != 20.0) {
                     player.setHealth(20.0);
-                    if (soundEnabled()) {
-                        playSound(player, Sound.ENTITY_GENERIC_DRINK, 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.ENTITY_GENERIC_DRINK, 1.0F, 1.0F);
                     getMsgSendConfig(player, "heal", Messenger.HEAL_SELF.getMessage());
                 } else {
-                    if (soundEnabled()) {
-                        playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                     getMsgSendConfig(player, "heal", Messenger.HEAL_ALREADY.getMessage());
                 }
-
                 this.close(player);
             }
-
         });
         this.setItem(25, ItemCreator.create(Material.BOOK, "&3Invsee", Collections.singletonList(Messenger.HELP_INVSEE.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -367,20 +275,13 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.INVSEE_PERM.getPermission()) && item.getType() == Material.BOOK) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Invsee", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "invsee", Messenger.CMD_NO_ARGS.getMessage().replace("<command>", "invsee").replace("{0}", "<player>"));
                 this.close(player);
             }
-
         });
         this.setItem(28, ItemCreator.create(Material.PAPER, "&3List", Collections.singletonList(HELP_LIST.getMessage())), (player, event) -> {
             ItemStack item = event.getCurrentItem();
@@ -388,10 +289,7 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                 sendMessage(player, HELP_LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getServer().getMaxPlayers()+""));
                 sendMessage(player, "");
                 Iterator i = Bukkit.getOnlinePlayers().iterator();
@@ -427,20 +325,13 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.NICKNAME_PERMS.getPermission()) && item.getType() == Material.NAME_TAG) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Nick", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "nick", Messenger.CMD_NO_ARGS.getMessage().replace("<command>", "nick").replace("{0}", "<nick>"));
                 this.close(player);
             }
-
         });
         this.setItem(30, ItemCreator.create(Material.EXPERIENCE_BOTTLE, "&3Ping", Collections.singletonList(Messenger.HELP_PING.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -449,16 +340,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.PLAYERPINGER_PERM.getPermission()) && item.getType() == Material.EXPERIENCE_BOTTLE) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ping", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                 int ping = 0;
                 if (ping < 50) {
                     sendMessage(player, Messenger.PING_SELF_MSG.getMessage().replace("{0}", colored("&a" + ping + " ms")));
@@ -483,16 +368,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.isOp() && item.getType() == Material.STONE) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Plugins", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                 sendMessage(player, "&6Plugins loaded &7(&c" + Bukkit.getPluginManager().getPlugins().length + "&7)&8:");
                 Plugin[] pm = Bukkit.getPluginManager().getPlugins();
                 for (Plugin p : pm) {
@@ -506,10 +385,8 @@ public class HelpGUI extends GUICreator {
                         sendMessage(player, "&cAn error occurred :&e" + e);
                     }
                 }
-
                 this.close(player);
             }
-
         });
         this.setItem(32, ItemCreator.create(Material.PAPER, "&3Server-Infos", Collections.singletonList(Messenger.HELP_SERVERINFO.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -518,16 +395,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.SERVERINFO_PERM.getPermission()) && item.getType() == Material.PAPER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Server-Infos", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                 sendMessage(player, "&a&m-+---------------+- &7 - &e&l{ &cServer Informations &e&l} &7- &a&m-+---------------+-");
                 sendMessage(player, "&6IP &c/&6 Port: &c" + Bukkit.getServer().getIp() + " &e:&c " + Bukkit.getServer().getPort());
                 sendMessage(player, "&6Jar: &c" + Bukkit.getServer().getVersion());
@@ -605,20 +476,13 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.TELEPORT_PERM.getPermission()) && item.getType() == Material.ENDER_PEARL) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Ping", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "teleport", Messenger.CMD_NO_ARGS.getMessage().replace("<command>", "teleport").replace("{0}", "<player | coordinates>"));
                 this.close(player);
             }
-
         });
         this.setItem(34, ItemCreator.create(Material.ENDER_EYE, "&3Vanish", Collections.singletonList(Messenger.HELP_VANISH.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -627,26 +491,17 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.TELEPORT_PERM.getPermission()) && item.getType() == Material.ENDER_EYE) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Vanish", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
                 VanishHandler handler = VanishHandler.getInstance();
                 if (!handler.isVanished(player)) {
                     handler.toggleVanish(player);
-                    if (soundEnabled()) {
-                        playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                     getMsgSendConfig(player, "vanish", Messenger.VANISH_ENABLED_SELF.getMessage());
                 } else if (handler.isVanished(player)) {
                     handler.toggleVanish(player);
-                    if (soundEnabled()) {
-                        playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                    }
-
+                    playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                     getMsgSendConfig(player, "vanish", Messenger.VANISH_DISABLED_SELF.getMessage());
                 }
 
@@ -661,20 +516,13 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.WHOIS_PERM.getPermission()) && item.getType() == Material.PAPER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Bois", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 getMsgSendConfig(player, "whois", Messenger.CMD_NO_ARGS.getMessage().replace("<command>", "whois").replace("{0}", "<player>"));
                 this.close(player);
             }
-
         });
         this.setItem(38, ItemCreator.create(Material.ENDER_PEARL, "&3Setspawn", Collections.singletonList(Messenger.HELP_SETSPAWN.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -683,16 +531,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.SETSPAWN_PERM.getPermission()) && item.getType() == Material.ENDER_PEARL) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Setspawn", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                 Location location = player.getLocation();
                 getInstance().getConfig().set("spawn.name", location.getWorld().getName());
                 getInstance().getConfig().set("spawn.x", location.getX());
@@ -704,7 +546,6 @@ public class HelpGUI extends GUICreator {
                 getMsgSendConfig(player, "setspawn", Messenger.CMD_NO_PERM.getMessage().replace("<command>", "setspawn"));
                 this.close(player);
             }
-
         });
         this.setItem(39, ItemCreator.create(Material.ENDER_PEARL, "&3Spawn", Collections.singletonList(Messenger.HELP_SPAWN.getMessage())), (player, event) -> {
             GUICreator gui = GUICreator.getGUI(player);
@@ -713,16 +554,10 @@ public class HelpGUI extends GUICreator {
             assert item != null;
 
             if (!player.hasPermission(Perms.SPAWN_PERM.getPermission()) && item.getType() == Material.ENDER_PEARL) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("no-perm-sound")), 1.0F, 1.0F);
                 gui.setItem(event.getRawSlot(), ItemCreator.create(Material.BARRIER, "&3Spawn", Collections.singletonList(Messenger.CMD_NO_PERM.getMessage())));
             } else if (item.getType() != Material.BARRIER) {
-                if (soundEnabled()) {
-                    playSound(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
-                }
-
+                playSoundIfEnabled(player, Sound.valueOf(getInstance().getConfig().getString("cmd-done-sound")), 1.0F, 1.0F);
                 if (getInstance().getConfig().get("spawn.name") != null) {
                     Location location = new Location(Bukkit.getWorld((String)Objects.requireNonNull(getInstance().getConfig().getString("spawn.name"))), getInstance().getConfig().getDouble("spawn.x"), getInstance().getConfig().getDouble("spawn.y"), getInstance().getConfig().getDouble("spawn.z"), (float) getInstance().getConfig().getInt("spawn.yaw"), (float) getInstance().getConfig().getInt("spawn.pitch"));
                     player.teleport(location);
@@ -730,7 +565,6 @@ public class HelpGUI extends GUICreator {
                     this.close(player);
                 }
             }
-
         });
     }
 }

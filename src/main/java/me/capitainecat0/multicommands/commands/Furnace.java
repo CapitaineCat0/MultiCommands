@@ -25,50 +25,52 @@ public class Furnace implements CommandExecutor {
     private FurnaceRecipe furnaceRecipe;
     private ItemStack result;
 
+    /**
+     *
+     * The Furnace command can open furnace GUI without any furnace
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if (sender instanceof Player) {
-            ItemStack baseItem;
-            Iterator i;
-            if (!sender.hasPermission(FURNACE_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())) {
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                return true;
-            }else{
-                result = null;
-                baseItem = ((Player) sender).getItemInHand();
-                i = Bukkit.recipeIterator();
-                while(i.hasNext()) {
-                    Recipe recipe = (Recipe) i.next();
-                    if (recipe instanceof FurnaceRecipe) {
-                        furnaceRecipe = (FurnaceRecipe) recipe;
-                        if (furnaceRecipe.getInput().getType() == baseItem.getType()) {
-                            result = furnaceRecipe.getResult();
-                            break;
+        try {
+            if (sender instanceof Player) {
+                ItemStack baseItem;
+                Iterator i;
+                if (!sender.hasPermission(FURNACE_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())) {
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                    return true;
+                }else{
+                    result = null;
+                    baseItem = ((Player) sender).getItemInHand();
+                    i = Bukkit.recipeIterator();
+                    while(i.hasNext()) {
+                        Recipe recipe = (Recipe) i.next();
+                        if (recipe instanceof FurnaceRecipe) {
+                            furnaceRecipe = (FurnaceRecipe) recipe;
+                            if (furnaceRecipe.getInput().getType() == baseItem.getType()) {
+                                result = furnaceRecipe.getResult();
+                                break;
+                            }
                         }
                     }
-                }
-                if (result != null) {
-                    sendMessage(sender, FURNACE_DONE.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", String.valueOf(baseItem.getAmount())).replace("{1}", baseItem.getType().name()));
-                    result.setAmount(baseItem.getAmount());
-                    float level = furnaceRecipe.getExperience();
-                    ((Player) sender).setItemInHand(result);
-                    ((Player) sender).setLevel((int) (((Player) sender).getLevel() + level / 2));
-                    if(soundEnabled()){
-                        playSound(sender, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
+                    if (result != null) {
+                        sendMessage(sender, FURNACE_DONE.getMessage().replace("{0}", String.valueOf(baseItem.getAmount())).replace("{1}", baseItem.getType().name()));
+                        result.setAmount(baseItem.getAmount());
+                        float level = furnaceRecipe.getExperience();
+                        ((Player) sender).setItemInHand(result);
+                        ((Player) sender).setLevel((int) (((Player) sender).getLevel() + level / 2));
+                        playSoundIfEnabled(sender, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
+                    } else{
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        sendMessage(sender, FURNACE_ERROR.getMessage().replace("{0}", baseItem.getType().name()));
                     }
-                } else{
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                    }
-                    sendMessage(sender, FURNACE_ERROR.getMessage().replace("{0}", baseItem.getType().name()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                 }
+            }else if(sender instanceof ConsoleCommandSender){
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             }
-        }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+        }catch (Exception e){
+            sendCommandExceptionMessage(e, command.getName());
         }
         return false;
     }

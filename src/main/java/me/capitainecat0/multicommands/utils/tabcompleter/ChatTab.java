@@ -18,7 +18,7 @@ public class ChatTab implements TabCompleter {
         if(args.length == 1){
             List<String> arguments = new ArrayList<>();
             arguments.add("clear");
-            //arguments.add("toggle");
+            arguments.add("toggle");
             arguments.add("admin");
             arguments.add("builder");
             arguments.add("dev");

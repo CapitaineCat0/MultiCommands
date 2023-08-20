@@ -20,23 +20,49 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class Kick implements CommandExecutor {
+
+    /**
+     *
+     * The Kick command can kick targeted player
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if(sender instanceof Player){
-            if(!sender.hasPermission(KICK_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+            try{
+                if(!sender.hasPermission(KICK_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                    return true;
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                return true;
-            }
-            else{
-                if(args.length <= 1){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                else{
+                    if(args.length <= 1){
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>"));
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    else if(args.length == 2){
+                        Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
+                        StringBuilder bc = new StringBuilder();
+                        for(String part : args) {
+                            bc.append(part).append(" ");
+                        }
+                        String kickReason = bc.toString().replace(args[0], "");
+                        final PlayerKickEvent event = new PlayerKickEvent(target, kickReason, KICK_PREFIX.getMessage());
+                        getInstance().getServer().getPluginManager().callEvent(event);
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        sendBroadcastMessage(KICK_ALERT.getMessage());
+                        if (event.isCancelled()) {
+                            return false;
+                        }
+                    }
+                }
+        }catch(Exception e){
+                sendCommandExceptionMessage(e, command.getName());
+        }
+        }else if(sender instanceof ConsoleCommandSender){
+            try{
+                if(args.length <= 1){
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>"));
                 }
                 else if(args.length == 2){
                     Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
@@ -45,38 +71,18 @@ public class Kick implements CommandExecutor {
                         bc.append(part).append(" ");
                     }
                     String kickReason = bc.toString().replace(args[0], "");
-                    final PlayerKickEvent event = new PlayerKickEvent(target, kickReason, KICK_PREFIX.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    final PlayerKickEvent event = new PlayerKickEvent(target, kickReason, KICK_PREFIX.getMessage());
                     getInstance().getServer().getPluginManager().callEvent(event);
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    sendMessage(KICK_ALERT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    sendBroadcastMessage(KICK_ALERT.getMessage());
+                    sendConsoleMessage(KICK_ALERT.getMessage());
                     if (event.isCancelled()) {
                         return false;
                     }
                 }
-            }
-        }else if(sender instanceof ConsoleCommandSender){
-            if(args.length <= 1){
-               sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-            }
-            else if(args.length == 2){
-                Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
-                StringBuilder bc = new StringBuilder();
-                for(String part : args) {
-                    bc.append(part).append(" ");
-                }
-                String kickReason = bc.toString().replace(args[0], "");
-                final PlayerKickEvent event = new PlayerKickEvent(target, kickReason, KICK_PREFIX.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                getInstance().getServer().getPluginManager().callEvent(event);
-                sendMessage(KICK_ALERT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                sendConsoleMessage(KICK_ALERT.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                if (event.isCancelled()) {
-                    return false;
-                }
+            }catch(Exception e){
+                sendCommandExceptionMessage(e, command.getName());
             }
         }
-
         return false;
     }
 }

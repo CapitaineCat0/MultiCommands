@@ -14,7 +14,7 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class PrivateMessager implements CommandExecutor {
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if(args.length >= 2){
             Player target = Bukkit.getPlayerExact(args[0]);
             Player player = (Player) sender;

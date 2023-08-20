@@ -16,67 +16,55 @@ import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class ClearInventory implements CommandExecutor {
 
+    /**
+     *
+     * The ClearInventory command can clear player inventory
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        hideActiveBossBar();
+    hideActiveBossBar();
+        try {
             if(sender instanceof Player) {
                 if(args.length == 0){
                     if(sender.hasPermission(CLEARINVENTORY_PERM_SELF.getPermission()) || sender.hasPermission(CLEARINVENTORY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
                         ((Player)sender).getInventory().clear();
-                        if(soundEnabled()){
-                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                        }
-                        getMsgSendConfig(sender, command.getName(), CLEARINV_SELF_DONE.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CLEARINV_SELF_DONE.getMessage());
                     }else{
-                        if(soundEnabled()){
-                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                        }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                        return true;
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                     }
                 }else if(args.length == 1){
-                    if(sender.hasPermission(CLEARINVENTORY_PERM_OTHER.getPermission()) || sender.hasPermission(CLEARINVENTORY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
-                        Player target = Bukkit.getPlayerExact(args[0]);
-                        if (target != null) {
-                            if(soundEnabled()){
-                                playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                            }
-                            if(soundEnabled()){
-                                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                            }
-                            getMsgSendConfig(target, command.getName(), CLEARINV_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                            getMsgSendConfig(sender, command.getName(), CLEARINV_SENDER.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                            target.getInventory().clear();
-                        }else{
-                            if(soundEnabled()){
-                                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                            }
-                            getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                        }
+                    Player target = Bukkit.getPlayerExact(args[0]);
+                    if (target != null && (sender.hasPermission(CLEARINVENTORY_PERM_OTHER.getPermission()) || sender.hasPermission(CLEARINVENTORY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission()))){
+                        target.getInventory().clear();
+                        getMsgSendConfig(sender, command.getName(), CLEARINV_SENDER.getMessage().replace("{0}", target.getName()));
+                        getMsgSendConfig(target, command.getName(), CLEARINV_ADMIN.getMessage());
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }else{
-                        if(soundEnabled()){
-                            playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                        }
-                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM_TO_OTHER.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM_TO_OTHER.getMessage());
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){
                 if(args.length == 0){
-                    sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage());
                 }else if(args.length == 1) {
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if (target != null) {
-                        if(soundEnabled()){
-                            playSound(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                        }
-                        target.sendMessage(CLEARINV_ADMIN.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                        sendConsoleMessage(CLEARINV_SENDER.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         target.getInventory().clear();
+                        target.sendMessage(CLEARINV_ADMIN.getMessage());
+                        sendConsoleMessage(CLEARINV_SENDER.getMessage().replace("{0}", target.getName()));
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     } else {
-                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                        sendConsoleMessage(NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
                     }
                 }
             }
-        return false;
+        }catch (Exception e){
+            sendCommandExceptionMessage(e, command.getName());
+        }
+    return false;
     }
 }

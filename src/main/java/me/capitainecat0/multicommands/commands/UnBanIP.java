@@ -23,59 +23,61 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class UnBanIP implements CommandExecutor {
+
+    /**
+     * La commande &quot;/unbanip&quot; requiert la permission &quot;multicommands.unbanip&quot; pour fonctionner.
+     * <br>Cette commande permet de débannir un joueur banni par ip.
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(sender instanceof Player){
-            if(!sender.hasPermission(UNBANIP_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+        try{
+            if(sender instanceof Player){
+                if(!sender.hasPermission(UNBANIP_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                    return true;
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                return true;
-            }
-            else{
-                UUID uuid = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]).getUniqueId());
-                Player target = (Player) Bukkit.getOfflinePlayer(uuid);
-                new BannedData(target);
-                new BannedDataAdmin("banned", target).removeBanned(target);
-                if(target.isBanned()){
-                    new BannedData(target).setBanned(target, false);
-                    new BannedData(target).setReason(target, "[]");
-                    getInstance().getServer().getBanList(BanList.Type.IP).pardon(target.getAddress().toString());
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                else{
+                    UUID uuid = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]).getUniqueId());
+                    Player target = (Player) Bukkit.getOfflinePlayer(uuid);
+                    new BannedData(target);
+                    new BannedDataAdmin("banned", target).removeBanned(target);
+                    if(target.isBanned()){
+                        new BannedData(target).setBanned(target, false);
+                        new BannedData(target).setReason(target, "[]");
+                        getInstance().getServer().getBanList(BanList.Type.IP).pardon(target.getAddress().toString());
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        sendMessage(sender, UNBAN_DONE.getMessage().replace("{0}", target.getName()));
+                        sendBroadcastMessage(UNBAN_BROADCAST.getMessage().replace("{0}", target.getName()));
+                    }else{
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        sendMessage(sender, UNBAN_ERROR.getMessage().replace("{0}", Objects.requireNonNull(target.getName())));
                     }
-                    sendMessage(sender, UNBAN_DONE.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    sendBroadcastMessage(UNBAN_BROADCAST.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
-                }else{
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                }
+            }else if(sender instanceof ConsoleCommandSender){
+                if(args.length < 1){
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
+                }
+                else if(args.length == 1){
+                    UUID uuid = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]).getUniqueId());
+                    Player target = (Player) Bukkit.getOfflinePlayer(uuid);
+                    new BannedData(target);
+                    new BannedDataAdmin("banned", target).removeBanned(target);
+                    if(target.isBanned()){
+                        new BannedData(target).setBanned(target, false);
+                        new BannedData(target).setReason(target, "[]");
+                        getInstance().getServer().getBanList(BanList.Type.IP).pardon(target.getAddress().toString());
+                        sendConsoleMessage(UNBAN_DONE.getMessage().replace("{0}", target.getName()));
+                        sendBroadcastMessage(UNBAN_BROADCAST.getMessage().replace("{0}", target.getName()));
+                    }else{
+                        sendConsoleMessage(UNBAN_ERROR.getMessage().replace("{0}", Objects.requireNonNull(target.getName())));
                     }
-                    sendMessage(sender, UNBAN_ERROR.getMessage().replace("{0}", Objects.requireNonNull(target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage())));
                 }
             }
-        }else if(sender instanceof ConsoleCommandSender){
-            if(args.length < 1){
-                sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-            }
-            else if(args.length == 1){
-                UUID uuid = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]).getUniqueId());
-                Player target = (Player) Bukkit.getOfflinePlayer(uuid);
-                new BannedData(target);
-                new BannedDataAdmin("banned", target).removeBanned(target);
-                if(target.isBanned()){
-                    new BannedData(target).setBanned(target, false);
-                    new BannedData(target).setReason(target, "[]");
-                    getInstance().getServer().getBanList(BanList.Type.IP).pardon(target.getAddress().toString());
-                    sendConsoleMessage(UNBAN_DONE.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    sendBroadcastMessage(UNBAN_BROADCAST.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
-                }else{
-                    sendConsoleMessage(UNBAN_ERROR.getMessage().replace("{0}", Objects.requireNonNull(target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage())));
-                }
-            }
+        }catch(Exception e){
+            sendCommandExceptionMessage(e, command.getName());
         }
-
         return false;
     }
 }

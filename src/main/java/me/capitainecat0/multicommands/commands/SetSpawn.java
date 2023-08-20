@@ -16,32 +16,37 @@ import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class SetSpawn implements CommandExecutor {
 
+    /**
+     *
+     * La commande &quot;/setspawn&quot; requiert la permission &quot;multicommands.setspawn&quot; pour fonctionner.
+     * <br>Cette commande permet de placer le spawn du monde.
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(!sender.hasPermission(Perms.SETSPAWN_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+        try{
+            if(!sender.hasPermission(Perms.SETSPAWN_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
+                playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
+            }else{
+                if(sender instanceof Player){
+                    Location location = ((Player) sender).getLocation();
+                    MultiCommands.getInstance().getConfig().set("spawn.name", location.getWorld().getName());
+                    MultiCommands.getInstance().getConfig().set("spawn.x", location.getX());
+                    MultiCommands.getInstance().getConfig().set("spawn.y", location.getY());
+                    MultiCommands.getInstance().getConfig().set("spawn.z", location.getZ());
+                    MultiCommands.getInstance().getConfig().set("spawn.yaw", location.getYaw());
+                    MultiCommands.getInstance().getConfig().set("spawn.pitch", location.getPitch());
+                    MultiCommands.getInstance().saveConfig();
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    getMsgSendConfig(sender, command.getName(), Messenger.SETSPAWN_DONE.getMessage().replace("{0}", (CharSequence) location)
+                    );
+                }else if(sender instanceof ConsoleCommandSender){
+                    sendConsoleMessage(Messenger.NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
+                }
             }
-            getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-        }else{
-          if(sender instanceof Player){
-              Location location = ((Player) sender).getLocation();
-              MultiCommands.getInstance().getConfig().set("spawn.name", location.getWorld().getName());
-              MultiCommands.getInstance().getConfig().set("spawn.x", location.getX());
-              MultiCommands.getInstance().getConfig().set("spawn.y", location.getY());
-              MultiCommands.getInstance().getConfig().set("spawn.z", location.getZ());
-              MultiCommands.getInstance().getConfig().set("spawn.yaw", location.getYaw());
-              MultiCommands.getInstance().getConfig().set("spawn.pitch", location.getPitch());
-              MultiCommands.getInstance().saveConfig();
-              if(soundEnabled()){
-                  playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-              }
-              getMsgSendConfig(sender, command.getName(), Messenger.SETSPAWN_DONE.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage())//.replace("%loc%", (CharSequence) location)
-              );
-          }else if(sender instanceof ConsoleCommandSender){
-              sendConsoleMessage(Messenger.NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-          }
+        }catch(Exception e){
+            sendCommandExceptionMessage(e, command.getName());
         }
         return true;
     }

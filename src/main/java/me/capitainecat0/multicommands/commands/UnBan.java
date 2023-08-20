@@ -22,15 +22,18 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class UnBan implements CommandExecutor {
+
+    /**
+     * La commande &quot;/unban&quot; requiert la permission &quot;multicommands.unban&quot; pour fonctionner.
+     * <br>Cette commande permet de débannir un joueur banni.
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if(sender instanceof Player){
             if(!sender.hasPermission(UNBAN_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                 return true;
             }
             else{
@@ -41,21 +44,17 @@ public class UnBan implements CommandExecutor {
                     new BannedData(target).setBanned(target, false);
                     new BannedData(target).setReason(target, "[]");
                     getInstance().getServer().getBanList(BanList.Type.NAME).pardon(target.getName());
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    sendMessage(sender, UNBAN_DONE.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                    sendBroadcastMessage(UNBAN_BROADCAST.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    sendMessage(sender, UNBAN_DONE.getMessage().replace("{0}", target.getName()));
+                    sendBroadcastMessage(UNBAN_BROADCAST.getMessage().replace("{0}", target.getName()));
                 }else{
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                    }
-                    sendMessage(sender, UNBAN_ERROR.getMessage().replace("{0}", Objects.requireNonNull(target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage())));
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    sendMessage(sender, UNBAN_ERROR.getMessage().replace("{0}", Objects.requireNonNull(target.getName())));
                 }
             }
         }else if(sender instanceof ConsoleCommandSender){
             if(args.length < 1){
-                sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
             }
             else if(args.length == 1){
                 UUID uuid = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]).getUniqueId());
@@ -65,10 +64,10 @@ public class UnBan implements CommandExecutor {
                     new BannedData(target).setBanned(target, false);
                     new BannedData(target).setReason(target, "[]");
                     getInstance().getServer().getBanList(BanList.Type.NAME).pardon(target.getName());
-                    sendConsoleMessage(UNBAN_DONE.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    sendConsoleMessage(UNBAN_DONE.getMessage().replace("{0}", target.getName()));
                     sendBroadcastMessage(UNBAN_BROADCAST.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()).replace("{0}", target.getName()));
                 }else{
-                    sendConsoleMessage(UNBAN_ERROR.getMessage().replace("{0}", Objects.requireNonNull(target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage())));
+                    sendConsoleMessage(UNBAN_ERROR.getMessage().replace("{0}", Objects.requireNonNull(target.getName())));
                 }
             }
         }

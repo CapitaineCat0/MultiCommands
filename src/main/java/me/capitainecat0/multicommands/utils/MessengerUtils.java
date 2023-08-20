@@ -18,6 +18,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -42,25 +43,37 @@ public class MessengerUtils {
 
 
     /**
-     * @param text <br>Simple ChatColor translation
+     * The colored function takes a string and replaces all instances of the '&amp;' character with the ChatColor.COLOR_CHAR
+     * character, allowing for easy use of Bukkit's built-in color codes.
+     * <br>
+     * <br>ColorCodes website: <br><a href="https://minecraftcolorcodes.org/">https://minecraftcolorcodes.org/</a>
+     * @param text Get the text that you want to be colored
+     *
+     * @return The text with the color codes replaced
+
      */
-    public static String colored(String text) {
+    @Contract("_ -> new")
+    public static @NotNull String colored(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
-
-    /**
+    
+    /**    
+     * The lang function is used to get a string from the language file.
+     * 
      *
-     * @param key Message key
-     * @return The message config
+     * @param key Get the value of a key from the language file
+     *
+     * @return The value of the key in the language file
      */
     public static String lang(String key) {
         checkLangFiles();
         return language.getProperty(colored(key));
     }
 
-    /**
-     *
-     * Reload language config file
+    /**    
+     * The reloadLang function is used to reload the language file.
+     * This function is called when the user changes their language in-game,
+     * and it will load a new lang.properties file from disk based on their selection.
      */
     public static void reloadLang() {
         language = null;
@@ -70,6 +83,9 @@ public class MessengerUtils {
     /**
      *
      * Check if language config file exists
+
+     * The checkLangFiles function is used to check if the language files exist in the plugin's data folder.
+     * If they do not, it will create them and copy over the default language files from inside the jar file.
      */
     private static void checkLangFiles() {
         String langFormat = (String) MultiCommands.getInstance().getConfig().get("lang");
@@ -99,13 +115,16 @@ public class MessengerUtils {
     }
 
     /**
+     * The getMsgSendConfig function is used to send a message to the player in the way specified by
+     * the config.yml file. The function takes three parameters: sender, commandName, and message.
+     * Sender is a CommandSender object that represents who sent the command (the player).
+     * CommandName is a String representing what command was run (e.g., /help).
+     * Message is also a String that contains what you want to send as your message (e.g., &quot;Hello World!&quot;)
+     * This function will then check if there's an entry for &quot;send-message-on&quot; in config.yml
      *
-     * @param sender Command sender
-     * @param commandName Command name
-     * @param message Message that be sent to command sender
-     * <br>Message will be sent on different format channel.
-     * Change format on config file
-     * <br>(need to use AdventureAPI)
+     * @param sender Send the message to a specific player
+     * @param commandName Send the command name (only in a title)
+     * @param message Send the message to the player
      */
     public static void getMsgSendConfig(CommandSender sender, String commandName, String message){
         if(instance.getConfig().get("send-message-on") != null){
@@ -129,135 +148,151 @@ public class MessengerUtils {
     }
 
     /**
+     * The hideActiveBossBar function hides the active boss bar.
      *
-     * Hide BossBar for player that execute plugin's feature
-     **/
+     *
+     *
+     * @return Kill the boss bar
+     */
     public static void hideActiveBossBar() {
         instance.adventure().players().hideBossBar(finalBossbar);
         finalBossbar = null;
     }
 
     /**
+     * The sendConsoleMessage function sends a message to the console.
      *
-     * @param message Message sent
-     * <br>Send console message
-     **/
-    public static void sendConsoleMessage(String message){
-        Bukkit.getConsoleSender().sendMessage(colored(message.replace("{prefix}", MultiCommands.getInstance().getDescription().getName())));
+     *
+     * @param message Send a message to the console
+     *
+     */
+    public static void sendConsoleMessage(@NotNull String message){
+        Bukkit.getConsoleSender().sendMessage(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
     }
 
     /**
+     * The sendBroadcastMessage function sends a message to all players on the server.
      *
-     * @param message
-     * <br>Send broadcastMessage
-     **/
-    public static void sendBroadcastMessage(String message){
+     *
+     * @param message Send a message to the entire server
+     *
+     */
+    public static void sendBroadcastMessage(@NotNull String message){
         Bukkit.getServer().broadcastMessage(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
     }
 
     /**
+     * The sendMessage function sends a message to all players on the server.
      *
-     * @param message
-     * <br>Send message to online players
+     *
+     * @param message Send a message to all players
+     * @deprecated   Use <var>sendBroadcastMessage</var> instead
+     *
      */
-    public static void sendMessage(String message){
+    public static void sendMessage(@NotNull String message){
         final TextComponent component = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         instance.adventure().players().sendMessage(component);
     }
 
+
     /**
+     * The sendMessage function is used to send a message to the player.
      *
-     * @param player command executor
-     * @param message Message sent
-     * <br>Send message to player
+     *
+     * @param player Player that execute command/feature
+     * @param message Message to send
+     *
      */
-    public static void sendMessage(Player player, String message){
+    public static void sendMessage(Player player, @NotNull String message){
         final TextComponent component = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         instance.adventure().player(player).sendMessage(component);
     }
 
     /**
+     * The sendMessage function is used to send a message to the command sender.
      *
-     * @param sender Command sender
-     * @param message Message sent
-     * <br>Send message to sender
+     *
+     * @param sender Player that execute command/feature
+     * @param message Message to send
+     *
      */
-    public static void sendMessage(CommandSender sender, String message){
+    public static void sendMessage(CommandSender sender, @NotNull String message){
         final TextComponent component = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         instance.adventure().sender(sender).sendMessage(component);
     }
 
     /**
+     * The sendMessage function is a function that sends a message to command sender.
      *
-     * @param sender Command sender
-     * @param commandName Command name
-     * @param message Message sent
-     * <br>Send message to command sender, with command name
+     *
+     * @param sender Player that execute command/feature
+     * @param commandName Display the name of the command that is sending a message
+     * @param message Message to send
      */
-    private static void sendMessage(CommandSender sender, String commandName, String message){
+    public static void sendMessage(CommandSender sender, String commandName, @NotNull String message){
         final TextComponent component = Component.text(colored("&3"+commandName+": "+message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         instance.adventure().sender(sender).sendMessage(component);
     }
 
     /**
+     * The sendHoverMessage function sends a message to all players on the server with a hover message.
      *
-     * @param message
-     * @param hover Hover text
-     * @param text Text revile
-     * <br>Send message to all online players
-     * <br>with custom over text
+     *
+     * @param message Send a message to the player
+     * @param hover Message displayed when you hover the message
      */
-    public static void sendHoverMessage(String message, String hover, String text){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(hover, Tag.styling(HoverEvent.showText(Component.text(colored(text.replace("{prefix}", PLUGIN_PREFIX.getMessage())))))));
-        instance.adventure().players().sendMessage(component);
+    public static void sendHoverMessage(@NotNull String message, @NotNull String hover){
+        Component finalMessage = Component.text(message+MiniMessage.miniMessage().deserialize("<hover:show_text:"+hover+">"));
+        instance.adventure().players().sendMessage(finalMessage);
     }
 
     /**
+     * The sendHoverMessage function sends a message to the player with a hover message.
      *
-     * @param player
-     * @param message
-     * @param hover Hover text
-     * @param text Text revile
-     * <br>Send message to specific player
-     * <br>with custom over text
+     *
+     * @param player Send the message to a specific player
+     * @param message Send a message to the player
+     * @param hover Message displayed when you hover over the message
      */
-    public static void sendHoverMessage(Player player, String message, String hover, String text){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(hover.replace("{prefix}", PLUGIN_PREFIX.getMessage()), Tag.styling(HoverEvent.showText(Component.text(colored(text.replace("{prefix}", PLUGIN_PREFIX.getMessage())))))));
-        instance.adventure().player(player).sendMessage(component);
+    public static void sendHoverMessage(Player player, @NotNull String message, @NotNull String hover){
+        Component finalMessage = Component.text(message+MiniMessage.miniMessage().deserialize("<hover:show_text:"+hover+">"));
+        instance.adventure().player(player).sendMessage(finalMessage);
     }
 
     /**
+     * The sendHoverMessage function sends a message to command sender with a hover message.
      *
-     * @param sender
-     * @param message
-     * @param hover Hover text
-     * <br>Send message to command sender
-     * <br>with custom hover text
+     *
+     * @param sender Send the message to a player
+     * @param message Send the message to the player
+     * @param hover Display the text that will be shown when you hover over the message
      */
     public static void sendHoverMessage(CommandSender sender, String message, String hover){
-        Component finalMessage = Component.text(message+MiniMessage.miniMessage().deserialize("<hover:show_text:"+hover));
+        Component finalMessage = Component.text(message+MiniMessage.miniMessage().deserialize("<hover:show_text:"+hover+">"));
         instance.adventure().sender(sender).sendMessage(finalMessage);
     }
 
     /**
+     * The sendCommandMessage function sends a message to all players on the server.
+     * The message has a clickable command embedded in it.
      *
-     * @param message
-     * @param command
-     * <br>Send message to all online players
-     * <br>with clickable text command
+     *
+     * @param message Send a message to the player
+     * @param command Run a command when the player clicks on the message
      */
     public static void sendCommandMessage(String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(command, Tag.styling(ClickEvent.runCommand(command))));
+        String input = "<click:run_command:/"+command+">"+colored(message)+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().players().sendMessage(component);
     }
 
     /**
+     * The sendCommandMessage function sends a message to the player with a clickable command.
      *
-     * @param player
-     * @param message
-     * @param command
-     * <br>Send message to specific player
-     * <br>with clickable text command
+     *
+     * @param player Send the message to a specific player
+     * @param message Send the message to the player
+     * @param command Set the command that will be executed when the player clicks on the message
      */
     public static void sendCommandMessage(Player player, String message, String command){
         String input = "<click:run_command:/"+command+">"+colored(message)+"</click>";
@@ -266,12 +301,14 @@ public class MessengerUtils {
     }
 
     /**
+     * The sendCommandMessage function sends a message to the specified CommandSender, with the specified text and command.
      *
-     * @param sender
-     * @param message
-     * @param command
-     * <br>Send message to command sender
-     * <br>with clickable text command
+     *
+     * @param sender Player that execute command/feature
+
+    ```
+     * @param message Send a message to the player
+     * @param command Set the command that will be executed when the player clicks on the message
      */
     public static void sendCommandMessage(CommandSender sender, String message, String command){
         String input = "<click:run_command:/"+command+">"+message+"</click>";
@@ -280,89 +317,184 @@ public class MessengerUtils {
     }
 
     /**
+     * The sendHoverCommandMessage function sends a message to all players with a hover message.
      *
-     * @param message
-     * @param url
-     * <br>Send message to all online players
-     * <br>with clickable url
+     *
+     * @param message Send the message to the player
+     * @param hover Display the text that will be shown when you hover over the message
+     * @param command Run a command when the player clicks on the message
+     */
+    public static void sendHoverCommandMessage(String message, String hover, String command){
+        String input = "<click:run_command:/"+command+">"+colored(message)+"</click>";
+        Component hoverMessage = Component.text(message+MiniMessage.miniMessage().deserialize("<hover:show_text:"+hover+">"));
+        Component commandMessage = MiniMessage.miniMessage().deserialize(input);
+        instance.adventure().players().sendMessage(hoverMessage);
+        instance.adventure().players().sendMessage(commandMessage);
+    }
+
+    /**
+     * The sendHoverCommandMessage function sends a message to a specified player with a hover message.
+     *
+     *
+     * @param player Send the message to a player
+     * @param message Send the message to the player
+     * @param hover Display the text that will be shown when you hover over the message
+     * @param command Run a command when the player clicks on the message
+     */
+    public static void sendHoverCommandMessage(Player player, String message, String hover, String command){
+        String input = "<click:run_command:/"+command+">"+colored(message)+"</click>";
+        Component hoverMessage = Component.text(message+MiniMessage.miniMessage().deserialize("<hover:show_text:"+hover+">"));
+        Component commandMessage = MiniMessage.miniMessage().deserialize(input);
+        instance.adventure().player(player).sendMessage(hoverMessage);
+        instance.adventure().player(player).sendMessage(commandMessage);
+    }
+
+    /**
+     * The sendHoverCommandMessage function sends a message to command sender with a hover message.
+     *
+     *
+     * @param sender Send the message to a player
+     * @param message Send the message to the player
+     * @param hover Display the text that will be shown when you hover over the message
+     * @param command Run a command when the player clicks on the message
+     */
+    public static void sendHoverCommandMessage(CommandSender sender, String message, String hover, String command){
+        String input = "<click:run_command:/"+command+">"+colored(message)+"</click>";
+        Component hoverMessage = Component.text(message+MiniMessage.miniMessage().deserialize("<hover:show_text:"+hover+">"));
+        Component commandMessage = MiniMessage.miniMessage().deserialize(input);
+        instance.adventure().sender(sender).sendMessage(hoverMessage);
+        instance.adventure().sender(sender).sendMessage(commandMessage);
+    }
+
+    /**
+     * The sendURLMessage function sends a message to all players with a clickable URL.
+     *
+     *
+     * @param message Mmessage that will be sent to the player
+     * @param url Url that will be opened when the player clicks on the message
+     *
+     * @return A clickable message with the text &quot;message&quot; and when clicked, it opens the url &quot;url&quot;
      */
     public static void sendURLMessage(String message, String url){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        String input = "<click:open_url:/"+url+">"+message+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().players().sendMessage(component);
     }
 
     /**
+     * The sendURLMessage function sends a message to the player with a clickable URL.
      *
-     * @param player
-     * @param message
-     * @param url
-     * <br>Send message to specific player
-     * <br>with clickable url
+     *
+     * @param player Send the message to a specific player
+     * @param message Mmessage that will be sent to the player
+     * @param url Url that will be opened when the player clicks on the message
+     *
+     * @return A clickable message with the text &quot;message&quot; and when clicked, it opens the url &quot;url&quot;
      */
     public static void sendURLMessage(Player player, String message, String url){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        String input = "<click:open_url:/"+url+">"+message+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().player(player).sendMessage(component);
     }
 
     /**
+     * The sendURLMessage function sends a message to the player with a clickable URL.
      *
-     * @param sender
-     * @param message
-     * @param url
-     * <br>Send message to command sender
-     * <br>with clickable url
+     *
+     * @param sender Player that execute the command/feature
+     * @param message Message that will be sent to the player
+     * @param url Set the url that will be opened when the player clicks on the message
+     *
+     * @return A clickable message with the text &quot;message&quot; and when clicked, it opens the url &quot;url&quot;
      */
     public static void sendURLMessage(CommandSender sender, String message, String url){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(url, Tag.styling(ClickEvent.openUrl(url))));
+        String input = "<click:open_url:/"+url+">"+message+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().sender(sender).sendMessage(component);
     }
 
     /**
+     * The sendSuggestCommandMessage function sends a message to the player with a clickable link that suggests
+     * the command in chat. This is useful for sending commands to players without them having to type it out themselves.
      *
-     * @param message
-     * @param command
-     * <br>Send message to all online players
-     * <br>with clickable text command
+     *
+     * @param message Message sent to the player
+     * @param command Command that will be suggested when the player clicks on the message
      */
     public static void sendSuggestCommandMessage(String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
+        String input = "<click:suggest_command:/"+command+">"+colored(message)+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().players().sendMessage(component);
     }
 
     /**
+     * The sendSuggestCommandMessage function sends a message to the player with a clickable link that suggests
+     * the command in chat. This is useful for sending commands to players without them having to type it out themselves.
      *
-     * @param player
-     * @param message
-     * @param command
-     * <br>Send message to specific player
-     * <br>with clickable text command
+     *
+     * @param player Send the message to a specific player
+     * @param message Message sent to the player
+     * @param command Command that will be suggested when the player clicks on the message
      */
     public static void sendSuggestCommandMessage(Player player, String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
-
+        String input = "<click:suggest_command:/"+command+">"+colored(message)+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
         instance.adventure().player(player).sendMessage(component);
     }
 
     /**
+     * The sendSuggestCommandMessage function sends a message to the player with a clickable link that suggests
+     * the command in chat. This is useful for sending commands to players without them having to type it out themselves.
      *
-     * @param sender
-     * @param message
-     * @param command
-     * <br>Send message to command sender
-     * <br>with clickable text command
+     * @param sender Player that execute command/feature
+     * @param message Message sent to the player
+     * @param command Command that will be suggested when the player clicks on the message
      */
     public static void sendSuggestCommandMessage(CommandSender sender, String message, String command){
-        final TextComponent component = (TextComponent) MiniMessage.miniMessage().deserialize(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())), TagResolver.resolver(command, Tag.styling(ClickEvent.suggestCommand(command))));
-        MultiCommands.getInstance().adventure().sender(sender).sendMessage(component);
+        String input = "<click:suggest_command:/"+command+">"+colored(message)+"</click>";
+        Component component = MiniMessage.miniMessage().deserialize(input);
+        instance.adventure().sender(sender).sendMessage(component);
     }
 
     /**
+     * The openBook function opens a book for all the players.
      *
-     * @param sender Command sender
-     * @param title Book title
-     * @param author Book author
-     * @param message Message wrote
-     * <br>Open custom book to player
+     *
+     * @param title Title of the book
+     * @param author Author of the book
+     * @param message Message that will be displayed in the book
+     */
+    public static void openBook(String title, String author, Collection<Component> message) {
+        Component bookTitle = Component.text(title);
+        Component bookAuthor = Component.text(author);
+        Book book = Book.book(bookTitle, bookAuthor, message);
+        instance.adventure().players().openBook(book);
+    }
+
+    /**
+     * The openBook function opens a book for the player.
+     *
+     *
+     * @param player Get the player that is opening the book
+     * @param title Title of the book
+     * @param author Author of the book
+     * @param message Message that will be displayed in the book
+     */
+    public static void openBook(Player player, String title, String author, Collection<Component> message) {
+        Component bookTitle = Component.text(title);
+        Component bookAuthor = Component.text(author);
+        Book book = Book.book(bookTitle, bookAuthor, message);
+        instance.adventure().player(player).openBook(book);
+    }
+
+    /**
+     * The openBook function opens a book for the specified player.
+     *
+     *
+     * @param sender Player that execute command/feature
+     * @param title Title of the book
+     * @param author Author of the book
+     * @param message Message that will be displayed in the book
      */
     public static void openBook(CommandSender sender, String title, String author, Collection<Component> message) {
         Component bookTitle = Component.text(title);
@@ -372,80 +504,197 @@ public class MessengerUtils {
     }
 
     /**
+     * The playAdventureSound function plays a sound to the specified player from Adventure.
+     * <br>
+     * <br>Adventure documentation:
+     * <br><a href="https://docs.advntr.dev/sound.html">https://docs.advntr.dev/sound.html</a>
+     * <br>
+     * @param player Send the sound to a specific player
+     * @param sound Sound you want to play
+     * @param volume Volume of the sound
+     * @param pitch Pitch of the sound
+
      *
-     * @param sender Command sender
-     * @param sound Adventure's sounds
-     * @param volume Sound volume
-     * @param pitch Sound pitch
-     * <br>Play Adventure API sounds to player
      */
-    public static void playSound(CommandSender sender, String sound, float volume, float pitch){
+    public static void playAdventureSound(Player player, String sound, float volume, float pitch){
+        try{
+            Sound musicDisc = Sound.sound(Key.key(sound), Sound.Source.MUSIC, volume, pitch);
+            instance.adventure().player(player).playSound(musicDisc);
+        }catch(Exception e){
+            sendMessage(player, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
+            sendEventExceptionMessage(e, "Adventure playSound");
+        }
+    }
+
+    /**
+     * The playAdventureSound function plays a sound to the specified player from Adventure.
+     * <br>
+     * <br>Adventure documentation:
+     * <br><a href="https://docs.advntr.dev/sound.html">https://docs.advntr.dev/sound.html</a>
+     * <br>
+     * @param sender Player that execute command/feature
+     * @param sound Sound you want to play
+     * @param volume Volume of the sound
+     * @param pitch Pitch of the sound
+     *
+     */
+    public static void playAdventureSound(CommandSender sender, String sound, float volume, float pitch){
         try{
             Sound musicDisc = Sound.sound(Key.key(sound), Sound.Source.MUSIC, volume, pitch);
             instance.adventure().sender(sender).playSound(musicDisc);
-        }catch(Error error){
+        }catch(Exception e){
             sendMessage(sender, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
-            sendConsoleMessage("&cAn internal error was come !&e"+error);
+            sendEventExceptionMessage(e, "Adventure playSound");
         }
     }
 
     /**
+     * The playBukkitSound function plays a sound to the player.
      *
-     * @param sender Command sender
-     * @param sound Bukkit sounds
-     * @param volume Sound volume
-     * @param pitch Sound pitch
-     * <br>Play Bukkit sounds to player
+     * @param player Player who received the sound
+     * @param sound Sound you want to play
+     * @param volume Volume of the sound
+     * @param pitch Pitch of the sound
      */
-    public static void playSound(CommandSender sender, org.bukkit.Sound sound, float volume, float pitch){
+    private static void playBukkitSound(@NotNull Player player, org.bukkit.Sound sound, float volume, float pitch){
+        try{
+            player.getWorld().playSound(player.getLocation(),sound,volume, pitch);
+        }catch(Exception e){
+            sendMessage(player, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
+            sendEventExceptionMessage(e, "Adventure playSound");
+        }
+    }
+
+    /**
+     * The playBukkitSound function plays a sound to the player.
+     * @param sender Player that execute command/feature
+     * @param sound Sound you want to play
+     * @param volume Volume of the sound
+     * @param pitch Pitch of the sound
+     */
+    private static void playBukkitSound(CommandSender sender, org.bukkit.Sound sound, float volume, float pitch){
         Player player = (Player) sender;
         try{
             player.getWorld().playSound(player.getLocation(),sound,volume, pitch);
-        }catch(Error error){
+        }catch(Exception e){
             sendMessage(player, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
-            sendConsoleMessage("&cAn internal error was come !&e"+error);
-        }
-    }
-    /**
-     *
-     * @param player
-     * @param sound Adventure's sounds
-     * @param volume Sound volume
-     * @param pitch Sound pitch
-     * <br>Play Adventure API sounds to player
-     */
-    public static void playSound(Player player, String sound, float volume, float pitch){
-        try{
-            Sound musicDisc = Sound.sound(Key.key(sound), Sound.Source.MUSIC, volume, pitch);
-            instance.adventure().player(player.getUniqueId()).playSound(musicDisc);
-        }catch(Error error){
-            sendMessage(player, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
-            sendConsoleMessage("&cAn internal error was come !&e"+error);
+            sendEventExceptionMessage(e, "Adventure playSound");
         }
     }
 
     /**
+     * The playSoundIfEnabled function plays a sound to the player
+     * <br>if &quot;soundEnabled()&quot; return true.
+     * <br>
+     * <br>Bukkit sounds:
+     * <br><a href="https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html">https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html</a>
      *
-     * @param player
-     * @param sound Bukkit sounds
-     * @param volume Sound volume
-     * @param pitch Sound pitch
-     * <br>Play Bukkit sounds to player
+     * @param player Play the sound to a specific player
+     * @param sound Sound you want to play
      */
-    public static void playSound(Player player, org.bukkit.Sound sound, float volume, float pitch){
-        try{
-            player.getWorld().playSound(player.getLocation(),sound,volume, pitch);
-        }catch(Error error){
-            sendMessage(player, "&cAn internal error was come when i try to play sound! Please contact an administrator !");
-            sendConsoleMessage("&cAn internal error was come !&e"+error);
+    public static void playSoundIfEnabled(Player player, org.bukkit.Sound sound){
+        if(soundEnabled()){
+            playBukkitSound(player, sound, 1f, 1f);
         }
     }
 
     /**
+     * The playSoundIfEnabled function plays a sound to the player
+     * <br>if &quot;soundEnabled()&quot; return true.
+     * <br>
+     * <br>Bukkit sounds:
+     * <br><a href="https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html">https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html</a>
      *
-     * @return boolean value
+     * @param player Play the sound to a specific player
+     * @param sound Sound you want to play
+     * @param volume Volume of the sound
      */
-    public static boolean soundEnabled(){
+    public static void playSoundIfEnabled(Player player, org.bukkit.Sound sound, float volume){
+        if(soundEnabled()){
+            playBukkitSound(player, sound, volume, 1f);
+        }
+    }
+
+    /**
+     * The playSoundIfEnabled function plays a sound to the player
+     * <br>if &quot;soundEnabled()&quot; return true.
+     * <br>
+     * <br>Bukkit sounds:
+     * <br><a href="https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html">https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html</a>
+     *
+     * @param player Play the sound to a specific player
+     * @param sound Sound you want to play
+     * @param volume Volume of the sound
+     * @param pitch Pitch of the sound
+     */
+    public static void playSoundIfEnabled(Player player, org.bukkit.Sound sound, float volume, float pitch){
+        if(soundEnabled()){
+            playBukkitSound(player, sound, volume, pitch);
+        }
+    }
+
+    /**
+     * The playSoundIfEnabled function plays a sound to the player
+     * <br>if &quot;soundEnabled()&quot; return true.
+     * <br>
+     * <br>Bukkit sounds:
+     * <br><a href="https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html">https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html</a>
+     *
+     * @param sender Player that execute command/feature
+     * @param sound Sound you want to play
+     */
+    public static void playSoundIfEnabled(CommandSender sender, org.bukkit.Sound sound){
+        if(soundEnabled()){
+            playBukkitSound(sender, sound, 1f, 1f);
+        }
+    }
+
+    /**
+     * The playSoundIfEnabled function plays a sound to the player
+     * <br>if &quot;soundEnabled()&quot; return true.
+     * <br>
+     * <br>Bukkit sounds:
+     * <br><a href="https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html">https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html</a>
+     *
+     * @param sender Player that execute command/feature
+     * @param sound Sound you want to play
+     * @param volume Volume of the sound
+     */
+    public static void playSoundIfEnabled(CommandSender sender, org.bukkit.Sound sound, float volume){
+        if(soundEnabled()){
+            playBukkitSound(sender, sound, volume, 1f);
+        }
+    }
+
+    /**
+     * The playSoundIfEnabled function plays a sound to the player
+     * <br>if &quot;soundEnabled()&quot; return true.
+     * <br>
+     * <br>Bukkit sounds:
+     * <br><a href="https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html">https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html</a>
+     *
+     * @param sender Player that execute command/feature
+     * @param sound Sound you want to play
+     * @param volume Volume of the sound
+     * @param pitch Pitch of the sound
+     */
+    public static void playSoundIfEnabled(CommandSender sender, org.bukkit.Sound sound, float volume, float pitch){
+        if(soundEnabled()){
+            playBukkitSound(sender, sound, volume, pitch);
+        }
+    }
+
+    /**
+     * The soundEnabled function checks the config.yml file for a boolean value
+     * under the key &quot;enable-command-sounds&quot;. If it is true, then soundEnabled()
+     * returns true. If it is false, then soundEnabled() returns false. If there
+     * is no such key in the config file, or if its value isn't a boolean (true/false),
+     * then soundEnabled() will return false by default. This function can be used to check whether sounds should be played when commands are executed in game! :)
+     *
+     *
+     * @return Boolean value defined on config.yml
+     */
+    private static boolean soundEnabled(){
         if(instance.getConfig().get("enable-command-sounds") != null){
             if(instance.getConfig().getBoolean("enable-command-sounds")){
                 return true;
@@ -457,45 +706,31 @@ public class MessengerUtils {
     }
 
     /**
+     * The stopSound function stops all sounds that are currently playing for a player.
      *
-     * @return "feed-heal-sound" value
-     */
-    public static boolean soundFeedHealEnabled(){
-        if(instance.getConfig().get("feed-heal-sounds") != null){
-            if(instance.getConfig().getBoolean("feed-heal-sounds")){
-                return true;
-            }else if(!instance.getConfig().getBoolean("feed-heal-sounds")){
-                return false;
-            }
-        }
-        return false;
-    }
-
-    /**
      *
-     * @param player
-     * <br>Stop sounds to player
+     * @param player Specify the player who will hear the sound
      */
     public static void stopSound(Player player){
         instance.adventure().player(player).stopSound(SoundStop.all());
     }
 
     /**
-     *
-     * Stop sounds for every online players
+     * The stopSound function stops all sounds that are currently playing for all players.
      */
     public static void stopSound(){
         instance.adventure().players().stopSound(SoundStop.all());
     }
 
     /**
+     * The sendTitle function is a function that sends a title to the player.
      *
-     * @param sender Command sender
-     * @param commandName Command name
-     * @param message Message sent
-     * <br>Send title message to command sender
+     *
+     * @param sender Player that execute command/feature
+     * @param commandName Display the command name in the title
+     * @param message Message sent to the player
      */
-    private static void sendTitle(CommandSender sender, String commandName, String message){
+    private static void sendTitle(CommandSender sender, String commandName, @NotNull String message){
         final Title.Times times = new Title.Times() {
             @Override
             public @NotNull Duration fadeIn() {
@@ -519,12 +754,13 @@ public class MessengerUtils {
     }
 
     /**
+     * The sendTitle function sends a title to all players on the server.
      *
-     * @param title Title name
-     * @param message Message sent
-     * <br>Send title message for every online players
+     *
+     * @param title Title
+     * @param message Message sent to the player
      */
-    public static void sendTitle(String title, String message) {
+    public static void sendTitle(String title, @NotNull String message) {
         final Title.Times times = new Title.Times() {
             @Override
             public @NotNull Duration fadeIn() {
@@ -548,13 +784,14 @@ public class MessengerUtils {
     }
 
     /**
+     * The sendTitle function sends a title to the player.
      *
-     * @param player Message receiver
-     * @param title Title name
-     * @param message Message sent
-     * <br>Send title message to player
+     *
+     * @param player Send the title to a specific player
+     * @param title Title
+     * @param message Message sent to the player
      */
-    public static void sendTitle(Player player, String title, String message) {
+    public static void sendTitle(Player player, String title, @NotNull String message) {
         final Title.Times times = new Title.Times() {
             @Override
             public @NotNull Duration fadeIn() {
@@ -578,104 +815,109 @@ public class MessengerUtils {
     }
 
     /**
+     * The sendBossBar function is used to send a boss bar message to the player.
      *
-     * @param sender Command sender
-     * @param message Message sent
-     * <br>Send BossBar message to command sender
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
+     *
+     * @param sender Player that execute command/feature
+     * @param message Message sent to the player
      */
-    private static void sendBossBar(CommandSender sender, String message) {
+    private static void sendBossBar(CommandSender sender, @NotNull String message) {
         final Component name = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         finalBossbar = BossBar.bossBar(name, (float) 1, BossBar.Color.GREEN, BossBar.Overlay.NOTCHED_20);
         instance.adventure().sender(sender).showBossBar(finalBossbar);
     }
 
     /**
+     * The sendBossBar function is used to send a boss bar to all players on the server.
      *
-     * @param progress In percent
-     * @param color BossBar color
-     * @param overlay BossBar overlay
-     * @param message Message sent
-     * <br>Send BossBar message for every online players
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
+     *
+     * @param progress Set the progress of the boss bar
+     * @param color Set the color of the bossbar
+     * @param overlay Determine what kind of overlay the boss bar has
+     * @param message Set the message of the boss bar
      */
-    public static void sendBossBar(float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
+    public static void sendBossBar(float progress, BossBar.Color color, BossBar.Overlay overlay, @NotNull String message) {
         final Component name = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         finalBossbar = BossBar.bossBar(name, progress, color, overlay);
         instance.adventure().players().showBossBar(finalBossbar);
     }
 
     /**
+     * The sendBossBar function sends a boss bar to the player.
      *
-     * @param player Receiver
-     * @param progress In percent
-     * @param color BossBar color
-     * @param overlay BossBar overlay
-     * @param message Message sent
-     * <br>Send BossBar message to player
      * <br>Documentation page: <br><a href="https://docs.adventure.kyori.net/bossbar.html">https://docs.adventure.kyori.net/bossbar.html</a>
+     *
+     * @param player Send the bossbar to a specific player
+     * @param progress Set the progress of the bossbar
+     * @param color Set the color of the boss bar
+     * @param overlay Set the overlay of the boss bar
+     * @param message Set the message of the boss bar
+     *
+     * @return A bossbar
+     *
+     * @docauthor Trelent
      */
-    public static void sendBossBar(Player player, float progress, BossBar.Color color, BossBar.Overlay overlay, String message) {
+    public static void sendBossBar(Player player, float progress, BossBar.Color color, BossBar.Overlay overlay, @NotNull String message) {
         final Component name = Component.text(colored(message.replace("{prefix}", PLUGIN_PREFIX.getMessage())));
         finalBossbar = BossBar.bossBar(name, progress, color, overlay);
         instance.adventure().player(player).showBossBar(finalBossbar);
     }
 
     /**
+     * The sendActionBar function sends a message to all players in the form of an action bar.
      *
-     * @param sender Command sender
-     * @param commandName Command name
-     * @param message Message sent
-     * <br>Send ActionBar message to command sender
-     */
-    private static void sendActionBar(CommandSender sender, String commandName, String message){
-        final TextComponent component = Component.text(colored("&3"+commandName+": "+message.replace("{prefix}", "")));
-        instance.adventure().sender(sender).sendActionBar(component);
-    }
-
-    /**
      *
-     * @param message Message sent
-     * <br>Send ActionBar message to every online players
+     * @param message Send a message to the player
      */
-    public static void sendActionBar(String message){
-        final TextComponent component = Component.text(colored(message.replace("{prefix}", " ")));
+    public static void sendActionBar(@NotNull String message){
+        final TextComponent component = Component.text(colored(message.replace("{prefix}", "")));
         instance.adventure().players().sendActionBar(component);
     }
 
     /**
+     * The sendActionBar function sends a message to the player's action bar.
      *
-     * @param player Receiver
-     * @param message Message sent
-     * <br>Send ActionBar message to player
+     *
+     * @param player Send the action bar to a specific player
+     * @param message Send the message to the player
      */
-    public static void sendActionBar(Player player, String message){
+    public static void sendActionBar(Player player, @NotNull String message){
         final TextComponent component = Component.text(colored(message.replace("{prefix}", "")));
         instance.adventure().player(player).sendActionBar(component);
     }
 
     /**
+     * The sendActionBar function sends a message to the player in the form of an action bar.
      *
-     * @param sender Command sender
-     * @param message Message sent
-     * <br>Send ActionBar message to player
+     *
+     * @param sender Player that execute command/feature
+     * @param message Send the message to the player
      */
-    public static void sendActionBar(CommandSender sender, String message){
-        final TextComponent component = Component.text(colored(message.replace("{prefix}", "")));
+    public static void sendActionBar(CommandSender sender, @NotNull String message){
+        final TextComponent component = Component.text(colored(message.replace(PLUGIN_PREFIX.getMessage(), "")));
         instance.adventure().sender(sender).sendActionBar(component);
     }
 
     /**
+     * The sendTablist function sends a tablist to the player.
      *
-     * @param player Receiver
-     * @param header Tablist Header
-     * @param footer Tablist footer
-     *  <br>Send Tablist to player
+     *
+     * @param player Send the tablist to a specific player
+     * @param header Set the header of the tablist
+     * @param footer Set the footer of the tablist
      */
-    public static void sendTablist(Player player, Component header, Component footer){
+    public static void sendTablist(@NotNull Player player, Component header, Component footer){
         player.sendPlayerListHeaderAndFooter(header, footer);
     }
 
+    /**
+     * The saveResourceAs function is used to save a resource file from the plugin's jar into the plugin's data folder.
+     *
+     *
+     * @param inPath Get the file from the jar, and then save it in your plugin folder
+     */
     public static void saveResourceAs(String inPath) {
         if (inPath != null && !inPath.isEmpty()) {
             InputStream in = MultiCommands.getInstance().getResource(inPath);
@@ -701,5 +943,45 @@ public class MessengerUtils {
         } else {
             throw new IllegalArgumentException("Folder cannot be empty/null !");
         }
+    }
+
+    /**
+     * The sendCommandExceptionMessage function is used to send a message to the console when an exception occurs in a command.
+     *
+     *
+     * @param exception Get the error message and line
+     * @param command Display the command that caused the error
+     *
+     * @return The detailed command error message
+     */
+    public static void sendCommandExceptionMessage(@NotNull Exception exception, String command){
+        // Obtenir la ligne de l'erreur
+        StackTraceElement errorLine = exception.getStackTrace()[0];
+        sendConsoleMessage("&e----{prefix} &cERROR&e----");
+        sendConsoleMessage("&cCaused by: &e/"+command);
+        sendConsoleMessage("&cJava Class: &e"+exception.getClass());
+        sendConsoleMessage("&cError: &e"+exception.getMessage());
+        sendConsoleMessage("&cLine: &e"+errorLine.toString().replace("MultiCommands.jar//", ""));
+        sendConsoleMessage("&e----{prefix} &cERROR&e----");
+    }
+
+    /**
+     * The sendEventExceptionMessage function is used to send a message to the console when an exception occurs in an event.
+     *
+     *
+     * @param exception Get the error message and line
+     * @param event Display the name of the event that caused this error
+     *
+     * @return The detailed event error message
+     */
+    public static void sendEventExceptionMessage(@NotNull Exception exception, String event){
+        // Obtenir la ligne de l'erreur
+        StackTraceElement errorLine = exception.getStackTrace()[0];
+        sendConsoleMessage("&e----{prefix} &cERROR&e----");
+        sendConsoleMessage("&cCaused by: &e"+event);
+        sendConsoleMessage("&cJava Class: &e"+exception.getClass());
+        sendConsoleMessage("&cError: &e"+exception.getMessage());
+        sendConsoleMessage("&cLine: &e"+errorLine.toString().replace("MultiCommands.jar//", ""));
+        sendConsoleMessage("&e----{prefix} &cERROR&e----");
     }
 }

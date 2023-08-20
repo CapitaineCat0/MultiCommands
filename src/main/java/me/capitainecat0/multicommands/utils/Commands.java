@@ -102,24 +102,24 @@ public class Commands {
             getInstance().registerCommand(new ServerInfo(), "serverinfo");
             sendConsoleMessage("&e - SETSPAWN");
             getInstance().registerCommand(new SetSpawn(), "setspawn");
-            sendConsoleMessage("&e - SETWARP");
-            getInstance().registerCommand(new SetWarp(), "setwarp");
             sendConsoleMessage("&e - SPAWN");
             getInstance().registerCommand(new Spawn(), "spawn");
             sendConsoleMessage("&e - STAFFCHAT / SC");
             getInstance().registerCommand(new StaffChat(), "staffchat");
             sendConsoleMessage("&e - TELEPORT / TP");
             getInstance().registerCommand(new TP(), "teleport", new BasicTab());
+            sendConsoleMessage("&e - TPA");
+            getInstance().registerCommand(new TPA(), "tpa", new BasicTab());
             sendConsoleMessage("&e - TITLE");
             getInstance().registerCommand(new Title(), "title", new BossActionTitleTab());
             sendConsoleMessage("&e - TOP");
             getInstance().registerCommand(new Top(), "top");
             sendConsoleMessage("&e - UNBAN");
             getInstance().registerCommand(new UnBan(), "unban");
+            sendConsoleMessage("&e - UNBANIP");
+            getInstance().registerCommand(new UnBanIP(), "unbanip");
             sendConsoleMessage("&e - VANISH / V");
             getInstance().registerCommand(new Vanish(), "vanish", new BasicTab());
-            sendConsoleMessage("&e - WARP");
-            getInstance().registerCommand(new Warp(), "warp");
             sendConsoleMessage("&e - WHOIS");
             getInstance().registerCommand(new Whois(), "whois", new BasicTab());
         }
@@ -174,15 +174,15 @@ public class Commands {
             getInstance().registerCommand(new RandomTP(), "randomtp", new RandomTPTab());
             getInstance().registerCommand(new ServerInfo(), "serverinfo");
             getInstance().registerCommand(new SetSpawn(), "setspawn");
-            getInstance().registerCommand(new SetWarp(), "setwarp");
             getInstance().registerCommand(new Spawn(), "spawn");
             getInstance().registerCommand(new StaffChat(), "staffchat");
             getInstance().registerCommand(new TP(), "teleport", new BasicTab());
+            getInstance().registerCommand(new TPA(), "tpa", new BasicTab());
             getInstance().registerCommand(new Title(), "title", new BossActionTitleTab());
             getInstance().registerCommand(new Top(), "top");
             getInstance().registerCommand(new UnBan(), "unban");
+            getInstance().registerCommand(new UnBanIP(), "unbanip");
             getInstance().registerCommand(new Vanish(), "vanish", new BasicTab());
-            getInstance().registerCommand(new Warp(), "warp");
             getInstance().registerCommand(new Whois(), "whois", new BasicTab());
         }
 

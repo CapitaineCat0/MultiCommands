@@ -19,23 +19,48 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class KickAll implements CommandExecutor {
+
+    /**
+     *
+     * The KickAll command can kick all players connected except operators
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if(sender instanceof Player){
-            if(!sender.hasPermission(KICKALL_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+            try{
+                if(!sender.hasPermission(KICKALL_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                    return true;
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                return true;
-            }
-            else{
-                if(args.length <= 1){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                else{
+                    if(args.length <= 1){
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>"));
                     }
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+                    else if(args.length == 2){
+                        StringBuilder bc = new StringBuilder();
+                        for(String part : args) {
+                            bc.append(part).append(" ");
+                        }
+                        String kickReason = bc.toString().replace(args[0], "");
+                        for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                            if (!(sender instanceof Player) || !onlinePlayer.getName().equalsIgnoreCase(sender.getName())) {
+                                if (!onlinePlayer.hasPermission(KICKALL_EXEMPT_PERM.getPermission())) {
+                                    onlinePlayer.kickPlayer(kickReason);
+                                }
+                            }
+                        }
+                    }
+                }
+            }catch(Exception e){
+                sendCommandExceptionMessage(e, command.getName());
+            }
+        }else if(sender instanceof ConsoleCommandSender){
+            try{
+                if(args.length <= 1){
+                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>"));
                 }
                 else if(args.length == 2){
                     StringBuilder bc = new StringBuilder();
@@ -44,28 +69,12 @@ public class KickAll implements CommandExecutor {
                     }
                     String kickReason = bc.toString().replace(args[0], "");
                     for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                        if (!(sender instanceof Player) || !onlinePlayer.getName().equalsIgnoreCase(sender.getName())) {
-                            if (!onlinePlayer.hasPermission(KICKALL_EXEMPT_PERM.getPermission())) {
-                                onlinePlayer.kickPlayer(kickReason);
-                            }
-                        }
+                        if (!onlinePlayer.hasPermission(KICKALL_EXEMPT_PERM.getPermission())) {
+                            onlinePlayer.kickPlayer(kickReason);}
                     }
                 }
-            }
-        }else if(sender instanceof ConsoleCommandSender){
-            if(args.length <= 1){
-                sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player> <reason>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-            }
-            else if(args.length == 2){
-                StringBuilder bc = new StringBuilder();
-                for(String part : args) {
-                    bc.append(part).append(" ");
-                }
-                String kickReason = bc.toString().replace(args[0], "");
-                for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                    if (!onlinePlayer.hasPermission(KICKALL_EXEMPT_PERM.getPermission())) {
-                        onlinePlayer.kickPlayer(kickReason);}
-                }
+            }catch(Exception e){
+                sendCommandExceptionMessage(e, command.getName());
             }
         }
         return false;

@@ -1,4 +1,4 @@
-package me.capitainecat0.multicommands.commands;
+package old_class_files;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.data.BalanceData;

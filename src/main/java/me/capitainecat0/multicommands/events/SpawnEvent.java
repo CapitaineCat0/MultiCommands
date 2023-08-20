@@ -29,9 +29,7 @@ public class SpawnEvent implements Listener {
                     MultiCommands.getInstance().getConfig().getInt("spawn.pitch"));
             event.getPlayer().teleport(location);
         }else{
-            if(soundEnabled()){
-                playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-            }
+            playSoundIfEnabled(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             sendMessage(event.getPlayer(), SPAWN_ERROR.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
     }
@@ -49,9 +47,7 @@ public class SpawnEvent implements Listener {
                     MultiCommands.getInstance().getConfig().getInt("spawn.pitch"));
             event.getPlayer().teleport(location);
         }else{
-            if(soundEnabled()){
-                playSound(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-            }
+            playSoundIfEnabled(event.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             sendMessage(event.getPlayer(), SPAWN_ERROR.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         }
     }

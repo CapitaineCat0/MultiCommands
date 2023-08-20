@@ -20,59 +20,67 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class Kill implements CommandExecutor {
+
+    /**
+     *
+     * The Kill command can kill player
+     * <br>If args isn't null, it will kill targeted player
+     * <br>If args is null, it will kill command sender
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         if(!sender.hasPermission(KILL_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-            if(soundEnabled()){
-                playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-            }
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             return true;
         }
         else{
             if(sender instanceof Player){
-                if(args.length <= 1){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    }
-                    ((Player) sender).setHealth(0.0);
+                try{
+                    if(args.length <= 1){
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        ((Player) sender).setHealth(0.0);
+                        getMsgSendConfig(sender, command.getName(), KILL_DONE.getMessage().replace("{0}", sender.getName()));
                     /*final EntityDamageEvent event = new EntityDamageEvent(((Player)sender), EntityDamageEvent.DamageCause.SUICIDE, Float.MAX_VALUE);
                     getInstance().getServer().getPluginManager().callEvent(event);
-                    getMsgSendConfig(sender, command.getName(), KILL_DONE.getMessage().replace("{0}", sender.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     if (event.isCancelled()) {
                         ((Player) sender).setHealth(0.0);
                     }*/
-                }
-                else if(args.length == 2){
-                    if(soundEnabled()){
-                        playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     }
-                    Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
-                    target.setHealth(0.0);
+                    else if(args.length == 2){
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                        Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
+                        target.setHealth(0.0);
+                        getMsgSendConfig(sender, command.getName(), KILL_DONE.getMessage().replace("{0}", target.getName()));
                     /*final EntityDamageEvent event = new EntityDamageEvent(target, EntityDamageEvent.DamageCause.SUICIDE, Float.MAX_VALUE);
                     getInstance().getServer().getPluginManager().callEvent(event);
-                    getMsgSendConfig(sender, command.getName(), KILL_DONE.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     if (event.isCancelled()) {
                         target.setHealth(0.0);
                     }*/
+                    }
+                }catch(Exception e){
+                    sendCommandExceptionMessage(e, command.getName());
                 }
             } else if(sender instanceof ConsoleCommandSender) {
-                if(args.length <= 1){
-                    sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>").replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                }
-                else if(args.length == 2){
-                    Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
-                    target.setHealth(0.0);
+                try{
+                    if(args.length <= 1){
+                        sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
+                    }
+                    else if(args.length == 2){
+                        Player target = Objects.requireNonNull(Bukkit.getPlayerExact(args[0]));
+                        target.setHealth(0.0);
+                        sendConsoleMessage(KILL_DONE.getMessage().replace("{0}", target.getName()));
                     /*final EntityDamageEvent event = new EntityDamageEvent(target, EntityDamageEvent.DamageCause.SUICIDE, Float.MAX_VALUE);
                     getInstance().getServer().getPluginManager().callEvent(event);
-                    sendConsoleMessage(KILL_DONE.getMessage().replace("{0}", target.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     if (event.isCancelled()) {
                         target.setHealth(0.0);
                     }*/
+                    }
+                }catch(Exception e){
+                    sendCommandExceptionMessage(e, command.getName());
                 }
             }
-
         }
         return false;
     }

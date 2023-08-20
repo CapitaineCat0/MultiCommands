@@ -74,6 +74,8 @@ public enum Messenger {
     BAN_PREFIX(MessengerUtils.lang("ban_prefix")),
     BROADCAST_PREFIX(MessengerUtils.lang("broadcast_prefix")),
     BROADCAST_CMD(MessengerUtils.lang("broadcast_sent")),
+    CHAT_FORMAT(MessengerUtils.lang("chat_format")),
+    CLEARCHAT(MessengerUtils.lang("clear_chat")),
     CLEARINV_SELF_DONE(MessengerUtils.lang("clear_self")),
     CLEARINV_ADMIN(MessengerUtils.lang("clear_by_admin")),
     CLEARINV_SENDER(MessengerUtils.lang("clear_admin")),
@@ -177,6 +179,16 @@ public enum Messenger {
     TELEPORT_SELF_TO_COORDINATES(MessengerUtils.lang("teleport_self_to_coordinates")),
     TELEPORT_OTHER_TO_COORDINATES(MessengerUtils.lang("teleport_player_to_coordinates_by_admin")),
     TELEPORT_OTHER_TO_COORDINATES_SENDER(MessengerUtils.lang("teleport_player_to_coordinates")),
+    TPA_ACCEPT(MessengerUtils.lang("tpa_accept")),
+    TPA_ACCEPT_HOVER(MessengerUtils.lang("tpa_accept_hover")),
+    TPA_DENY(MessengerUtils.lang("tpa_deny")),
+    TPA_DENY_HOVER(MessengerUtils.lang("tpa_deny_hover")),
+    TPA_ERROR(MessengerUtils.lang("tpa_error")),
+    TPA_NO_REQUEST(MessengerUtils.lang("tpa_no_request")),
+    TPA_SEND_REQUEST(MessengerUtils.lang("tpa_send_request")),
+    TPA_REQUEST_ACCEPT(MessengerUtils.lang("tpa_request_accept")),
+    TPA_REQUEST_DENY(MessengerUtils.lang("tpa_request_deny")),
+    TPA_RECEIVED_REQUEST(MessengerUtils.lang("tpa_received_request")),
     UNBAN_DONE(MessengerUtils.lang("unban_done")),
     UNBAN_ERROR(MessengerUtils.lang("unban_error")),
     UNBAN_BROADCAST(MessengerUtils.lang("unban_broadcast")),
@@ -193,10 +205,24 @@ public enum Messenger {
 
     private final String msg;
 
+    /**
+     * The Messenger function is a static method that returns an instance of the Messenger class.
+     * The function takes in a String parameter and uses it to create an instance of the Messenger class.
+     *
+     *
+     * @param msg Set the message of the object
+     */
     private Messenger(String msg) {
         this.msg = msg;
     }
 
+    /**
+     * The getMessage function returns the message of the exception.
+     *
+     *
+     *
+     * @return The message
+     */
     public String getMessage() {
         return this.msg;
     }

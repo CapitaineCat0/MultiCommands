@@ -16,30 +16,34 @@ import static me.capitainecat0.multicommands.utils.Perms.*;
 
 public class Top implements CommandExecutor {
 
+    /**
+     * La commande &quot;/top&quot; requiert la permission &quot;multicommands.top&quot; pour fonctionner.
+     * <br>Cette commande permet de se téléporter au-dessus des blocs au-dessus de vous.
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(sender instanceof Player){
-            if(!sender.hasPermission(TOP_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-                if(soundEnabled()){
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+        try{
+            if(sender instanceof Player){
+                if(!sender.hasPermission(TOP_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                    return true;
                 }
-                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                return true;
-            }
-            else {
-                if (soundEnabled()) {
-                    playSound(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                else {
+                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
+                    final double topX = ((Player) sender).getLocation().getBlockX();
+                    final double topZ = ((Player) sender).getLocation().getBlockZ();
+                    final double topY = ((Player) sender).getWorld().getHighestBlockYAt((int) topX, (int) topZ);
+                    final float pitch = ((Player) sender).getLocation().getPitch();
+                    final float yaw = ((Player) sender).getLocation().getYaw();
+                    ((Player) sender).teleport(new Location(((Player) sender).getWorld(), topX, topY+1, topZ, yaw, pitch));
                 }
-                final double topX = ((Player) sender).getLocation().getBlockX();
-                final double topZ = ((Player) sender).getLocation().getBlockZ();
-                final double topY = ((Player) sender).getWorld().getHighestBlockYAt((int) topX, (int) topZ);
-                final float pitch = ((Player) sender).getLocation().getPitch();
-                final float yaw = ((Player) sender).getLocation().getYaw();
-                ((Player) sender).teleport(new Location(((Player) sender).getWorld(), topX, topY, topZ, yaw, pitch));
+            }else if(sender instanceof ConsoleCommandSender){
+                sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             }
-        }else if(sender instanceof ConsoleCommandSender){
-            sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()).replace("{prefix}", PLUGIN_PREFIX.getMessage()));
+        }catch(Exception e){
+            sendCommandExceptionMessage(e, command.getName());
         }
         return false;
     }
