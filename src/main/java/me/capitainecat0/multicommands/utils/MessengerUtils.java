@@ -56,7 +56,7 @@ public class MessengerUtils {
      * @deprecated Utilisez <a href="https://docs.advntr.dev/minimessage/format.html#color">l'API Adventure</a> à la place
      * **/
  @Deprecated
-    private static @NotNull String colored(String text) {
+ public static @NotNull String colored(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
     

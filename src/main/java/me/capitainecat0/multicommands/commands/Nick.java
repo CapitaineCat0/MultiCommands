@@ -41,8 +41,8 @@ public class Nick implements CommandExecutor {
                     } else if(args.length == 1){
                         Player player = (Player) sender;
                         playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                        getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("{0}", colored(args[0])));
-                        player.setCustomName(colored(args[0]));
+                        getMsgSendConfig(sender, command.getName(), NICKNAME_DONE.getMessage().replace("{0}", args[0]));
+                        player.setCustomName(args[0]);
                         player.setCustomNameVisible(true);
                     }
                 }

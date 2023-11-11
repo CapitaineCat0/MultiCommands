@@ -42,14 +42,14 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
                             bc.append(part).append(" ");
                         }
                         sendMessage(sender, ACTIONBAR_SENT_TO_OTHER.getMessage().replace("{0}", target.getName()));
-                        sendBossBar(target,1, net.kyori.adventure.bossbar.BossBar.Color.GREEN, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_20, colored(bc.toString().replace(args[0], "")));
+                        sendBossBar(target,1, net.kyori.adventure.bossbar.BossBar.Color.GREEN, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_20, bc.toString().replace(args[0], ""));
                     }else{
                         StringBuilder bc = new StringBuilder();
                         for(String part : args) {
                             bc.append(part).append(" ");
                         }
                         sendMessage(sender, ACTIONBAR_SENT_TO_ALL.getMessage());
-                        sendBossBar(1, net.kyori.adventure.bossbar.BossBar.Color.GREEN, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_20, colored(bc.toString().replace(args[0], "")));
+                        sendBossBar(1, net.kyori.adventure.bossbar.BossBar.Color.GREEN, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_20, bc.toString().replace(args[0], ""));
                     }
                 }
             }
