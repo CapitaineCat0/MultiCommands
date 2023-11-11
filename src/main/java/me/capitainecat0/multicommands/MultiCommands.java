@@ -22,6 +22,13 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public final class MultiCommands extends JavaPlugin {
     //TODO évenement qui régénère les arbres coupés
     //TODO modifier BlockRegen pour l'appliquer à une zone définie
+    //TODO faire un systeme de chat comme KingdomsX
+    //TODO utiliser Vault complètement
+    //TODO faire un système de permissions complet
+    //TODO faire une commande de coffre personnalisés (comme le /enderchest)
+    //TODO faire une commande de craft personnalisés (comme le /craft)
+    //TODO faire une commande de chat personnalisés (comme le /chatchannels)
+    //TODO faire une commande de téléportation personnalisés (comme le /tpa)
     //
     // Lecture des variables
     private static final Logger log = Logger.getLogger("Minecraft");

@@ -55,25 +55,25 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
                 } else if (args[0].equalsIgnoreCase("clear")) {
                     try{
                         if (sender.hasPermission(CLEARCHAT_PERM.getPermission())) {
-                            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                                for (int i = 0; i < 100; i++) {
-                                    sendBroadcastMessage(" ");
-                                }
-                                sendBroadcastMessage(" &a&m+----------------------------------------+");
-                                sendBroadcastMessage(" ");
-                                sendBroadcastMessage("                   "+CLEARCHAT.getMessage());
-                                sendBroadcastMessage(" ");
-                                sendBroadcastMessage(" &a&m+----------------------------------------+");
-                                sendBroadcastMessage(" ");
-                                sendBroadcastMessage(" ");
+                            for (int i = 0; i < 100; i++) {
                                 sendBroadcastMessage(" ");
                             }
+                            sendBroadcastMessage(" &a&m+----------------------------------------+");
+                            sendBroadcastMessage(" ");
+                            sendBroadcastMessage("                   "+CLEARCHAT.getMessage());
+                            sendBroadcastMessage(" ");
+                            sendBroadcastMessage(" &a&m+----------------------------------------+");
+                            sendBroadcastMessage(" ");
+                            sendBroadcastMessage(" ");
+                            sendBroadcastMessage(" ");
                         } else {
                             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             sendMessage(sender, CMD_NO_PERM.getMessage());
                         }
                     }catch (Exception e){
                         sendCommandExceptionMessage(e, command.getName()+" clear");
+                        sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
+                        sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                     }
                 }
             }
@@ -110,6 +110,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
         }
     }catch (Exception e){
         sendCommandExceptionMessage(e, command.getName());
+        sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
     }
     return false;
 }

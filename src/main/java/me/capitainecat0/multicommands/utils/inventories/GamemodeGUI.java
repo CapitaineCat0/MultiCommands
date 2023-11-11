@@ -1,4 +1,4 @@
-package me.capitainecat0.multicommands.utils;
+package me.capitainecat0.multicommands.utils.inventories;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.GameMode;

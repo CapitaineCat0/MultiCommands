@@ -46,6 +46,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
             }
         }catch (Exception e){
             sendCommandExceptionMessage(e, command.getName());
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
     return false;
 }
@@ -86,6 +87,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
          }
      }catch (Exception e){
          sendCommandExceptionMessage(e, command.getName());
+         sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
      }
 }
 
@@ -120,7 +122,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
          }
      }catch (Exception e){
          sendCommandExceptionMessage(e, command.getName());
-     }
+         sendMessage(sender, CMD_ERROR.getMessage().replace("{0}", command.getName()).replace("{e}", e.getMessage()));}
 }
 
  /**

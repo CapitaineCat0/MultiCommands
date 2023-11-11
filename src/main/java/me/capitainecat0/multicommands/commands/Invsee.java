@@ -53,6 +53,7 @@ public class Invsee implements CommandExecutor {
             }
         }catch (Exception e){
             sendCommandExceptionMessage(e, command.getName());
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
         return false;
     }

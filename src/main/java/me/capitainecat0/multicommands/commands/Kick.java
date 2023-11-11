@@ -58,6 +58,8 @@ public class Kick implements CommandExecutor {
                 }
         }catch(Exception e){
                 sendCommandExceptionMessage(e, command.getName());
+                sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
+                sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
         }else if(sender instanceof ConsoleCommandSender){
             try{
@@ -81,6 +83,7 @@ public class Kick implements CommandExecutor {
                 }
             }catch(Exception e){
                 sendCommandExceptionMessage(e, command.getName());
+                sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
             }
         }
         return false;

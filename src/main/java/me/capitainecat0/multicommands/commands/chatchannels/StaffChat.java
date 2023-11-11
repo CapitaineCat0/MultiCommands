@@ -26,7 +26,7 @@ public class StaffChat implements CommandExecutor, Listener {
      * <br>dans un chat privé.
      */
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         hideActiveBossBar();
         if (args.length >= 1) {
             try {
@@ -46,6 +46,7 @@ public class StaffChat implements CommandExecutor, Listener {
                 sendConsoleMessage(format);
             }catch (Exception e){
                 sendCommandExceptionMessage(e, command.getName());
+                sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
             }
         } else{
             getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));

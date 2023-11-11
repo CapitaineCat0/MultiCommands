@@ -1,9 +1,10 @@
-package me.capitainecat0.multicommands.utils;
+package me.capitainecat0.multicommands.utils.inventories;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Objects;
 
+import me.capitainecat0.multicommands.utils.*;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
@@ -429,7 +430,7 @@ public class HelpGUI extends GUICreator {
                     sendMessage(player, "&c- &7" + afk.getName());
                 }
 
-                sendMessage(player, "&6Vanished: &7(&c" + VanishHandler.getVanished().size() + "&7)");
+                MessengerUtils.sendMessage(player, "&6Vanished: &7(&c" + VanishHandler.getVanished().size() + "&7)");
                 i = VanishHandler.getVanished().iterator();
 
                 while(i.hasNext()) {

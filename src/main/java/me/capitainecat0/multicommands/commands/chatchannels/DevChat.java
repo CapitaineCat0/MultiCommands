@@ -46,6 +46,7 @@ public class DevChat implements CommandExecutor, Listener {
                 sendConsoleMessage(format);
             }catch (Exception e){
                 sendCommandExceptionMessage(e, command.getName());
+                sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
             }
         } else{
             getMsgSendConfig(sender, command.getName(), CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));

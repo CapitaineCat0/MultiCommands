@@ -57,6 +57,8 @@ public class Level implements CommandExecutor {
                 }
             }catch(Exception e){
                 sendCommandExceptionMessage(e, command.getName());
+                sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
+                sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
             }
         }else if(sender instanceof ConsoleCommandSender){
             try{
@@ -81,6 +83,7 @@ public class Level implements CommandExecutor {
                 }
             }catch(Exception e){
                 sendCommandExceptionMessage(e, command.getName());
+                sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
             }
         }
         return false;
@@ -149,6 +152,8 @@ public class Level implements CommandExecutor {
             }
         }catch(Exception e){
             sendCommandExceptionMessage(e, "level (commandProcess > player)");
+            sendMessage(player, CMD_ERROR.getMessage().replace("<command>", commandName).replace("{e}", e.getMessage()));
+            sendSuggestCommandMessage(player, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", commandName).replace("{e}", e.getMessage()));
         }
     }
     /**
@@ -184,6 +189,8 @@ public class Level implements CommandExecutor {
             }
         }catch(Exception e) {
             sendCommandExceptionMessage(e, "level (commandProcess > sender)");
+            sendMessage(sender, CMD_ERROR.getMessage().replace("{0}", commandName).replace("{e}", e.getMessage()));
+            sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", commandName).replace("{e}", e.getMessage()));
         }
     }
 }

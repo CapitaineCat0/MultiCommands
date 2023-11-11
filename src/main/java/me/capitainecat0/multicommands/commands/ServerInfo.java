@@ -16,8 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.management.ManagementFactory;
 import java.util.Arrays;
 
-import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
-import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
+import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
 import static me.capitainecat0.multicommands.utils.Perms.SERVERINFO_PERM;
@@ -93,6 +92,8 @@ public class ServerInfo implements CommandExecutor {
             }
         }catch(Exception e){
             sendCommandExceptionMessage(e, command.getName());
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
+            sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
         return false;
     }

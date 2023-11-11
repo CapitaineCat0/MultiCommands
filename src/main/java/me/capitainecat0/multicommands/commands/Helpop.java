@@ -41,13 +41,13 @@ public class Helpop implements CommandExecutor {
                     if(Bukkit.getOnlinePlayers().contains(operators)){
                         if(Objects.requireNonNull(operators.getPlayer()).hasPermission(ALL_PERMS.getPermission()) || operators.getPlayer().hasPermission(HELPOP_PERM.getPermission())){
                             playSoundIfEnabled(operators.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                            sendConsoleMessage(HELPOP_FORMAT.getMessage() + sender.getName() + "§8: §f" + bc);
-                            sendMessage(operators.getPlayer(),HELPOP_FORMAT.getMessage() + sender.getName() + "§8: §f" + bc);
+                            sendConsoleMessage(HELPOP_FORMAT.getMessage().replace("{0}", sender.getName()).replace("{1}", bc));
+                            sendMessage(operators.getPlayer(),HELPOP_FORMAT.getMessage().replace("{0}", sender.getName()).replace("{1}", bc));
                         }
 
                         playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         getMsgSendConfig(sender, command.getName(), HELPOP_DONE.getMessage());
-                        sendMessage(sender," §8- §7" + bc);
+                        sendMessage(sender," <dark_gray>- <gray>" + bc);
                     }else{
                         sendMessage(sender, HELPOP_NO_ADMINS.getMessage());
                     }
@@ -56,7 +56,9 @@ public class Helpop implements CommandExecutor {
                 sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             }
         }catch (Exception e){
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
             sendCommandExceptionMessage(e, command.getName());
+
         }
         return false;
     }

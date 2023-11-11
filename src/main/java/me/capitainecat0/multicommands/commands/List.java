@@ -34,7 +34,8 @@ public class List implements CommandExecutor {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if(p.getCustomName() == null){
                     if (sender instanceof Player) {
-                        sendCommandMessage(sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[]", "tp "+p.getName());
+                        sendCommandMessage((Player) sender, "<yellow>- <aqua>" + p.getName() + " <red>-> <dark_gray>[ "+p.getName()+" <dark_gray>]", "tp "+p.getName());
+                        //sendCommandMessage((Player) sender, adventureColors(" " + p.getName() + "  ->  [ "+p.getName()+"  ]"), "tp "+p.getName());
                         //sender.spigot().sendMessage(playerTP);
                     } else {
                         sendConsoleMessage("  &e- &b" + p.getName() + " &c-> &8[]");
@@ -42,7 +43,7 @@ public class List implements CommandExecutor {
                     //sender.sendMessage("  §e- §b" + p.getName() + " §c-> §8[]");
                 }else{
                     if (sender instanceof Player) {
-                        sendCommandMessage((Player) sender, "  <yellow>- <aqua>" + p.getName() + " <red>-> <dark_grey>[ "+p.getCustomName()+" <dark_grey>]", "tp "+p.getName());
+                        sendCommandMessage((Player) sender, "<yellow>- <aqua>" + p.getName() + " <red>-> <dark_gray>[ "+p.getCustomName()+" <dark_gray>]", "tp "+p.getName());
                         //sender.spigot().sendMessage(playerTP);
                     } else {
                         sendConsoleMessage("  &e- &b" + p.getName() + " &c-> &8[ "+p.getCustomName()+" &8]");
@@ -52,6 +53,7 @@ public class List implements CommandExecutor {
             }
         }catch(Exception e){
             sendCommandExceptionMessage(e, command.getName());
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
         return false;
     }

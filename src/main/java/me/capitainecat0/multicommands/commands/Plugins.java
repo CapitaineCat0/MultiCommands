@@ -11,8 +11,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import static me.capitainecat0.multicommands.utils.Messenger.CMD_NO_PERM;
-import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
+import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class Plugins implements Listener {
@@ -52,6 +51,8 @@ public class Plugins implements Listener {
             }
         }catch(Exception e){
             sendEventExceptionMessage(e, "/plugins");
+            sendMessage(event.getPlayer(), CMD_ERROR.getMessage().replace("<command>", event.getEventName()).replace("{e}", e.getMessage()));
+            sendSuggestCommandMessage(event.getPlayer(), CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", event.getEventName()).replace("{e}", e.getMessage()));
         }
     }
 }

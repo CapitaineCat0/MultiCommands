@@ -1,7 +1,7 @@
 package me.capitainecat0.multicommands.commands;
 
 import me.capitainecat0.multicommands.MultiCommands;
-import me.capitainecat0.multicommands.utils.GamemodeGUI;
+import me.capitainecat0.multicommands.utils.inventories.GamemodeGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
@@ -42,18 +42,29 @@ public class Gamemode implements CommandExecutor {
                 try{
                     String gamemode = args[0].toLowerCase();
                     GameMode mode = null;
-                    if (gamemode.equals("0") || gamemode.equals("survival")) {
-                        mode = GameMode.SURVIVAL;
-                        gamemode = "0 (survival)";
-                    } else if (gamemode.equals("1") || gamemode.equals("creative")) {
-                        mode = GameMode.CREATIVE;
-                        gamemode = "1 (creative)";
-                    } else if (gamemode.equals("2") || gamemode.equals("adventure")) {
-                        mode = GameMode.ADVENTURE;
-                        gamemode = "2 (adventure)";
-                    } else if (gamemode.equals("3") || gamemode.equals("spectator")) {
-                        mode = GameMode.SPECTATOR;
-                        gamemode = "3 (spectator)";
+                    switch(gamemode){
+                        case "0":
+                        case "survival":
+                            mode = GameMode.SURVIVAL;
+                            gamemode = "0 (survival)";
+                            break;
+                        case "1":
+                        case "creative":
+                            mode = GameMode.CREATIVE;
+                            gamemode = "1 (creative)";
+                            break;
+                        case "2":
+                        case "adventure":
+                            mode = GameMode.ADVENTURE;
+                            gamemode = "2 (adventure)";
+                            break;
+                        case "3":
+                        case "spectator":
+                            mode = GameMode.SPECTATOR;
+                            gamemode = "3 (spectator)";
+                            break;
+                        default: getMsgSendConfig(sender, command.getName(), CMD_INVALID_ARGS.getMessage().replace("{0}", gamemode));
+                            break;
                     }
                     if (mode != null) {
                         if (sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
@@ -68,6 +79,7 @@ public class Gamemode implements CommandExecutor {
                     }
                 }catch (Exception e){
                     sendCommandExceptionMessage(e, command.getName()+" "+gamemode);
+                    sendMessage(sender, CMD_ERROR.getMessage().replace("{0}", command.getName()).replace("{e}", e.getMessage()));
                 }
             } else if (args.length == 2) {
                 try{
@@ -77,18 +89,29 @@ public class Gamemode implements CommandExecutor {
                         String mode = args[0].toLowerCase();
                         GameMode gameMode = null;
                         String permission = "";
-                        if (mode.equals("0") || mode.equals("survival")) {
-                            gameMode = GameMode.SURVIVAL;
-                            permission = GAMEMODE_SURVIVAL_PERM_OTHER.getPermission();
-                        } else if (mode.equals("1") || mode.equals("creative")) {
-                            gameMode = GameMode.CREATIVE;
-                            permission = GAMEMODE_CREATIVE_PERM_OTHER.getPermission();
-                        } else if (mode.equals("2") || mode.equals("adventure")) {
-                            gameMode = GameMode.ADVENTURE;
-                            permission = GAMEMODE_ADVENTURE_PERM_OTHER.getPermission();
-                        } else if (mode.equals("3") || mode.equals("spectator")) {
-                            gameMode = GameMode.SPECTATOR;
-                            permission = GAMEMODE_SPECTATOR_PERM_OTHER.getPermission();
+                        switch(mode){
+                            case "0":
+                            case "survival":
+                                gameMode = GameMode.SURVIVAL;
+                                permission = GAMEMODE_SURVIVAL_PERM_OTHER.getPermission();
+                                break;
+                            case "1":
+                            case "creative":
+                                gameMode = GameMode.CREATIVE;
+                                permission = GAMEMODE_CREATIVE_PERM_OTHER.getPermission();
+                                break;
+                            case "2":
+                            case "adventure":
+                                gameMode = GameMode.ADVENTURE;
+                                permission = GAMEMODE_ADVENTURE_PERM_OTHER.getPermission();
+                                break;
+                            case "3":
+                            case "spectator":
+                                gameMode = GameMode.SPECTATOR;
+                                permission = GAMEMODE_SPECTATOR_PERM_OTHER.getPermission();
+                                break;
+                            default: getMsgSendConfig(sender, command.getName(), CMD_INVALID_ARGS.getMessage().replace("{0}", gamemode));
+                                break;
                         }
                         if (gameMode != null) {
                             if (sender.hasPermission(permission) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
@@ -108,6 +131,7 @@ public class Gamemode implements CommandExecutor {
                     }
                 }catch (Exception e){
                     sendCommandExceptionMessage(e, command.getName()+" "+gamemode+" "+args[1]);
+                    sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                 }
             } else if (args.length == 2 && args[1].equalsIgnoreCase("all")) {
                 try{
@@ -116,18 +140,29 @@ public class Gamemode implements CommandExecutor {
                     String mode = args[0].toLowerCase();
                     GameMode gameMode = null;
                     String permission = "";
-                    if (mode.equals("0") || mode.equals("survival")) {
-                        gameMode = GameMode.SURVIVAL;
-                        permission = GAMEMODE_SURVIVAL_PERM_OTHER.getPermission();
-                    } else if (mode.equals("1") || mode.equals("creative")) {
-                        gameMode = GameMode.CREATIVE;
-                        permission = GAMEMODE_CREATIVE_PERM_OTHER.getPermission();
-                    } else if (mode.equals("2") || mode.equals("adventure")) {
-                        gameMode = GameMode.ADVENTURE;
-                        permission = GAMEMODE_ADVENTURE_PERM_OTHER.getPermission();
-                    } else if (mode.equals("3") || mode.equals("spectator")) {
-                        gameMode = GameMode.SPECTATOR;
-                        permission = GAMEMODE_SPECTATOR_PERM_OTHER.getPermission();
+                    switch(mode){
+                        case "0":
+                        case "survival":
+                            gameMode = GameMode.SURVIVAL;
+                            permission = GAMEMODE_SURVIVAL_PERM_OTHER.getPermission();
+                            break;
+                        case "1":
+                        case "creative":
+                            gameMode = GameMode.CREATIVE;
+                            permission = GAMEMODE_CREATIVE_PERM_OTHER.getPermission();
+                            break;
+                        case "2":
+                        case "adventure":
+                            gameMode = GameMode.ADVENTURE;
+                            permission = GAMEMODE_ADVENTURE_PERM_OTHER.getPermission();
+                            break;
+                        case "3":
+                        case "spectator":
+                            gameMode = GameMode.SPECTATOR;
+                            permission = GAMEMODE_SPECTATOR_PERM_OTHER.getPermission();
+                            break;
+                        default: getMsgSendConfig(sender, command.getName(), CMD_INVALID_ARGS.getMessage().replace("{0}", gamemode));
+                            break;
                     }
                     if (gameMode != null) {
                         if (sender.hasPermission(permission) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
@@ -143,6 +178,7 @@ public class Gamemode implements CommandExecutor {
                     }
                 }catch (Exception e){
                     sendCommandExceptionMessage(e, command.getName()+" "+gamemode+" all");
+                    sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                 }
             } else if (sender instanceof ConsoleCommandSender) {
                 if (args.length <= 1) {
@@ -156,18 +192,29 @@ public class Gamemode implements CommandExecutor {
                             String mode = args[0].toLowerCase();
                             GameMode gameMode = null;
                             String permission = "";
-                            if (mode.equals("0") || mode.equals("survival")) {
-                                gameMode = GameMode.SURVIVAL;
-                                permission = GAMEMODE_SURVIVAL_PERM_OTHER.getPermission();
-                            } else if (mode.equals("1") || mode.equals("creative")) {
-                                gameMode = GameMode.CREATIVE;
-                                permission = GAMEMODE_CREATIVE_PERM_OTHER.getPermission();
-                            } else if (mode.equals("2") || mode.equals("adventure")) {
-                                gameMode = GameMode.ADVENTURE;
-                                permission = GAMEMODE_ADVENTURE_PERM_OTHER.getPermission();
-                            } else if (mode.equals("3") || mode.equals("spectator")) {
-                                gameMode = GameMode.SPECTATOR;
-                                permission = GAMEMODE_SPECTATOR_PERM_OTHER.getPermission();
+                            switch(mode){
+                                case "0":
+                                case "survival":
+                                    gameMode = GameMode.SURVIVAL;
+                                    permission = GAMEMODE_SURVIVAL_PERM_OTHER.getPermission();
+                                    break;
+                                case "1":
+                                case "creative":
+                                    gameMode = GameMode.CREATIVE;
+                                    permission = GAMEMODE_CREATIVE_PERM_OTHER.getPermission();
+                                    break;
+                                case "2":
+                                case "adventure":
+                                    gameMode = GameMode.ADVENTURE;
+                                    permission = GAMEMODE_ADVENTURE_PERM_OTHER.getPermission();
+                                    break;
+                                case "3":
+                                case "spectator":
+                                    gameMode = GameMode.SPECTATOR;
+                                    permission = GAMEMODE_SPECTATOR_PERM_OTHER.getPermission();
+                                    break;
+                                default: getMsgSendConfig(sender, command.getName(), CMD_INVALID_ARGS.getMessage().replace("{0}", gamemode));
+                                    break;
                             }
                             if (gameMode != null) {
                                 if (sender.hasPermission(permission) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
@@ -186,6 +233,7 @@ public class Gamemode implements CommandExecutor {
                         }
                     }catch (Exception e){
                         sendCommandExceptionMessage(e, command.getName()+" "+gamemode+" "+args[1]);
+                        sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                     }
                 }
                 if (args.length == 2 && args[1].equalsIgnoreCase("all")) {
@@ -195,18 +243,29 @@ public class Gamemode implements CommandExecutor {
                         String mode = args[0].toLowerCase();
                         GameMode gameMode = null;
                         String permission = "";
-                        if (mode.equals("0") || mode.equals("survival")) {
-                            gameMode = GameMode.SURVIVAL;
-                            permission = GAMEMODE_SURVIVAL_PERM_OTHER.getPermission();
-                        } else if (mode.equals("1") || mode.equals("creative")) {
-                            gameMode = GameMode.CREATIVE;
-                            permission = GAMEMODE_CREATIVE_PERM_OTHER.getPermission();
-                        } else if (mode.equals("2") || mode.equals("adventure")) {
-                            gameMode = GameMode.ADVENTURE;
-                            permission = GAMEMODE_ADVENTURE_PERM_OTHER.getPermission();
-                        } else if (mode.equals("3") || mode.equals("spectator")) {
-                            gameMode = GameMode.SPECTATOR;
-                            permission = GAMEMODE_SPECTATOR_PERM_OTHER.getPermission();
+                        switch(mode){
+                            case "0":
+                            case "survival":
+                                gameMode = GameMode.SURVIVAL;
+                                permission = GAMEMODE_SURVIVAL_PERM_OTHER.getPermission();
+                                break;
+                            case "1":
+                            case "creative":
+                                gameMode = GameMode.CREATIVE;
+                                permission = GAMEMODE_CREATIVE_PERM_OTHER.getPermission();
+                                break;
+                            case "2":
+                            case "adventure":
+                                gameMode = GameMode.ADVENTURE;
+                                permission = GAMEMODE_ADVENTURE_PERM_OTHER.getPermission();
+                                break;
+                            case "3":
+                            case "spectator":
+                                gameMode = GameMode.SPECTATOR;
+                                permission = GAMEMODE_SPECTATOR_PERM_OTHER.getPermission();
+                                break;
+                            default: getMsgSendConfig(sender, command.getName(), CMD_INVALID_ARGS.getMessage().replace("{0}", gamemode));
+                                break;
                         }
                         if (gameMode != null) {
                             if (sender.hasPermission(permission) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
@@ -222,6 +281,7 @@ public class Gamemode implements CommandExecutor {
                         }
                     }catch (Exception e){
                         sendCommandExceptionMessage(e, command.getName()+" "+gamemode+ " all");
+                        sendMessage(sender, CMD_ERROR.getMessage().replace("{0}", command.getName()).replace("{e}", e.getMessage()));
                     }
                 }
             }

@@ -33,7 +33,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
             }else{
                 if(args.length == 0){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                    getMsgSendConfig(sender, commandName, CMD_NO_ARGS.getMessage().replace("<command>", commandName).replace("{0}", "<message>"));
+                    getMsgSendConfig(sender, commandName, CMD_NO_ARGS.getMessage().replace("<command>", commandName).replace("{0}", "<joueur> <message>"));
                 }else if(args.length > 1){
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if(target != null){
@@ -58,6 +58,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
         }
     }catch (Exception e){
         sendCommandExceptionMessage(e, command.getName());
+        sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
     }
      return true;
 }

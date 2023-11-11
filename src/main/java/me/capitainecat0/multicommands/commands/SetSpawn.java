@@ -12,7 +12,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
+import static me.capitainecat0.multicommands.utils.Messenger.*;
+import static me.capitainecat0.multicommands.utils.Messenger.CMD_ERROR_ASSISTANCE;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class SetSpawn implements CommandExecutor {
 
@@ -47,6 +48,8 @@ public class SetSpawn implements CommandExecutor {
             }
         }catch(Exception e){
             sendCommandExceptionMessage(e, command.getName());
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
+            sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
         return true;
     }

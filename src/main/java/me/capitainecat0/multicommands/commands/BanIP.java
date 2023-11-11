@@ -47,6 +47,7 @@ public class BanIP implements CommandExecutor {
             }
         }catch (Exception e){
             sendCommandExceptionMessage(e, command.getName());
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
         return false;
     }
@@ -87,6 +88,7 @@ public class BanIP implements CommandExecutor {
             }
         }catch (Exception e){
             sendCommandExceptionMessage(e, command.getName());
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
     }
 
@@ -121,7 +123,7 @@ public class BanIP implements CommandExecutor {
             }
         }catch (Exception e){
             sendCommandExceptionMessage(e, command.getName());
-        }
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));}
     }
 
     /**

@@ -39,7 +39,8 @@ public class Feed implements CommandExecutor {
             }
         }catch (Exception e){
             sendCommandExceptionMessage(e, command.getName());
-        }
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
+            sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));        }
         return false;
     }
     
@@ -70,6 +71,7 @@ public class Feed implements CommandExecutor {
              }
          }catch (Exception e){
              sendCommandExceptionMessage(e, command.getName());
+             sendMessage(player, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
          }
     }
 
@@ -103,6 +105,8 @@ public class Feed implements CommandExecutor {
              }
          }catch (Exception e){
              sendCommandExceptionMessage(e, command.getName());
+             sendMessage(player, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
+             sendSuggestCommandMessage(player, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
          }
     }
 
@@ -134,6 +138,7 @@ public class Feed implements CommandExecutor {
              }
          }catch (Exception e){
              sendCommandExceptionMessage(e, command.getName());
+             sendConsoleMessage(CMD_ERROR.getMessage().replace("{0}", command.getName()).replace("{e}", e.getMessage()));
          }
     }
 }

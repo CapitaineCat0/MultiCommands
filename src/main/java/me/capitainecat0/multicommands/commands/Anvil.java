@@ -16,8 +16,7 @@ import static me.capitainecat0.multicommands.utils.Perms.*;
 public class Anvil implements CommandExecutor {
 
     /**
-     *
-     * The Anvil command can open an anvil GUI without any anvil 
+     * The Anvil command can open an anvil GUI without any anvil
      */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -35,8 +34,9 @@ public class Anvil implements CommandExecutor {
             } else if (sender instanceof ConsoleCommandSender) {
                 sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             sendCommandExceptionMessage(e, command.getName());
+            sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
         return false;
     }

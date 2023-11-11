@@ -42,6 +42,7 @@ public class AFK implements CommandExecutor {
                     }
                 }catch (Exception e){
                     sendCommandExceptionMessage(e, command.getName());
+                    sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                 }
             }else if(sender instanceof ConsoleCommandSender){
                 sendConsoleMessage(NO_CONSOLE_COMMAND.getMessage().replace("<command>", command.getName()));

@@ -59,6 +59,10 @@ public enum Messenger {
     CMD_NO_PERM(MessengerUtils.lang("no_perm")),
     CMD_NO_PERM_TO_OTHER(MessengerUtils.lang("no_perm_to_other")),
     CMD_NO_ARGS(MessengerUtils.lang("no_args")),
+    CMD_INVALID_ARGS(MessengerUtils.lang("cmd_invalid_args")),
+    CMD_ERROR(MessengerUtils.lang("cmd_error")),
+    CMD_ERROR_ASSISTANCE(MessengerUtils.lang("cmd_error_assistance")),
+    CMD_ERROR_SUGGEST(MessengerUtils.lang("cmd_error_suggest")),
     ACTIONBAR_SENT_TO_OTHER(MessengerUtils.lang("actionbosstitle_sent_to_other")),
     ACTIONBAR_SENT_TO_ALL(MessengerUtils.lang("actionbosstitle_sent_to_all")),
     AFK_BROADCAST_ENABLED(colored(MessengerUtils.lang("afk_enabled_broadcast"))),
@@ -201,8 +205,11 @@ public enum Messenger {
     ONJOIN(MessengerUtils.lang("join_message")),
     ONLEAVE(MessengerUtils.lang("leave_message")),
     ONDEATH(MessengerUtils.lang("death_message")),
-    DEATHLOC(MessengerUtils.lang("death_message_loc"));
+    DEATHLOC(MessengerUtils.lang("death_message_loc")),
 
+
+
+    ;
     private final String msg;
 
     /**

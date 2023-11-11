@@ -1,6 +1,6 @@
 package me.capitainecat0.multicommands.events;
 
-import me.capitainecat0.multicommands.utils.GUICreator;
+import me.capitainecat0.multicommands.utils.inventories.GUICreator;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

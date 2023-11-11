@@ -45,6 +45,7 @@ public class Heal implements CommandExecutor {
                     }
                 }catch (Exception e){
                     sendCommandExceptionMessage(e, command.getName());
+                    sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                 }
                 if(args.length == 1){
                     try{
@@ -72,6 +73,7 @@ public class Heal implements CommandExecutor {
                         }
                     }catch (Exception e){
                         sendCommandExceptionMessage(e, command.getName()+" "+args[0]);
+                        sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                     }
                 }if(args.length == 1 && args[0].equalsIgnoreCase("all")){
                     try{
@@ -99,6 +101,7 @@ public class Heal implements CommandExecutor {
                         }
                     }catch (Exception e){
                         sendCommandExceptionMessage(e, command.getName());
+                        sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                     }
                 }
             }else if(sender instanceof ConsoleCommandSender){
@@ -121,6 +124,7 @@ public class Heal implements CommandExecutor {
                         }
                     }catch (Exception e){
                         sendCommandExceptionMessage(e, command.getName());
+                        sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                     }
                 }
                 if(args.length == 1 && args[0].equalsIgnoreCase("all")){
@@ -132,6 +136,7 @@ public class Heal implements CommandExecutor {
                         sendConsoleMessage(HEAL_OTHER_SENDER.getMessage().replace("{0}", "@everyone"));
                     }catch (Exception e){
                         sendCommandExceptionMessage(e, command.getName());
+                        sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                     }
                 }
             }
