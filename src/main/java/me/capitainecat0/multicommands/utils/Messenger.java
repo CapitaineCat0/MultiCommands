@@ -30,6 +30,7 @@ public enum Messenger {
     HELP_LEVEL(MessengerUtils.lang("help_level")),
     HELP_LIST(MessengerUtils.lang("help_list")),
     HELP_MUTE(MessengerUtils.lang("help_mute")),
+    HELP_MULTICOMMANDS(MessengerUtils.lang("help_multicommands")),
     HELP_MULTIINFOS(MessengerUtils.lang("help_multiinfos")),
     HELP_NICK(MessengerUtils.lang("help_nick")),
     HELP_PING(MessengerUtils.lang("help_ping")),
@@ -159,14 +160,14 @@ public enum Messenger {
     MUTE_ENABLED_ADMIN(MessengerUtils.lang("mute_enabled_admin")),
     MUTE_ENABLED_REASON_ADMIN(MessengerUtils.lang("mute_enabled_reason_admin")),
     MUTE_DISABLED_ADMIN(MessengerUtils.lang("mute_disabled_admin")),
-    MULTIINFOS_MSG(colored(
-            "&a&m-+------------+-&7 - &e&l{ &6%plname%&7 - &2[&dinfos&2] &e&l} &7- &a&m-+-----------+-" +
-            "\n &7- &6/multihelp &7=> Vous permet d'afficher l'aide des plugins de la série Multi" +
-            "\n&eNom&8: &6%plname%" +
-            "\n&bAuteur&8: &3%author%" +
-            "\n&aVersion&8: &e%version%" +
-            "\n&9Description&8: &b%description%" +
-            "\n&a&m-+---------------------------------------------------------+-")),
+    MULTIINFOS_MSG(
+            "<green><strikethrough>-+------------+-<gray></strikethrough> - <yellow><bold>{ <gold>%plname%<gray> - <dark_gray>[<light_purple>infos<dark_gray>] <yellow><bold>} <gray>- <green><strikethrough>-+-----------+-</strikethrough>" +
+            "\n <gray>- <gold>/multihelp <gray>=>" + HELP_MULTICOMMANDS.getMessage() +
+            "\n<yellow>Name<dark_gray>: <gold>%plname%" +
+            "\n<aqua>Author<dark_gray>: <dark_aqua>%author%" +
+            "\n<green>Version<dark_gray>: <yellow>%version%" +
+            "\n<blue>Description<dark_gray>: <aqua>%description%" +
+            "\n<green><strikethrough>-+---------------------------------------------------------+-"),
     NICKNAME_DONE(MessengerUtils.lang("nickname_done")),
     PING_SELF_MSG(MessengerUtils.lang("ping_self")),
     PING_OTHER_MSG(MessengerUtils.lang("ping_other")),
@@ -205,6 +206,7 @@ public enum Messenger {
     ONJOIN(MessengerUtils.lang("join_message")),
     ONLEAVE(MessengerUtils.lang("leave_message")),
     ONDEATH(MessengerUtils.lang("death_message")),
+    DEATHBYKILLER(MessengerUtils.lang("death_by_player")),
     DEATHLOC(MessengerUtils.lang("death_message_loc")),
 
 

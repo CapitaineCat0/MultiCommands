@@ -28,7 +28,7 @@ public class Mute implements CommandExecutor {
             if(sender instanceof Player){
                 try{
                     if(args.length == 0){
-                        if(sender.hasPermission(MUTE_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                        if(MultiCommands.getPermissions().has(sender, MUTE_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                             Player target = Bukkit.getPlayerExact(args[0]);
                             StringBuilder bc = new StringBuilder();
                             String reason = bc.toString().replace(target.getName(), "");

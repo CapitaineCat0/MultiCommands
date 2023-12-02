@@ -13,7 +13,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static me.capitainecat0.multicommands.utils.Messenger.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
@@ -33,7 +35,7 @@ public class Chat implements Listener {
         hideActiveBossBar();
         Player sender = event.getPlayer();
         String senderNickName = sender.getCustomName();
-        String msg = colored(event.getMessage().toString());
+        String msg = event.getMessage();
         if(msg.startsWith(STAFFCHAT_PREFIX.getMessage())){
             if (msg.length() >= 1) {
                 try {
@@ -41,7 +43,7 @@ public class Chat implements Listener {
                     String s = String.join(" ", args);
                     String format = STAFFCHAT.getMessage().replace("{0}", STAFFCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     List<Player> onlinePlayers = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
-                    boolean hasPermission = sender.hasPermission(STAFFCHAT_PERM.getPermission()) || sender.hasPermission(ALL_CHAT_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                    boolean hasPermission = MultiCommands.getPermissions().has(sender, STAFFCHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_CHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission());
                     for (Player player : onlinePlayers) {
                         if (hasPermission) {
                             playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -65,14 +67,14 @@ public class Chat implements Listener {
                     String s = String.join(" ", args);
                     String format = ADMINCHAT.getMessage().replace("{0}", ADMINCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     List<Player> onlinePlayers = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
-                    boolean hasPermission = sender.hasPermission(ADMINCHAT_PERM.getPermission()) || sender.hasPermission(ALL_CHAT_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                    boolean hasPermission = MultiCommands.getPermissions().has(sender, ADMINCHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_CHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission());
                     for (Player player : onlinePlayers) {
                         if (hasPermission) {
                             playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             sendMessage(player, format);
                         } else {
                             playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                            getMsgSendConfig(player, "chat staff", CMD_NO_PERM.getMessage());
+                            getMsgSendConfig(player, "chat admin", CMD_NO_PERM.getMessage());
                         }
                     }
                     sendConsoleMessage(format);
@@ -89,14 +91,14 @@ public class Chat implements Listener {
                     String s = String.join(" ", args);
                     String format = BUILDERCHAT.getMessage().replace("{0}", BUILDERCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     List<Player> onlinePlayers = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
-                    boolean hasPermission = sender.hasPermission(BUILDERCHAT_PERM.getPermission()) || sender.hasPermission(ALL_CHAT_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                    boolean hasPermission = MultiCommands.getPermissions().has(sender, BUILDERCHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_CHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission());
                     for (Player player : onlinePlayers) {
                         if (hasPermission) {
                             playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             sendMessage(player, format);
                         } else {
                             playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                            getMsgSendConfig(player, "chat staff", CMD_NO_PERM.getMessage());
+                            getMsgSendConfig(player, "chat builder", CMD_NO_PERM.getMessage());
                         }
                     }
                     sendConsoleMessage(format);
@@ -113,7 +115,7 @@ public class Chat implements Listener {
                     String s = String.join(" ", args);
                     String format = DEVCHAT.getMessage().replace("{0}", DEVCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     List<Player> onlinePlayers = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
-                    boolean hasPermission = sender.hasPermission(DEVCHAT_PERM.getPermission()) || sender.hasPermission(ALL_CHAT_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                    boolean hasPermission = MultiCommands.getPermissions().has(sender, DEVCHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_CHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission());
                     for (Player player : onlinePlayers) {
                         if (hasPermission) {
                             playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -137,7 +139,7 @@ public class Chat implements Listener {
                     String s = String.join(" ", args);
                     String format = MODOCHAT.getMessage().replace("{0}", MODOCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                     List<Player> onlinePlayers = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
-                    boolean hasPermission = sender.hasPermission(MODOCHAT_PERM.getPermission()) || sender.hasPermission(ALL_CHAT_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                    boolean hasPermission = MultiCommands.getPermissions().has(sender, MODOCHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_CHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission());
                     for (Player player : onlinePlayers) {
                         if (hasPermission) {
                             playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -158,46 +160,19 @@ public class Chat implements Listener {
             if(!MuteHandler.getInstance().isMuted(sender) || !FreezeHandler.getInstance().isFreeze(sender)){
                 if(ChatHandler.getInstance().isEnabled()){
                     if(senderNickName != null){
-                        if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
-                            String chat = "&7[AFK] %luckperms_prefix% &b"+senderNickName;
-                            chat = PlaceholderAPI.setPlaceholders(event.getPlayer(), chat);
-                            sendBroadcastMessage(CHAT_FORMAT.getMessage().replace("{0}", chat).replace("{1}", msg));
-                            //event.setMessage(colored(chat+ "&7 > &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
-                            if(!AFKHandler.getInstance().isAFK(sender)){
-                                String AFKchat = "%luckperms_prefix% &b"+senderNickName;
-                                AFKchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), AFKchat);
-                                sendBroadcastMessage(CHAT_FORMAT.getMessage().replace("{0}", AFKchat).replace("{1}", msg));
-                                //event.setMessage(colored(AFKchat+ "&7 > &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
-                            }
-                        }else{
-                            sendBroadcastMessage(CHAT_FORMAT.getMessage().replace("{0}", "[AFK] "+senderNickName).replace("{1}", msg));
-                            //event.setMessage(colored("&7[AFK] &b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
-                            if(!AFKHandler.getInstance().isAFK(sender)){
-                                sendBroadcastMessage(CHAT_FORMAT.getMessage().replace("{0}", senderNickName).replace("{1}", msg));
-                                //event.setMessage(colored("&b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
-                            }
+                        sendMessage(CHAT_FORMAT.getMessage().replace("{0}", "[AFK] "+ senderNickName).replace("{1}", msg));
+                        //event.setMessage(colored("&7[AFK] &b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
+                        if(!AFKHandler.getInstance().isAFK(sender)){
+                            sendMessage(CHAT_FORMAT.getMessage().replace("{0}", senderNickName).replace("{1}", msg));
+                            //event.setMessage(colored("&b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
                         }
-
                     }else{
-                        if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
-                            String defaultchat = "%luckperms_prefix% &b%player_name%";
-                            defaultchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), defaultchat);
-                            sendBroadcastMessage(CHAT_FORMAT.getMessage().replace("{0}", defaultchat).replace("{1}", msg));
-                            //event.setMessage(colored(defaultchat+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
-                            if(!AFKHandler.getInstance().isAFK(sender)){
-                                String defaultAFKchat = "%luckperms_prefix% &b%player_name%";
-                                defaultAFKchat = PlaceholderAPI.setPlaceholders(event.getPlayer(), defaultAFKchat);
-                                sendBroadcastMessage(CHAT_FORMAT.getMessage().replace("{0}", defaultAFKchat).replace("{1}", msg));
-                                //event.setMessage(colored(defaultAFKchat+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
-                            }
+                        if(AFKHandler.getInstance().isAFK(sender)){
+                            sendMessage(CHAT_FORMAT.getMessage().replace("{0}", "[AFK] " + sender.getName()).replace("{1}", msg));
+                            //event.setMessage(colored("&b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
                         }else{
-                            if(AFKHandler.getInstance().isAFK(sender)){
-                                sendBroadcastMessage(CHAT_FORMAT.getMessage().replace("{0}", "[AFK] "+sender.getName()).replace("{1}", msg));
-                                //event.setMessage(colored("&b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
-                            }else{
-                                sendBroadcastMessage(CHAT_FORMAT.getMessage().replace("{0}", sender.getName()).replace("{1}", msg));
-                                //event.setMessage(colored("&b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
-                            }
+                            sendMessage(CHAT_FORMAT.getMessage().replace("{0}", sender.getName()).replace("{1}", msg));
+                            //event.setMessage(colored("&b"+senderNickName+" &7> &f" + msg.replace("CraftPlayer{name="+sender.getName()+"}", " ")));
                         }
                     }
                 }else{

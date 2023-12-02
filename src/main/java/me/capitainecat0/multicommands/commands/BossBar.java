@@ -27,13 +27,13 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
     try {
         String commandName = command.getName();
         if(sender instanceof Player){
-            if(!sender.hasPermission(BOSSBAR_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+            if(!MultiCommands.getPermissions().has(sender, BOSSBAR_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 getMsgSendConfig(sender, commandName, CMD_NO_PERM.getMessage());
             }else{
                 if(args.length == 0){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                    getMsgSendConfig(sender, commandName, CMD_NO_ARGS.getMessage().replace("<command>", commandName).replace("{0}", "<joueur> <message>"));
+                    getMsgSendConfig(sender, commandName, CMD_NO_ARGS.getMessage().replace("<command>", commandName).replace("{0}", "<player> <message>"));
                 }else if(args.length > 1){
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if(target != null){

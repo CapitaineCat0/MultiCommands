@@ -24,12 +24,11 @@ public class PlayerPinger implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         try{
-            if(!sender.hasPermission(PLAYERPINGER_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+            if(!MultiCommands.getPermissions().has(sender, PLAYERPINGER_PERM.getPermission())){
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                 return true;
-            }
-            else{
+            }else{
                 if(args.length == 0){
                     if(sender instanceof Player){
                         playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);

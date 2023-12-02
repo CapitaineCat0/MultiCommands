@@ -36,7 +36,7 @@ public class Furnace implements CommandExecutor {
             if (sender instanceof Player) {
                 ItemStack baseItem;
                 Iterator i;
-                if (!sender.hasPermission(FURNACE_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())) {
+                if(!MultiCommands.getPermissions().has(sender, FURNACE_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                     return true;

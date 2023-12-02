@@ -22,9 +22,7 @@ public class Broadcast implements CommandExecutor {
 public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
     hideActiveBossBar();
     try {
-        boolean hasBroadcastPerm = sender.hasPermission(BROADCAST_PERM.getPermission());
-        boolean hasAllPerms = sender.hasPermission(ALL_PERMS.getPermission());
-        if (!hasBroadcastPerm || !hasAllPerms) {
+        if (!MultiCommands.getPermissions().has(sender, BROADCAST_PERM.getPermission()) && !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())) {
             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             return true;
@@ -40,7 +38,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
                 }
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), BROADCAST_CMD.getMessage());
-                sendBroadcastMessage(BROADCAST_PREFIX.getMessage() + "&r " + bc);
+                sendMessage(BROADCAST_PREFIX.getMessage() + "<reset> " + bc);
             }
         }
     }catch (Exception e){

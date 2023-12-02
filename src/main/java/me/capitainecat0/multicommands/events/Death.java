@@ -29,11 +29,11 @@ public class Death implements Listener {
         int z = player.getLocation().getBlockZ();
         if (killer == null) {
             event.setDeathMessage(null);
-            sendMessage(ONDEATH.getMessage().replace("{0}", player.getName()));
+            sendBroadcastMessage(ONDEATH.getMessage().replace("{0}", player.getName()));
             sendMessage(player, DEATHLOC.getMessage().replace("{0}", "X :" + x + " Y :" + y + " Z :" + z));
         }else{
             event.setDeathMessage(null);
-            Bukkit.broadcastMessage("§d"+player.getName()+" §7à été §c§ltué §7par §4"+killer.getName()+"§c!");
+            sendMessage(DEATHBYKILLER.getMessage().replace("{0}", player.getName()).replace("{1}", killer.getName()));
             sendMessage(player, DEATHLOC.getMessage().replace("{0}", "X " + x + "Y " + y + "Z " + z));
         }
     }

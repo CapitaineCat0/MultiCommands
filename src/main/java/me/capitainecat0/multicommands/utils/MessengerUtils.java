@@ -195,7 +195,7 @@ public class MessengerUtils {
      * @deprecated  Utilisez <var>sendBroadcastMessage</var> à la place
      * @see #sendBroadcastMessage(String)
      */
-    @Deprecated static void sendMessage(@NotNull String message){
+    @Deprecated public static void sendMessage(@NotNull String message){
         final Component component = MiniMessage.miniMessage().deserialize(message.replace("{prefix}", PLUGIN_PREFIX.getMessage()));
         instance.adventure().players().sendMessage(component);
     }
@@ -1406,11 +1406,11 @@ public class MessengerUtils {
     public static void sendEventExceptionMessage(@NotNull Exception exception, String event){
         // Obtenir la ligne de l'erreur
         StackTraceElement errorLine = exception.getStackTrace()[0];
-        sendConsoleMessage("&e----{prefix} &cERROR&e----");
+        sendConsoleMessage("&e----&6Multi&5Commands &cERROR&e----");
         sendConsoleMessage("&cCaused by: &e"+event);
         sendConsoleMessage("&cJava Class: &e"+exception.getClass());
         sendConsoleMessage("&cError: &e"+exception.getMessage());
         sendConsoleMessage("&cLine: &e"+errorLine.toString().replace("MultiCommands.jar//", ""));
-        sendConsoleMessage("&e----{prefix} &cERROR&e----");
+        sendConsoleMessage("&e----&6Multi&5Commands &cERROR&e----");
     }
 }

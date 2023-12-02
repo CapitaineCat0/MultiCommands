@@ -1,14 +1,14 @@
 name: MultiCommands
-version: '1.4.4'
+version: '1.5'
 main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
 authors: [CapitaineCat0, It'sTheSky]
 description: Custom essentials build
 website: www.hallofgames.fr/plugins
+depend:
+  - Vault
 softdepend:
   - MultiMaintenance
-  - PlaceholderAPI
-  - Vault
 commands:
   #channels staff:
   adminchat:

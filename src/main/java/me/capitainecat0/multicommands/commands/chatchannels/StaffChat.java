@@ -1,6 +1,7 @@
 package me.capitainecat0.multicommands.commands.chatchannels;
 
 import me.capitainecat0.multicommands.MultiCommands;
+import me.capitainecat0.multicommands.utils.Perms;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -33,7 +34,7 @@ public class StaffChat implements CommandExecutor, Listener {
                 String s = String.join(" ", args);
                 String format = STAFFCHAT.getMessage().replace("{0}", STAFFCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                 List<Player> onlinePlayers = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
-                boolean hasPermission = sender.hasPermission(STAFFCHAT_PERM.getPermission()) || sender.hasPermission(ALL_CHAT_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                boolean hasPermission = MultiCommands.getPermissions().has((Player) sender, Perms.STAFFCHAT_PERM.getPermission()) || MultiCommands.getPermissions().has((Player) sender, ALL_CHAT_PERM.getPermission()) || MultiCommands.getPermissions().has((Player) sender, ALL_PERMS.getPermission());
                 for (Player player : onlinePlayers) {
                     if (hasPermission) {
                         playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);

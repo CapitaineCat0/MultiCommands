@@ -5,12 +5,13 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.jetbrains.annotations.NotNull;
 
 public class CustomCraft {
 
     //Création de recettes personnalisées
 
-    public static ShapedRecipe saddle(){
+    public static @NotNull ShapedRecipe saddle(){
         //Création de la recette de la selle
         //Clé obligatoire pour la recette (depuis spigot 1.12)
         NamespacedKey key = new NamespacedKey(MultiCommands.getPlugin(MultiCommands.class), "saddle");

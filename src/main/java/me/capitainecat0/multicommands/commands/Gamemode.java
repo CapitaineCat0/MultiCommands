@@ -67,7 +67,7 @@ public class Gamemode implements CommandExecutor {
                             break;
                     }
                     if (mode != null) {
-                        if (sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
+                        if(MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())) {
                             player.setGameMode(mode);
                             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             getMsgSendConfig(sender, command.getName(), GAMEMODE_SELF.getMessage().replace("{0}", gamemode));
@@ -114,7 +114,7 @@ public class Gamemode implements CommandExecutor {
                                 break;
                         }
                         if (gameMode != null) {
-                            if (sender.hasPermission(permission) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
+                            if(MultiCommands.getPermissions().has(sender, permission) || MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_OTHER_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())) {
                                 target.setGameMode(gameMode);
                                 playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -165,7 +165,7 @@ public class Gamemode implements CommandExecutor {
                             break;
                     }
                     if (gameMode != null) {
-                        if (sender.hasPermission(permission) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
+                        if(MultiCommands.getPermissions().has(sender, permission) || MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_OTHER_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())) {
                             target.setGameMode(gameMode);
                             playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -217,7 +217,7 @@ public class Gamemode implements CommandExecutor {
                                     break;
                             }
                             if (gameMode != null) {
-                                if (sender.hasPermission(permission) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
+                                if(MultiCommands.getPermissions().has(sender, permission) || MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_OTHER_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())) {
                                     target.setGameMode(gameMode);
                                     playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -268,7 +268,7 @@ public class Gamemode implements CommandExecutor {
                                 break;
                         }
                         if (gameMode != null) {
-                            if (sender.hasPermission(permission) || sender.hasPermission(GAMEMODE_PERM_ALL.getPermission()) || sender.hasPermission(GAMEMODE_PERM_OTHER_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())) {
+                            if(MultiCommands.getPermissions().has(sender, permission) || MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, GAMEMODE_PERM_OTHER_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())) {
                                 target.setGameMode(gameMode);
                                 playSoundIfEnabled(target, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
@@ -276,7 +276,7 @@ public class Gamemode implements CommandExecutor {
                                 getMsgSendConfig(sender, command.getName(), GAMEMODE_OTHER_ADMIN.getMessage().replace("{0}", mode).replace("{1}", target.getName()));
                             } else {
                                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                                getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                             }
                         }
                     }catch (Exception e){

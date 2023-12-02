@@ -24,7 +24,6 @@ public class MultiHelp implements CommandExecutor {
         hideActiveBossBar();
         if (sender instanceof Player) {
             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-
             if (MultiCommands.getInstance().getConfig().getBoolean("enable-help-gui")) {
                 (new HelpGUI()).open((Player)sender);
             } else {
@@ -72,7 +71,7 @@ public class MultiHelp implements CommandExecutor {
                         "<newline>");
             }
         } else if (sender instanceof ConsoleCommandSender) {
-            sendConsoleMessage("&a&m-+------------+-&7 - &e&l{ &6MultiCommands&7 - &2[&dhelp&2] &e&l} &7- &a&m-+-------------+-" +
+            sendConsoleMessage("&a-+------------+-&7 - &e{ &6MultiCommands&7 - &2[&dhelp&2] &e} &7- &a-+-------------+-" +
                     "\n&6 - &b/afk " + HELP_AFK.getMessage() +
                     "\n&6 - &b/alert <message> " + HELP_ALERT.getMessage() +
                     "\n&6 - &b/anvil " + HELP_ANVIL.getMessage() +
@@ -115,7 +114,6 @@ public class MultiHelp implements CommandExecutor {
                     "\n&6 - &b/whois <player> " + HELP_WHOIS.getMessage() +
                     "\n");
         }
-
         return false;
     }
 }

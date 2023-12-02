@@ -25,7 +25,7 @@ public class Alert implements CommandExecutor {
         hideActiveBossBar();
         try {
             boolean isPlayer = sender instanceof Player;
-            boolean hasPermission = isPlayer && (sender.hasPermission(ALERT_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission()));
+            boolean hasPermission = isPlayer && (MultiCommands.getPermissions().has(sender, ALERT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission()));
             if (isPlayer && !hasPermission) {
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
@@ -41,14 +41,14 @@ public class Alert implements CommandExecutor {
                 }
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), ALERT_CMD.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
-                sendBroadcastMessage(ALERT_PREFIX.getMessage() + "&r " + bc);
+                sendMessage(ALERT_PREFIX.getMessage() + "<reset> " + bc);
             } else if (sender instanceof ConsoleCommandSender) {
                 StringBuilder bc = new StringBuilder();
                 for (String part : args) {
                     bc.append(part).append(" ");
                 }
                 if(args.length != 0){
-                    sendBroadcastMessage(ALERT_PREFIX.getMessage() + "&r " + bc);
+                    sendMessage(ALERT_PREFIX.getMessage() + "<reset> " + bc);
                 }else{
                     sendConsoleMessage(CMD_NO_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<message>"));
                 }

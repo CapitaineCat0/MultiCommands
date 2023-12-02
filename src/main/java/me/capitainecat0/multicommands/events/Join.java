@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -25,7 +26,7 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 public class Join implements Listener {
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
+    public void onJoin(@NotNull PlayerJoinEvent event){
         hideActiveBossBar();
        Player player = event.getPlayer();
        /*if(MultiCommands.getInstance().setupEconomy()){
@@ -49,13 +50,15 @@ public class Join implements Listener {
            player.kick(kick);
        }*/
            if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
-               String joinText = "&8{ &a+ &8} &e- &a>&f%luckperms_prefix% &3%player_name%";
+               String joinText = "<dark_gray>{ <green>+ <dark_gray>} <yellow>- <green>><reset>%luckperms_prefix% <aqua>%player_name%";
                joinText = PlaceholderAPI.setPlaceholders(event.getPlayer(), joinText);
                //Component join = Component.text(joinText);
-               event.setJoinMessage(colored(joinText));
+               event.joinMessage(null);
+               sendMessage(joinText);
            }else {
                //Component join = Component.text(ONJOIN.getMessage().replace("{0}", player.getName()));
-               event.setJoinMessage(colored(ONJOIN.getMessage().replace("{0}", player.getName())));
+               event.joinMessage(null);
+               sendMessage(ONJOIN.getMessage().replace("{0}", player.getName()));
                if (player.hasPermission(Perms.VANISH_PERM_SELF.getPermission()) || player.hasPermission(Perms.VANISH_PERM_ALL.getPermission()) || player.hasPermission(Perms.ALL_PERMS.getPermission())) {
                    VanishHandler.getVanished().add(player);
                }

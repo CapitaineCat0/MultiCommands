@@ -26,7 +26,7 @@ public class SetSpawn implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         try{
-            if(!sender.hasPermission(Perms.SETSPAWN_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())){
+            if(!MultiCommands.getPermissions().has(sender, Perms.SETSPAWN_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, Perms.ALL_PERMS.getPermission())){
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             }else{

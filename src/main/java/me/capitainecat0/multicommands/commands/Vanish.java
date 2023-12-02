@@ -26,8 +26,8 @@ public class Vanish implements CommandExecutor {
         hideActiveBossBar();
         try{
             if(sender instanceof Player){
-                boolean hasVanishPerm = sender.hasPermission(VANISH_PERM_SELF.getPermission()) || sender.hasPermission(VANISH_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
-                boolean hasOtherVanishPerm = sender.hasPermission(VANISH_PERM_OTHER.getPermission()) || sender.hasPermission(VANISH_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                boolean hasVanishPerm = MultiCommands.getPermissions().has(sender, VANISH_PERM_SELF.getPermission()) || MultiCommands.getPermissions().has(sender, VANISH_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission());
+                boolean hasOtherVanishPerm = MultiCommands.getPermissions().has(sender, VANISH_PERM_OTHER.getPermission()) || MultiCommands.getPermissions().has(sender, VANISH_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission());
                 if (args.length == 0) {
                     if (hasVanishPerm) {
                         Player player = (Player) sender;

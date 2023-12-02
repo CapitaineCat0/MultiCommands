@@ -7,11 +7,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.jetbrains.annotations.NotNull;
+
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class AFKEvents implements Listener {
     @EventHandler
-    public void onMove(PlayerMoveEvent e){
+    public void onMove(@NotNull PlayerMoveEvent e){
         hideActiveBossBar();
         Player player = e.getPlayer();
         if(AFKHandler.getInstance().isAFK(player)){
@@ -19,7 +21,7 @@ public class AFKEvents implements Listener {
         }
     }
     @EventHandler
-    public void onPlace(BlockPlaceEvent e){
+    public void onPlace(@NotNull BlockPlaceEvent e){
         hideActiveBossBar();
         Player player = e.getPlayer();
         if(AFKHandler.getInstance().isAFK(player)){
@@ -27,7 +29,7 @@ public class AFKEvents implements Listener {
         }
     }
     @EventHandler
-    public void onBreak(BlockBreakEvent e){
+    public void onBreak(@NotNull BlockBreakEvent e){
         hideActiveBossBar();
         Player player = e.getPlayer();
         if(AFKHandler.getInstance().isAFK(player)){

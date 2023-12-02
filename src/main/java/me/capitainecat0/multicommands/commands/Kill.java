@@ -30,14 +30,13 @@ public class Kill implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(!sender.hasPermission(KILL_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-            getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
-            return true;
-        }
-        else{
             if(sender instanceof Player){
                 try{
+                    if(!MultiCommands.getPermissions().has(sender, KILL_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
+                        playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
+                        getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
+                        return true;
+                }else{
                     if(args.length <= 1){
                         playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         ((Player) sender).setHealth(0.0);
@@ -59,12 +58,13 @@ public class Kill implements CommandExecutor {
                         target.setHealth(0.0);
                     }*/
                     }
-                }catch(Exception e){
+                }
+            } catch(Exception e){
                     sendCommandExceptionMessage(e, command.getName());
                     sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                     sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                 }
-            } else if(sender instanceof ConsoleCommandSender) {
+        }else if(sender instanceof ConsoleCommandSender) {
                 try{
                     if(args.length <= 1){
                         sendConsoleMessage(NO_CONSOLE_COMMAND_WITHOUT_ARGS.getMessage().replace("<command>", command.getName()).replace("{0}", "<player>"));
@@ -84,7 +84,6 @@ public class Kill implements CommandExecutor {
                     sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
                 }
             }
-        }
         return false;
     }
 }

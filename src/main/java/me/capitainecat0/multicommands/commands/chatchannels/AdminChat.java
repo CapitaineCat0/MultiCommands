@@ -35,7 +35,7 @@ public class AdminChat implements CommandExecutor, Listener {
                 String s = String.join(" ", args);
                 String format = ADMINCHAT.getMessage().replace("{0}", Messenger.ADMINCHAT_PREFIX.getMessage()).replace("{1}", sender.getName()).replace("{2}", s);
                 List<Player> onlinePlayers = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
-                boolean hasPermission = sender.hasPermission(Perms.ADMINCHAT_PERM.getPermission()) || sender.hasPermission(ALL_CHAT_PERM.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission());
+                boolean hasPermission = MultiCommands.getPermissions().has((Player) sender, Perms.ADMINCHAT_PERM.getPermission()) || MultiCommands.getPermissions().has((Player) sender, ALL_CHAT_PERM.getPermission()) || MultiCommands.getPermissions().has((Player) sender, ALL_PERMS.getPermission());
                 for (Player player : onlinePlayers) {
                     if (hasPermission) {
                         playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);

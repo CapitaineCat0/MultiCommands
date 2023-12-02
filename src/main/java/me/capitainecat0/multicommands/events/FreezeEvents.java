@@ -27,14 +27,9 @@ public class FreezeEvents implements Listener {
         FreezeData data = new FreezeData(player);
         boolean isFrozen = data.isFrozen();
         if (isFrozen) {
-            if(!MultiCommands.getCooldownManager().isPlayerCooldown(player)){
-                MultiCommands.getCooldownManager().addPlayerCooldown(player, 5);
-            }
             event.setCancelled(true);
             hideActiveBossBar();
-            if(MultiCommands.getCooldownManager().isPlayerCooldown(player)){
-                getMsgSendConfig(player, event.getEventName(), FREEZE_BREAK.getMessage());
-            }
+            getMsgSendConfig(player, event.getEventName(), FREEZE_BREAK.getMessage());
         }
     }
 

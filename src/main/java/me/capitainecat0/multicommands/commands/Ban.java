@@ -33,12 +33,11 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
     hideActiveBossBar();
         try {
             if(sender instanceof Player){
-                if(!sender.hasPermission(BAN_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                if(!MultiCommands.getPermissions().has(sender, BAN_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     return true;
-                }
-                else{
+                }else{
                     processCommand(sender, command, args);
                 }
             }else if(sender instanceof ConsoleCommandSender){

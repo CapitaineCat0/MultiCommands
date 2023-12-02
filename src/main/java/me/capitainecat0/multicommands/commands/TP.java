@@ -33,7 +33,7 @@ public class TP implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         hideActiveBossBar();
         try{
-            if(!sender.hasPermission(TELEPORT_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+            if(!MultiCommands.getPermissions().has(sender, TELEPORT_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                 return true;
@@ -49,7 +49,7 @@ public class TP implements CommandExecutor {
                             if(target != null){
                                 ((Player) sender).teleport(target.getLocation());
                                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                                getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_PLAYER.getMessage().replace("{0", target.getName()));
+                                getMsgSendConfig(sender, command.getName(), TELEPORT_SELF_TO_PLAYER.getMessage().replace("{0}", target.getName()));
                             }else{
                                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                                 getMsgSendConfig(sender, command.getName(), NOT_A_PLAYER.getMessage().replace("{0}", args[0]));
@@ -151,7 +151,6 @@ public class TP implements CommandExecutor {
         }catch(Exception e){
             sendCommandExceptionMessage(e, command.getName());
             sendMessage(sender, CMD_ERROR.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
-            sendSuggestCommandMessage(sender, CMD_ERROR_SUGGEST.getMessage(), "helpop" + CMD_ERROR_ASSISTANCE.getMessage().replace("<command>", command.getName()).replace("{e}", e.getMessage()));
         }
         return false;
     }

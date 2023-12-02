@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
 import java.util.UUID;
 
 public class CooldownManager {
@@ -16,7 +17,7 @@ public class CooldownManager {
      *
      * @param plugin Main class
      */
-    public CooldownManager(MultiCommands plugin){
+    public CooldownManager(MultiCommands plugin, long delay){
         new BukkitRunnable(){
 
             @Override
@@ -29,16 +30,17 @@ public class CooldownManager {
                     cooldownMap.put(uuid, cooldownMap.get(uuid)-1);
                 }
             }
-        }.runTaskTimer(plugin, 0, 20);
+        }.runTaskTimer(plugin, delay, 20);
     }
     /**
      *
      * @param player
-     * @param time in seconds
+     * @param delay in seconds
      * @return Add player to cooldown Map
      */
-    public void addPlayerCooldown(@NotNull Player player, Integer time){
-        cooldownMap.put(player.getUniqueId(), time);
+    public void addPlayerCooldown(@NotNull Player player, Integer delay){
+        if(!isPlayerCooldown(player)){
+            cooldownMap.put(player.getUniqueId(), delay);}
     }
     /**
      *

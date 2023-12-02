@@ -30,7 +30,7 @@ public class TPA implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
-            if (!sender.hasPermission(Perms.TPA_PERM.getPermission()) || !sender.hasPermission(Perms.TPA_ALL_PERM.getPermission()) || !sender.hasPermission(Perms.ALL_PERMS.getPermission())) {
+            if(!MultiCommands.getPermissions().has(sender, Perms.TPA_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, Perms.TPA_ALL_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, Perms.ALL_PERMS.getPermission())){
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), Messenger.CMD_NO_PERM.getMessage());
             }else{

@@ -31,7 +31,7 @@ public class ServerInfo implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         hideActiveBossBar();
         try{
-            if(!sender.hasPermission(SERVERINFO_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+            if(!MultiCommands.getPermissions().has(sender, SERVERINFO_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                 return true;
@@ -40,35 +40,35 @@ public class ServerInfo implements CommandExecutor {
                 if(sender instanceof Player){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 }
-                sendMessage(sender, "&a&m-+---------------+- &7 - &e&l{ &cServer Informations &e&l} &7- &a&m-+---------------+-");
-                sendMessage(sender, "&6IP &c/&6 Port: &c" + Bukkit.getServer().getIp() + " &e:&c " + Bukkit.getServer().getPort());
-                sendMessage(sender, "&6Jar: &c" + Bukkit.getServer().getVersion());
-                sendMessage(sender, "&6Version: &c" + Bukkit.getServer().getBukkitVersion());
+                sendMessage(sender, "<green><strikethrough>-+---------------+- </strikethrough><gray> - <yellow><bold>{ <red>Server Informations <yellow><bold>} <gray>- <green><strikethrough>-+---------------+-</strikethrough>");
+                sendMessage(sender, "<gold>IP <red>/<gold> Port: <red>" + Bukkit.getServer().getIp() + " <yellow>:<red> " + Bukkit.getServer().getPort());
+                sendMessage(sender, "<gold>Jar: <red>" + Bukkit.getServer().getVersion());
+                sendMessage(sender, "<gold>Version: <red>" + Bukkit.getServer().getBukkitVersion());
                 //sendMessage(sender, "&6Uptime: &c" + ManagementFactory.getRuntimeMXBean().getStartTime() / 1024 / 1024 + " &6milliseconds &8(&e"+ManagementFactory.getRuntimeMXBean().getStartTime() / 1024 / 1024 / 1000 +"h&8)");
-                sendMessage(sender, "&6TPS: &a"+ Arrays.toString(Bukkit.getTPS()));
-                sendMessage(sender, "&6MaxRam: &c" + Runtime.getRuntime().maxMemory() / 1024 / 1024 +" &6Go");
-                sendMessage(sender, "&6FreeRam: &c" + Runtime.getRuntime().freeMemory() / 1024 / 1024+" &6Go &e/ &c" + Runtime.getRuntime().totalMemory() / 1024 / 1024+" &6Go");
-                sendMessage(sender, "&6Processor: &c" + Runtime.getRuntime().availableProcessors() + " &6cores");
-                sendMessage(sender, "&6Players: &c" + Bukkit.getServer().getOnlinePlayers().size() + "&e / &c" + Bukkit.getServer().getMaxPlayers());
-                sendMessage(sender, "&6Operators: &7(&c" + Bukkit.getServer().getOperators().size() + "&7)");
+                sendMessage(sender, "<gold>TPS: <green>"+ Arrays.toString(Bukkit.getTPS()));
+                sendMessage(sender, "<gold>MaxRam: <red>" + Runtime.getRuntime().maxMemory() / 1024 / 1024 +" <gold>Mo");
+                sendMessage(sender, "<gold>FreeRam: <red>" + Runtime.getRuntime().freeMemory() / 1024 / 1024+" <gold>Mo <yellow>/ <red>" + Runtime.getRuntime().totalMemory() / 1024 / 1024+" <gold>Mo");
+                sendMessage(sender, "<gold>Processor: <red>" + Runtime.getRuntime().availableProcessors() + " <gold>cores");
+                sendMessage(sender, "<gold>Players: <red>" + Bukkit.getServer().getOnlinePlayers().size() + "<yellow> / <red>" + Bukkit.getServer().getMaxPlayers());
+                sendMessage(sender, "<gold>Operators: <gray>(<red>" + Bukkit.getServer().getOperators().size() + "<gray>)");
                 for (OfflinePlayer op : Bukkit.getOperators()) {
-                    sendMessage(sender, "&c- &7" + op.getName());
+                    sendMessage(sender, "<red>- <gray>" + op.getName());
                 }
-                sendMessage(sender, "&6Whitelisted: &7(&c" + Bukkit.getServer().getWhitelistedPlayers().size() + "&7)");
+                sendMessage(sender, "<gold>Whitelisted: <gray>(<red>" + Bukkit.getServer().getWhitelistedPlayers().size() + "<gray>)");
                 for(OfflinePlayer wl : Bukkit.getWhitelistedPlayers()){
-                    sendMessage(sender, "&c- &7" + wl.getName());
+                    sendMessage(sender, "<red>- <gray>" + wl.getName());
                 }
-                sendMessage(sender, "&6Banned: &7(&c" + Bukkit.getServer().getBannedPlayers().size() + "&7) ");
+                sendMessage(sender, "<gold>Banned: <gray>(<red>" + Bukkit.getServer().getBannedPlayers().size() + "<gray>) ");
                 for(OfflinePlayer ban : Bukkit.getBannedPlayers()){
-                    sendMessage(sender, "&c- &7" + ban.getName());
+                    sendMessage(sender, "<red>- <gray>" + ban.getName());
                 }
-                sendMessage(sender, "&6Vanished: &7(&c" + VanishHandler.getVanished().size() + "&7)");
+                sendMessage(sender, "<gold>Vanished: <gray>(<red>" + VanishHandler.getVanished().size() + "<gray>)");
                 for(OfflinePlayer vanished : VanishHandler.getVanished()){
-                    sendMessage(sender, "&c- &7" + vanished.getName());
+                    sendMessage(sender, "<red>- <gray>" + vanished.getName());
                 }
-                sendMessage(sender, "&6AFK: &7(&c" + AFKHandler.getAFK().size() + "&7)");
+                sendMessage(sender, "<gold>AFK: <gray>(<red>" + AFKHandler.getAFK().size() + "<gray>)");
                 for(OfflinePlayer afk : AFKHandler.getAFK()){
-                    sendMessage(sender, "&c- &7" + afk.getName());
+                    sendMessage(sender, "<red>- <gray>" + afk.getName());
                 }
            /* try{
                 Class.forName("me.capitainecat0.multimaintenance.MultiMaintenance");
@@ -87,7 +87,7 @@ public class ServerInfo implements CommandExecutor {
             }catch(final Exception ex) {
                 sendMessage(sender, "&7Install &cMulti§&Maintenance &7to show more informations!");
             }*/
-                sendMessage(sender, "&a&m-+----------------------------------------------------------------+-");
+                sendMessage(sender, "<green><strikethrough>-+----------------------------------------------------------------+-");
             }
         }catch(Exception e){
             sendCommandExceptionMessage(e, command.getName());

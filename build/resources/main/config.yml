@@ -3,7 +3,7 @@
 #Change the default language of messages
 lang: en
 
-#Messages can be sent to different channels :
+#Messages can be sent to different channels:
 # - ACTIONBAR | actionbar
 # - CHAT | chat
 # - TITLE | title
@@ -36,5 +36,5 @@ random-teleporter-max-X: 25000
 random-teleporter-max-Z: 25000
 
 #/!\ DON'T TOUCH THAT SECTION /!\
-#(but if you know what you're doing make it)
+#(but if you know what you're doing, make it)
 spawn:

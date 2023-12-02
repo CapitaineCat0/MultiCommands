@@ -39,7 +39,8 @@ public class Chat implements CommandExecutor {
 public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     hideActiveBossBar();
     try {
-        if (!sender.hasPermission(ALL_CHAT_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())) {
+        if (!MultiCommands.getPermissions().has(sender, ALL_CHAT_PERM.getPermission()) && !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())) {
+            playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
         } else {
             if (args.length < 1) {
@@ -54,18 +55,18 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
                     ChatHandler.getInstance().toggleChat(sender);
                 } else if (args[0].equalsIgnoreCase("clear")) {
                     try{
-                        if (sender.hasPermission(CLEARCHAT_PERM.getPermission())) {
+                        if (MultiCommands.getPermissions().has(sender, CLEARCHAT_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())) {
                             for (int i = 0; i < 100; i++) {
-                                sendBroadcastMessage(" ");
+                                sendMessage(" ");
                             }
-                            sendBroadcastMessage(" &a&m+----------------------------------------+");
-                            sendBroadcastMessage(" ");
-                            sendBroadcastMessage("                   "+CLEARCHAT.getMessage());
-                            sendBroadcastMessage(" ");
-                            sendBroadcastMessage(" &a&m+----------------------------------------+");
-                            sendBroadcastMessage(" ");
-                            sendBroadcastMessage(" ");
-                            sendBroadcastMessage(" ");
+                            sendMessage(" <green><strikethrough>+----------------------------------------+</strikethrough>");
+                            sendMessage(" ");
+                            sendMessage("                   "+CLEARCHAT.getMessage());
+                            sendMessage(" ");
+                            sendMessage(" <green><strikethrough>+----------------------------------------+</strikethrough>");
+                            sendMessage(" ");
+                            sendMessage(" ");
+                            sendMessage(" ");
                         } else {
                             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             sendMessage(sender, CMD_NO_PERM.getMessage());

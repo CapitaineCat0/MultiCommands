@@ -28,7 +28,7 @@ public class Heal implements CommandExecutor {
             if(sender instanceof Player){
                 try{
                     if(args.length == 0){
-                        if(sender.hasPermission(HEAL_PERM_SELF.getPermission()) || sender.hasPermission(HEAL_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                        if(MultiCommands.getPermissions().has(sender, HEAL_PERM_SELF.getPermission()) || MultiCommands.getPermissions().has(sender, HEAL_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                             if(((Player) sender).getHealth() != 20){
                                 ((Player) sender).setHealth(20);
                                 playSoundIfEnabled(sender, Sound.ENTITY_GENERIC_DRINK, 1f, 1f);
@@ -49,7 +49,7 @@ public class Heal implements CommandExecutor {
                 }
                 if(args.length == 1){
                     try{
-                        if(sender.hasPermission(HEAL_PERM_OTHER.getPermission()) || sender.hasPermission(HEAL_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                        if(MultiCommands.getPermissions().has(sender, HEAL_PERM_OTHER.getPermission()) || MultiCommands.getPermissions().has(sender, HEAL_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                             Player target = Bukkit.getPlayerExact(args[0]);
                             if(target != null){
                                 if(target.getHealth() != 20){
@@ -77,7 +77,7 @@ public class Heal implements CommandExecutor {
                     }
                 }if(args.length == 1 && args[0].equalsIgnoreCase("all")){
                     try{
-                        if(sender.hasPermission(HEAL_PERM_OTHER.getPermission()) || sender.hasPermission(HEAL_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                        if(MultiCommands.getPermissions().has(sender, HEAL_PERM_OTHER.getPermission()) || MultiCommands.getPermissions().has(sender, HEAL_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                             Player target = (Player) Bukkit.getOnlinePlayers();
                             if(target != null){
                                 if(target.getHealth() != 20){

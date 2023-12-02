@@ -7,12 +7,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.jetbrains.annotations.NotNull;
 
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class GUIEvents implements Listener {
     @EventHandler
-    private void invClick(InventoryClickEvent event){
+    private void invClick(@NotNull InventoryClickEvent event){
         hideActiveBossBar();
         Player player = (Player) event.getWhoClicked();
         GUICreator gui = GUICreator.getGUI(player);
@@ -31,7 +32,7 @@ public class GUIEvents implements Listener {
     }
 
     @EventHandler
-    private void invDrag(InventoryDragEvent event){
+    private void invDrag(@NotNull InventoryDragEvent event){
         Player player = (Player) event.getWhoClicked();
         GUICreator gui = GUICreator.getGUI(player);
         if(gui != null){
@@ -41,7 +42,7 @@ public class GUIEvents implements Listener {
     }
 
     @EventHandler
-    private void invClose(InventoryCloseEvent event){
+    private void invClose(@NotNull InventoryCloseEvent event){
         Player player = (Player) event.getPlayer();
         GUICreator gui = GUICreator.getGUI(player);
         if(gui != null) gui.remove();

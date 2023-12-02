@@ -25,12 +25,7 @@ public class Top implements CommandExecutor {
         hideActiveBossBar();
         try{
             if(sender instanceof Player){
-                if(!sender.hasPermission(TOP_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
-                    playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
-                    getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
-                    return true;
-                }
-                else {
+                if(MultiCommands.getPermissions().has(sender, TOP_PERM.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                     final double topX = ((Player) sender).getLocation().getBlockX();
                     final double topZ = ((Player) sender).getLocation().getBlockZ();

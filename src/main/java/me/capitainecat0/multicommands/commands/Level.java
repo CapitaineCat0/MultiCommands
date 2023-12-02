@@ -41,7 +41,7 @@ public class Level implements CommandExecutor {
                         sendConsoleMessage(e.getMessage());
                     }
                     if(action.equals("add") || action.equals("set") || action.equals("remove")){
-                        if(!sender.hasPermission(LEVEL_ADD_PERM.getPermission()) || !sender.hasPermission(LEVEL_ALL_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                        if(!MultiCommands.getPermissions().has(sender, LEVEL_ADD_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, LEVEL_ALL_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                             getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                         }else{

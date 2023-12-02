@@ -33,7 +33,7 @@ public class UnBanIP implements CommandExecutor {
         hideActiveBossBar();
         try{
             if(sender instanceof Player){
-                if(!sender.hasPermission(UNBANIP_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                if(!MultiCommands.getPermissions().has(sender, UNBANIP_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                     return true;

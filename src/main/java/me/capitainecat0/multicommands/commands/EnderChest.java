@@ -29,7 +29,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (args.length == 0) {
-                    if(player.hasPermission(ENDERCHEST_PERM_SELF.getPermission()) || player.hasPermission(ENDERCHEST_PERM_ALL.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())){
+                    if(MultiCommands.getPermissions().has(player, ENDERCHEST_PERM_SELF.getPermission()) || MultiCommands.getPermissions().has(player, ENDERCHEST_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(player, ALL_PERMS.getPermission())){
                         playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         player.openInventory(player.getEnderChest());
                     }else{
@@ -38,7 +38,7 @@ public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command
                         return true;
                     }
                 } else if (args.length == 1) {
-                    if(player.hasPermission(ENDERCHEST_PERM_OTHER.getPermission()) || player.hasPermission(ENDERCHEST_PERM_ALL.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())){
+                    if(MultiCommands.getPermissions().has(player, ENDERCHEST_PERM_OTHER.getPermission()) || MultiCommands.getPermissions().has(player, ENDERCHEST_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(player, ALL_PERMS.getPermission())){
                         Player target = Bukkit.getPlayerExact(args[0]);
                         if (target != null) {
                             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);

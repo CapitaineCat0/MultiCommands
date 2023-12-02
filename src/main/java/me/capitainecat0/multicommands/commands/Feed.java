@@ -56,7 +56,7 @@ public class Feed implements CommandExecutor {
       */
      private void handleSelfFeed(Player player, Command command){
          try {
-             if(player.hasPermission(FEED_PERM_SELF.getPermission()) || player.hasPermission(FEED_PERM_ALL.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())){
+             if(MultiCommands.getPermissions().has(player, FEED_PERM_SELF.getPermission()) || MultiCommands.getPermissions().has(player, FEED_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(player, ALL_PERMS.getPermission())){
                  if(player.getFoodLevel() != 20){
                      player.setFoodLevel(20);
                      playSoundIfEnabled(player, Sound.ENTITY_GENERIC_EAT);
@@ -85,7 +85,7 @@ public class Feed implements CommandExecutor {
       */
      private void handleOtherFeed(Player player, Command command, String targetName){
          try {
-             if(player.hasPermission(FEED_PERM_OTHER.getPermission()) || player.hasPermission(FEED_PERM_ALL.getPermission()) || player.hasPermission(ALL_PERMS.getPermission())){
+             if(MultiCommands.getPermissions().has(player, FEED_PERM_OTHER.getPermission()) || MultiCommands.getPermissions().has(player, FEED_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(player, ALL_PERMS.getPermission())){
                  Player target = Bukkit.getPlayerExact(targetName);
                  if(target != null){
                      if(target.getFoodLevel() != 20){

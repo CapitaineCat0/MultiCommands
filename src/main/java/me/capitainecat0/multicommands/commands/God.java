@@ -27,7 +27,7 @@ public class God implements CommandExecutor {
         hideActiveBossBar();
             if(sender instanceof Player){
                 try{
-                    if(sender.hasPermission(GOD_PERM_SELF.getPermission()) || sender.hasPermission(GOD_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                    if(MultiCommands.getPermissions().has(sender, GOD_PERM_SELF.getPermission()) || MultiCommands.getPermissions().has(sender, GOD_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                         Player player = (Player) sender;
                         if(args.length == 0){
                             boolean isInvulnerable = player.isInvulnerable();
@@ -41,7 +41,7 @@ public class God implements CommandExecutor {
                         getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                         return true;
                     }if(args.length == 1){
-                        if(sender.hasPermission(GOD_PERM_SELF.getPermission()) || sender.hasPermission(GOD_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                        if(MultiCommands.getPermissions().has(sender, GOD_PERM_OTHER.getPermission()) || MultiCommands.getPermissions().has(sender, GOD_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                             Player target = Bukkit.getPlayerExact(args[0]);
                             if(target != null){
                                 boolean isInvulnerable = target.isInvulnerable();

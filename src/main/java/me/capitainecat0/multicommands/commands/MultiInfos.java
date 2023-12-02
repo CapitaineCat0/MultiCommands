@@ -15,11 +15,10 @@ import static me.capitainecat0.multicommands.utils.Perms.MULTIINFOS_PERM;
 
 public class MultiInfos implements CommandExecutor {
 
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
-        if(!sender.hasPermission(MULTIINFOS_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+        if(!MultiCommands.getPermissions().has(sender, MULTIINFOS_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
             playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
             getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             return true;

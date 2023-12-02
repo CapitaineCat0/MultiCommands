@@ -29,7 +29,7 @@ public class ActionBar implements CommandExecutor {
         hideActiveBossBar();
         if(sender instanceof Player){
             try {
-                if(!sender.hasPermission(ACTIONBAR_PERMS.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                if(!MultiCommands.getPermissions().has((Player) sender, ACTIONBAR_PERMS.getPermission()) || !MultiCommands.getPermissions().has((Player) sender, ALL_PERMS.getPermission())){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                 }else{

@@ -29,7 +29,7 @@ public class Fly implements CommandExecutor {
         try {
             if(sender instanceof Player) {
                 if(args.length == 0){
-                    if(sender.hasPermission(FLY_PERM_SELF.getPermission())|| sender.hasPermission(FLY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                    if(MultiCommands.getPermissions().has(sender, FLY_PERM_SELF.getPermission()) || MultiCommands.getPermissions().has(sender, FLY_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                         Player player = (Player)sender;
                         boolean allowFlight = player.getAllowFlight();
                         player.setAllowFlight(!allowFlight);
@@ -41,7 +41,7 @@ public class Fly implements CommandExecutor {
                         getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage().replace("{prefix}", PLUGIN_PREFIX.getMessage()));
                     }
                 }else if(args.length == 1){
-                    if(sender.hasPermission(FLY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                    if(MultiCommands.getPermissions().has(sender, FLY_PERM_OTHER.getPermission()) || MultiCommands.getPermissions().has(sender, FLY_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                         Player target = Bukkit.getPlayerExact(args[0]);
                         if (target != null) {
                             boolean allowFlight = target.getAllowFlight();

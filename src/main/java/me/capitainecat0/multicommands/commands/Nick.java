@@ -28,7 +28,7 @@ public class Nick implements CommandExecutor {
         hideActiveBossBar();
         if(sender instanceof Player){
             try{
-                if(!sender.hasPermission(NICKNAME_PERMS.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+                if(!MultiCommands.getPermissions().has(sender, NICKNAME_PERMS.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                     playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                     getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
                     return true;

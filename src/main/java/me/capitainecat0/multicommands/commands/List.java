@@ -25,10 +25,8 @@ public class List implements CommandExecutor {
         hideActiveBossBar();
         try{
             if(sender instanceof Player){
-
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
             }
-
             sendMessage(sender, LIST.getMessage().replace("{0}", Bukkit.getOnlinePlayers().size()+"").replace("{1}", Bukkit.getServer().getMaxPlayers()+""));
             sendMessage(sender,"");
             for (Player p : Bukkit.getOnlinePlayers()) {

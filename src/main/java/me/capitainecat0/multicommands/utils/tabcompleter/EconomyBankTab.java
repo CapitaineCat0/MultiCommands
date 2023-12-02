@@ -14,7 +14,7 @@ import java.util.List;
 public class EconomyBankTab implements org.bukkit.command.TabCompleter {
     @Nullable
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String @NotNull [] args) {
         if(args.length == 1){
             List<String> arguments = new ArrayList<>();
             arguments.add("deposit");

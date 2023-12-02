@@ -29,7 +29,7 @@ public class Spawn implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         hideActiveBossBar();
         try{
-            if(!sender.hasPermission(SPAWN_PERM.getPermission()) || !sender.hasPermission(ALL_PERMS.getPermission())){
+            if(!MultiCommands.getPermissions().has(sender, SPAWN_PERM.getPermission()) || !MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                 playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("no-perm-sound")), 1f, 1f);
                 getMsgSendConfig(sender, command.getName(), CMD_NO_PERM.getMessage());
             }else{

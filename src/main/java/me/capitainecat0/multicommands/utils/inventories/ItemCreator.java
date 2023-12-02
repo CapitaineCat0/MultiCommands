@@ -94,7 +94,7 @@ public class ItemCreator {
      * @param hideFlags Hide the enchanting on the item
      * @param isGlowing Determine if the item should be glowing or not
      */
-    public static ItemStack create(Material mat, String name, List<String> lore, boolean hideFlags, boolean isGlowing){
+    public static @NotNull ItemStack create(Material mat, String name, List<String> lore, boolean hideFlags, boolean isGlowing){
         ItemStack item = create(mat, colored(name), Collections.singletonList(colored(String.valueOf(lore))), hideFlags);
         ItemMeta meta = item.getItemMeta();
         if(meta == null) return item;

@@ -3,15 +3,14 @@ package me.capitainecat0.multicommands;
 import java.util.logging.Logger;
 
 import me.capitainecat0.multicommands.utils.*;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.event.EventException;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,24 +27,32 @@ public final class MultiCommands extends JavaPlugin {
     //TODO faire une commande de coffre personnalisés (comme le /enderchest)
     //TODO faire une commande de craft personnalisés (comme le /craft)
     //TODO faire une commande de chat personnalisés (comme le /chatchannels)
-    //TODO faire une commande de téléportation personnalisés (comme le /tpa)
-    //
+
     // Lecture des variables
     private static final Logger log = Logger.getLogger("Minecraft");
     static CooldownManager cooldownManager;
-    public static Economy econ = null;
+    private BukkitAudiences adventure;
+    private static MultiCommands instance;
+    private static Economy econ = null;
     private static Permission perms = null;
     private static Chat chat = null;
-    private BukkitAudiences adventure;
-    private VaultHook vaultHook;
-    private static MultiCommands instance;
 
     // Activation du plugin
     public void onEnable() {
         // Initialisation des variables et configurations
         instance = this;
-        cooldownManager = new CooldownManager(this);
+        //cooldownManager = new CooldownManager(this);
         adventure = BukkitAudiences.create(this);
+        if(Bukkit.getPluginManager().getPlugin("Vault")!= null) {
+            /*if (!setupEconomy() ) {
+                getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+                getServer().getPluginManager().disablePlugin(this);
+                return;
+            }*/
+            setupEconomy();
+            setupPermissions();
+            setupChat();
+        }
         saveResourceAs("config.yml");
         saveResourceAs("lang/fr.properties");
         saveResourceAs("lang/en.properties");
@@ -53,6 +60,7 @@ public final class MultiCommands extends JavaPlugin {
          * Recherche de la configuration 'console-setup' dans config.yml
          * Si la valeur est 'true', lecture de la méthode ci-dessous,
          * qui consiste à énumérer les fonctionnalités de MultiCommands
+         * dans la console.
          **/
         if (this.getConfig().getBoolean("console-setup")) {
             // Envoi des informations au chargement du plugin
@@ -64,7 +72,7 @@ public final class MultiCommands extends JavaPlugin {
             try {
                 Commands.init();
             } catch (Exception e) {
-                sendEventExceptionMessage(e, "Commands.init()");
+                sendCommandExceptionMessage(e, "Commands.init()");
             }
 
             sendConsoleMessage(" ");
@@ -116,38 +124,7 @@ public final class MultiCommands extends JavaPlugin {
         }
 
     }
-    // Initialisation de l'économie (Vault)
-    public boolean setupEconomy() {
-        if (this.getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        } else {
-            RegisteredServiceProvider<Economy> rsp = this.getServer().getServicesManager().getRegistration(Economy.class);
-            if (rsp == null) {
-                return false;
-            } else {
-                econ = (Economy)rsp.getProvider();
-                return true;
-            }
-        }
-    }
 
-    // Initialisation du chat (Vault)
-    private void setupChat() {
-        RegisteredServiceProvider<Chat> rsp = this.getServer().getServicesManager().getRegistration(Chat.class);
-        if(rsp == null) {
-            throw new IllegalStateException("Chat service not found");
-        }
-        chat = (Chat)rsp.getProvider();
-    }
-
-    // Initialisation des permissions (Vault)
-    private void setupPermissions() {
-        RegisteredServiceProvider<Permission> rsp = this.getServer().getServicesManager().getRegistration(Permission.class);
-        if(rsp == null) {
-            throw new IllegalStateException("Permission service not found");
-        }
-        perms = (Permission)rsp.getProvider();
-    }
     // Obtenir l'instance du cooldown
     public static CooldownManager getCooldownManager() {
         return cooldownManager;
@@ -193,5 +170,50 @@ public final class MultiCommands extends JavaPlugin {
      */
     public static void registerEvent(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, MultiCommands.getInstance());
+    }
+
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return false;
+    }
+
+    private void setupChat() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return;
+        }
+        RegisteredServiceProvider<Chat> rsp = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
+        if (rsp == null) {
+            return;
+        }
+        chat = rsp.getProvider();
+    }
+
+    private void setupPermissions() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return;
+        }
+        RegisteredServiceProvider<Permission> rsp = Bukkit.getServer().getServicesManager().getRegistration(Permission.class);
+        if (rsp == null) {
+            return;
+        }
+        perms = rsp.getProvider();
+    }
+    public static Economy getEconomy() {
+        return econ;
+    }
+
+    public static Permission getPermissions() {
+        return perms;
+    }
+
+    public static Chat getChat() {
+        return chat;
     }
 }

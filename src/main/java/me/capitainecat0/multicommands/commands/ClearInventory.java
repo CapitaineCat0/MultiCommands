@@ -26,7 +26,7 @@ public class ClearInventory implements CommandExecutor {
         try {
             if(sender instanceof Player) {
                 if(args.length == 0){
-                    if(sender.hasPermission(CLEARINVENTORY_PERM_SELF.getPermission()) || sender.hasPermission(CLEARINVENTORY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission())){
+                    if(MultiCommands.getPermissions().has(sender, CLEARINVENTORY_PERM_SELF.getPermission()) || MultiCommands.getPermissions().has(sender, CLEARINVENTORY_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission())){
                         ((Player)sender).getInventory().clear();
                         playSoundIfEnabled(sender, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                         getMsgSendConfig(sender, command.getName(), CLEARINV_SELF_DONE.getMessage());
@@ -36,7 +36,7 @@ public class ClearInventory implements CommandExecutor {
                     }
                 }else if(args.length == 1){
                     Player target = Bukkit.getPlayerExact(args[0]);
-                    if (target != null && (sender.hasPermission(CLEARINVENTORY_PERM_OTHER.getPermission()) || sender.hasPermission(CLEARINVENTORY_PERM_ALL.getPermission()) || sender.hasPermission(ALL_PERMS.getPermission()))){
+                    if (target != null && (MultiCommands.getPermissions().has(sender, CLEARINVENTORY_PERM_OTHER.getPermission()) || MultiCommands.getPermissions().has(sender, CLEARINVENTORY_PERM_ALL.getPermission()) || MultiCommands.getPermissions().has(sender, ALL_PERMS.getPermission()))) {
                         target.getInventory().clear();
                         getMsgSendConfig(sender, command.getName(), CLEARINV_SENDER.getMessage().replace("{0}", target.getName()));
                         getMsgSendConfig(target, command.getName(), CLEARINV_ADMIN.getMessage());
