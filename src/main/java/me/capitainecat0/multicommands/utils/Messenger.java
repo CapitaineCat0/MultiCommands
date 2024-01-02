@@ -66,9 +66,9 @@ public enum Messenger {
     CMD_ERROR_SUGGEST(MessengerUtils.lang("cmd_error_suggest")),
     ACTIONBAR_SENT_TO_OTHER(MessengerUtils.lang("actionbosstitle_sent_to_other")),
     ACTIONBAR_SENT_TO_ALL(MessengerUtils.lang("actionbosstitle_sent_to_all")),
-    AFK_BROADCAST_ENABLED(colored(MessengerUtils.lang("afk_enabled_broadcast"))),
+    AFK_BROADCAST_ENABLED(MessengerUtils.lang("afk_enabled_broadcast")),
     AFK_ENABLED(MessengerUtils.lang("afk_enabled_self")),
-    AFK_BROADCAST_DISABLED(colored(MessengerUtils.lang("afk_disabled_broadcast"))),
+    AFK_BROADCAST_DISABLED(MessengerUtils.lang("afk_disabled_broadcast")),
     AFK_DISABLED(MessengerUtils.lang("afk_disabled_self")),
     ALERT_PREFIX(MessengerUtils.lang("alert_prefix")),
     ALERT_CMD(MessengerUtils.lang("alert_sent")),
@@ -184,6 +184,8 @@ public enum Messenger {
     TELEPORT_SELF_TO_COORDINATES(MessengerUtils.lang("teleport_self_to_coordinates")),
     TELEPORT_OTHER_TO_COORDINATES(MessengerUtils.lang("teleport_player_to_coordinates_by_admin")),
     TELEPORT_OTHER_TO_COORDINATES_SENDER(MessengerUtils.lang("teleport_player_to_coordinates")),
+    TITLE_SENT_TO_OTHER(MessengerUtils.lang("title_sent_to_player")),
+    TITLE_SENT_TO_ALL(MessengerUtils.lang("title_sent_to_all")),
     TPA_ACCEPT(MessengerUtils.lang("tpa_accept")),
     TPA_ACCEPT_HOVER(MessengerUtils.lang("tpa_accept_hover")),
     TPA_DENY(MessengerUtils.lang("tpa_deny")),
@@ -210,8 +212,7 @@ public enum Messenger {
     DEATHLOC(MessengerUtils.lang("death_message_loc")),
 
 
-
-    ;
+;
     private final String msg;
 
     /**
@@ -221,7 +222,7 @@ public enum Messenger {
      *
      * @param msg Set the message of the object
      */
-    private Messenger(String msg) {
+    Messenger(String msg) {
         this.msg = msg;
     }
 

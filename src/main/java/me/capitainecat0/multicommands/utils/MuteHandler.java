@@ -16,7 +16,7 @@ public class MuteHandler {
      *
      * @param player Determine which player is being muted or unmuted
      */
-    public void toggleMute(Player player){
+    public static void toggleMute(Player player){
         if(muted.contains(player)){
             mutePlayer(player);
         }
@@ -79,7 +79,7 @@ public class MuteHandler {
      *
      * @param player Mute the player
      */
-    private void mutePlayer(Player player){
+    private static void mutePlayer(Player player){
         if(muted.contains(player)) return;
         muted.add(player);
     }
@@ -90,7 +90,7 @@ public class MuteHandler {
      *
      * @param player Specify which player to unmute
      */
-    private void unmutePlayer(Player player){
+    private static void unmutePlayer(Player player){
         muted.remove(player);
     }
 
@@ -114,9 +114,6 @@ public class MuteHandler {
      * @param player Get the player that is muted
      * @param muteReason Get the reason for the mute
      *
-     * @return Nothing
-     *
-     * @docauthor Trelent
      */
     private void unmutePlayer(Player player, String muteReason){
         muted.remove(player);

@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def version = '1.5'
+def version = '1.6'
 
 shadowJar {
     archiveName = "MultiCommands.jar"
@@ -15,6 +15,8 @@ repositories {
     maven { url = 'https://oss.sonatype.org/content/groups/public/' } // Maven
     maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' } // PlaceHolderAPI
     maven { url = 'https://repo.papermc.io/repository/maven-public/' } // PaperMC
+    maven { url = 'https://repo.codemc.io/repository/maven-public/'} // ChestCommands
+    maven { url = 'https://repo.viaversion.com' } // ViaVersion
 }
 
 dependencies {
@@ -27,6 +29,8 @@ dependencies {
     implementation 'net.kyori:adventure-api:4.13.1' // Adventure
     implementation "net.kyori:adventure-text-minimessage:4.14.0" // Adventure
     compileOnly "com.github.MilkBowl:VaultAPI:1.7" // Vault
+    compileOnly 'me.filoghost.chestcommands:chestcommands-api:4.0.4' // ChestCommands
+    compileOnly("com.viaversion:viaversion-api:4.9.2") // ViaVersion
 }
 
 def targetJavaVersion = 17
@@ -59,6 +63,6 @@ test{
 }
 
 compileJava.options.encoding = 'UTF-8'
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }

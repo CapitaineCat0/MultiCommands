@@ -1,14 +1,17 @@
 package me.capitainecat0.multicommands.utils.inventories;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
+import static org.bukkit.Bukkit.createInventory;
 
 public class GUICreator {
     private static final Map<UUID, GUICreator> openGUIS = new HashMap<>();
@@ -28,18 +31,26 @@ public class GUICreator {
     }
 
     public GUICreator(int size, String name){
+        Component title = Component.text(colored(name));
         uuid = UUID.randomUUID();
-        inventory = Bukkit.createInventory(null, size, colored(name));
+        inventory = createInventory(null, size * 9, title);
+        viewerID = null;
+    }
+    public GUICreator(Player owner, int size, String name){
+        Component title = Component.text(colored(name));
+        uuid = UUID.randomUUID();
+        inventory = createInventory(owner, size*9, title);
         viewerID = null;
     }
 
     public GUICreator(int size, String name, String viewerID){
+        Component title = Component.text(colored(name));
         uuid = UUID.randomUUID();
-        inventory = Bukkit.createInventory(null, size, colored(name));
+        inventory = createInventory(null, size*9, title);
         this.viewerID = viewerID;
     }
 
-    public void open(Player player){
+    public void open(@NotNull Player player){
         player.openInventory(inventory);
         openGUIS.put(player.getUniqueId(), this);
         if(viewerID != null) addViewer(player);
@@ -47,7 +58,7 @@ public class GUICreator {
 
     }
 
-    public void close(Player player){
+    public void close(@NotNull Player player){
         player.closeInventory();
         openGUIS.entrySet().removeIf(entry ->{
             if(entry.getKey().equals(player.getUniqueId())){
@@ -104,22 +115,19 @@ public class GUICreator {
         return viewerList;
     }
 
-    public GUIClick getAction(int index){return guiClickActions.getOrDefault(index, null);}
-
+    public GUIClick getAction(int index){ return guiClickActions.getOrDefault(index, null); }
     public GUIClick getGeneralClickAction() {
         return generalClickAction;
     }
     protected void setGeneralClickAction(GUIClick generalClickAction) {
         this.generalClickAction = generalClickAction;
     }
-
     public GUIClick getGeneralInvClickAction() {
         return generalInvClickAction;
     }
     protected void setGeneralInvClickAction(GUIClick generalInvClickAction) {
         this.generalInvClickAction = generalInvClickAction;
     }
-
     public GUIDrag getGeneralDragAction() {
         return generalDragAction;
     }
@@ -135,7 +143,6 @@ public class GUICreator {
     public interface GUIClick{
         void click(Player player, InventoryClickEvent event);
     }
-
     public interface GUIDrag{
         void drag(Player player, InventoryDragEvent event);
     }
@@ -153,5 +160,4 @@ public class GUICreator {
         if(action == null) guiClickActions.remove(index);
         else guiClickActions.put(index, action);
     }
-
 }

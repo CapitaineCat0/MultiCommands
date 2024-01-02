@@ -1,5 +1,7 @@
 package me.capitainecat0.multicommands.utils.inventories;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -8,7 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
 import java.util.List;
 
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
@@ -40,12 +41,18 @@ public class ItemCreator {
      * @param name Set the display name of the item
      */
     public static @NotNull ItemStack create(Material mat, String name){
-        ItemStack item = create(mat);
-        ItemMeta meta = item.getItemMeta();
-        if(meta == null) return item;
-        meta.setDisplayName(colored(name));
-        item.setItemMeta(meta);
-        return item;
+        try {
+            ItemStack item = create(mat);
+            ItemMeta meta = item.getItemMeta();
+            if (meta == null) return item;
+            Component desc = Component.text(colored(name));
+            meta.displayName(desc);
+            item.setItemMeta(meta);
+            return item;
+        }catch (Exception e){
+            sendErrorExceptionMessage(e, "ItemCreator.create(Material mat, String name)");
+            return new ItemStack(Material.AIR);
+        }
     }
 
     /**
@@ -56,13 +63,19 @@ public class ItemCreator {
      * @param name Set the name of the item
      * @param lore Set the lore of an item
      */
-    public static @NotNull ItemStack create(Material mat, String name, List<String> lore){
-        ItemStack item = create(mat, colored(name));
-        ItemMeta meta = item.getItemMeta();
-        if(meta == null) return item;
-        meta.setLore(Collections.singletonList(colored(String.valueOf(lore))));
-        item.setItemMeta(meta);
-        return item;
+    public static @NotNull ItemStack create(Material mat, String name, String lore){
+        try{
+            ItemStack item = create(mat, colored(name));
+            ItemMeta meta = item.getItemMeta();
+            if(meta == null) return item;
+            Component desc = MiniMessage.miniMessage().deserialize(lore);
+            meta.lore(List.of(desc));
+            item.setItemMeta(meta);
+            return item;
+        }catch (Exception e){
+            sendErrorExceptionMessage(e, "ItemCreator.create(Material mat, String name, String lore)");
+            return new ItemStack(Material.AIR);
+        }
     }
 
     /**
@@ -74,14 +87,21 @@ public class ItemCreator {
      * @param lore Set the lore of the item
      * @param hideFlags Hide the item flags
      */
-    public static @NotNull ItemStack create(Material mat, String name, List<String> lore, boolean hideFlags){
-        ItemStack item = create(mat, colored(name), Collections.singletonList(colored(String.valueOf(lore))));
-        ItemMeta meta = item.getItemMeta();
-        if(meta == null) return item;
-        if(hideFlags) meta.addItemFlags(ItemFlag.values());
-        else meta.removeItemFlags(ItemFlag.values());
-        item.setItemMeta(meta);
-        return item;
+    public static @NotNull ItemStack create(Material mat, String name, String lore, boolean hideFlags){
+        try{
+            ItemStack item = create(mat, colored(name));
+            ItemMeta meta = item.getItemMeta();
+            if(meta == null) return item;
+            Component desc = MiniMessage.miniMessage().deserialize(lore);
+            meta.lore(List.of(desc));
+            if(hideFlags) meta.addItemFlags(ItemFlag.values());
+            else meta.removeItemFlags(ItemFlag.values());
+            item.setItemMeta(meta);
+            return item;
+        }catch (Exception e){
+            sendErrorExceptionMessage(e, "ItemCreator.create(Material mat, String name, String lore, boolean hideFlags)");
+            return new ItemStack(Material.AIR);
+        }
     }
 
     /**
@@ -94,14 +114,20 @@ public class ItemCreator {
      * @param hideFlags Hide the enchanting on the item
      * @param isGlowing Determine if the item should be glowing or not
      */
-    public static @NotNull ItemStack create(Material mat, String name, List<String> lore, boolean hideFlags, boolean isGlowing){
-        ItemStack item = create(mat, colored(name), Collections.singletonList(colored(String.valueOf(lore))), hideFlags);
-        ItemMeta meta = item.getItemMeta();
-        if(meta == null) return item;
-        if(isGlowing){
-            item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
-            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+    public static @NotNull ItemStack create(Material mat, String name, String lore, boolean hideFlags, boolean isGlowing){
+        try{
+            Component desc = MiniMessage.miniMessage().deserialize(lore);
+            ItemStack item = create(mat, colored(name), String.valueOf(desc), hideFlags);
+            ItemMeta meta = item.getItemMeta();
+            if(meta == null) return item;
+            if(isGlowing){
+                item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+                meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
+            return item;
+        } catch (Exception e){
+            sendErrorExceptionMessage(e, "ItemCreator.create(Material mat, String name, String lore, boolean hideFlags, boolean isGlowing)");
+            return new ItemStack(Material.AIR);
         }
-        return item;
     }
 }

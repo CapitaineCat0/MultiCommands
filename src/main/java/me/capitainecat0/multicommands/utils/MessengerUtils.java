@@ -8,20 +8,15 @@ import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.sound.SoundStop;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.Tag;
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Contract;
+import org.intellij.lang.annotations.Subst;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,7 +31,7 @@ import static me.capitainecat0.multicommands.utils.Messenger.PLUGIN_PREFIX;
 
 public class MessengerUtils {
 
-    private static MultiCommands instance = MultiCommands.getInstance();
+    private static final MultiCommands instance = MultiCommands.getInstance();
     //Define the bossbar name
     private static BossBar finalBossbar;
     //Define the language name
@@ -51,13 +46,14 @@ public class MessengerUtils {
      * <br>
      * <br>Codes couleurs minecraft: <a href="https://minecraftcolorcodes.org/">Minecraft color codes</a>
      * <br>
+     *
      * @param text Texte à colorer
      * @return Texte coloré
      * @deprecated Utilisez <a href="https://docs.advntr.dev/minimessage/format.html#color">l'API Adventure</a> à la place
-     * **/
+     **/
  @Deprecated
  public static @NotNull String colored(String text) {
-        return ChatColor.translateAlternateColorCodes('&', text);
+     return ChatColor.translateAlternateColorCodes('&', text);
     }
     
     /**
@@ -118,6 +114,56 @@ public class MessengerUtils {
     }
 
     /**
+     * La fonction saveRessourceAs permet de sauvegarder un fichier de ressource dans le dossier du plugin.
+     * <br>
+     * @param inPath Chemin de la ressource
+     *               <br>Exemple: &quot;config.yml&quot;
+     *               <br>
+     */
+    public static void saveResourceAs(String inPath) {
+        try{
+            if (inPath != null && !inPath.isEmpty()) {
+                InputStream in = MultiCommands.getInstance().getResource(inPath);
+                if (in == null) {
+                    throw new IllegalArgumentException(inPath + " unreachable!");
+                } else {
+                    if (!MultiCommands.getInstance().getDataFolder().exists() && !MultiCommands.getInstance().getDataFolder().mkdir()) {
+                        sendConsoleMessage("&cUnable to build folder!");
+                    }
+
+                    File inFile = new File(MultiCommands.getInstance().getDataFolder(), inPath);
+                    if (!inFile.exists()) {
+                        sendConsoleMessage(inFile.getName() + "&c are unreachable, creating it ...");
+                        MultiCommands.getInstance().saveResource(inPath, false);
+                        if (!inFile.exists()) {
+                            sendConsoleMessage("&cUnable to copy &e"+inFile.getName()+"&c file!");
+                        } else {
+                            sendConsoleMessage("&e"+inFile.getName() + "&a successfully created!");
+                        }
+                    }
+
+                }
+            } else {
+                throw new IllegalArgumentException("Folder cannot be empty/null !");
+            }
+        }catch (Exception e){
+            sendConsoleMessage("&cAn internal error was come when i try to save resource! Please contact an administrator !");
+            sendEventExceptionMessage(e, "Save resource");
+        }
+    }
+
+    public static void loadConfig(String inPath) {
+        try{
+            File inFile = new File(MultiCommands.getInstance().getDataFolder(), inPath);
+            if (inFile.exists()) {
+                MultiCommands.getInstance().getConfig().load(inFile);
+            }
+        }catch (Exception e){
+            sendConsoleMessage("&cAn internal error was come when i try to load config! Please contact an administrator !");
+            sendEventExceptionMessage(e, "Load config");
+        }
+    }
+    /**
      * La fonction getMsgSendConfig est utilisée pour envoyer un message au joueur de la manière spécifiée par le fichier config.yml.
      * La fonction prend trois paramètres: sender, commandName et message.
      * <br>Sender est un objet CommandSender qui représente qui a envoyé la commande (le joueur).
@@ -160,7 +206,6 @@ public class MessengerUtils {
 
     /**
      * La fonction hideActiveBossBar est utilisée pour cacher la barre de boss active.
-     * @return Retire la barre de boss active
      */
     public static void hideActiveBossBar() {
         instance.adventure().players().hideBossBar(finalBossbar);
@@ -426,7 +471,7 @@ public class MessengerUtils {
      * @param url Lien à ouvrir lorsque le joueur clique sur le message
      *            <br>Exemple: <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">...</a>
      *            <br>Le lien doit être au format &quot;https://www.youtube.com/watch?v=W3q8Od5qJio&quot;
-     * @return Un message cliquable avec le texte &quot;Hello world!&quot; et lorsqu'il est cliqué, il ouvre le lien &quot;url&quot;
+     *            <br>
      */
     public static void sendURLMessage(String message, String url){
         String input = "<click:open_url:/"+url+">"+message+"</click>";
@@ -447,7 +492,6 @@ public class MessengerUtils {
      *            <br>Exemple: <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">...</a>
      *            <br>Le lien doit être au format &quot;https://www.youtube.com/watch?v=W3q8Od5qJio&quot;
      *
-     * @return Un message cliquable avec le texte &quot;Hello world!&quot; et lorsqu'il est cliqué, il ouvre le lien &quot;url&quot;
      */
     public static void sendURLMessage(Player player, String message, String url){
         String input = "<click:open_url:/"+url+">"+message+"</click>";
@@ -1321,44 +1365,7 @@ public class MessengerUtils {
         player.sendPlayerListHeaderAndFooter(header, footer);
     }
 
-    /**
-     * La fonction saveRessourceAs permet de sauvegarder un fichier de ressource dans le dossier du plugin.
-     * <br>
-     * @param inPath Chemin de la ressource
-     *               <br>Exemple: &quot;config.yml&quot;
-     *               <br>
-     */
-    public static void saveResourceAs(String inPath) {
-        try{
-            if (inPath != null && !inPath.isEmpty()) {
-                InputStream in = MultiCommands.getInstance().getResource(inPath);
-                if (in == null) {
-                    throw new IllegalArgumentException(inPath + " unreachable!");
-                } else {
-                    if (!MultiCommands.getInstance().getDataFolder().exists() && !MultiCommands.getInstance().getDataFolder().mkdir()) {
-                        sendConsoleMessage("&cUnable to build folder!");
-                    }
 
-                    File inFile = new File(MultiCommands.getInstance().getDataFolder(), inPath);
-                    if (!inFile.exists()) {
-                        sendConsoleMessage(inFile.getName() + "&c are unreachable, creating it ...");
-                        MultiCommands.getInstance().saveResource(inPath, false);
-                        if (!inFile.exists()) {
-                            sendConsoleMessage("&cUnable to copy &e"+inFile.getName()+"&c file!");
-                        } else {
-                            sendConsoleMessage("&e"+inFile.getName() + "&a successfully created!");
-                        }
-                    }
-
-                }
-            } else {
-                throw new IllegalArgumentException("Folder cannot be empty/null !");
-            }
-        }catch (Exception e){
-            sendConsoleMessage("&cAn internal error was come when i try to save resource! Please contact an administrator !");
-            sendEventExceptionMessage(e, "Save resource");
-        }
-    }
 
     /**
      * La fonction sendCommandExceptionMessage envoie un message à la console lorsqu'une exception se produit dans une commande.
@@ -1411,6 +1418,28 @@ public class MessengerUtils {
         sendConsoleMessage("&cJava Class: &e"+exception.getClass());
         sendConsoleMessage("&cError: &e"+exception.getMessage());
         sendConsoleMessage("&cLine: &e"+errorLine.toString().replace("MultiCommands.jar//", ""));
+        sendConsoleMessage("&e----&6Multi&5Commands &cERROR&e----");
+    }
+
+    /**
+     * La fonction sendEventExceptionMessage envoie un message à la console lorsqu'une exception se produit dans un événement.
+     * <br>
+     * <br>Exemple:
+     * <br>Caused by: Bukkit playSound
+     * <br>Java Class: java.lang.NullPointerException
+     * <br>Error: null
+     * <br>Line: fr.capitainecat.MultiCommands.commands.HelpCommand.onCommand(HelpCommand.java:30)
+     * <br>
+     * @param exception Obtenir le message d'erreur et la ligne
+     *                  <br>
+     * @param event Afficher le nom de l'événement qui a causé cette erreur
+     *              <br>Exemple: &quot;Bukkit playSound&quot;
+     */
+    public static void sendErrorExceptionMessage(@NotNull Exception exception, String event){
+        sendConsoleMessage("&e----&6Multi&5Commands &cERROR&e----");
+        sendConsoleMessage("&cCaused by: &e"+event);
+        sendConsoleMessage("&cJava Class: &e"+exception.getClass());
+        sendConsoleMessage("&cError: &e"+exception.getMessage());
         sendConsoleMessage("&e----&6Multi&5Commands &cERROR&e----");
     }
 }

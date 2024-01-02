@@ -1,40 +1,43 @@
-#Configuration file of MultiCommands
+#Fichier de configuration du plugin MultiCommands
 
-#Change the default language of messages
+#Changer la langue du plugin :
 lang: en
 
-#Messages can be sent to different channels:
+#Les messages peuvent être envoyés dans différents canaux :
 # - ACTIONBAR | actionbar
 # - CHAT | chat
 # - TITLE | title
 # - BOSSBAR | bossbar
 send-message-on: ACTIONBAR
 
-#Manage sound effects:
-#Minecraft effects list
+#Gérer les effets sonores :
+#Liste des sons :
 #https://www.digminecraft.com/lists/sound_list_pc.php
 
 enable-command-sounds: true
 
+#Activer ou non les messages de démarrage:
 console-setup: true
 
-#Errors / no perms sound:
+#Sons d'erreurs:
 no-perm-sound: "BLOCK_ANVIL_PLACE"
 
-#Command done:
+#Sons de succès:
 cmd-done-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
 
-#Custom sounds:
+#Sons custom:
 feed-heal-sounds: true
 
-#Enable / disable HelpGUI:
-#(usefully if you use an older paper version or using spigot/bukkit server jar)
+#Activer ou désactiver le HelpGUI :
+#(désactivez ce paramêtre si vous n'utilisez pas de Build paperSpigot)
 enable-help-gui: true
 
-#Max blocks value for X and Z coords
+#Valeures max des coordonées X et Z pour la commande /rtp :
 random-teleporter-max-X: 25000
 random-teleporter-max-Z: 25000
 
-#/!\ DON'T TOUCH THAT SECTION /!\
-#(but if you know what you're doing, make it)
+#/!\ NE PAS TOUCHER /!\
+#Paramêtre vide par défaut,
+#se remplis grâce à la commande /setspawn#(si vous modifiez ces paramères,
+#la commande pourrait ne pas fonctionner)
 spawn:

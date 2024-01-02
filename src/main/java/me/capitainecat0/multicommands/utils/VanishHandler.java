@@ -2,12 +2,11 @@ package me.capitainecat0.multicommands.utils;
 
 import me.capitainecat0.multicommands.MultiCommands;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-import static me.capitainecat0.multicommands.utils.Perms.ALL_PERMS;
+import static me.capitainecat0.multicommands.utils.permissions.Perms.ALL_PERMS;
 
 public class VanishHandler {
     private static final ArrayList<Player> vanished = new ArrayList<>();

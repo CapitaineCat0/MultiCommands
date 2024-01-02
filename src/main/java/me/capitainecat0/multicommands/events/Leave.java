@@ -1,5 +1,6 @@
 package me.capitainecat0.multicommands.events;
 
+import me.capitainecat0.multicommands.utils.storage.FreezeData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,8 +15,13 @@ public class Leave implements Listener {
     @EventHandler
     public void onQuit(@NotNull PlayerQuitEvent event){
         hideActiveBossBar();
-        Player player = event.getPlayer();
-        event.quitMessage(null);
-        sendMessage(ONLEAVE.getMessage().replace("{0}", player.getName()));
+        try {
+            Player player = event.getPlayer();
+            FreezeData.frozenData.remove(player.getUniqueId());
+            event.quitMessage(null);
+            sendBroadcastMessage(ONLEAVE.getMessage().replace("{0}", player.getName()));
+        } catch (Exception e) {
+            sendEventExceptionMessage(e, "Leave.onQuit");
+        }
     }
 }

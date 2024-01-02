@@ -1,8 +1,7 @@
 package me.capitainecat0.multicommands.utils;
 
-import me.capitainecat0.multicommands.MultiCommands;
 import me.capitainecat0.multicommands.commands.chatchannels.*;
-import me.capitainecat0.multicommands.commands.Plugins;
+import me.capitainecat0.multicommands.commands.PluginsCMD;
 import me.capitainecat0.multicommands.events.*;
 import org.bukkit.event.Listener;
 
@@ -16,17 +15,17 @@ public class Events implements Listener{
             sendConsoleMessage("&e - AFK-EVENT");
             registerEvent(new AFKEvents());
             sendConsoleMessage("&e - ADMINCHAT-EVENT");
-            registerEvent(new AdminChat());
+            registerEvent(new AdminChatCMD());
             sendConsoleMessage("&e - BLOCK-REGEN");
             registerEvent(new BlockRegen());
             sendConsoleMessage("&e - BUILDERCHAT-EVENT");
-            registerEvent(new BuilderChat());
+            registerEvent(new BuilderChatCMD());
             sendConsoleMessage("&e - CHAT-EVENT");
             registerEvent(new Chat());
             sendConsoleMessage("&e - DEATH-EVENT");
             registerEvent(new Death());
             sendConsoleMessage("&e - DEVCHAT-EVENT");
-            registerEvent(new DevChat());
+            registerEvent(new DevChatCMD());
             sendConsoleMessage("&e - FREEZE-EVENT");
             registerEvent(new FreezeEvents());
             sendConsoleMessage("&e - FLY-EVENT");
@@ -34,34 +33,33 @@ public class Events implements Listener{
             sendConsoleMessage("&e - GUI-EVENTS");
             registerEvent(new GUIEvents());
             sendConsoleMessage("&e - JOIN-EVENT");
-            sendConsoleMessage("&e - JOIN-EVENT &c(inactif)");
             registerEvent(new Join());
             sendConsoleMessage("&e - LEAVE-EVENT");
             registerEvent(new Leave());
             sendConsoleMessage("&e - MODOCHAT-EVENT");
-            registerEvent(new ModoChat());
+            registerEvent(new ModoChatCMD());
             sendConsoleMessage("&e - /PLUGINS-EVENT");
-            registerEvent(new Plugins());
+            registerEvent(new PluginsCMD());
             sendConsoleMessage("&e - JOIN / RESPAWN-EVENT");
             registerEvent(new SpawnEvent());
             sendConsoleMessage("&e - STAFFCHAT-EVENT");
         }else{
             registerEvent(new AFKEvents());
-            registerEvent(new AdminChat());
+            registerEvent(new AdminChatCMD());
             registerEvent(new BlockRegen());
-            registerEvent(new BuilderChat());
+            registerEvent(new BuilderChatCMD());
             registerEvent(new Chat());
             registerEvent(new Death());
-            registerEvent(new DevChat());
+            registerEvent(new DevChatCMD());
             registerEvent(new FreezeEvents());
             registerEvent(new Fly());
             registerEvent(new GUIEvents());
             registerEvent(new Join());
             registerEvent(new Leave());
-            registerEvent(new ModoChat());
-            registerEvent(new Plugins());
+            registerEvent(new ModoChatCMD());
+            registerEvent(new PluginsCMD());
             registerEvent(new SpawnEvent());
-            registerEvent(new StaffChat());
+            registerEvent(new StaffChatCMD());
         }
 
 
