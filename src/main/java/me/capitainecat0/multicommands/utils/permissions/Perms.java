@@ -74,6 +74,7 @@ public enum Perms {
     PLAYERPINGER_PERM("multicommands.playerpinger"),
     PLUGIN_PERM("multicommands.plugins"),
     PRIVATE_MSG_PERM("multicommands.privatemsg"),
+    REPORT_PERM("multicommands.report"),
     SERVERINFO_PERM("multicommands.serverinfo"),
     SETSPAWN_PERM("multicommands.setspawn"),
     SETWARP_PERM("multicommands.setwarp"),

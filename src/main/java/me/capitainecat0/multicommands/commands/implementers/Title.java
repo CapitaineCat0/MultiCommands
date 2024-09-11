@@ -13,28 +13,27 @@ public class Title implements CommandsImpl {
     private final Player sender;
     private final Player target;
     private final String[] args;
+    private final String message;
 
     public Title(Player sender, Player target, String[] args) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            sb.append(args[i]).append(" ");
+        }
+        sb.append(args[args.length - 1]);
         this.sender = sender;
         this.target = target;
         this.args = args;
+        this.message = sb.toString();
     }
     @Override
     public void execute() {
         if(target != null){
-            StringBuilder bc = new StringBuilder();
-            for(String part : args) {
-                bc.append(part).append(" ");
-            }
             sendMessage(sender, TITLE_SENT_TO_OTHER.getMessage().replace("{0}", target.getName()));
-            sendTitle(target, args[1], bc.toString().replace(args[0], "").replace(args[1], ""));
+            sendTitle(target, args[1], message.replace(args[0], "").replace(args[1], ""));
         }else{
-            StringBuilder bc = new StringBuilder();
-            for(String part : args) {
-                bc.append(part).append(" ");
-            }
             sendMessage(sender, TITLE_SENT_TO_ALL.getMessage());
-            sendTitle(args[0], bc.toString().replace(args[0], ""));
+            sendTitle(args[0], message.replace(args[0], ""));
         }
     }
 }

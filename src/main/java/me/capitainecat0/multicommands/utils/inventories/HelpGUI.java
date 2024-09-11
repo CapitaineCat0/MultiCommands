@@ -15,7 +15,7 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
 
 public class HelpGUI extends GUICreator {
     public HelpGUI() {
-        super(6, "&6&lMultiCommands &9V." + getInstance().getDescription().getVersion() + " &cHelp");
+        super(6, "&6&l"+getInstance().getDescription().getName()+" &9V." + getInstance().getDescription().getVersion()+ " &cHelp");
         PermissionManager perms = MultiCommands.getPermissionManager();
         this.setItem(0, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));
         this.setItem(1, ItemCreator.create(Material.BLACK_STAINED_GLASS_PANE, " "));

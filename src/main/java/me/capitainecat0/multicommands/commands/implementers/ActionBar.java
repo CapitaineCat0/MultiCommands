@@ -8,18 +8,19 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.sendActionBar;
 
 public class ActionBar implements CommandsImpl {
     private final Player player;
-    private final String msg;
+    private final String message;
 
-    public ActionBar(Player player, @NotNull String @NotNull [] message) {
-        StringBuilder bc = new StringBuilder();
-        for (String part : message) {
-            bc.append(part).append(" ");
+    public ActionBar(Player player, @NotNull String @NotNull [] args) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            sb.append(args[i]).append(" ");
         }
+        sb.append(args[args.length - 1]);
         this.player = player;
-        this.msg = String.valueOf(bc);
+        this.message = sb.toString();
     }
     @Override
     public void execute() {
-        sendActionBar(player, msg);
+        sendActionBar(player, message);
     }
 }

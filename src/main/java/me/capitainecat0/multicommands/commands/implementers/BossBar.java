@@ -10,13 +10,14 @@ public class BossBar implements CommandsImpl {
     private final Player player;
     private final String msg;
 
-    public BossBar(Player player, @NotNull String @NotNull [] message) {
-        StringBuilder bc = new StringBuilder();
-        for (String part : message) {
-            bc.append(part).append(" ");
+    public BossBar(Player player, @NotNull String @NotNull [] args) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            sb.append(args[i]).append(" ");
         }
+        sb.append(args[args.length - 1]);
         this.player = player;
-        this.msg = String.valueOf(bc).replace(player.getName(), "");
+        this.msg = sb.toString().replace(player.getName(), "");
     }
     @Override
     public void execute() {

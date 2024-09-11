@@ -10,20 +10,21 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.sendBroadcastM
 
 public class Kick implements CommandsImpl {
 
-    private final String[] args;
+    private final String message;
     private final Player target;
 
     public Kick(Player target, @NotNull String[] args) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            sb.append(args[i]).append(" ");
+        }
+        sb.append(args[args.length - 1]);
         this.target = target;
-        this.args = args;
+        this.message = sb.toString();
     }
     @Override
     public void execute() {
-        StringBuilder bc = new StringBuilder();
-        for(String part : args) {
-            bc.append(part).append(" ");
-        }
-        String kickReason = bc.toString().replace(args[0], "");
+        String kickReason = message.replace(target.getName(), "");
         target.kickPlayer(kickReason);
         sendBroadcastMessage(KICK_ALERT.getMessage().replace("{0}", target.getName()).replace("{1}", kickReason).replace("{prefix}", KICK_PREFIX.getMessage()));
     }

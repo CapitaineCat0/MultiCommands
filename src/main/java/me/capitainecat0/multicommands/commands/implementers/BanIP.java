@@ -24,10 +24,15 @@ public class BanIP implements CommandsImpl {
     private final Player sender;
     private final String msg;
 
-    public BanIP(OfflinePlayer target, CommandSender sender, @NotNull String[] message) {
+    public BanIP(OfflinePlayer target, CommandSender sender, @NotNull String[] args) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            sb.append(args[i]).append(" ");
+        }
+        sb.append(args[args.length - 1]);
         this.player = (Player) target;
         this.sender = (Player) sender;
-        this.msg = Arrays.toString(message);
+        this.msg = sb.toString();
     }
 
     @Override

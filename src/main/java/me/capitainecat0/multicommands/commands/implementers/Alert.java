@@ -7,17 +7,18 @@ import static me.capitainecat0.multicommands.utils.Messenger.ALERT_PREFIX;
 import static me.capitainecat0.multicommands.utils.MessengerUtils.sendBroadcastMessage;
 
 public class Alert implements CommandsImpl{
-    private final String msg;
+    private final String message;
 
-    public Alert(String @NotNull [] message){
-        StringBuilder bc = new StringBuilder();
-        for (String part : message) {
-            bc.append(part).append(" ");
+    public Alert(String @NotNull [] args){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            sb.append(args[i]).append(" ");
         }
-        this.msg = String.valueOf(bc);
+        sb.append(args[args.length - 1]);
+        this.message = sb.toString();
     }
     @Override
     public void execute() {
-        sendBroadcastMessage(ALERT_PREFIX.getMessage() + "<reset> " + msg);
+        sendBroadcastMessage(ALERT_PREFIX.getMessage() + "<reset> " + message);
     }
 }

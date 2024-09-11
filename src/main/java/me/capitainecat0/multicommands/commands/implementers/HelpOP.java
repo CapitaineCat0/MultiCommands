@@ -16,29 +16,30 @@ import static me.capitainecat0.multicommands.utils.permissions.Perms.HELPOP_PERM
 
 public class HelpOP implements CommandsImpl {
 
-    private final String[] args;
+    private final String message;
     private final Player player;
 
     public HelpOP(Player player, String[] args) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            sb.append(args[i]).append(" ");
+        }
+        sb.append(args[args.length - 1]);
         this.player = player;
-        this.args = args;
+        this.message = sb.toString();
     }
     @Override
     public void execute() {
-        StringBuilder bc = new StringBuilder();
-        for(String part : args) {
-            bc.append(part).append(" ");
-        }
         for (Player operators : Bukkit.getOnlinePlayers()) {
             if(Bukkit.getOnlinePlayers().contains(operators)){
                 if(Objects.requireNonNull(operators.getPlayer()).hasPermission(ALL_PERMS.getPermission()) || operators.getPlayer().hasPermission(HELPOP_PERM.getPermission())){
                     playSoundIfEnabled(operators.getPlayer(), Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
-                    sendConsoleMessage(HELPOP_FORMAT.getMessage().replace("{0}", player.getName()).replace("{1}", bc));
-                    sendMessage(operators.getPlayer(), HELPOP_FORMAT.getMessage().replace("{0}", player.getName()).replace("{1}", bc));
+                    sendConsoleMessage(HELPOP_FORMAT.getMessage().replace("{0}", player.getName()).replace("{1}", message));
+                    sendMessage(operators.getPlayer(), HELPOP_FORMAT.getMessage().replace("{0}", player.getName()).replace("{1}", message));
                 }
                 playSoundIfEnabled(player, Sound.valueOf(MultiCommands.getInstance().getConfig().getString("cmd-done-sound")), 1f, 1f);
                 getMsgSendConfig(player, "Helpop", HELPOP_DONE.getMessage());
-                sendMessage(player," <dark_gray>- <gray>" + bc);
+                sendMessage(player," <dark_gray>- <gray>" + message);
             }else{
                 sendMessage(player, HELPOP_NO_ADMINS.getMessage());
             }

@@ -9,12 +9,13 @@ import static me.capitainecat0.multicommands.utils.MessengerUtils.sendBroadcastM
 public class Broadcast implements CommandsImpl {
     private final String msg;
 
-    public Broadcast(String @NotNull [] message){
-        StringBuilder bc = new StringBuilder();
-        for (String part : message) {
-            bc.append(part).append(" ");
+    public Broadcast(String @NotNull [] args){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            sb.append(args[i]).append(" ");
         }
-        this.msg = String.valueOf(bc);
+        sb.append(args[args.length - 1]);
+        this.msg = sb.toString();
     }
     @Override
     public void execute() {

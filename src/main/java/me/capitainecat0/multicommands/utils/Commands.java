@@ -92,6 +92,8 @@ public class Commands {
             getInstance().registerCommand(new NickCMD(), "nick");
             sendConsoleMessage("&e - PLAYERPINGER / PING");
             getInstance().registerCommand(new PlayerPingerCMD(), "playerping", new BasicTab());
+            sendConsoleMessage("&e - REPORT");
+            getInstance().registerCommand(new ReportCMD(), "report", new BasicTab());
             sendConsoleMessage("&e - MULTIRELOAD / MRELOAD");
             getInstance().registerCommand(new MultiReloadCMD(), "multireload");
             sendConsoleMessage("&e - RANDOMTP / RTP");
@@ -167,6 +169,7 @@ public class Commands {
             getInstance().registerCommand(new MultiInfosCMD(), "multiinfos");
             getInstance().registerCommand(new NickCMD(), "nick");
             getInstance().registerCommand(new PlayerPingerCMD(), "playerping", new BasicTab());
+            getInstance().registerCommand(new ReportCMD(), "report", new BasicTab());
             getInstance().registerCommand(new MultiReloadCMD(), "multireload");
             getInstance().registerCommand(new RandomTPCMD(), "randomtp", new RandomTPTab());
             getInstance().registerCommand(new ServerInfoCMD(), "serverinfo");

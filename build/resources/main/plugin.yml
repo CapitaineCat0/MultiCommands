@@ -1,5 +1,5 @@
 name: MultiCommands
-version: '1.5.1'
+version: '1.6'
 main: me.capitainecat0.multicommands.MultiCommands
 api-version: 1.13
 authors: [CapitaineCat0, It'sTheSky]
@@ -186,6 +186,9 @@ commands:
     aliases:
       - rtp
       - randomteleport
+  report:
+    description: Permet de signaler un joueur
+    permission: multicommands.report
   serverinfo:
     description: Permet d'afficher les informations sur le serveur
     permission: multicommands.serverinfo
@@ -392,6 +395,9 @@ permissions:
   multicommands.playerpinger:
     default: op
     description: player ping - permission
+  multicommands.report:
+    default: true
+    description: report - permission
   multicommands.serverinfo:
     default: op
     description: serverinfo - permission

@@ -1,17 +1,17 @@
 package me.capitainecat0.multicommands;
 
-import java.util.logging.Logger;
-
 import me.capitainecat0.multicommands.commands.chatchannels.ChatChannels;
-import me.capitainecat0.multicommands.utils.*;
+import me.capitainecat0.multicommands.utils.Commands;
+import me.capitainecat0.multicommands.utils.CustomCraft;
+import me.capitainecat0.multicommands.utils.Events;
 import me.capitainecat0.multicommands.utils.permissions.BukkitPermissionManager;
 import me.capitainecat0.multicommands.utils.permissions.PermissionManager;
 import me.capitainecat0.multicommands.utils.permissions.VaultPermissionManager;
 import me.capitainecat0.multicommands.utils.storage.FreezeData;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -21,7 +21,10 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Logger;
+
 import static me.capitainecat0.multicommands.utils.MessengerUtils.*;
+
 
 public final class MultiCommands extends JavaPlugin {
     //TODO évenement qui régénère les arbres coupés

@@ -28,8 +28,8 @@ public class Events implements Listener{
             registerEvent(new DevChatCMD());
             sendConsoleMessage("&e - FREEZE-EVENT");
             registerEvent(new FreezeEvents());
-            sendConsoleMessage("&e - FLY-EVENT");
-            registerEvent(new Fly());
+            //sendConsoleMessage("&e - FLY-EVENT");
+            //registerEvent(new Fly());
             sendConsoleMessage("&e - GUI-EVENTS");
             registerEvent(new GUIEvents());
             sendConsoleMessage("&e - JOIN-EVENT");
@@ -52,7 +52,7 @@ public class Events implements Listener{
             registerEvent(new Death());
             registerEvent(new DevChatCMD());
             registerEvent(new FreezeEvents());
-            registerEvent(new Fly());
+            //registerEvent(new Fly());
             registerEvent(new GUIEvents());
             registerEvent(new Join());
             registerEvent(new Leave());
